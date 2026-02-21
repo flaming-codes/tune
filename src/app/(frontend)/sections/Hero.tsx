@@ -21,13 +21,13 @@ export function Hero() {
             <div className="flex flex-wrap gap-4">
               <a
                 href="#kontakt"
-                className="inline-flex items-center justify-center px-8 py-3 bg-neutral-900 text-white text-sm font-medium hover:bg-neutral-800 transition-colors"
+                className="inline-flex items-center justify-center px-8 py-3 bg-neutral-900 text-white text-sm font-medium hover:bg-neutral-800 transition-colors duration-200"
               >
                 Termin vereinbaren
               </a>
               <a
                 href="#leistungen"
-                className="inline-flex items-center justify-center px-8 py-3 border border-neutral-300 text-sm font-medium hover:border-neutral-900 hover:text-neutral-900 transition-colors"
+                className="inline-flex items-center justify-center px-8 py-3 border border-neutral-300 text-sm font-medium hover:border-neutral-900 hover:text-neutral-900 hover:bg-neutral-50 transition-colors duration-200"
               >
                 Leistungen
               </a>

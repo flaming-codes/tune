@@ -61,8 +61,8 @@ export function Services() {
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
           {services.map((group) => (
-            <div key={group.category}>
-              <h3 className="text-lg font-medium mb-6 pb-4 border-b border-neutral-300">
+            <div key={group.category} className="group">
+              <h3 className="text-lg font-medium mb-6 pb-4 border-b border-neutral-300 transition-colors group-hover:border-neutral-900">
                 {group.category}
               </h3>
               <ul className="space-y-3">
@@ -84,7 +84,7 @@ export function Services() {
             </p>
             <a
               href="#kontakt"
-              className="inline-flex items-center justify-center px-8 py-3 bg-neutral-900 text-white text-sm font-medium hover:bg-neutral-800 transition-colors"
+              className="inline-flex items-center justify-center px-8 py-3 bg-neutral-900 text-white text-sm font-medium hover:bg-neutral-800 transition-colors duration-200"
             >
               Kontaktieren Sie uns
             </a>

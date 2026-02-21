@@ -1,4 +1,7 @@
+'use client'
+
 import React from 'react'
+import { motion } from 'motion/react'
 
 const hours = [
   { day: 'Montag', times: '12:30 – 14:30 und 17:00 – 19:00' },
@@ -33,15 +36,17 @@ export function Hours() {
           <div>
             <dl className="space-y-0">
               {hours.map((item, index) => (
-                <div
+                <motion.div
                   key={item.day}
                   className={`flex justify-between items-center py-5 ${
                     index !== hours.length - 1 ? 'border-b border-neutral-800' : ''
                   }`}
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.2 }}
                 >
                   <dt className="text-neutral-400">{item.day}</dt>
                   <dd className="font-medium text-right">{item.times}</dd>
-                </div>
+                </motion.div>
               ))}
             </dl>
           </div>
@@ -56,12 +61,14 @@ export function Hours() {
                 Bei Notfällen rufen Sie uns bitte an. Wir sind für Sie erreichbar.
               </p>
             </div>
-            <a
+            <motion.a
               href="tel:+4369919012012"
-              className="inline-flex items-center justify-center px-8 py-3 bg-white text-neutral-900 text-sm font-medium hover:bg-neutral-100 transition-colors"
+              className="inline-flex items-center justify-center px-8 py-3 bg-white text-neutral-900 text-sm font-medium"
+              whileHover={{ backgroundColor: '#f5f5f5' }}
+              transition={{ duration: 0.2 }}
             >
               +43 699 190 12 012
-            </a>
+            </motion.a>
           </div>
         </div>
       </div>

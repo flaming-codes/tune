@@ -1,4 +1,7 @@
+'use client'
+
 import React from 'react'
+import { motion } from 'motion/react'
 
 const testimonials = [
   {
@@ -48,9 +51,11 @@ export function Testimonials() {
         {/* Testimonials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           {testimonials.map((testimonial, index) => (
-            <blockquote
+            <motion.blockquote
               key={index}
-              className="flex flex-col justify-between p-8 bg-neutral-50"
+              className="flex flex-col justify-between p-8 bg-neutral-50 cursor-default"
+              whileHover={{ y: -4, backgroundColor: '#f5f5f5' }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
             >
               <p className="text-neutral-700 leading-relaxed mb-6">
                 &ldquo;{testimonial.text}&rdquo;
@@ -58,7 +63,7 @@ export function Testimonials() {
               <footer className="text-sm text-neutral-500">
                 — {testimonial.author}
               </footer>
-            </blockquote>
+            </motion.blockquote>
           ))}
         </div>
       </div>

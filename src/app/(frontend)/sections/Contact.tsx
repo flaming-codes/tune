@@ -62,7 +62,7 @@ export function Contact() {
           {/* Map */}
           <div className="flex flex-col">
             <MapLoader />
-            <div className="mt-6 p-6 bg-neutral-50">
+            <div className="mt-6 p-6 bg-neutral-50 transition-colors hover:bg-neutral-100">
               <h3 className="font-medium mb-2">Anfahrt</h3>
               <p className="text-sm text-neutral-600 leading-relaxed">
                 Unsere Praxis befindet sich im Einkaufszentrum B7 an der Brünnerstraße. 

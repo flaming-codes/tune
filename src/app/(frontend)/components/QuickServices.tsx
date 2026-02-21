@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-
+import { motion } from 'motion/react'
 
 const services = [
   { id: 'vorsorge', num: '01', label: 'Vorsorge Untersuchungen' },
@@ -35,19 +35,19 @@ export function QuickServices() {
           >
             <div className="flex items-center gap-6 lg:gap-12">
               {/* Number */}
-              <span 
+              <span
                 className={`text-sm font-medium transition-colors duration-300 ${
                   activeIndex === index ? 'text-neutral-900' : 'text-neutral-300'
                 }`}
               >
                 {service.num}
               </span>
-              
+
               {/* Label */}
-              <span 
+              <span
                 className={`text-lg lg:text-xl font-medium tracking-tight-custom transition-all duration-300 ${
-                  activeIndex === index 
-                    ? 'text-neutral-900 translate-x-2' 
+                  activeIndex === index
+                    ? 'text-neutral-900 translate-x-2'
                     : 'text-neutral-500'
                 }`}
               >
@@ -55,15 +55,17 @@ export function QuickServices() {
               </span>
 
               {/* Arrow - appears on hover */}
-              <span 
-                className={`ml-auto text-sm transition-all duration-300 ${
-                  activeIndex === index 
-                    ? 'opacity-100 translate-x-0' 
-                    : 'opacity-0 -translate-x-2'
-                }`}
+              <motion.span
+                className="ml-auto text-sm"
+                initial={false}
+                animate={{
+                  opacity: activeIndex === index ? 1 : 0,
+                  x: activeIndex === index ? 0 : -8,
+                }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
               >
                 →
-              </span>
+              </motion.span>
             </div>
           </a>
         ))}

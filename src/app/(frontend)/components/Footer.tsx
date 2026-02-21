@@ -1,5 +1,8 @@
+'use client'
+
 import React from 'react'
 import Link from 'next/link'
+import { motion } from 'motion/react'
 
 export function Footer() {
   return (
@@ -22,14 +25,24 @@ export function Footer() {
               <p>1 TOP 60, 1210 Wien</p>
               <p>Einkaufszentrum B7</p>
               <p className="mt-4">
-                <a href="tel:+4369919012012" className="hover:text-white transition-colors">
+                <motion.a
+                  href="tel:+4369919012012"
+                  className="hover:text-white transition-colors inline-block"
+                  whileHover={{ x: 2 }}
+                  transition={{ duration: 0.2 }}
+                >
                   +43 699 190 12 012
-                </a>
+                </motion.a>
               </p>
               <p>
-                <a href="mailto:contact@tierarztpraxis-lazri.at" className="hover:text-white transition-colors">
+                <motion.a
+                  href="mailto:contact@tierarztpraxis-lazri.at"
+                  className="hover:text-white transition-colors inline-block"
+                  whileHover={{ x: 2 }}
+                  transition={{ duration: 0.2 }}
+                >
                   contact@tierarztpraxis-lazri.at
-                </a>
+                </motion.a>
               </p>
             </address>
           </div>
@@ -39,19 +52,25 @@ export function Footer() {
             <p className="text-white text-sm font-medium mb-4">Links</p>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="#leistungen" className="hover:text-white transition-colors">
-                  Leistungen
-                </Link>
+                <motion.div whileHover={{ x: 2 }} transition={{ duration: 0.2 }}>
+                  <Link href="#leistungen" className="hover:text-white transition-colors inline-block">
+                    Leistungen
+                  </Link>
+                </motion.div>
               </li>
               <li>
-                <Link href="#team" className="hover:text-white transition-colors">
-                  Über uns
-                </Link>
+                <motion.div whileHover={{ x: 2 }} transition={{ duration: 0.2 }}>
+                  <Link href="#team" className="hover:text-white transition-colors inline-block">
+                    Über uns
+                  </Link>
+                </motion.div>
               </li>
               <li>
-                <Link href="#kontakt" className="hover:text-white transition-colors">
-                  Kontakt
-                </Link>
+                <motion.div whileHover={{ x: 2 }} transition={{ duration: 0.2 }}>
+                  <Link href="#kontakt" className="hover:text-white transition-colors inline-block">
+                    Kontakt
+                  </Link>
+                </motion.div>
               </li>
             </ul>
           </div>
