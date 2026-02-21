@@ -11,7 +11,7 @@ const quickServices = [
 
 export function Hero() {
   return (
-    <section id="home" className="min-h-screen flex items-center pt-20">
+    <section id="home" className="min-h-screen flex items-center pt-20 pb-24 lg:pb-36">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           {/* Text Content */}
