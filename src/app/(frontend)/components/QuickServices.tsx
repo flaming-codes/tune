@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import Link from 'next/link'
+
 
 const services = [
   { id: 'vorsorge', num: '01', label: 'Vorsorge Untersuchungen' },
@@ -26,7 +26,7 @@ export function QuickServices() {
       {/* Services List - Vertical stacked with reveal */}
       <div className="space-y-0 border-t border-neutral-200">
         {services.map((service, index) => (
-          <Link
+          <a
             key={service.id}
             href="#leistungen"
             className="group block border-b border-neutral-200 py-6 lg:py-8"
@@ -65,7 +65,7 @@ export function QuickServices() {
                 →
               </span>
             </div>
-          </Link>
+          </a>
         ))}
       </div>
     </div>
