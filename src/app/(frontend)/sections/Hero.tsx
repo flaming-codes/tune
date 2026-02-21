@@ -1,13 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
-
-const quickServices = [
-  { num: '01', label: 'Vorsorge Untersuchungen', href: '#leistungen' },
-  { num: '02', label: 'Diagnostik', href: '#leistungen' },
-  { num: '03', label: 'Operationen', href: '#leistungen' },
-  { num: '04', label: 'Schmerztherapie', href: '#leistungen' },
-  { num: '05', label: 'Hausbesuche', href: '#leistungen' },
-]
+import { QuickServices } from '../components/QuickServices'
 
 export function Hero() {
   return (
@@ -48,35 +40,8 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Quick Services - Refined */}
-        <div className="mt-24 lg:mt-36 pt-16 border-t border-neutral-200">
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-16">
-            {/* Label */}
-            <p className="text-sm tracking-wide-custom uppercase text-neutral-400 shrink-0">
-              Unsere Schwerpunkte
-            </p>
-            
-            {/* Services List */}
-            <div className="flex-1">
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-0 divide-y md:divide-y-0 md:divide-x divide-neutral-200">
-                {quickServices.map((service, index) => (
-                  <Link
-                    key={service.num}
-                    href={service.href}
-                    className="group py-6 md:py-8 md:px-6 first:md:pl-0 last:md:pr-0 transition-colors hover:bg-neutral-50 md:hover:bg-transparent"
-                  >
-                    <span className="block text-xs text-neutral-400 mb-2 font-medium">
-                      {service.num}
-                    </span>
-                    <span className="block text-sm text-neutral-700 group-hover:text-neutral-900 transition-colors leading-snug">
-                      {service.label}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Quick Services - Standalone Component */}
+        <QuickServices />
       </div>
     </section>
   )
