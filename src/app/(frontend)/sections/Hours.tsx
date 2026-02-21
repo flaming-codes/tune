@@ -16,6 +16,30 @@ interface HoursProps {
   phone: string
 }
 
+const RollingText = ({ children }: { children: React.ReactNode }) => (
+  <span className="relative block overflow-hidden px-1 -mx-1">
+    <motion.div
+      variants={{
+        initial: { y: 0 },
+        hovered: { y: '-100%' },
+      }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+    >
+      {children}
+    </motion.div>
+    <motion.div
+      className="absolute inset-0 px-1"
+      variants={{
+        initial: { y: '100%' },
+        hovered: { y: 0 },
+      }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+    >
+      {children}
+    </motion.div>
+  </span>
+)
+
 export function Hours({ openingHours, emergency, phone }: HoursProps) {
   return (
     <section className="py-24 lg:py-36 theme-bg-dark-section theme-text-white">
@@ -30,8 +54,8 @@ export function Hours({ openingHours, emergency, phone }: HoursProps) {
               Wann wir für Sie da sind
             </h2>
             <p className="theme-text-muted-dark leading-relaxed max-w-md">
-              Flexible Öffnungszeiten für Sie und Ihre Lieblinge. 
-              Auch Hausbesuche sind nach Vereinbarung möglich.
+              Flexible Öffnungszeiten für Sie und Ihre Lieblinge. Auch Hausbesuche sind nach
+              Vereinbarung möglich.
             </p>
           </div>
 
@@ -41,14 +65,18 @@ export function Hours({ openingHours, emergency, phone }: HoursProps) {
               {openingHours.map((item, index) => (
                 <motion.div
                   key={item.id || item.day}
-                  className={`flex justify-between items-center py-5 ${
+                  initial="initial"
+                  whileHover="hovered"
+                  className={`flex justify-between items-center py-5 group cursor-default ${
                     index !== openingHours.length - 1 ? 'border-b border-neutral-700' : ''
                   }`}
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.2 }}
                 >
-                  <dt className="theme-text-muted-dark">{item.day}</dt>
-                  <dd className="font-medium text-right text-white">{item.times}</dd>
+                  <dt className="theme-text-muted-dark transition-colors duration-300 group-hover:text-white">
+                    <RollingText>{item.day}</RollingText>
+                  </dt>
+                  <dd className="font-medium text-right text-white">
+                    <RollingText>{item.times}</RollingText>
+                  </dd>
                 </motion.div>
               ))}
             </dl>
@@ -60,9 +88,7 @@ export function Hours({ openingHours, emergency, phone }: HoursProps) {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
               <h3 className="text-lg font-medium mb-2 text-white">{emergency.title}</h3>
-              <p className="theme-text-muted-dark text-sm">
-                {emergency.description}
-              </p>
+              <p className="theme-text-muted-dark text-sm">{emergency.description}</p>
             </div>
             <motion.a
               href={`tel:${phone.replace(/\s/g, '')}`}
