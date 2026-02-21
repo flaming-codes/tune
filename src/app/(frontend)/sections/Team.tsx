@@ -13,14 +13,12 @@ interface TeamMemberCardProps {
 }
 
 // Distance threshold in pixels before swapping to the next image
-const SWAP_DISTANCE_THRESHOLD = 140
+const SWAP_DISTANCE_THRESHOLD = 160
 const MAX_STACK_SIZE = 20
 
-// Rotation and scale variation per image in the stack
-const ROTATION_STEP = 2 // degrees
-const SCALE_STEP = 0.02
-const MAX_ROTATION = 15
-const MAX_SCALE = 1.1
+// Visual variation limits
+const MAX_ROTATION = 12 // degrees
+const MAX_SCALE = 1.06
 
 interface StackItem {
   photo: Media
@@ -30,18 +28,35 @@ interface StackItem {
   zIndex: number // Fixed z-index for this item
 }
 
+function randomRange(min: number, max: number): number {
+  return Math.random() * (max - min) + min
+}
+
 function createStackItem(
   photo: Media,
   sequenceId: number,
   stackPosition: number,
 ): StackItem {
-  // Alternate rotation direction for visual interest
-  const rotationDirection = stackPosition % 2 === 0 ? 1 : -1
-  const rotation = Math.min(stackPosition * ROTATION_STEP, MAX_ROTATION) * rotationDirection
+  // First image (bottom of stack) is always straight and scale 1
+  if (stackPosition === 0) {
+    return {
+      photo,
+      uniqueId: `${photo.id}-${sequenceId}`,
+      rotation: 0,
+      scale: 1,
+      zIndex: stackPosition + 10,
+    }
+  }
 
-  // Scale alternates up and down slightly
-  const scaleDirection = stackPosition % 2 === 0 ? 1 : -1
-  const scale = 1 + Math.min(stackPosition * SCALE_STEP, MAX_SCALE - 1) * scaleDirection
+  // Random rotation: mostly small angles, occasional larger ones
+  // Use normal-ish distribution by averaging two random values
+  const rotationRandom = (Math.random() - 0.5 + (Math.random() - 0.5)) / 2
+  const rotation = rotationRandom * MAX_ROTATION * 2
+
+  // Random scale: slight variation around 1.0
+  // Again using averaged random for natural distribution
+  const scaleRandom = (Math.random() - 0.5 + (Math.random() - 0.5)) / 2
+  const scale = 1 + scaleRandom * (MAX_SCALE - 1) * 2
 
   return {
     photo,
@@ -122,13 +137,11 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
   )
 
   const handleMouseLeave = useCallback(() => {
-    // Reset stack on mouse leave
-    setStack([createStackItem(photos[0], 0, 0)])
-    setPhotoIndex(0)
-    nextSequenceIdRef.current = 1
+    // Keep the stack state as-is when mouse leaves
+    // Just clear the tracking refs for next hover session
     totalDistanceRef.current = 0
     lastPositionRef.current = null
-  }, [photos])
+  }, [])
 
   return (
     <div className="group cursor-default">
