@@ -1,9 +1,29 @@
 import React from 'react'
+import type { Metadata } from 'next'
+import { getPayload } from 'payload'
+import config from '@payload-config'
 import './styles.css'
 
-export const metadata = {
-  title: 'Tierarztpraxis Dr. Tune Lazri | Wien',
-  description: 'Tierarztpraxis Dr. Tune Lazri in Wien. Hausbesuche, Vorsorge, Diagnostik, Operationen. Mit Leidenschaft für Ihre Lieblinge.',
+async function getSiteSettings() {
+  const payload = await getPayload({ config })
+  const settings = await payload.findGlobal({
+    slug: 'site-settings',
+  })
+  return settings
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = await getSiteSettings()
+  
+  return {
+    title: siteSettings.seo.title,
+    description: siteSettings.seo.description,
+    openGraph: {
+      title: siteSettings.seo.title,
+      description: siteSettings.seo.description,
+      type: 'website',
+    },
+  }
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {

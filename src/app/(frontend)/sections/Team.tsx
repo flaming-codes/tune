@@ -2,31 +2,14 @@
 
 import React from 'react'
 import { motion } from 'motion/react'
+import { PayloadImage } from '@/components/PayloadImage'
+import type { TeamMember } from '@/payload-types'
 
-const teamMembers = [
-  {
-    name: 'Dr. Tune Lazri',
-    role: 'Tierarzt',
-    description: 'Gründer und leitender Tierarzt der Praxis. Mit Leidenschaft und Herz für jeden Patienten.',
-  },
-  {
-    name: 'Mast. Uni. Etleva Naci',
-    role: 'Tierärztin',
-    description: 'Spezialisiert auf innere Medizin und chirurgische Eingriffe.',
-  },
-  {
-    name: 'Christina Strand',
-    role: 'Tierarzthelferin',
-    description: 'Ihr Ansprechpartner für Terminvereinbarungen und erste Beratung.',
-  },
-  {
-    name: 'Ewa Bernadeta Winiarska',
-    role: 'Unterstützungsteam',
-    description: 'Back-up und Unterstützung in allen Bereichen der Praxis.',
-  },
-]
+interface TeamProps {
+  members: TeamMember[]
+}
 
-export function Team() {
+export function Team({ members }: TeamProps) {
   return (
     <section id="team" className="py-24 lg:py-36 theme-bg-primary">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -45,18 +28,30 @@ export function Team() {
 
         {/* Team Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {teamMembers.map((member) => (
+          {members.map((member) => (
             <motion.div
-              key={member.name}
+              key={member.id}
               className="group cursor-default"
               whileHover={{ y: -4 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
             >
-              {/* Image Placeholder */}
-              <div
-                className="image-placeholder aspect-[3/4] mb-6 transition-all duration-300 group-hover:shadow-lg"
-                aria-label={`${member.name} - Platzhalter`}
-              />
+              {/* Image */}
+              {member.photo ? (
+                <div className="aspect-[3/4] mb-6 relative overflow-hidden transition-all duration-300 group-hover:shadow-lg">
+                  <PayloadImage
+                    media={member.photo}
+                    size="card"
+                    fill
+                    className="object-cover"
+                    alt={`${member.name} - ${member.role}`}
+                  />
+                </div>
+              ) : (
+                <div
+                  className="image-placeholder aspect-[3/4] mb-6 transition-all duration-300 group-hover:shadow-lg"
+                  aria-label={`${member.name} - Platzhalter`}
+                />
+              )}
 
               {/* Info */}
               <h3 className="text-lg font-medium mb-1">{member.name}</h3>

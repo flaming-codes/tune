@@ -3,14 +3,19 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 
-const navLinks = [
-  { href: '#home', label: 'Home' },
-  { href: '#leistungen', label: 'Leistungen' },
-  { href: '#team', label: 'Über uns' },
-  { href: '#kontakt', label: 'Kontakt' },
-]
+interface NavLink {
+  label: string
+  href: string
+  id?: string | null
+}
 
-export function Navigation() {
+interface NavigationProps {
+  practiceName: string
+  navLinks: NavLink[]
+  phone: string
+}
+
+export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -34,13 +39,13 @@ export function Navigation() {
         <nav className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="text-sm font-medium tracking-tight-custom theme-text-primary">
-            Dr. Tune Lazri
+            {practiceName}
           </Link>
 
           {/* Desktop Navigation */}
           <ul className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
-              <li key={link.href}>
+              <li key={link.id || link.href}>
                 <Link
                   href={link.href}
                   className="text-sm theme-text-secondary hover:theme-text-primary transition-colors link-underline"
@@ -53,10 +58,10 @@ export function Navigation() {
 
           {/* Phone CTA */}
           <a
-            href="tel:+4369919012012"
+            href={`tel:${phone.replace(/\s/g, '')}`}
             className="hidden md:flex items-center gap-2 text-sm font-medium theme-text-primary"
           >
-            <span>+43 699 190 12 012</span>
+            <span>{phone}</span>
           </a>
 
           {/* Mobile Menu Button */}
@@ -90,7 +95,7 @@ export function Navigation() {
           <div className="md:hidden absolute top-full left-0 right-0 theme-bg-primary border-t theme-border-primary py-8">
             <ul className="flex flex-col items-center gap-6">
               {navLinks.map((link) => (
-                <li key={link.href}>
+                <li key={link.id || link.href}>
                   <Link
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -102,11 +107,11 @@ export function Navigation() {
               ))}
               <li>
                 <a
-                  href="tel:+4369919012012"
+                  href={`tel:${phone.replace(/\s/g, '')}`}
                   className="text-lg font-medium mt-4 theme-text-primary"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  +43 699 190 12 012
+                  {phone}
                 </a>
               </li>
             </ul>

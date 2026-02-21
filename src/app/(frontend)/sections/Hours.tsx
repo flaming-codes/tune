@@ -2,18 +2,21 @@
 
 import React from 'react'
 import { motion } from 'motion/react'
+import type { SiteSetting } from '@/payload-types'
 
-const hours = [
-  { day: 'Montag', times: '12:30 – 14:30 und 17:00 – 19:00' },
-  { day: 'Dienstag', times: '08:30 – 12:00 und 17:00 – 19:00' },
-  { day: 'Mittwoch', times: '12:30 – 14:30 und 17:00 – 19:00' },
-  { day: 'Donnerstag', times: '08:30 – 12:30 und 17:00 – 19:00' },
-  { day: 'Freitag', times: '09:00 – 12:00 und 17:00 – 19:00' },
-  { day: 'Samstag', times: 'Nach Vereinbarung' },
-  { day: 'Sonntag', times: 'Geschlossen' },
-]
+interface OpeningHour {
+  day: string
+  times: string
+  id?: string | null
+}
 
-export function Hours() {
+interface HoursProps {
+  openingHours: OpeningHour[]
+  emergency: SiteSetting['emergency']
+  phone: string
+}
+
+export function Hours({ openingHours, emergency, phone }: HoursProps) {
   return (
     <section className="py-24 lg:py-36 theme-bg-dark-section theme-text-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -35,11 +38,11 @@ export function Hours() {
           {/* Hours List */}
           <div>
             <dl className="space-y-0">
-              {hours.map((item, index) => (
+              {openingHours.map((item, index) => (
                 <motion.div
-                  key={item.day}
+                  key={item.id || item.day}
                   className={`flex justify-between items-center py-5 ${
-                    index !== hours.length - 1 ? 'border-b border-neutral-700' : ''
+                    index !== openingHours.length - 1 ? 'border-b border-neutral-700' : ''
                   }`}
                   whileHover={{ x: 4 }}
                   transition={{ duration: 0.2 }}
@@ -56,18 +59,18 @@ export function Hours() {
         <div className="mt-20 pt-12 border-t border-neutral-700">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
-              <h3 className="text-lg font-medium mb-2 text-white">Notfälle außerhalb der Öffnungszeiten</h3>
+              <h3 className="text-lg font-medium mb-2 text-white">{emergency.title}</h3>
               <p className="theme-text-muted-dark text-sm">
-                Bei Notfällen rufen Sie uns bitte an. Wir sind für Sie erreichbar.
+                {emergency.description}
               </p>
             </div>
             <motion.a
-              href="tel:+4369919012012"
+              href={`tel:${phone.replace(/\s/g, '')}`}
               className="inline-flex items-center justify-center px-8 py-3 bg-white text-neutral-900 text-sm font-medium"
               whileHover={{ opacity: 0.9 }}
               transition={{ duration: 0.2 }}
             >
-              +43 699 190 12 012
+              {phone}
             </motion.a>
           </div>
         </div>

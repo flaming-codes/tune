@@ -2,35 +2,13 @@
 
 import React from 'react'
 import { motion } from 'motion/react'
+import type { Testimonial } from '@/payload-types'
 
-const testimonials = [
-  {
-    text: 'Wir sind so froh, dass wir den Herrn Doktor als Tierarzt haben. Ist wirklich ein sehr guter Tierarzt und hilfsbereit. Sehr empfehlenswert.',
-    author: 'Zufriedene Kundin',
-  },
-  {
-    text: 'Hr. Dr. Tune Lazri ist ein sehr netter, lustiger und kompetenter Arzt. Er nimmt sich für seine Patienten vierbeiner immer genug Zeit, man hat das Gefühl, dass er die Tiere versteht und liebt.',
-    author: 'Tierliebhaberin',
-  },
-  {
-    text: 'Sehr netter und kompetenter Arzt. Man fühlt sich wohl und er ist immer eine Ansprechperson. Er hat uns sofort geholfen, ohne Termin.',
-    author: 'Dankbare Besitzerin',
-  },
-  {
-    text: 'Der beste Tierarzt, sehr freundlich zu Mensch und Tier! Preisverhältnis top.',
-    author: 'Stammkunde',
-  },
-  {
-    text: 'Dr. Tune Lazri hat meiner Baby Katze mitten in der Nacht durch eine Not OP das Leben gerettet! Dieser Tierarzt ist Goldwert!',
-    author: 'Katzenbesitzerin',
-  },
-  {
-    text: 'Der beste Tierarzt den wir je hatten. Man merkt, dass ihm die Tiere wirklich am Herzen liegen! Absolute Empfehlung!',
-    author: 'Besitzerin von 2 Katzen',
-  },
-]
+interface TestimonialsProps {
+  testimonials: Testimonial[]
+}
 
-export function Testimonials() {
+export function Testimonials({ testimonials }: TestimonialsProps) {
   return (
     <section className="py-24 lg:py-36 theme-bg-primary">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -50,9 +28,9 @@ export function Testimonials() {
 
         {/* Testimonials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-          {testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial) => (
             <motion.blockquote
-              key={index}
+              key={testimonial.id}
               className="flex flex-col justify-between p-8 theme-bg-secondary cursor-default"
               whileHover={{ y: -4 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}

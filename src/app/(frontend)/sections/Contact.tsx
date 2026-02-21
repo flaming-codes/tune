@@ -1,7 +1,14 @@
 import React from 'react'
 import { MapLoader } from '../components/MapLoader'
+import type { SiteSetting } from '@/payload-types'
 
-export function Contact() {
+interface ContactProps {
+  contact: SiteSetting['contact']
+}
+
+export function Contact({ contact }: ContactProps) {
+  const { address, phone, email } = contact
+
   return (
     <section id="kontakt" className="py-24 lg:py-36 theme-bg-offgray">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -25,10 +32,9 @@ export function Contact() {
                   Adresse
                 </h3>
                 <address className="not-italic theme-text-secondary leading-relaxed">
-                  <p>Tierarztpraxis Dr. Tune Lazri</p>
-                  <p>Brünnerstraße 219-221</p>
-                  <p>1 TOP 60, 1210 Wien</p>
-                  <p className="theme-text-muted">(Einkaufszentrum B7)</p>
+                  <p>{address.street}</p>
+                  <p>{address.additional}</p>
+                  <p>{address.city}</p>
                 </address>
               </div>
 
@@ -40,18 +46,18 @@ export function Contact() {
                 <div className="space-y-2">
                   <p>
                     <a
-                      href="tel:+4369919012012"
+                      href={`tel:${phone.replace(/\s/g, '')}`}
                       className="theme-text-secondary hover:theme-text-primary transition-colors link-underline"
                     >
-                      +43 699 190 12 012
+                      {phone}
                     </a>
                   </p>
                   <p>
                     <a
-                      href="mailto:contact@tierarztpraxis-lazri.at"
+                      href={`mailto:${email}`}
                       className="theme-text-secondary hover:theme-text-primary transition-colors link-underline"
                     >
-                      contact@tierarztpraxis-lazri.at
+                      {email}
                     </a>
                   </p>
                 </div>
@@ -69,7 +75,9 @@ export function Contact() {
                 Parkmöglichkeiten sind direkt vor dem Eingang vorhanden.
               </p>
               <a
-                href="https://maps.google.com/maps/dir//Dr.+Tune+Lazri+Br%C3%BCnner+Str.+219-221%2FTOP+60+1210+Wien/@48.2924772,16.417168,14z/data=!4m5!4m4!1m0!1m2!1m1!1s0x476d05ef9838aced:0x4b8d5e7c5ab20798"
+                href={`https://maps.google.com/maps/dir//${encodeURIComponent(
+                  `${address.street}, ${address.city}`
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-sm font-medium theme-text-primary hover:theme-text-secondary transition-colors link-underline"
