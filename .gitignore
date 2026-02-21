@@ -40,6 +40,11 @@ next-env.d.ts
 
 .env
 
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
 /media
 
 # Playwright
