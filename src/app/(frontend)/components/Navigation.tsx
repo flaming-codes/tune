@@ -117,20 +117,23 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 ${
-        isScrolled || isMobileMenuOpen
-          ? 'theme-bg-primary/95 backdrop-blur-sm py-4 shadow-sm'
-          : 'bg-transparent py-6'
+      className={`fixed top-0 left-0 right-0 z-50 isolate ${
+        isMobileMenuOpen
+          ? 'theme-bg-primary shadow-sm' // Solid bg when mobile menu is open
+          : isScrolled
+            ? 'theme-bg-primary/95 backdrop-blur-sm shadow-sm'
+            : 'bg-transparent'
       }`}
       initial={false}
       animate={{
-        backgroundColor: isScrolled ? undefined : 'transparent',
+        paddingTop: isScrolled || isMobileMenuOpen ? 16 : 24, // py-4 = 16px, py-6 = 24px
+        paddingBottom: isScrolled || isMobileMenuOpen ? 16 : 24,
       }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.3, ease: easeOut }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <NavigationMenu.Root className="relative">
-          <nav className="flex items-center justify-between" aria-label="Main Navigation">
+          <nav className="flex items-center justify-between relative z-50" aria-label="Main Navigation">
             {/* Logo */}
             <Link
               href="/"
@@ -208,21 +211,21 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
           <AnimatePresence>
             {isMobileMenuOpen && (
               <>
-                {/* Backdrop */}
+                {/* Heavy Backdrop - z-30 to stay below navbar (z-50) */}
                 <motion.div
-                  className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
+                  className="fixed inset-0 bg-black/30 backdrop-blur-xl z-30 md:hidden"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.3 }}
                   onClick={() => setIsMobileMenuOpen(false)}
                   aria-hidden="true"
                 />
 
-                {/* Menu Panel */}
+                {/* Menu Panel - z-40 below navbar (z-50) */}
                 <motion.div
                   id="mobile-menu"
-                  className="md:hidden fixed left-0 right-0 top-[73px] theme-bg-primary border-t theme-border-primary z-50 shadow-lg"
+                  className="md:hidden fixed left-0 right-0 top-[65px] theme-bg-primary border-t theme-border-primary z-40 shadow-lg"
                   variants={menuVariants}
                   initial="closed"
                   animate="open"
