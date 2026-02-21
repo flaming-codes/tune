@@ -275,20 +275,20 @@ body {
   background-color: var(--bg-primary);
 }
 
-/* Dark section background - dark (#171717) in light mode, off-gray (#171717) in dark mode */
+/* Dark section background - almost black (#0a0a0a) in all modes */
 .theme-bg-dark-section { 
-  background-color: #171717; 
+  background-color: #0a0a0a; 
 }
 @media (prefers-color-scheme: dark) {
   .theme-bg-dark-section { 
-    background-color: #171717; 
+    background-color: #0a0a0a; 
   }
 }
 [data-theme="dark"] .theme-bg-dark-section {
-  background-color: #171717;
+  background-color: #0a0a0a;
 }
 [data-theme="light"] .theme-bg-dark-section {
-  background-color: #171717;
+  background-color: #0a0a0a;
 }
 
 .theme-text-primary { color: var(--text-primary); }
