@@ -1,4 +1,5 @@
 import React from 'react'
+import { MapLoader } from '../components/MapLoader'
 
 export function Contact() {
   return (
@@ -58,12 +59,9 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Map Placeholder / Image */}
+          {/* Map */}
           <div className="flex flex-col">
-            <div 
-              className="image-placeholder flex-1 min-h-[400px] lg:min-h-0]" 
-              aria-label="Praxis Standort - Platzhalter" 
-            />
+            <MapLoader />
             <div className="mt-6 p-6 bg-neutral-50">
               <h3 className="font-medium mb-2">Anfahrt</h3>
               <p className="text-sm text-neutral-600 leading-relaxed">
