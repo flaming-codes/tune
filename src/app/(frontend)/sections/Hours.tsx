@@ -15,18 +15,18 @@ const hours = [
 
 export function Hours() {
   return (
-    <section className="py-24 lg:py-36 bg-neutral-900 text-white">
+    <section className="py-24 lg:py-36 theme-bg-dark theme-text-inverse">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Header */}
           <div>
-            <p className="text-sm tracking-wide-custom uppercase text-neutral-400 mb-6">
+            <p className="text-sm tracking-wide-custom uppercase theme-text-muted mb-6">
               Öffnungszeiten
             </p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight mb-8">
               Wann wir für Sie da sind
             </h2>
-            <p className="text-neutral-400 leading-relaxed max-w-md">
+            <p className="theme-text-muted leading-relaxed max-w-md">
               Flexible Öffnungszeiten für Sie und Ihre Lieblinge. 
               Auch Hausbesuche sind nach Vereinbarung möglich.
             </p>
@@ -44,7 +44,7 @@ export function Hours() {
                   whileHover={{ x: 4 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <dt className="text-neutral-400">{item.day}</dt>
+                  <dt className="theme-text-muted">{item.day}</dt>
                   <dd className="font-medium text-right">{item.times}</dd>
                 </motion.div>
               ))}
@@ -57,14 +57,14 @@ export function Hours() {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
               <h3 className="text-lg font-medium mb-2">Notfälle außerhalb der Öffnungszeiten</h3>
-              <p className="text-neutral-400 text-sm">
+              <p className="theme-text-muted text-sm">
                 Bei Notfällen rufen Sie uns bitte an. Wir sind für Sie erreichbar.
               </p>
             </div>
             <motion.a
               href="tel:+4369919012012"
-              className="inline-flex items-center justify-center px-8 py-3 bg-white text-neutral-900 text-sm font-medium"
-              whileHover={{ backgroundColor: '#f5f5f5' }}
+              className="inline-flex items-center justify-center px-8 py-3 theme-bg-primary theme-text-primary text-sm font-medium"
+              whileHover={{ opacity: 0.9 }}
               transition={{ duration: 0.2 }}
             >
               +43 699 190 12 012

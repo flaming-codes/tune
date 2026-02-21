@@ -28,17 +28,17 @@ const teamMembers = [
 
 export function Team() {
   return (
-    <section id="team" className="py-24 lg:py-36">
+    <section id="team" className="py-24 lg:py-36 theme-bg-primary">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="max-w-2xl mb-20 lg:mb-28">
-          <p className="text-sm tracking-wide-custom uppercase text-neutral-500 mb-6">
+          <p className="text-sm tracking-wide-custom uppercase theme-text-tertiary mb-6">
             Über uns
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight">
             Unser Team
           </h2>
-          <p className="mt-6 text-xl text-neutral-600">
+          <p className="mt-6 text-xl theme-text-secondary">
             Mit Leidenschaft für Ihre Lieblinge
           </p>
         </div>
@@ -60,8 +60,8 @@ export function Team() {
 
               {/* Info */}
               <h3 className="text-lg font-medium mb-1">{member.name}</h3>
-              <p className="text-sm text-neutral-500 mb-3">{member.role}</p>
-              <p className="text-sm text-neutral-600 leading-relaxed">
+              <p className="text-sm theme-text-tertiary mb-3">{member.role}</p>
+              <p className="text-sm theme-text-secondary leading-relaxed">
                 {member.description}
               </p>
             </motion.div>

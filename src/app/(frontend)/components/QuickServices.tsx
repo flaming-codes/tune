@@ -18,18 +18,18 @@ export function QuickServices() {
     <div className="mt-24 lg:mt-36">
       {/* Header */}
       <div className="mb-8 lg:mb-12">
-        <p className="text-sm tracking-wide-custom uppercase text-neutral-400">
+        <p className="text-sm tracking-wide-custom uppercase theme-text-muted">
           Unsere Schwerpunkte
         </p>
       </div>
 
       {/* Services List - Vertical stacked with reveal */}
-      <div className="space-y-0 border-t border-neutral-200">
+      <div className="space-y-0 border-t theme-border-primary">
         {services.map((service, index) => (
           <a
             key={service.id}
             href="#leistungen"
-            className="group block border-b border-neutral-200 py-6 lg:py-8"
+            className="group block border-b theme-border-primary py-6 lg:py-8"
             onMouseEnter={() => setActiveIndex(index)}
             onMouseLeave={() => setActiveIndex(null)}
           >
@@ -37,7 +37,7 @@ export function QuickServices() {
               {/* Number */}
               <span
                 className={`text-sm font-medium transition-colors duration-300 ${
-                  activeIndex === index ? 'text-neutral-900' : 'text-neutral-300'
+                  activeIndex === index ? 'theme-text-primary' : 'theme-text-muted'
                 }`}
               >
                 {service.num}
@@ -47,8 +47,8 @@ export function QuickServices() {
               <span
                 className={`text-lg lg:text-xl font-medium tracking-tight-custom transition-all duration-300 ${
                   activeIndex === index
-                    ? 'text-neutral-900 translate-x-2'
-                    : 'text-neutral-500'
+                    ? 'theme-text-primary translate-x-2'
+                    : 'theme-text-secondary'
                 }`}
               >
                 {service.label}
@@ -56,7 +56,7 @@ export function QuickServices() {
 
               {/* Arrow - appears on hover */}
               <motion.span
-                className="ml-auto text-sm"
+                className="ml-auto text-sm theme-text-primary"
                 initial={false}
                 animate={{
                   opacity: activeIndex === index ? 1 : 0,

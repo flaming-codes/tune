@@ -19,7 +19,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           rel="stylesheet"
         />
       </head>
-      <body className="bg-white text-neutral-900 antialiased">
+      <body className="theme-bg-primary theme-text-primary antialiased theme-transition">
         {children}
       </body>
     </html>

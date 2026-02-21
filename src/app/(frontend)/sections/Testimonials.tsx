@@ -32,17 +32,17 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="py-24 lg:py-36">
+    <section className="py-24 lg:py-36 theme-bg-primary">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="max-w-3xl mb-20 lg:mb-28">
-          <p className="text-sm tracking-wide-custom uppercase text-neutral-500 mb-6">
+          <p className="text-sm tracking-wide-custom uppercase theme-text-tertiary mb-6">
             Erfahrungen
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight">
             Was die Lieblingsmenschen unserer Fellnasen über uns sagen
           </h2>
-          <p className="mt-6 text-neutral-600 leading-relaxed">
+          <p className="mt-6 theme-text-secondary leading-relaxed">
             Wir reden ungern über uns selbst, daher lassen wir lieber die Frauchen und Herrchen erzählen. 
             Schau Dir ihre Erfahrungen an und überzeuge Dich selbst!
           </p>
@@ -53,14 +53,14 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <motion.blockquote
               key={index}
-              className="flex flex-col justify-between p-8 bg-neutral-50 cursor-default"
-              whileHover={{ y: -4, backgroundColor: '#f5f5f5' }}
+              className="flex flex-col justify-between p-8 theme-bg-secondary cursor-default"
+              whileHover={{ y: -4 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
             >
-              <p className="text-neutral-700 leading-relaxed mb-6">
+              <p className="theme-text-primary leading-relaxed mb-6">
                 &ldquo;{testimonial.text}&rdquo;
               </p>
-              <footer className="text-sm text-neutral-500">
+              <footer className="text-sm theme-text-tertiary">
                 — {testimonial.author}
               </footer>
             </motion.blockquote>
