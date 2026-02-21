@@ -21,7 +21,7 @@ export function Hero() {
             <div className="flex flex-wrap gap-4">
               <a
                 href="#kontakt"
-                className="inline-flex items-center justify-center px-8 py-3 theme-bg-dark theme-text-inverse text-sm font-medium hover:opacity-90 transition-opacity duration-200"
+                className="inline-flex items-center justify-center px-8 py-3 bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 text-sm font-medium hover:opacity-90 transition-opacity duration-200"
               >
                 Termin vereinbaren
               </a>

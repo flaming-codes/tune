@@ -11,7 +11,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-24">
           {/* Brand */}
           <div>
-            <p className="theme-text-inverse text-sm font-medium mb-4">Dr. Tune Lazri</p>
+            <p className="text-white text-sm font-medium mb-4">Dr. Tune Lazri</p>
             <p className="text-sm theme-text-muted leading-relaxed">
               Tierarztpraxis mit Leidenschaft für Ihre Lieblinge.
             </p>
@@ -19,7 +19,7 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="theme-text-inverse text-sm font-medium mb-4">Kontakt</p>
+            <p className="text-white text-sm font-medium mb-4">Kontakt</p>
             <address className="not-italic text-sm theme-text-muted leading-relaxed space-y-2">
               <p>Brünnerstraße 219-221</p>
               <p>1 TOP 60, 1210 Wien</p>
@@ -49,7 +49,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <p className="theme-text-inverse text-sm font-medium mb-4">Links</p>
+            <p className="text-white text-sm font-medium mb-4">Links</p>
             <ul className="space-y-2 text-sm">
               <li>
                 <motion.div whileHover={{ x: 2 }} transition={{ duration: 0.2 }}>

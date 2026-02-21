@@ -45,7 +45,7 @@ export function Hours() {
                   transition={{ duration: 0.2 }}
                 >
                   <dt className="theme-text-muted">{item.day}</dt>
-                  <dd className="font-medium text-right">{item.times}</dd>
+                  <dd className="font-medium text-right text-white">{item.times}</dd>
                 </motion.div>
               ))}
             </dl>
@@ -56,14 +56,14 @@ export function Hours() {
         <div className="mt-20 pt-12 border-t border-neutral-800">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
-              <h3 className="text-lg font-medium mb-2">Notfälle außerhalb der Öffnungszeiten</h3>
+              <h3 className="text-lg font-medium mb-2 text-white">Notfälle außerhalb der Öffnungszeiten</h3>
               <p className="theme-text-muted text-sm">
                 Bei Notfällen rufen Sie uns bitte an. Wir sind für Sie erreichbar.
               </p>
             </div>
             <motion.a
               href="tel:+4369919012012"
-              className="inline-flex items-center justify-center px-8 py-3 theme-bg-primary theme-text-primary text-sm font-medium"
+              className="inline-flex items-center justify-center px-8 py-3 bg-white text-neutral-900 text-sm font-medium"
               whileHover={{ opacity: 0.9 }}
               transition={{ duration: 0.2 }}
             >
