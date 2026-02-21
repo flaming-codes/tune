@@ -14,24 +14,58 @@ interface TeamMemberCardProps {
 
 // Distance threshold in pixels before swapping to the next image
 const SWAP_DISTANCE_THRESHOLD = 140
+const MAX_STACK_SIZE = 20
 
 // Rotation and scale variation per image in the stack
-const ROTATION_STEP = 3 // degrees
-const SCALE_STEP = 0.03
-const MAX_ROTATION = 12
-const MAX_SCALE = 1.08
+const ROTATION_STEP = 2 // degrees
+const SCALE_STEP = 0.02
+const MAX_ROTATION = 15
+const MAX_SCALE = 1.1
+
+interface StackItem {
+  photo: Media
+  uniqueId: string // Unique ID for each stack entry (allows duplicates)
+  rotation: number // Fixed rotation for this item
+  scale: number // Fixed scale for this item
+  zIndex: number // Fixed z-index for this item
+}
+
+function createStackItem(
+  photo: Media,
+  sequenceId: number,
+  stackPosition: number,
+): StackItem {
+  // Alternate rotation direction for visual interest
+  const rotationDirection = stackPosition % 2 === 0 ? 1 : -1
+  const rotation = Math.min(stackPosition * ROTATION_STEP, MAX_ROTATION) * rotationDirection
+
+  // Scale alternates up and down slightly
+  const scaleDirection = stackPosition % 2 === 0 ? 1 : -1
+  const scale = 1 + Math.min(stackPosition * SCALE_STEP, MAX_SCALE - 1) * scaleDirection
+
+  return {
+    photo,
+    uniqueId: `${photo.id}-${sequenceId}`,
+    rotation,
+    scale,
+    zIndex: stackPosition + 10,
+  }
+}
 
 function TeamMemberCard({ member }: TeamMemberCardProps) {
   const photos = (member.photos as Media[]) || []
   const hasMultiplePhotos = photos.length > 1
 
-  // Track which images are currently in the stack (visible)
-  const [stackSize, setStackSize] = useState(1)
-  const [currentIndex, setCurrentIndex] = useState(0)
+  // Stack of visible photos with their visual properties
+  const [stack, setStack] = useState<StackItem[]>(() => [
+    createStackItem(photos[0], 0, 0),
+  ])
+  const [photoIndex, setPhotoIndex] = useState(0)
+  const nextSequenceIdRef = useRef(1)
 
   // Track cursor movement distance
   const totalDistanceRef = useRef(0)
-  const lastPositionRef = useRef<{ x: number; y: number } | null>(null)
+  const lastPositionRef = useRef<{ x: number; y: number } | null>( null)
 
   const handleMouseEnter = useCallback(() => {
     totalDistanceRef.current = 0
@@ -53,13 +87,29 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
 
         // Check if we've moved enough to add next image to stack
         if (totalDistanceRef.current >= SWAP_DISTANCE_THRESHOLD) {
-          setCurrentIndex((prev) => {
-            const nextIndex = (prev + 1) % photos.length
-            // Stack size increases as we cycle through images
-            const newStackSize = Math.min(nextIndex + 1, photos.length)
-            setStackSize(newStackSize)
-            return nextIndex
+          const nextPhotoIndex = (photoIndex + 1) % photos.length
+          const nextPhoto = photos[nextPhotoIndex]
+
+          setStack((currentStack) => {
+            // New item always goes on top with the next position in sequence
+            const newStackPosition = currentStack.length
+            const newItem = createStackItem(
+              nextPhoto,
+              nextSequenceIdRef.current++,
+              newStackPosition,
+            )
+
+            const newStack = [...currentStack, newItem]
+
+            // Keep only the last MAX_STACK_SIZE items
+            if (newStack.length > MAX_STACK_SIZE) {
+              // Remove the oldest item but keep visual properties of remaining items unchanged
+              return newStack.slice(newStack.length - MAX_STACK_SIZE)
+            }
+            return newStack
           })
+
+          setPhotoIndex(nextPhotoIndex)
 
           // Reset distance, keeping remainder for smooth experience
           totalDistanceRef.current = totalDistanceRef.current % SWAP_DISTANCE_THRESHOLD
@@ -68,45 +118,17 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
 
       lastPositionRef.current = { x: clientX, y: clientY }
     },
-    [hasMultiplePhotos, photos.length],
+    [hasMultiplePhotos, photos, photoIndex],
   )
 
   const handleMouseLeave = useCallback(() => {
     // Reset stack on mouse leave
-    setStackSize(1)
-    setCurrentIndex(0)
+    setStack([createStackItem(photos[0], 0, 0)])
+    setPhotoIndex(0)
+    nextSequenceIdRef.current = 1
     totalDistanceRef.current = 0
     lastPositionRef.current = null
-  }, [])
-
-  // Calculate transform for each image in the stack
-  const getImageTransform = (index: number): string => {
-    if (index === 0) return 'rotate(0deg) scale(1)'
-
-    // Alternate rotation direction for visual interest
-    const direction = index % 2 === 0 ? 1 : -1
-    const rotation = Math.min(index * ROTATION_STEP, MAX_ROTATION) * direction
-
-    // Scale alternates up and down slightly
-    const scaleDirection = index % 2 === 0 ? 1 : -1
-    const scale = 1 + Math.min(index * SCALE_STEP, MAX_SCALE - 1) * scaleDirection
-
-    return `rotate(${rotation}deg) scale(${scale})`
-  }
-
-  // Get which images to show in the stack
-  const getVisibleImages = () => {
-    if (!hasMultiplePhotos) return [photos[0]]
-
-    // Build the stack: show images 0 through stackSize-1
-    const visible: Media[] = []
-    for (let i = 0; i < stackSize && i < photos.length; i++) {
-      visible.push(photos[i])
-    }
-    return visible
-  }
-
-  const visibleImages = getVisibleImages()
+  }, [photos])
 
   return (
     <div className="group cursor-default">
@@ -118,38 +140,29 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
-          {/* Base image (always visible, no transform) */}
-          <div className="absolute inset-0 overflow-hidden transition-all duration-300 group-hover:shadow-lg">
-            <PayloadImage
-              media={photos[0]}
-              size="card"
-              fill
-              className="object-cover"
-              alt={`${member.name} - ${member.role}`}
-              priority
-            />
-          </div>
-
-          {/* Stacked images on top */}
-          {visibleImages.slice(1).map((photo, idx) => {
-            const actualIndex = idx + 1
-            const transform = getImageTransform(actualIndex)
+          {/* Render all images in the stack */}
+          {stack.map((item, arrayIndex) => {
+            const isBottom = arrayIndex === 0
+            const transform = `rotate(${item.rotation}deg) scale(${item.scale})`
 
             return (
               <div
-                key={photo.id}
-                className="absolute inset-0 overflow-hidden shadow-lg transition-all duration-200 ease-out"
+                key={item.uniqueId}
+                className={`absolute inset-0 overflow-hidden shadow-lg transition-all duration-200 ease-out ${
+                  isBottom ? 'group-hover:shadow-lg' : ''
+                }`}
                 style={{
                   transform,
-                  zIndex: actualIndex + 10,
+                  zIndex: item.zIndex,
                 }}
               >
                 <PayloadImage
-                  media={photo}
+                  media={item.photo}
                   size="card"
                   fill
                   className="object-cover"
-                  alt={`${member.name} - ${member.role} (${actualIndex + 1}/${photos.length})`}
+                  alt={`${member.name} - ${member.role}${stack.length > 1 ? ` (${arrayIndex + 1}/${stack.length})` : ''}`}
+                  priority={isBottom}
                 />
               </div>
             )
