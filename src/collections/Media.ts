@@ -1,5 +1,77 @@
-import type { CollectionConfig } from 'payload'
-import sharp from 'sharp'
+import type { CollectionConfig, CollectionAfterChangeHook } from 'payload'
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import path from 'path'
+import { readFile } from 'fs/promises'
+
+// Helper to generate blur placeholder
+async function generateBlurPlaceholder(docId: number, filename: string, mimeType: string) {
+  try {
+    // Try to find the file in the media directory
+    const mediaDir = path.resolve(process.cwd(), 'media')
+    const filePath = path.join(mediaDir, filename)
+    
+    let imageBuffer: Buffer
+    
+    try {
+      // Read directly from disk (most reliable)
+      imageBuffer = await readFile(filePath)
+    } catch (diskError) {
+      // Fallback: try to fetch via HTTP
+      const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+      const imageUrl = `${serverUrl}/api/media/file/${filename}`
+      
+      console.log(`Reading from disk failed, trying HTTP: ${imageUrl}`)
+      const response = await fetch(imageUrl)
+      if (!response.ok) {
+        throw new Error(`Failed to fetch: ${response.status}`)
+      }
+      imageBuffer = Buffer.from(await response.arrayBuffer())
+    }
+    
+    // Generate blur placeholder using sharp
+    const { default: sharp } = await import('sharp')
+    const blurBuffer = await sharp(imageBuffer)
+      .resize(10, 10, { fit: 'inside' })
+      .blur()
+      .png({ quality: 20, compressionLevel: 9 })
+      .toBuffer()
+    
+    const base64 = `data:image/png;base64,${blurBuffer.toString('base64')}`
+    
+    // Update the document with a fresh payload instance
+    const payload = await getPayload({ config })
+    await payload.update({
+      collection: 'media',
+      id: docId,
+      data: { blurDataURL: base64 },
+    })
+    
+    console.log(`✓ Blur placeholder generated for: ${filename}`)
+  } catch (error) {
+    console.error(`✗ Failed to generate blur for ${filename}:`, error)
+  }
+}
+
+const generateBlurHook: CollectionAfterChangeHook = async ({ doc, req, operation }) => {
+  // Skip if no filename, not an image, or already has blurDataURL
+  if (!doc.filename || !doc.mimeType?.startsWith('image/') || doc.blurDataURL) {
+    return doc
+  }
+
+  // Only process on create or if blurDataURL is missing on update
+  if (operation === 'update' && doc.blurDataURL) {
+    return doc
+  }
+
+  // Schedule blur generation after the current operation completes
+  // This avoids blocking the response and prevents hook recursion issues
+  setImmediate(() => {
+    generateBlurPlaceholder(doc.id, doc.filename as string, doc.mimeType as string)
+  })
+
+  return doc
+}
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -7,17 +79,14 @@ export const Media: CollectionConfig = {
     read: () => true,
   },
   upload: {
-    // Restrict to images only
     mimeTypes: ['image/*'],
-    // Convert all uploads to WebP for optimal performance
     formatOptions: {
       format: 'webp',
       options: {
         quality: 80,
-        effort: 4, // Compression effort (0-6)
+        effort: 4,
       },
     },
-    // Generate multiple image sizes for responsive images
     imageSizes: [
       {
         name: 'thumbnail',
@@ -34,7 +103,7 @@ export const Media: CollectionConfig = {
       {
         name: 'tablet',
         width: 1024,
-        height: undefined, // Maintain aspect ratio
+        height: undefined,
         position: 'centre',
       },
       {
@@ -44,69 +113,10 @@ export const Media: CollectionConfig = {
         position: 'centre',
       },
     ],
-    // Admin thumbnail display
     adminThumbnail: 'thumbnail',
   },
   hooks: {
-    afterChange: [
-      async ({ doc, req, operation }) => {
-        // Generate blur placeholder for images
-        if (
-          !doc.filename ||
-          !doc.mimeType?.startsWith('image/') ||
-          doc.blurDataURL
-        ) {
-          return doc
-        }
-
-        try {
-          // Get the full URL for the uploaded image
-          const fullUrl = doc.url?.startsWith('http')
-            ? doc.url
-            : `${process.env.NEXT_PUBLIC_SERVER_URL || ''}${doc.url}`
-
-          if (!fullUrl) {
-            req.payload.logger.warn(`Skipping blur generation for ${doc.filename} - no URL found`)
-            return doc
-          }
-
-          // Fetch the image
-          const response = await fetch(fullUrl)
-          if (!response.ok) {
-            throw new Error(`Failed to fetch image: ${response.status}`)
-          }
-          const imageBuffer = Buffer.from(await response.arrayBuffer())
-
-          // Generate 10x10 blur placeholder using sharp
-          const blurBuffer = await sharp(imageBuffer)
-            .resize(10, 10, { fit: 'inside' })
-            .blur()
-            .png({ quality: 20, compressionLevel: 9 })
-            .toBuffer()
-
-          const base64 = `data:image/png;base64,${blurBuffer.toString('base64')}`
-
-          // Update the document with blurDataURL using setTimeout to avoid recursion
-          setTimeout(async () => {
-            try {
-              await req.payload.update({
-                collection: 'media',
-                id: doc.id,
-                data: { blurDataURL: base64 },
-                req,
-              })
-              req.payload.logger.info(`Blur placeholder generated for: ${doc.filename}`)
-            } catch (error) {
-              req.payload.logger.error(`Failed to save blur placeholder: ${error}`)
-            }
-          }, 100)
-        } catch (error) {
-          req.payload.logger.error(`Failed to generate blur placeholder: ${error}`)
-        }
-
-        return doc
-      },
-    ],
+    afterChange: [generateBlurHook],
   },
   fields: [
     {
