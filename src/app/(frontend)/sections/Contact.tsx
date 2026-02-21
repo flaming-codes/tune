@@ -64,10 +64,21 @@ export function Contact() {
             <MapLoader />
             <div className="mt-6 p-6 theme-bg-secondary transition-colors hover:theme-bg-tertiary">
               <h3 className="font-medium mb-2">Anfahrt</h3>
-              <p className="text-sm theme-text-secondary leading-relaxed">
+              <p className="text-sm theme-text-secondary leading-relaxed mb-4">
                 Unsere Praxis befindet sich im Einkaufszentrum B7 an der Brünnerstraße. 
                 Parkmöglichkeiten sind direkt vor dem Eingang vorhanden.
               </p>
+              <a
+                href="https://maps.google.com/maps/dir//Dr.+Tune+Lazri+Br%C3%BCnner+Str.+219-221%2FTOP+60+1210+Wien/@48.2924772,16.417168,14z/data=!4m5!4m4!1m0!1m2!1m1!1s0x476d05ef9838aced:0x4b8d5e7c5ab20798"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-sm font-medium theme-text-primary hover:theme-text-secondary transition-colors link-underline"
+              >
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                In Google Maps öffnen
+              </a>
             </div>
           </div>
         </div>
