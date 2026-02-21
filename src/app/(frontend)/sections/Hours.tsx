@@ -15,18 +15,18 @@ const hours = [
 
 export function Hours() {
   return (
-    <section className="py-24 lg:py-36 theme-bg-dark theme-text-inverse">
+    <section className="py-24 lg:py-36 theme-bg-dark-section theme-text-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Header */}
           <div>
-            <p className="text-sm tracking-wide-custom uppercase theme-text-muted mb-6">
+            <p className="text-sm tracking-wide-custom uppercase theme-text-muted-dark mb-6">
               Öffnungszeiten
             </p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight mb-8">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight mb-8 text-white">
               Wann wir für Sie da sind
             </h2>
-            <p className="theme-text-muted leading-relaxed max-w-md">
+            <p className="theme-text-muted-dark leading-relaxed max-w-md">
               Flexible Öffnungszeiten für Sie und Ihre Lieblinge. 
               Auch Hausbesuche sind nach Vereinbarung möglich.
             </p>
@@ -39,12 +39,12 @@ export function Hours() {
                 <motion.div
                   key={item.day}
                   className={`flex justify-between items-center py-5 ${
-                    index !== hours.length - 1 ? 'border-b border-neutral-800' : ''
+                    index !== hours.length - 1 ? 'border-b border-neutral-700' : ''
                   }`}
                   whileHover={{ x: 4 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <dt className="theme-text-muted">{item.day}</dt>
+                  <dt className="theme-text-muted-dark">{item.day}</dt>
                   <dd className="font-medium text-right text-white">{item.times}</dd>
                 </motion.div>
               ))}
@@ -53,11 +53,11 @@ export function Hours() {
         </div>
 
         {/* Emergency Note */}
-        <div className="mt-20 pt-12 border-t border-neutral-800">
+        <div className="mt-20 pt-12 border-t border-neutral-700">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
               <h3 className="text-lg font-medium mb-2 text-white">Notfälle außerhalb der Öffnungszeiten</h3>
-              <p className="theme-text-muted text-sm">
+              <p className="theme-text-muted-dark text-sm">
                 Bei Notfällen rufen Sie uns bitte an. Wir sind für Sie erreichbar.
               </p>
             </div>

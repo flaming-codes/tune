@@ -259,11 +259,49 @@ body {
 .theme-bg-dark { background-color: var(--bg-dark); }
 .theme-bg-dark-offset { background-color: var(--bg-dark-offset); }
 
+/* Off-gray section background - white in light mode, off-gray (#171717) in dark mode */
+.theme-bg-offgray { 
+  background-color: var(--bg-primary); 
+}
+@media (prefers-color-scheme: dark) {
+  .theme-bg-offgray { 
+    background-color: var(--bg-dark-offset); 
+  }
+}
+[data-theme="dark"] .theme-bg-offgray {
+  background-color: var(--bg-dark-offset);
+}
+[data-theme="light"] .theme-bg-offgray {
+  background-color: var(--bg-primary);
+}
+
+/* Dark section background - dark (#171717) in light mode, off-gray (#171717) in dark mode */
+.theme-bg-dark-section { 
+  background-color: #171717; 
+}
+@media (prefers-color-scheme: dark) {
+  .theme-bg-dark-section { 
+    background-color: #171717; 
+  }
+}
+[data-theme="dark"] .theme-bg-dark-section {
+  background-color: #171717;
+}
+[data-theme="light"] .theme-bg-dark-section {
+  background-color: #171717;
+}
+
 .theme-text-primary { color: var(--text-primary); }
 .theme-text-secondary { color: var(--text-secondary); }
 .theme-text-tertiary { color: var(--text-tertiary); }
 .theme-text-muted { color: var(--text-muted); }
 .theme-text-inverse { color: var(--text-inverse); }
+
+/* White text for dark sections - always white regardless of theme */
+.theme-text-white { color: #ffffff; }
+
+/* Muted text for dark sections - always light gray */
+.theme-text-muted-dark { color: #a3a3a3; }
 
 .theme-border-primary { border-color: var(--border-primary); }
 .theme-border-secondary { border-color: var(--border-secondary); }
