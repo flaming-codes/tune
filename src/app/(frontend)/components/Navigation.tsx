@@ -1,0 +1,116 @@
+'use client'
+
+import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
+
+const navLinks = [
+  { href: '#home', label: 'Home' },
+  { href: '#leistungen', label: 'Leistungen' },
+  { href: '#team', label: 'Über uns' },
+  { href: '#kontakt', label: 'Kontakt' },
+]
+
+export function Navigation() {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-white/95 backdrop-blur-sm py-4' : 'bg-transparent py-6'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <nav className="flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="text-sm font-medium tracking-tight-custom">
+            Dr. Tune Lazri
+          </Link>
+
+          {/* Desktop Navigation */}
+          <ul className="hidden md:flex items-center gap-10">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors link-underline"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* Phone CTA */}
+          <a
+            href="tel:+4369919012012"
+            className="hidden md:flex items-center gap-2 text-sm font-medium"
+          >
+            <span>+43 699 190 12 012</span>
+          </a>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2"
+            aria-label="Toggle menu"
+          >
+            <div className="w-5 h-4 flex flex-col justify-between">
+              <span
+                className={`block h-px bg-neutral-900 transition-transform ${
+                  isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+                }`}
+              />
+              <span
+                className={`block h-px bg-neutral-900 transition-opacity ${
+                  isMobileMenuOpen ? 'opacity-0' : ''
+                }`}
+              />
+              <span
+                className={`block h-px bg-neutral-900 transition-transform ${
+                  isMobileMenuOpen ? '-rotate-45 -translate-y-1' : ''
+                }`}
+              />
+            </div>
+          </button>
+        </nav>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-neutral-100 py-8">
+            <ul className="flex flex-col items-center gap-6">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-lg text-neutral-600 hover:text-neutral-900 transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="tel:+4369919012012"
+                  className="text-lg font-medium mt-4"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  +43 699 190 12 012
+                </a>
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
+    </header>
+  )
+}
