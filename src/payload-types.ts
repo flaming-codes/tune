@@ -219,7 +219,10 @@ export interface TeamMember {
   name: string;
   role: string;
   description: string;
-  photo?: (number | null) | Media;
+  /**
+   * Mehrere Fotos hochladen. Das erste Foto wird standardmäßig angezeigt. Bei Hover werden die Fotos basierend auf Cursor-Bewegung gewechselt.
+   */
+  photos: (number | Media)[];
   /**
    * Niedrigere Zahlen werden zuerst angezeigt
    */
@@ -453,7 +456,7 @@ export interface TeamMembersSelect<T extends boolean = true> {
   name?: T;
   role?: T;
   description?: T;
-  photo?: T;
+  photos?: T;
   sortOrder?: T;
   isActive?: T;
   updatedAt?: T;

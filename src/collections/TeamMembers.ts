@@ -28,10 +28,16 @@ export const TeamMembers: CollectionConfig = {
       label: 'Beschreibung',
     },
     {
-      name: 'photo',
+      name: 'photos',
       type: 'upload',
       relationTo: 'media',
-      label: 'Foto',
+      hasMany: true,
+      required: true,
+      minRows: 1,
+      label: 'Fotos',
+      admin: {
+        description: 'Mehrere Fotos hochladen. Das erste Foto wird standardmäßig angezeigt. Bei Hover werden die Fotos basierend auf Cursor-Bewegung gewechselt.',
+      },
     },
     {
       name: 'sortOrder',
