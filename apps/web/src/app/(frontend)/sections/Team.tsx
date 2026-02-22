@@ -89,7 +89,7 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
   }, [])
 
   const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
       if (!hasMultiplePhotos) return
 
       const { clientX, clientY } = e
@@ -148,11 +148,13 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
     <div className="group cursor-default">
       {/* Image Container with hover tracking */}
       {photos.length > 0 ? (
-        <div
-          className="aspect-[3/4] mb-6 relative"
+        <Link
+          href={profileHref || '#'}
+          className="block aspect-[3/4] mb-6 relative cursor-default"
           onMouseEnter={handleMouseEnter}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
+          aria-label={`${member.name} Profil öffnen`}
         >
           {/* Render all images in the stack */}
           {stack.map((item, arrayIndex) => {
@@ -181,7 +183,7 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
               </div>
             )
           })}
-        </div>
+        </Link>
       ) : (
         <div
           className="image-placeholder aspect-[3/4] mb-6 transition-all duration-300 group-hover:shadow-lg"
