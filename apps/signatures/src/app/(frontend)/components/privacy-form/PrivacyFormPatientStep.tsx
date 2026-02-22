@@ -41,6 +41,7 @@ export function PrivacyFormPatientStep({
             aria-invalid={isFieldInvalid('patientName')}
             placeholder="Name des Tieres *"
             invalid={isFieldInvalid('patientName')}
+            required
           />
         </div>
 
@@ -66,8 +67,10 @@ export function PrivacyFormPatientStep({
               value={formData.patientBreed}
               onChange={(e) => updateField('patientBreed', e.target.value)}
               aria-label="Rasse"
-              placeholder="Rasse"
-              invalid={false}
+              aria-invalid={isFieldInvalid('patientBreed')}
+              placeholder="Rasse *"
+              invalid={isFieldInvalid('patientBreed')}
+              required
             />
           </div>
           <div>
@@ -76,20 +79,26 @@ export function PrivacyFormPatientStep({
               value={formData.patientColor}
               onChange={(e) => updateField('patientColor', e.target.value)}
               aria-label="Farbe"
-              placeholder="Farbe"
-              invalid={false}
+              aria-invalid={isFieldInvalid('patientColor')}
+              placeholder="Farbe *"
+              invalid={isFieldInvalid('patientColor')}
+              required
             />
           </div>
         </div>
 
         <fieldset className="space-y-3">
-          <legend className="text-sm theme-text-tertiary">Geschlecht</legend>
+          <legend className="text-sm theme-text-tertiary">
+            Geschlecht {isFieldInvalid('patientGender') && <span className="text-red-400">*</span>}
+          </legend>
           <SegmentedField
             name="patientGender"
             ariaLabel="Geschlecht"
             options={[...patientGenderOptions]}
             value={formData.patientGender}
             onChange={(value) => updateField('patientGender', value)}
+            invalid={isFieldInvalid('patientGender')}
+            required
           />
         </fieldset>
 
@@ -100,20 +109,27 @@ export function PrivacyFormPatientStep({
               value={formData.patientDateOfBirth}
               onChange={(e) => updateField('patientDateOfBirth', e.target.value)}
               aria-label="Geburtsdatum Tier"
-              invalid={false}
+              aria-invalid={isFieldInvalid('patientDateOfBirth')}
+              invalid={isFieldInvalid('patientDateOfBirth')}
+              required
             />
-            <p className="text-sm theme-text-tertiary mt-2">Geburtsdatum</p>
+            <p className="text-sm theme-text-tertiary mt-2">Geburtsdatum *</p>
           </div>
           <div>
             <div className="relative">
               <TextField
-                type="text"
+                type="number"
                 value={formData.patientWeight}
                 onChange={(e) => updateField('patientWeight', e.target.value)}
                 aria-label="Gewicht"
-                placeholder="Gewicht"
-                invalid={false}
+                aria-invalid={isFieldInvalid('patientWeight')}
+                placeholder="Gewicht *"
+                invalid={isFieldInvalid('patientWeight')}
                 className="pr-12"
+                inputMode="decimal"
+                min={0}
+                step="0.1"
+                required
               />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium theme-text-tertiary">
                 kg
@@ -128,8 +144,10 @@ export function PrivacyFormPatientStep({
             value={formData.patientSpecialNotes}
             onChange={(e) => updateField('patientSpecialNotes', e.target.value)}
             aria-label="Besondere Hinweise"
-            placeholder="Besondere Hinweise (Allergien, Unverträglichkeiten...)"
-            invalid={false}
+            aria-invalid={isFieldInvalid('patientSpecialNotes')}
+            placeholder="Besondere Hinweise (Allergien, Unverträglichkeiten...) *"
+            invalid={isFieldInvalid('patientSpecialNotes')}
+            required
           />
         </div>
       </div>

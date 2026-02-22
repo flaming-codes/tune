@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useActionState, useCallback, useEffect, useState, startTransition } from 'react'
+import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import { AnimatePresence, motion } from 'motion/react'
 import { submitPrivacyForm, type PrivacyFormState } from '../actions/privacy-form'
 import { PrivacyFormConsentStep } from './privacy-form/PrivacyFormConsentStep'
@@ -34,19 +35,51 @@ export function PrivacyForm() {
   const [showValidation, setShowValidation] = useState(false)
   const [validationErrors, setValidationErrors] = useState<Record<string, string[]>>({})
   const [successMessage, setSuccessMessage] = useState<string | undefined>(undefined)
+  const [lastActivityAt, setLastActivityAt] = useState(() => Date.now())
+  const [isIdleWarningOpen, setIsIdleWarningOpen] = useState(false)
+  const [idleSecondsRemaining, setIdleSecondsRemaining] = useState(10)
 
   const [state, formAction, isPending] = useActionState(submitPrivacyForm, initialState)
 
   const totalSteps = privacyFormSteps.length
 
+  const resetForm = useCallback(() => {
+    setCurrentStep(1)
+    setDirection(0)
+    setFormData(initialFormData)
+    setShowValidation(false)
+    setValidationErrors({})
+    setSuccessMessage(undefined)
+    setIsIdleWarningOpen(false)
+    setIdleSecondsRemaining(10)
+    setLastActivityAt(Date.now())
+  }, [])
+
+  const handleUserActivity = useCallback(() => {
+    if (successMessage) {
+      return
+    }
+    setIsIdleWarningOpen(false)
+    setIdleSecondsRemaining(10)
+    setLastActivityAt(Date.now())
+  }, [successMessage])
+
+  const handleProlongSession = useCallback(() => {
+    setIsIdleWarningOpen(false)
+    setIdleSecondsRemaining(10)
+    setLastActivityAt(Date.now())
+  }, [])
+
   const updateField = useCallback(
     <K extends keyof PrivacyFormData>(field: K, value: PrivacyFormData[K]) => {
+      handleUserActivity()
       setFormData((prev) => ({ ...prev, [field]: value }))
     },
-    [],
+    [handleUserActivity],
   )
 
   const handleNext = useCallback(() => {
+    handleUserActivity()
     setShowValidation(true)
     const stepErrors = validatePrivacyStep(formData, currentStep as 1 | 2 | 3)
     setValidationErrors(stepErrors)
@@ -57,20 +90,22 @@ export function PrivacyForm() {
       setShowValidation(false)
       setValidationErrors({})
     }
-  }, [currentStep, formData, totalSteps])
+  }, [currentStep, formData, handleUserActivity, totalSteps])
 
   const handleBack = useCallback(() => {
+    handleUserActivity()
     if (currentStep > 1) {
       setDirection(-1)
       setCurrentStep((prev) => prev - 1)
       setShowValidation(false)
       setValidationErrors({})
     }
-  }, [currentStep])
+  }, [currentStep, handleUserActivity])
 
   const handleSubmit = useCallback(
     (event: React.FormEvent) => {
       event.preventDefault()
+      handleUserActivity()
       setShowValidation(true)
       const formErrors = validatePrivacyForm(formData)
       setValidationErrors(formErrors)
@@ -89,7 +124,7 @@ export function PrivacyForm() {
         })
       }
     },
-    [formAction, formData],
+    [formAction, formData, handleUserActivity],
   )
 
   const isFieldInvalid = useCallback(
@@ -107,18 +142,47 @@ export function PrivacyForm() {
     setSuccessMessage(state.message)
 
     const resetTimer = window.setTimeout(() => {
-      setCurrentStep(1)
-      setDirection(0)
-      setFormData(initialFormData)
-      setShowValidation(false)
-      setValidationErrors({})
-      setSuccessMessage(undefined)
+      resetForm()
     }, 4000)
 
     return () => {
       window.clearTimeout(resetTimer)
     }
-  }, [state.message, state.success])
+  }, [resetForm, state.message, state.success])
+
+  useEffect(() => {
+    if (successMessage) {
+      return
+    }
+
+    const warningTimer = window.setTimeout(() => {
+      setIdleSecondsRemaining(10)
+      setIsIdleWarningOpen(true)
+    }, 50000)
+
+    const resetTimer = window.setTimeout(() => {
+      resetForm()
+    }, 60000)
+
+    return () => {
+      window.clearTimeout(warningTimer)
+      window.clearTimeout(resetTimer)
+    }
+  }, [lastActivityAt, resetForm, successMessage])
+
+  useEffect(() => {
+    if (!isIdleWarningOpen) {
+      return
+    }
+
+    const countdownInterval = window.setInterval(() => {
+      setIdleSecondsRemaining((prev) => (prev > 0 ? prev - 1 : 0))
+    }, 1000)
+
+    return () => {
+      window.clearInterval(countdownInterval)
+    }
+  }, [isIdleWarningOpen])
 
   if (successMessage) {
     return <PrivacyFormSuccessState message={successMessage} />
@@ -216,10 +280,70 @@ export function PrivacyForm() {
               isPending={isPending}
               onBack={handleBack}
               onNext={handleNext}
+              onReset={resetForm}
             />
           </form>
         </div>
       </div>
+
+      <AlertDialog.Root open={isIdleWarningOpen} onOpenChange={setIsIdleWarningOpen}>
+        <AnimatePresence>
+          {isIdleWarningOpen && (
+            <AlertDialog.Portal forceMount>
+              <AlertDialog.Overlay asChild>
+                <motion.div
+                  key="idle-overlay"
+                  className="fixed inset-0 z-40 bg-black/40"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                />
+              </AlertDialog.Overlay>
+
+              <AlertDialog.Content asChild>
+                <motion.div
+                  key="idle-content"
+                  className="fixed left-1/2 top-1/2 z-50 w-[min(34rem,92vw)] -translate-x-1/2 -translate-y-1/2 border theme-border-primary theme-bg-primary p-6 shadow-lg"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 12 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <AlertDialog.Title className="text-lg font-medium theme-text-primary">
+                    Sitzung läuft gleich ab
+                  </AlertDialog.Title>
+                  <AlertDialog.Description className="mt-2 text-sm theme-text-secondary">
+                    Keine Eingabe erkannt. In {idleSecondsRemaining} Sekunden wird das Formular
+                    zurückgesetzt.
+                  </AlertDialog.Description>
+
+                  <div className="mt-6 flex items-center justify-end gap-3">
+                    <AlertDialog.Cancel asChild>
+                      <button
+                        type="button"
+                        onClick={resetForm}
+                        className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium border theme-border-primary theme-text-secondary hover:theme-text-primary hover:theme-bg-secondary transition-colors duration-200 rounded-none"
+                      >
+                        Jetzt zurücksetzen
+                      </button>
+                    </AlertDialog.Cancel>
+                    <AlertDialog.Action asChild>
+                      <button
+                        type="button"
+                        onClick={handleProlongSession}
+                        className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium theme-bg-dark-offset theme-text-white hover:opacity-90 transition-opacity duration-200 rounded-none"
+                      >
+                        1 Minute verlängern
+                      </button>
+                    </AlertDialog.Action>
+                  </div>
+                </motion.div>
+              </AlertDialog.Content>
+            </AlertDialog.Portal>
+          )}
+        </AnimatePresence>
+      </AlertDialog.Root>
     </div>
   )
 }

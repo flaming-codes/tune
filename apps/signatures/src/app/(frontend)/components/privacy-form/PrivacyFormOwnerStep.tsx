@@ -61,10 +61,12 @@ export function PrivacyFormOwnerStep({
             value={formData.ownerDateOfBirth}
             onChange={(e) => updateField('ownerDateOfBirth', e.target.value)}
             aria-label="Geburtsdatum Besitzer"
+            aria-invalid={isFieldInvalid('ownerDateOfBirth')}
             className="w-full sm:w-64"
-            invalid={false}
+            invalid={isFieldInvalid('ownerDateOfBirth')}
+            required
           />
-          <p className="text-sm theme-text-tertiary mt-2">Geburtsdatum</p>
+          <p className="text-sm theme-text-tertiary mt-2">Geburtsdatum *</p>
         </div>
 
         <div>
@@ -82,13 +84,16 @@ export function PrivacyFormOwnerStep({
         <div className="grid grid-cols-2 gap-6">
           <div>
             <TextField
-              type="text"
+              type="number"
               value={formData.ownerPostalCode}
               onChange={(e) => updateField('ownerPostalCode', e.target.value)}
               aria-label="Postleitzahl"
               aria-invalid={isFieldInvalid('ownerPostalCode')}
               placeholder="PLZ *"
               invalid={isFieldInvalid('ownerPostalCode')}
+              inputMode="numeric"
+              min={0}
+              step={1}
             />
           </div>
           <div>

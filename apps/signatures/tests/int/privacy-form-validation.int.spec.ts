@@ -17,6 +17,17 @@ describe('privacy form validation', () => {
     ownerDateOfBirth: '1990-01-01',
   }
 
+  const baseStepTwoData = {
+    patientName: 'Bello',
+    patientAnimalType: 'dog' as const,
+    patientBreed: 'Labrador',
+    patientColor: 'Schwarz',
+    patientGender: 'male' as const,
+    patientDateOfBirth: '2020-04-01',
+    patientWeight: '12.5',
+    patientSpecialNotes: 'Keine',
+  }
+
   it('blocks step 1 advance on invalid email', () => {
     const errors = validatePrivacyStep(
       {
@@ -55,6 +66,19 @@ describe('privacy form validation', () => {
     expect(errors).toEqual({})
   })
 
+  it('requires all fields on step 2', () => {
+    const errors = validatePrivacyStep(
+      {
+        ...initialFormData,
+        ...baseStepTwoData,
+        patientWeight: '',
+      },
+      2,
+    )
+
+    expect(errors.patientWeight).toBeDefined()
+  })
+
   it('validates complete form before submit', () => {
     const errors = validatePrivacyForm({
       ...initialFormData,
@@ -66,8 +90,7 @@ describe('privacy form validation', () => {
       ownerPhone: '+43 660 1234567',
       ownerEmail: 'max@example.com',
       ownerDateOfBirth: '1990-01-01',
-      patientName: 'Bello',
-      patientAnimalType: 'dog',
+      ...baseStepTwoData,
       signatureDataUrl: 'data:image/png;base64,abc123',
     })
 

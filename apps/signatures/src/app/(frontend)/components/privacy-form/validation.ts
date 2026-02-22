@@ -5,10 +5,17 @@ export type PrivacyStep = 1 | 2 | 3
 
 const requiredText = (label: string) => z.string().trim().min(1, `${label} ist erforderlich`)
 
-const optionalDate = z.union([
-  z.literal(''),
-  z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Ungültiges Datum'),
-])
+const requiredPostalCode = z
+  .string()
+  .trim()
+  .min(1, 'PLZ ist erforderlich')
+  .regex(/^\d{4,10}$/, 'Bitte geben Sie eine gültige PLZ ein.')
+
+const requiredWeight = z
+  .string()
+  .trim()
+  .min(1, 'Gewicht ist erforderlich')
+  .regex(/^\d+(?:[.,]\d+)?$/, 'Bitte geben Sie ein gültiges Gewicht ein.')
 
 const requiredDate = (label: string) =>
   z
@@ -36,7 +43,7 @@ const basePrivacySchema = z.object({
   ownerTitle: z.string(),
   ownerDateOfBirth: requiredDate('Geburtsdatum'),
   ownerStreet: requiredText('Straße/Hausnummer'),
-  ownerPostalCode: requiredText('PLZ'),
+  ownerPostalCode: requiredPostalCode,
   ownerCity: requiredText('Ort'),
   ownerPhone: optionalPhone.pipe(requiredText('Telefon')),
   ownerEmail: optionalEmail,
@@ -45,12 +52,14 @@ const basePrivacySchema = z.object({
   patientAnimalType: z.enum(['dog', 'cat', 'other'], {
     error: 'Tierart ist erforderlich',
   }),
-  patientBreed: z.string(),
-  patientColor: z.string(),
-  patientGender: z.union([z.literal(''), z.enum(['male', 'female', 'neutered'])]),
-  patientDateOfBirth: optionalDate,
-  patientWeight: z.string(),
-  patientSpecialNotes: z.string(),
+  patientBreed: requiredText('Rasse'),
+  patientColor: requiredText('Farbe'),
+  patientGender: z.enum(['male', 'female', 'neutered'], {
+    error: 'Geschlecht ist erforderlich',
+  }),
+  patientDateOfBirth: requiredDate('Geburtsdatum'),
+  patientWeight: requiredWeight,
+  patientSpecialNotes: requiredText('Besondere Hinweise'),
 
   signatureDataUrl: z
     .string()
@@ -73,6 +82,12 @@ const stepSchemas: Record<PrivacyStep, z.ZodTypeAny> = {
   2: basePrivacySchema.pick({
     patientName: true,
     patientAnimalType: true,
+    patientBreed: true,
+    patientColor: true,
+    patientGender: true,
+    patientDateOfBirth: true,
+    patientWeight: true,
+    patientSpecialNotes: true,
   }),
   3: basePrivacySchema.pick({
     signatureDataUrl: true,
