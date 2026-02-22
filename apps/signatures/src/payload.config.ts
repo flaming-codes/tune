@@ -23,6 +23,28 @@ export default buildConfig({
     livePreview: {
       url: envClient.NEXT_PUBLIC_SITE_URL,
     },
+    meta: {
+      titleSuffix: '- Tune Lazri',
+      icons: [
+        {
+          rel: 'icon',
+          type: 'image/png',
+          url: '/favicon-32x32.png',
+        },
+      ],
+    },
+    components: {
+      graphics: {
+        Logo: '/components/Logo#Logo',
+      },
+      views: {
+        // Keep the Network Info view at /admin/network-info as a standalone page
+        'network-info': {
+          Component: '/components/LocalIpWidget',
+          path: '/network-info',
+        },
+      },
+    },
     dashboard: {
       // Define the default layout - network info widget first, then collections
       defaultLayout: ({ req: _req }) => [
@@ -37,15 +59,6 @@ export default buildConfig({
           maxWidth: 'full',
         },
       ],
-    },
-    components: {
-      views: {
-        // Keep the Network Info view at /admin/network-info as a standalone page
-        'network-info': {
-          Component: '/components/LocalIpWidget',
-          path: '/network-info',
-        },
-      },
     },
   },
   collections: [Users, PrivacyAcknowledgments, ScreensaverImages],

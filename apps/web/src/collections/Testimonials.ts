@@ -48,7 +48,6 @@ export const Testimonials: CollectionConfig = {
       name: 'reviewDate',
       type: 'date',
       required: true,
-      defaultValue: new Date().toISOString(),
       label: 'Bewertungsdatum',
       admin: {
         description:

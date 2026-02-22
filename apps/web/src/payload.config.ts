@@ -10,6 +10,7 @@ import { Media } from './collections/Media'
 import { TeamMembers } from './collections/TeamMembers'
 import { GalleryImages } from './collections/GalleryImages'
 import { Testimonials } from './collections/Testimonials'
+import { AnalyticsEvents } from './collections/AnalyticsEvents'
 import { StartPage } from './globals/StartPage'
 import { ImprintPage } from './globals/ImprintPage'
 import { PrivacyPolicyPage } from './globals/PrivacyPolicyPage'
@@ -30,8 +31,65 @@ export default buildConfig({
     livePreview: {
       url: envClient.NEXT_PUBLIC_SITE_URL,
     },
+    meta: {
+      titleSuffix: '- Tune Lazri',
+      icons: [
+        {
+          rel: 'icon',
+          type: 'image/png',
+          url: '/favicon-32x32.png',
+        },
+      ],
+    },
+    components: {
+      graphics: {
+        Logo: '/components/Logo#Logo',
+      },
+    },
+    dashboard: {
+      defaultLayout: ({ req: _req }) => [
+        { widgetSlug: 'collections', width: 'full' },
+        { widgetSlug: 'analytics-section-title', width: 'full' },
+        { widgetSlug: 'analytics-events-total', width: 'medium' },
+        { widgetSlug: 'analytics-page-views', width: 'medium' },
+        { widgetSlug: 'analytics-track-events', width: 'medium' },
+        { widgetSlug: 'analytics-top-pages', width: 'full' },
+      ],
+      widgets: [
+        {
+          slug: 'analytics-section-title',
+          ComponentPath: '/components/AnalyticsWidgets/AnalyticsSectionTitleWidget#default',
+          minWidth: 'full',
+          maxWidth: 'full',
+        },
+        {
+          slug: 'analytics-events-total',
+          ComponentPath: '/components/AnalyticsWidgets/AllEventsWidget#default',
+          minWidth: 'small',
+          maxWidth: 'full',
+        },
+        {
+          slug: 'analytics-page-views',
+          ComponentPath: '/components/AnalyticsWidgets/PageViewsWidget#default',
+          minWidth: 'small',
+          maxWidth: 'full',
+        },
+        {
+          slug: 'analytics-track-events',
+          ComponentPath: '/components/AnalyticsWidgets/TrackEventsWidget#default',
+          minWidth: 'small',
+          maxWidth: 'full',
+        },
+        {
+          slug: 'analytics-top-pages',
+          ComponentPath: '/components/AnalyticsWidgets/TopPagesWidget#default',
+          minWidth: 'medium',
+          maxWidth: 'full',
+        },
+      ],
+    },
   },
-  collections: [Users, Media, TeamMembers, GalleryImages, Testimonials],
+  collections: [Users, Media, TeamMembers, GalleryImages, Testimonials, AnalyticsEvents],
   globals: [StartPage, ImprintPage, PrivacyPolicyPage],
   editor: lexicalEditor(),
   secret: envServer.PAYLOAD_SECRET,

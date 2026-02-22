@@ -1,7 +1,9 @@
 'use client'
 
 import { useActionState } from 'react'
+import type { FormEvent } from 'react'
 import { submitContactForm, type ContactFormState } from '../actions/contact'
+import { trackEvent } from '@/lib/analytics/client'
 
 const initialState: ContactFormState = {
   message: '',
@@ -19,6 +21,15 @@ interface ContactFormSectionProps {
 export function ContactFormSection({ content }: ContactFormSectionProps) {
   const [state, formAction, isPending] = useActionState(submitContactForm, initialState)
 
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(event.currentTarget)
+    const subject = formData.get('subject')
+
+    trackEvent('contact_form_submit_attempt', {
+      subject: typeof subject === 'string' ? subject : undefined,
+    })
+  }
+
   return (
     <section id="anfrage" className="py-24 lg:py-36 theme-bg-primary">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -35,7 +46,7 @@ export function ContactFormSection({ content }: ContactFormSectionProps) {
 
         {/* Form - Left aligned, max width constraint */}
         <div className="max-w-3xl">
-          <form action={formAction} className="space-y-8">
+          <form action={formAction} onSubmit={handleSubmit} className="space-y-8">
             {/* Name & Email Row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {/* Name Field */}

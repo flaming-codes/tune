@@ -156,12 +156,18 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.2.0
         version: 4.2.0
+      analytics:
+        specifier: ^0.8.19
+        version: 0.8.19(@types/dlv@1.1.5)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
       cross-env:
         specifier: ^10.1.0
         version: 10.1.0
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
       dotenv:
         specifier: 17.3.1
         version: 17.3.1
@@ -274,6 +280,27 @@ packages:
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
+
+  '@analytics/cookie-utils@0.2.14':
+    resolution: {integrity: sha512-x51x2cLqvP5Fb1ydgNvTCX+SVv0ALK/yTNwp/53++yk4kLhxb850krWtQ4aASN0612oXrIGotwfmdJIttnLiPQ==}
+
+  '@analytics/core@0.13.2':
+    resolution: {integrity: sha512-ejvfoPP8TEh2hA2szMEq9c4TdeX8FAeY1j/7MxJVZjzDaq8BDHOyaAAQzTFiLMHvV0WcU2YC0smJ5Ids5Ll5ng==}
+
+  '@analytics/global-storage-utils@0.1.9':
+    resolution: {integrity: sha512-+xm6CDnWsVOQIKkqbPRPRdYDXKk3PNgr/bCZWSI+7tEDT5PCDgI0QSBZe+FqCVkCRtTkgOrjFOY7wOM8Gq+ndA==}
+
+  '@analytics/localstorage-utils@0.1.12':
+    resolution: {integrity: sha512-BL3vuZUwWgMqdkQsE0GKsED5SPLC6daI4K4LE0a/BkKv+4Cae5JLLqpO5gju2HUGOjJxIvw8U/G5EcglNY5+1w==}
+
+  '@analytics/session-storage-utils@0.0.9':
+    resolution: {integrity: sha512-fhP9QCpyq45rZKsXaAxyz+VTmOUWljIW08CWSkFzpwOHkDM4Xy5tymc1YcWqSBBaLjHldo3HlY4qfqEIS4Aj1A==}
+
+  '@analytics/storage-utils@0.4.4':
+    resolution: {integrity: sha512-873P4wDIunbOnBqADc2AhTVsLbluUv1dP6k9UrK8FIeV8WXv5+fG12HdwwaniUIxq6QLgZJfKEaCwtWSKrrV0g==}
+
+  '@analytics/type-utils@0.6.4':
+    resolution: {integrity: sha512-Ou1gQxFakOWLcPnbFVsrPb8g1wLLUZYYJXDPjHkG07+5mustGs5yqACx42UAu4A6NszNN6Z5gGxhyH45zPWRxw==}
 
   '@apidevtools/json-schema-ref-parser@11.9.3':
     resolution: {integrity: sha512-60vepv88RwcJtSHrD6MjIL6Ta3SOYbgfnkHb+ppAVK+o9mXprRtulx7VlRl3lN3bbvysAfCS7WMVfhUYemB0IQ==}
@@ -2017,6 +2044,9 @@ packages:
   '@types/deep-eql@4.0.2':
     resolution: {integrity: sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw==}
 
+  '@types/dlv@1.1.5':
+    resolution: {integrity: sha512-JHOWNfiWepAhfwlSw17kiWrWrk6od2dEQgHltJw9AS0JPFoLZJBge5+Dnil2NfdjAvJ/+vGSX60/BRW20PpUXw==}
+
   '@types/estree-jsx@1.0.5':
     resolution: {integrity: sha512-52CcUVNFyfb1A2ALocQw/Dd1BQFNmSdkuC3BkZ6iqhdMfQz7JWOFRuJFloOzjk+6WijU56m9oKXFAXc7o3Towg==}
 
@@ -2300,6 +2330,14 @@ packages:
 
   ajv@8.17.1:
     resolution: {integrity: sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g==}
+
+  analytics-utils@1.1.1:
+    resolution: {integrity: sha512-nRybjTpRAcHVhWb1cvYaOLJaI3R79r8XjMbu5c0wd2jKmANNqSrYwybiU0X3mp+CQQdm4YiAggTXb2cIA8XhUg==}
+    peerDependencies:
+      '@types/dlv': ^1.0.0
+
+  analytics@0.8.19:
+    resolution: {integrity: sha512-JFgasxpWFiAoqm5UHaGQv9j9OGz+f1KAeQkABYr3Z7YGhiqhQrBpPhIVAIEyttBRJZmew1QwMhN9/bOGGBnpJA==}
 
   ansi-regex@5.0.1:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
@@ -2649,6 +2687,9 @@ packages:
 
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
+
+  dlv@1.1.3:
+    resolution: {integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==}
 
   doctrine@2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
@@ -4912,6 +4953,40 @@ snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
 
+  '@analytics/cookie-utils@0.2.14':
+    dependencies:
+      '@analytics/global-storage-utils': 0.1.9
+
+  '@analytics/core@0.13.2(@types/dlv@1.1.5)':
+    dependencies:
+      '@analytics/global-storage-utils': 0.1.9
+      '@analytics/type-utils': 0.6.4
+      analytics-utils: 1.1.1(@types/dlv@1.1.5)
+    transitivePeerDependencies:
+      - '@types/dlv'
+
+  '@analytics/global-storage-utils@0.1.9':
+    dependencies:
+      '@analytics/type-utils': 0.6.4
+
+  '@analytics/localstorage-utils@0.1.12':
+    dependencies:
+      '@analytics/global-storage-utils': 0.1.9
+
+  '@analytics/session-storage-utils@0.0.9':
+    dependencies:
+      '@analytics/global-storage-utils': 0.1.9
+
+  '@analytics/storage-utils@0.4.4':
+    dependencies:
+      '@analytics/cookie-utils': 0.2.14
+      '@analytics/global-storage-utils': 0.1.9
+      '@analytics/localstorage-utils': 0.1.12
+      '@analytics/session-storage-utils': 0.0.9
+      '@analytics/type-utils': 0.6.4
+
+  '@analytics/type-utils@0.6.4': {}
+
   '@apidevtools/json-schema-ref-parser@11.9.3':
     dependencies:
       '@jsdevtools/ono': 7.1.3
@@ -6582,6 +6657,8 @@ snapshots:
 
   '@types/deep-eql@4.0.2': {}
 
+  '@types/dlv@1.1.5': {}
+
   '@types/estree-jsx@1.0.5':
     dependencies:
       '@types/estree': 1.0.8
@@ -6872,6 +6949,19 @@ snapshots:
       fast-uri: 3.1.0
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
+
+  analytics-utils@1.1.1(@types/dlv@1.1.5):
+    dependencies:
+      '@analytics/type-utils': 0.6.4
+      '@types/dlv': 1.1.5
+      dlv: 1.1.3
+
+  analytics@0.8.19(@types/dlv@1.1.5):
+    dependencies:
+      '@analytics/core': 0.13.2(@types/dlv@1.1.5)
+      '@analytics/storage-utils': 0.4.4
+    transitivePeerDependencies:
+      - '@types/dlv'
 
   ansi-regex@5.0.1: {}
 
@@ -7225,6 +7315,8 @@ snapshots:
   devlop@1.1.0:
     dependencies:
       dequal: 2.0.3
+
+  dlv@1.1.3: {}
 
   doctrine@2.1.0:
     dependencies:
