@@ -16,8 +16,6 @@
 pre-commit:
   parallel: false
   commands:
-    format:
-      run: pnpm --filter web format && git add -A
     lint:
       run: pnpm --filter web lint
 
