@@ -580,7 +580,10 @@ export interface SiteSetting {
   };
   quote: {
     text: string;
-    author?: string | null;
+    /**
+     * Wählen Sie ein Teammitglied als Autor des Zitats aus
+     */
+    author?: (number | null) | TeamMember;
   };
   seo: {
     title: string;

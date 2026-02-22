@@ -261,9 +261,12 @@ export const SiteSettings: GlobalConfig = {
         },
         {
           name: 'author',
-          type: 'text',
-          defaultValue: 'Dr. Tune Lazri',
+          type: 'relationship',
+          relationTo: 'team-members',
           label: 'Autor',
+          admin: {
+            description: 'Wählen Sie ein Teammitglied als Autor des Zitats aus',
+          },
         },
       ],
     },

@@ -3,6 +3,7 @@
 import { useRef, type FC, type ReactNode } from 'react'
 import { motion, useScroll, useTransform, type MotionValue } from 'motion/react'
 import { cn } from '@/lib/utils'
+import type { TeamMember } from '@/payload-types'
 
 interface WordProps {
   children: ReactNode
@@ -32,7 +33,7 @@ const Word: FC<WordProps> = ({ children, progress, range }) => {
 interface QuoteProps {
   quote: {
     text: string
-    author?: string | null
+    author?: TeamMember | number | null
   }
 }
 
@@ -40,7 +41,7 @@ export function Quote({ quote }: QuoteProps) {
   const targetRef = useRef<HTMLDivElement | null>(null)
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ['start end', 'end start'],
+    offset: ['start 45%', 'end 75%'],
   })
 
   const words = quote.text?.split(' ') ?? []
@@ -66,7 +67,7 @@ export function Quote({ quote }: QuoteProps) {
             <p
               className={cn(
                 'text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight',
-                'flex flex-wrap justify-center'
+                'flex flex-wrap justify-center',
               )}
             >
               {words.map((word, i) => {
@@ -84,7 +85,9 @@ export function Quote({ quote }: QuoteProps) {
             {quote.author && (
               <footer className="mt-12">
                 <cite className="not-italic text-sm tracking-wide-custom uppercase theme-text-muted">
-                  — {quote.author}
+                  {typeof quote.author === 'object'
+                    ? quote.author.name
+                    : `Teammitglied #${quote.author}`}
                 </cite>
               </footer>
             )}

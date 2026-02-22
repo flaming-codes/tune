@@ -1594,13 +1594,12 @@
           "autoincrement": false,
           "default": "'Die Liebe zu Tieren ist eine der edelsten Eigenschaften des menschlichen Herzens. Jeder Tierarzt trägt die Verantwortung, diese Liebe mit Wissen, Mitgefühl und Hingabe zu ehren.'"
         },
-        "quote_author": {
-          "name": "quote_author",
-          "type": "text",
+        "quote_author_id": {
+          "name": "quote_author_id",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
-          "default": "'Dr. Tune Lazri'"
+          "autoincrement": false
         },
         "seo_title": {
           "name": "seo_title",
@@ -1638,6 +1637,11 @@
           "name": "site_settings_hero_hero_hero_image_idx",
           "columns": ["hero_hero_image_id"],
           "isUnique": false
+        },
+        "site_settings_quote_quote_author_idx": {
+          "name": "site_settings_quote_quote_author_idx",
+          "columns": ["quote_author_id"],
+          "isUnique": false
         }
       },
       "foreignKeys": {
@@ -1646,6 +1650,15 @@
           "tableFrom": "site_settings",
           "tableTo": "media",
           "columnsFrom": ["hero_hero_image_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "site_settings_quote_author_id_team_members_id_fk": {
+          "name": "site_settings_quote_author_id_team_members_id_fk",
+          "tableFrom": "site_settings",
+          "tableTo": "team_members",
+          "columnsFrom": ["quote_author_id"],
           "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
@@ -1665,6 +1678,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "2a0bc8ff-ffcb-433d-96d1-0b3691f3cbbe",
+  "id": "1d1d5496-5258-489c-a0b0-2b1fcab9b123",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }
