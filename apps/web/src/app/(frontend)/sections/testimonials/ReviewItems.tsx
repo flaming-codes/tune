@@ -34,7 +34,15 @@ export function FloatingReviewItem({
   return (
     <motion.blockquote
       className="w-48 sm:w-52 p-4 theme-bg-secondary pointer-events-none shadow-[0_20px_40px_rgba(15,23,42,0.15)]"
-      transition={{ duration: reduceMotion ? 0.2 : 0.5, ease: 'easeOut' }}
+      transition={
+        reduceMotion
+          ? { duration: 0.2 }
+          : {
+              type: 'spring',
+              stiffness: 300,
+              damping: 15,
+            }
+      }
     >
       <p className="text-base sm:text-lg leading-snug theme-text-primary text-center">
         {truncatedText}
