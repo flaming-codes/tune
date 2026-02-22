@@ -32,14 +32,14 @@ export function SignaturePad({ value, onChange, error, disabled }: SignaturePadP
     <div className={clsx('space-y-3', disabled && 'opacity-50 pointer-events-none')}>
       <div
         className={clsx(
-          'relative border rounded-lg overflow-hidden bg-white',
-          error ? 'border-red-500' : 'border-gray-200',
+          'relative border bg-white transition-colors',
+          error ? 'border-red-300' : 'border-neutral-200',
         )}
       >
         <SignatureCanvas
           ref={canvasRef}
           canvasProps={{
-            className: 'w-full h-48 cursor-crosshair touch-none',
+            className: 'w-full h-40 cursor-crosshair touch-none',
             'aria-label': 'Unterschrift',
           }}
           onEnd={handleEnd}
@@ -50,7 +50,7 @@ export function SignaturePad({ value, onChange, error, disabled }: SignaturePadP
         {/* Hint text */}
         {!value && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <span className="text-gray-400 text-sm">Hier unterschreiben</span>
+            <span className="text-neutral-300 text-sm tracking-wide">Hier unterschreiben</span>
           </div>
         )}
       </div>
@@ -61,15 +61,15 @@ export function SignaturePad({ value, onChange, error, disabled }: SignaturePadP
           type="button"
           onClick={handleClear}
           disabled={disabled}
-          className="text-sm theme-text-secondary hover:theme-text-primary transition-colors link-underline disabled:opacity-50"
+          className="text-xs theme-text-tertiary hover:theme-text-secondary transition-colors uppercase tracking-wide disabled:opacity-50"
         >
           Zurücksetzen
         </button>
 
         {value && (
-          <span className="text-xs theme-text-tertiary flex items-center gap-1">
+          <span className="text-xs theme-text-tertiary flex items-center gap-1.5">
             <svg
-              className="w-4 h-4 text-green-500"
+              className="w-3.5 h-3.5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -77,16 +77,14 @@ export function SignaturePad({ value, onChange, error, disabled }: SignaturePadP
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
+                strokeWidth={1.5}
                 d="M5 13l4 4L19 7"
               />
             </svg>
-            Unterschrift erfasst
+            Erfasst
           </span>
         )}
       </div>
-
-      {error && <p className="text-xs text-red-500">{error}</p>}
     </div>
   )
 }

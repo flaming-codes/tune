@@ -1,0 +1,9 @@
+.link-highlight {
+  padding-bottom: 0.25rem;
+  display: inline-flex;
+}
+
+.link-highlight-stack {
+  flex-direction: column;
+  align-items: flex-start;
+}

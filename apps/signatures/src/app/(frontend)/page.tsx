@@ -4,27 +4,26 @@ import { PrivacyForm } from './components/PrivacyForm'
 export const metadata: Metadata = {
   title: 'Datenschutzerklärung | Tierarztpraxis Dr. Tune Lazri',
   description:
-    'Digitale Datenschutzerklärung für Patienten der Tierarztpraxis Dr. Tune Lazri. Bitte füllen Sie das Formular aus und unterschreiben Sie elektronisch.',
+    'Digitale Datenschutzerklärung für Patienten der Tierarztpraxis Dr. Tune Lazri.',
 }
 
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen py-16 lg:py-24">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 lg:mb-16">
-          <p className="text-sm tracking-wide-custom uppercase theme-text-tertiary mb-4">
+      {/* Header */}
+      <div className="max-w-5xl mx-auto px-6 lg:px-12 mb-16 lg:mb-24">
+        <div className="max-w-xl">
+          <p className="text-xs tracking-wide theme-text-tertiary uppercase mb-4">
             Tierarztpraxis Dr. Tune Lazri
           </p>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight mb-6">
+          <h1 className="text-2xl sm:text-3xl font-medium tracking-tight-custom leading-tight">
             Datenschutzerklärung
           </h1>
-          <p className="text-lg theme-text-secondary leading-relaxed">
-            Zur Aufnahme in die Kartei benötigen wir folgende Angaben zu Ihnen und Ihrem Tier.
-          </p>
         </div>
+      </div>
 
-        {/* Form */}
+      {/* Form */}
+      <div className="max-w-5xl mx-auto px-6 lg:px-12">
         <PrivacyForm />
       </div>
     </main>

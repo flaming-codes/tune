@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import '@med/theme/global.css'
+import './link-underline.css'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({

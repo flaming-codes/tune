@@ -204,7 +204,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
                       href={link.href}
                       className="text-sm theme-text-secondary hover:theme-text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--accent-primary) px-1 -mx-1"
                     >
-                      <span className="link-underline">{link.label}</span>
+                      <span className="link-underline link-highlight">{link.label}</span>
                     </Link>
                   </NavigationMenu.Link>
                 </NavigationMenu.Item>
@@ -213,7 +213,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
               {overflowDesktopLinks.length > 0 ? (
                 <NavigationMenu.Item value="more">
                   <NavigationMenu.Trigger className="group inline-flex items-center gap-2 text-sm theme-text-secondary hover:theme-text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--accent-primary) px-1 -mx-1">
-                    <span className="link-underline">Mehr</span>
+                    <span className="link-underline link-highlight">Mehr</span>
                     <motion.span
                       aria-hidden="true"
                       animate={{ rotate: desktopMenuValue === 'more' ? 180 : 0 }}
@@ -237,7 +237,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
                             <NavigationMenu.Link asChild>
                               <Link
                                 href={link.href}
-                                className="block px-3 py-2 text-sm theme-text-secondary hover:theme-text-primary transition-colors duration-200"
+                                className="block px-3 py-2 text-sm theme-text-secondary hover:theme-text-primary transition-colors duration-200 link-underline link-highlight"
                                 onClick={() => setDesktopMenuValue('')}
                               >
                                 {link.label}
@@ -344,7 +344,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
                         <Link
                           href={link.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-lg theme-text-secondary hover:theme-text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--accent-primary) px-2 py-2 -mx-2"
+                          className="block text-lg theme-text-secondary hover:theme-text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--accent-primary) px-2 py-2 -mx-2 link-underline link-highlight"
                         >
                           {link.label}
                         </Link>
