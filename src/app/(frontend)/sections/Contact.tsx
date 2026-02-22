@@ -33,7 +33,7 @@ export function Contact({ contact }: ContactProps) {
               <h3 className="text-sm font-medium uppercase tracking-wide-custom theme-text-tertiary mb-3">
                 Adresse
               </h3>
-              <address className="not-italic theme-text-secondary leading-relaxed">
+              <address className="not-italic theme-text-primary leading-relaxed">
                 <p>{address.street}</p>
                 <p>{address.additional}</p>
                 <p>{address.city}</p>
@@ -49,7 +49,7 @@ export function Contact({ contact }: ContactProps) {
                 <p>
                   <a
                     href={`tel:${phone.replace(/\s/g, '')}`}
-                    className="theme-text-secondary hover:theme-text-primary transition-colors link-underline"
+                    className="theme-text-primary hover:theme-text-secondary transition-colors link-underline"
                   >
                     {phone}
                   </a>
@@ -57,7 +57,7 @@ export function Contact({ contact }: ContactProps) {
                 <p>
                   <a
                     href={`mailto:${email}`}
-                    className="theme-text-secondary hover:theme-text-primary transition-colors link-underline"
+                    className="theme-text-primary hover:theme-text-secondary transition-colors link-underline"
                   >
                     {email}
                   </a>
@@ -70,7 +70,7 @@ export function Contact({ contact }: ContactProps) {
               <h3 className="text-sm font-medium uppercase tracking-wide-custom theme-text-tertiary mb-3">
                 Sprechzeiten
               </h3>
-              <p className="theme-text-secondary leading-relaxed">
+              <p className="theme-text-primary leading-relaxed">
                 Mo–Fr: 09:00 – 12:00
                 <br />
                 Nachmittags nach Vereinbarung
@@ -82,7 +82,7 @@ export function Contact({ contact }: ContactProps) {
               <h3 className="text-sm font-medium uppercase tracking-wide-custom theme-text-tertiary mb-3">
                 Anfahrt
               </h3>
-              <p className="text-sm theme-text-secondary leading-relaxed mb-3">
+              <p className="text-sm theme-text-primary leading-relaxed mb-3">
                 Unsere Praxis befindet sich im Einkaufszentrum B7 an der Brünnerstraße.
                 Parkmöglichkeiten sind direkt vor dem Eingang vorhanden.
               </p>
