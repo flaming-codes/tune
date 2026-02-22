@@ -30,7 +30,7 @@ export function PrivacyFormFooterNavigation({
         <button
           type="button"
           onClick={onNext}
-          className="inline-flex items-center justify-center px-6 py-2 theme-bg-dark theme-text-inverse text-sm font-medium hover:opacity-90 transition-opacity duration-200 rounded-none"
+          className="inline-flex items-center justify-center px-6 py-2 theme-bg-dark-offset theme-text-white text-sm font-medium hover:opacity-90 transition-opacity duration-200 rounded-none"
         >
           Weiter
         </button>
@@ -38,7 +38,7 @@ export function PrivacyFormFooterNavigation({
         <button
           type="submit"
           disabled={isPending}
-          className="inline-flex items-center justify-center px-6 py-2 theme-bg-dark theme-text-inverse text-sm font-medium hover:opacity-90 transition-opacity duration-200 rounded-none disabled:opacity-50"
+          className="inline-flex items-center justify-center px-6 py-2 theme-bg-dark-offset theme-text-white text-sm font-medium hover:opacity-90 transition-opacity duration-200 rounded-none disabled:opacity-50"
         >
           {isPending ? (
             <>
