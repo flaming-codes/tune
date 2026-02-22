@@ -7,6 +7,7 @@ import { Navigation } from './components/Navigation'
 import { Hero } from './sections/Hero'
 import { Services } from './sections/Services'
 import { Testimonials } from './sections/Testimonials'
+import { Quote } from './sections/Quote'
 import { Gallery } from './sections/Gallery'
 import { Team } from './sections/Team'
 import { Hours } from './sections/Hours'
@@ -82,6 +83,7 @@ export default async function HomePage() {
       <main>
         <Hero hero={siteSettings.hero} />
         <Services />
+        <Quote quote={siteSettings.quote} />
         <Testimonials testimonials={testimonials} />
         <Gallery images={galleryImages} />
         <Team members={teamMembers} />

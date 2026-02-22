@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { motion, AnimatePresence, type Variants, type Easing } from 'motion/react'
+import { cn } from '@/lib/utils'
 
 interface NavLink {
   label: string
@@ -138,9 +139,10 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
     >
       {/* Animated background layer handling all visual transitions */}
       <motion.div
-        className={`absolute inset-0 -z-10 border-b backdrop-blur-lg ${
-          isMobileMenuOpen ? 'theme-bg-primary' : 'theme-bg-primary-glass'
-        } border-neutral-200/20 dark:border-neutral-800/20 opacity-100`}
+        className={cn(
+          'absolute inset-0 -z-10 border-b backdrop-blur-lg border-neutral-200/20 dark:border-neutral-800/20 opacity-100',
+          isMobileMenuOpen ? 'theme-bg-primary' : 'theme-bg-primary-glass',
+        )}
         initial={false}
         transition={{ duration: 0.3, ease: easeOut }}
       />
@@ -153,7 +155,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
             {/* Logo */}
             <Link
               href="/"
-              className="text-sm font-medium tracking-tight-custom theme-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-primary)] rounded"
+              className="text-sm font-medium tracking-tight-custom theme-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--accent-primary) rounded"
             >
               {practiceName}
             </Link>
@@ -165,7 +167,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
                   <NavigationMenu.Link asChild>
                     <Link
                       href={link.href}
-                      className="text-sm theme-text-secondary hover:theme-text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-primary)] rounded px-1 -mx-1"
+                      className="text-sm theme-text-secondary hover:theme-text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--accent-primary) rounded px-1 -mx-1"
                     >
                       <span className="link-underline">{link.label}</span>
                     </Link>
@@ -177,7 +179,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
             {/* Phone CTA */}
             <a
               href={`tel:${phone.replace(/\s/g, '')}`}
-              className="hidden md:flex items-center gap-2 text-sm font-medium theme-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-primary)] rounded px-2 -mx-2"
+              className="hidden md:flex items-center gap-2 text-sm font-medium theme-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--accent-primary) rounded px-2 -mx-2"
               aria-label={`Anrufen: ${phone}`}
             >
               <span>{phone}</span>
@@ -188,7 +190,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
               <NavigationMenu.Trigger asChild>
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="p-2 theme-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-primary)] rounded"
+                  className="p-2 theme-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--accent-primary) rounded"
                   aria-label={isMobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
                   aria-expanded={isMobileMenuOpen}
                   aria-controls="mobile-menu"
@@ -241,7 +243,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
                 {/* Menu Panel - z-40 below navbar (z-50) */}
                 <motion.div
                   id="mobile-menu"
-                  className="md:hidden fixed left-0 right-0 top-[65px] theme-bg-primary border-t theme-border-primary z-40 shadow-lg"
+                  className="md:hidden fixed left-0 right-0 top-16.25 theme-bg-primary border-t theme-border-primary z-40 shadow-lg"
                   variants={menuVariants}
                   initial="closed"
                   animate="open"
@@ -266,7 +268,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
                         <Link
                           href={link.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-lg theme-text-secondary hover:theme-text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-primary)] rounded px-2 py-2 -mx-2"
+                          className="block text-lg theme-text-secondary hover:theme-text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--accent-primary) rounded px-2 py-2 -mx-2"
                         >
                           {link.label}
                         </Link>
@@ -278,7 +280,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
                     >
                       <a
                         href={`tel:${phone.replace(/\s/g, '')}`}
-                        className="block text-lg font-medium theme-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-primary)] rounded px-2 py-2 -mx-2"
+                        className="block text-lg font-medium theme-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--accent-primary) rounded px-2 py-2 -mx-2"
                         onClick={() => setIsMobileMenuOpen(false)}
                         aria-label={`Anrufen: ${phone}`}
                       >

@@ -578,6 +578,10 @@ export interface SiteSetting {
     tagline: string;
     copyright: string;
   };
+  quote: {
+    text: string;
+    author?: string | null;
+  };
   seo: {
     title: string;
     description: string;
@@ -646,6 +650,12 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | {
         tagline?: T;
         copyright?: T;
+      };
+  quote?:
+    | T
+    | {
+        text?: T;
+        author?: T;
       };
   seo?:
     | T
