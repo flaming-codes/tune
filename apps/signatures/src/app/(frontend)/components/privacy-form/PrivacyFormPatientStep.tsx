@@ -105,14 +105,20 @@ export function PrivacyFormPatientStep({
             <p className="text-sm theme-text-tertiary mt-2">Geburtsdatum</p>
           </div>
           <div>
-            <TextField
-              type="text"
-              value={formData.patientWeight}
-              onChange={(e) => updateField('patientWeight', e.target.value)}
-              aria-label="Gewicht"
-              placeholder="Gewicht"
-              invalid={false}
-            />
+            <div className="relative">
+              <TextField
+                type="text"
+                value={formData.patientWeight}
+                onChange={(e) => updateField('patientWeight', e.target.value)}
+                aria-label="Gewicht"
+                placeholder="Gewicht"
+                invalid={false}
+                className="pr-12"
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium theme-text-tertiary">
+                kg
+              </span>
+            </div>
           </div>
         </div>
 

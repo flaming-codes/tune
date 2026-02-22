@@ -10,6 +10,13 @@ const optionalDate = z.union([
   z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Ungültiges Datum'),
 ])
 
+const requiredDate = (label: string) =>
+  z
+    .string()
+    .trim()
+    .min(1, `${label} ist erforderlich`)
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Ungültiges Datum')
+
 const optionalEmail = z.union([
   z.literal(''),
   z.string().trim().email('Bitte geben Sie eine gültige E-Mail-Adresse ein.'),
@@ -27,7 +34,7 @@ const basePrivacySchema = z.object({
   ownerLastName: requiredText('Nachname'),
   ownerFirstName: requiredText('Vorname'),
   ownerTitle: z.string(),
-  ownerDateOfBirth: optionalDate,
+  ownerDateOfBirth: requiredDate('Geburtsdatum'),
   ownerStreet: requiredText('Straße/Hausnummer'),
   ownerPostalCode: requiredText('PLZ'),
   ownerCity: requiredText('Ort'),
@@ -61,6 +68,7 @@ const stepSchemas: Record<PrivacyStep, z.ZodTypeAny> = {
     ownerCity: true,
     ownerPhone: true,
     ownerEmail: true,
+    ownerDateOfBirth: true,
   }),
   2: basePrivacySchema.pick({
     patientName: true,

@@ -6,16 +6,22 @@ import {
 } from '@/app/(frontend)/components/privacy-form/validation'
 
 describe('privacy form validation', () => {
+  const baseStepOneData = {
+    ownerLastName: 'Mustermann',
+    ownerFirstName: 'Max',
+    ownerStreet: 'Musterstraße 1',
+    ownerPostalCode: '1010',
+    ownerCity: 'Wien',
+    ownerPhone: '+43 660 1234567',
+    ownerEmail: 'max@example.com',
+    ownerDateOfBirth: '1990-01-01',
+  }
+
   it('blocks step 1 advance on invalid email', () => {
     const errors = validatePrivacyStep(
       {
         ...initialFormData,
-        ownerLastName: 'Mustermann',
-        ownerFirstName: 'Max',
-        ownerStreet: 'Musterstraße 1',
-        ownerPostalCode: '1010',
-        ownerCity: 'Wien',
-        ownerPhone: '+43 660 1234567',
+        ...baseStepOneData,
         ownerEmail: 'invalid-email',
       },
       1,
@@ -24,17 +30,24 @@ describe('privacy form validation', () => {
     expect(errors.ownerEmail).toBeDefined()
   })
 
+  it('requires date of birth on step 1', () => {
+    const errors = validatePrivacyStep(
+      {
+        ...initialFormData,
+        ...baseStepOneData,
+        ownerDateOfBirth: '',
+      },
+      1,
+    )
+
+    expect(errors.ownerDateOfBirth).toBeDefined()
+  })
+
   it('accepts valid step 1 data', () => {
     const errors = validatePrivacyStep(
       {
         ...initialFormData,
-        ownerLastName: 'Mustermann',
-        ownerFirstName: 'Max',
-        ownerStreet: 'Musterstraße 1',
-        ownerPostalCode: '1010',
-        ownerCity: 'Wien',
-        ownerPhone: '+43 660 1234567',
-        ownerEmail: 'max@example.com',
+        ...baseStepOneData,
       },
       1,
     )
@@ -52,6 +65,7 @@ describe('privacy form validation', () => {
       ownerCity: 'Wien',
       ownerPhone: '+43 660 1234567',
       ownerEmail: 'max@example.com',
+      ownerDateOfBirth: '1990-01-01',
       patientName: 'Bello',
       patientAnimalType: 'dog',
       signatureDataUrl: 'data:image/png;base64,abc123',
