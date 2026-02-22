@@ -4,6 +4,8 @@ import config from '@payload-config'
 import path from 'path'
 import { readFile } from 'fs/promises'
 
+import { envClient } from '../env/client'
+
 // Helper to generate blur placeholder
 async function generateBlurPlaceholder(docId: number, filename: string, _mimeType: string) {
   try {
@@ -18,7 +20,7 @@ async function generateBlurPlaceholder(docId: number, filename: string, _mimeTyp
       imageBuffer = await readFile(filePath)
     } catch (_diskError) {
       // Fallback: try to fetch via HTTP
-      const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+      const serverUrl = envClient.NEXT_PUBLIC_SITE_URL
       const imageUrl = `${serverUrl}/api/media/file/${filename}`
 
       console.log(`Reading from disk failed, trying HTTP: ${imageUrl}`)

@@ -2,11 +2,12 @@ import { getPayload } from 'payload'
 
 import config from '@/payload.config'
 import { seedStartPage } from './startPage'
+import { envServer } from '@/env/server'
 
 async function run() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
-  const overwrite = process.env.PAYLOAD_SEED_OVERWRITE === 'true'
+  const overwrite = envServer.PAYLOAD_SEED_OVERWRITE === 'true'
 
   await seedStartPage(payload, overwrite)
   payload.logger.info(`Startseite geseedet (overwrite=${overwrite})`)

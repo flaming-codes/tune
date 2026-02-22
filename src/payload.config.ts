@@ -12,6 +12,8 @@ import { GalleryImages } from './collections/GalleryImages'
 import { Testimonials } from './collections/Testimonials'
 import { StartPage } from './globals/StartPage'
 import { seedStartPage } from './seed/startPage'
+import { envClient } from './env/client'
+import { envServer } from './env/server'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -23,19 +25,19 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     livePreview: {
-      url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+      url: envClient.NEXT_PUBLIC_SITE_URL,
     },
   },
   collections: [Users, Media, TeamMembers, GalleryImages, Testimonials],
   globals: [StartPage],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: envServer.PAYLOAD_SECRET,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: sqliteAdapter({
     client: {
-      url: process.env.DATABASE_URL || '',
+      url: envServer.DATABASE_URL,
     },
     // Disable push mode - use explicit migrations instead
     push: false,
@@ -43,8 +45,8 @@ export default buildConfig({
   sharp,
   plugins: [],
   onInit: async (payload) => {
-    if (process.env.PAYLOAD_SEED === 'true') {
-      await seedStartPage(payload, process.env.PAYLOAD_SEED_OVERWRITE === 'true')
+    if (envServer.PAYLOAD_SEED === 'true') {
+      await seedStartPage(payload, envServer.PAYLOAD_SEED_OVERWRITE === 'true')
       payload.logger.info('Startseite wurde erfolgreich geseedet.')
     }
   },

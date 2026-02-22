@@ -16,6 +16,7 @@ import { ContactFormSection } from './sections/ContactFormSection'
 import { Footer } from './components/Footer'
 
 import type { StartPage, TeamMember, Testimonial, GalleryImage } from '@/payload-types'
+import { envClient } from '@/env/client'
 
 type StartPageBlock = NonNullable<StartPage['layout']>[number]
 type StartPageHeaderBlock = NonNullable<StartPage['header']>[number]
@@ -60,8 +61,6 @@ function findLayoutBlock<TType extends StartPageBlock['blockType']>(
   )
 }
 
-const PAYLOAD_SERVER_URL = process.env.NEXT_PUBLIC_PAYLOAD_URL || 'http://localhost:3000'
-
 interface PageContentProps {
   initialStartPage: StartPage
   teamMembers: TeamMember[]
@@ -77,7 +76,7 @@ export function PageContent({
 }: PageContentProps) {
   const { data: liveStartPage } = useLivePreview<StartPage>({
     initialData: initialStartPage,
-    serverURL: PAYLOAD_SERVER_URL,
+    serverURL: envClient.NEXT_PUBLIC_PAYLOAD_URL,
     depth: 2,
   })
 
