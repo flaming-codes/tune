@@ -16,15 +16,15 @@ const easeOut = [0.4, 0, 0.2, 1] as const
 
 const contentVariants = {
   enter: (direction: number) => ({
-    y: direction > 0 ? 30 : -30,
+    x: direction > 0 ? '100%' : '-100%',
     opacity: 0,
   }),
   center: {
-    y: 0,
+    x: 0,
     opacity: 1,
   },
   exit: (direction: number) => ({
-    y: direction < 0 ? 30 : -30,
+    x: direction < 0 ? '100%' : '-100%',
     opacity: 0,
   }),
 }
@@ -139,7 +139,7 @@ export function PrivacyForm() {
                   )}
                 </AnimatePresence>
 
-                <div className="min-h-80">
+                <div className="min-h-80 overflow-hidden">
                   <AnimatePresence mode="wait" custom={direction}>
                     {currentStep === 1 && (
                       <motion.div
