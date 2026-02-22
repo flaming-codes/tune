@@ -3,6 +3,16 @@ interface Address {
   city: string
 }
 
+export interface LegalLink {
+  label: string
+  href: string
+}
+
+export const LEGAL_LINKS: LegalLink[] = [
+  { label: 'Impressum', href: '/impressum' },
+  { label: 'Datenschutzerklärung', href: '/datenschutzerklarung' },
+]
+
 /**
  * Generate Google Maps directions URL for the practice address
  */

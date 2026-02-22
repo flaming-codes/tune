@@ -10,15 +10,16 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Signatures CMS',
-  description: 'Signatures app powered by PayloadCMS and Next.js',
+  title: 'Datenschutzerklärung | Tierarztpraxis Dr. Tune Lazri',
+  description:
+    'Digitale Datenschutzerklärung für Patienten der Tierarztpraxis Dr. Tune Lazri.',
 }
 
 export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="de" className="scroll-smooth">
       <body
         className={`${inter.className} theme-bg-primary theme-text-primary antialiased theme-transition`}
       >

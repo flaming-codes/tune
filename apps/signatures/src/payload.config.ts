@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
 import { Users } from './collections/Users'
+import { PrivacyAcknowledgments } from './collections/PrivacyAcknowledgments'
 import { envClient } from './env/client'
 import { envServer } from './env/server'
 
@@ -22,7 +23,7 @@ export default buildConfig({
       url: envClient.NEXT_PUBLIC_SITE_URL,
     },
   },
-  collections: [Users],
+  collections: [Users, PrivacyAcknowledgments],
   editor: lexicalEditor(),
   secret: envServer.PAYLOAD_SECRET,
   typescript: {

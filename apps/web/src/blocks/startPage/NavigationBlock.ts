@@ -34,6 +34,8 @@ export const NavigationBlock: Block = {
         { label: 'Leistungen', href: '#leistungen' },
         { label: 'Über uns', href: '#team' },
         { label: 'Kontakt', href: '#kontakt' },
+        { label: 'Impressum', href: '/impressum' },
+        { label: 'Datenschutzerklärung', href: '/datenschutzerklarung' },
       ],
       fields: [
         {

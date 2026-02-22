@@ -35,6 +35,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.2.0
         version: 4.2.0
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       cross-env:
         specifier: ^10.1.0
         version: 10.1.0
@@ -44,6 +47,9 @@ importers:
       graphql:
         specifier: ^16.12.0
         version: 16.12.0
+      motion:
+        specifier: ^12.34.3
+        version: 12.34.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next:
         specifier: 16.1.6
         version: 16.1.6(@babel/core@7.29.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.4)
@@ -59,6 +65,9 @@ importers:
       react-dom:
         specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
+      react-signature-canvas:
+        specifier: 1.1.0-alpha.2
+        version: 1.1.0-alpha.2(@types/react@19.2.14)(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       server-only:
         specifier: ^0.0.1
         version: 0.0.1
@@ -87,6 +96,9 @@ importers:
       '@types/react-dom':
         specifier: 19.2.3
         version: 19.2.3(@types/react@19.2.14)
+      '@types/react-signature-canvas':
+        specifier: ^1.0.7
+        version: 1.0.7
       '@vitejs/plugin-react':
         specifier: 5.1.4
         version: 5.1.4(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(sass@1.77.4)(tsx@4.21.0))
@@ -95,7 +107,7 @@ importers:
         version: 9.39.3(jiti@2.6.1)
       eslint-config-next:
         specifier: 16.1.6
-        version: 16.1.6(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)
+        version: 16.1.6(@typescript-eslint/parser@8.56.0(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)
       jsdom:
         specifier: 28.1.0
         version: 28.1.0
@@ -131,7 +143,7 @@ importers:
         version: 3.77.0(@types/react@19.2.14)(graphql@16.12.0)(monaco-editor@0.55.1)(next@16.1.6(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.4))(payload@3.77.0(graphql@16.12.0)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
       '@payloadcms/plugin-seo':
         specifier: 3.77.0
-        version: 3.77.0(@types/react@19.2.14)(monaco-editor@0.55.1)(next@16.1.6(@babel/core@7.29.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.4))(payload@3.77.0(graphql@16.12.0)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+        version: 3.77.0(@types/react@19.2.14)(monaco-editor@0.55.1)(next@16.1.6(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.4))(payload@3.77.0(graphql@16.12.0)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
       '@payloadcms/richtext-lexical':
         specifier: 3.77.0
         version: 3.77.0(@faceless-ui/modal@3.0.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@faceless-ui/scroll-info@2.0.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@payloadcms/next@3.77.0(@types/react@19.2.14)(graphql@16.12.0)(monaco-editor@0.55.1)(next@16.1.6(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.4))(payload@3.77.0(graphql@16.12.0)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3))(@types/react@19.2.14)(monaco-editor@0.55.1)(next@16.1.6(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.4))(payload@3.77.0(graphql@16.12.0)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)(yjs@13.6.29)
@@ -222,7 +234,7 @@ importers:
         version: 9.39.3(jiti@2.6.1)
       eslint-config-next:
         specifier: 16.1.6
-        version: 16.1.6(@typescript-eslint/parser@8.56.0(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)
+        version: 16.1.6(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)
       jsdom:
         specifier: 28.1.0
         version: 28.1.0
@@ -1989,6 +2001,9 @@ packages:
     peerDependencies:
       '@types/react': ^19.2.0
 
+  '@types/react-signature-canvas@1.0.7':
+    resolution: {integrity: sha512-0ulzaUvcIQ0HdNB5fHj+KE7ztWhlhYRsi65TdPIRj/t+FD5Rr8NJKBv4/xLViz7HsUh/tgqsoyKeARrm9+gPIg==}
+
   '@types/react-transition-group@4.4.12':
     resolution: {integrity: sha512-8TV6R3h2j7a91c+1DXdJi3Syo69zzIZbz7Lg5tORM5LEJG7X/E6a1V3drRyBRZq7/utz7A+c4OgYLiLcYGHG6w==}
     peerDependencies:
@@ -1996,6 +2011,9 @@ packages:
 
   '@types/react@19.2.14':
     resolution: {integrity: sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==}
+
+  '@types/signature_pad@2.3.6':
+    resolution: {integrity: sha512-v3j92gCQJoxomHhd+yaG4Vsf8tRS/XbzWKqDv85UsqjMGy4zhokuwKe4b6vhbgncKkh+thF+gpz6+fypTtnFqQ==}
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
@@ -4045,6 +4063,20 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
+  react-signature-canvas@1.1.0-alpha.2:
+    resolution: {integrity: sha512-tKUNk3Gmh04Ug4K8p5g8Is08BFUKvbXxi0PyetQ/f8OgCBzcx4vqNf9+OArY/TdNdfHtswXQNRwZD6tyELjkjQ==}
+    peerDependencies:
+      '@types/prop-types': ^15.7.3
+      '@types/react': 0.14 - 19
+      prop-types: ^15.5.8
+      react: 0.14 - 19
+      react-dom: 0.14 - 19
+    peerDependenciesMeta:
+      '@types/prop-types':
+        optional: true
+      '@types/react':
+        optional: true
+
   react-transition-group@4.4.5:
     resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==}
     peerDependencies:
@@ -4195,6 +4227,9 @@ packages:
 
   siginfo@2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}
+
+  signature_pad@2.3.2:
+    resolution: {integrity: sha512-peYXLxOsIY6MES2TrRLDiNg2T++8gGbpP2yaC+6Ohtxr+a2dzoaqWosWDY9sWqTAAk6E/TyQO+LJw9zQwyu5kA==}
 
   simple-wcswidth@1.1.2:
     resolution: {integrity: sha512-j7piyCjAeTDSjzTSQ7DokZtMNwNlEAyxqSZeCS+CXH7fJ4jx3FuJ/mTW3mE+6JLs4VJBbcll0Kjn+KXI5t21Iw==}
@@ -4381,6 +4416,9 @@ packages:
   tr46@6.0.0:
     resolution: {integrity: sha512-bLVMLPtstlZ4iMQHpFHTR7GAGj2jxi8Dg0s2h2MafAE4uSWF98FC/3MomU51iQAMf8/qDUbKWf5GxuvvVcXEhw==}
     engines: {node: '>=20'}
+
+  trim-canvas@0.1.2:
+    resolution: {integrity: sha512-nd4Ga3iLFV94mdhW9JFMLpQbHUyCQuhFOD71PEAt1NjtMD5wbZctzhX8c3agHNybMR5zXD1XTGoIEWk995E6pQ==}
 
   truncate-utf8-bytes@1.0.2:
     resolution: {integrity: sha512-95Pu1QXQvruGEhv62XCMO3Mm90GscOCClvrIUwCM0PYOXK3kaF3l3sIHxx71ThJfcbM2O5Au6SO3AWCSEfW4mQ==}
@@ -5889,7 +5927,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@payloadcms/plugin-seo@3.77.0(@types/react@19.2.14)(monaco-editor@0.55.1)(next@16.1.6(@babel/core@7.29.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.4))(payload@3.77.0(graphql@16.12.0)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@payloadcms/plugin-seo@3.77.0(@types/react@19.2.14)(monaco-editor@0.55.1)(next@16.1.6(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.4))(payload@3.77.0(graphql@16.12.0)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
     dependencies:
       '@payloadcms/translations': 3.77.0
       '@payloadcms/ui': 3.77.0(@types/react@19.2.14)(monaco-editor@0.55.1)(next@16.1.6(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.4))(payload@3.77.0(graphql@16.12.0)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
@@ -6409,6 +6447,11 @@ snapshots:
     dependencies:
       '@types/react': 19.2.14
 
+  '@types/react-signature-canvas@1.0.7':
+    dependencies:
+      '@types/react': 19.2.14
+      '@types/signature_pad': 2.3.6
+
   '@types/react-transition-group@4.4.12(@types/react@19.2.14)':
     dependencies:
       '@types/react': 19.2.14
@@ -6416,6 +6459,8 @@ snapshots:
   '@types/react@19.2.14':
     dependencies:
       csstype: 3.2.3
+
+  '@types/signature_pad@2.3.6': {}
 
   '@types/trusted-types@2.0.7':
     optional: true
@@ -8808,6 +8853,18 @@ snapshots:
       - '@types/react'
       - supports-color
 
+  react-signature-canvas@1.1.0-alpha.2(@types/react@19.2.14)(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+    dependencies:
+      '@babel/runtime': 7.28.6
+      '@types/signature_pad': 2.3.6
+      prop-types: 15.8.1
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+      signature_pad: 2.3.2
+      trim-canvas: 0.1.2
+    optionalDependencies:
+      '@types/react': 19.2.14
+
   react-transition-group@4.4.5(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       '@babel/runtime': 7.28.6
@@ -9039,6 +9096,8 @@ snapshots:
 
   siginfo@2.0.0: {}
 
+  signature_pad@2.3.2: {}
+
   simple-wcswidth@1.1.2: {}
 
   sisteransi@1.0.5: {}
@@ -9219,6 +9278,8 @@ snapshots:
   tr46@6.0.0:
     dependencies:
       punycode: 2.3.1
+
+  trim-canvas@0.1.2: {}
 
   truncate-utf8-bytes@1.0.2:
     dependencies:

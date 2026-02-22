@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { getGoogleMapsDirectionsUrl } from '@/lib/constants'
+import { getGoogleMapsDirectionsUrl, LEGAL_LINKS } from '@/lib/constants'
 
 interface NavLink {
   label: string
@@ -28,6 +28,14 @@ interface FooterProps {
 
 export function Footer({ practiceName, footer, contact, navLinks }: FooterProps) {
   const { address, phone, email } = contact
+
+  const quickLinks = [...navLinks]
+  for (const legalLink of LEGAL_LINKS) {
+    const exists = quickLinks.some((link) => link.href === legalLink.href)
+    if (!exists) {
+      quickLinks.push(legalLink)
+    }
+  }
 
   return (
     <footer className="theme-bg-dark-section theme-text-white py-16 lg:py-24">
@@ -76,7 +84,7 @@ export function Footer({ practiceName, footer, contact, navLinks }: FooterProps)
           <div>
             <p className="text-white text-sm font-medium mb-4">Links</p>
             <ul className="space-y-2 text-sm">
-              {navLinks.map((link) => (
+              {quickLinks.map((link) => (
                 <li key={link.id || link.href}>
                   <Link
                     href={link.href}

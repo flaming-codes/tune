@@ -97,9 +97,13 @@ export interface Config {
   fallbackLocale: null
   globals: {
     'start-page': StartPage
+    'imprint-page': ImprintPage
+    'privacy-policy-page': PrivacyPolicyPage
   }
   globalsSelect: {
     'start-page': StartPageSelect<false> | StartPageSelect<true>
+    'imprint-page': ImprintPageSelect<false> | ImprintPageSelect<true>
+    'privacy-policy-page': PrivacyPolicyPageSelect<false> | PrivacyPolicyPageSelect<true>
   }
   locale: null
   user: User
@@ -709,6 +713,78 @@ export interface StartPage {
   createdAt?: string | null
 }
 /**
+ * Autorenansicht für die Impressum-Seite.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imprint-page".
+ */
+export interface ImprintPage {
+  id: number
+  pageTitle: string
+  content: {
+    root: {
+      type: string
+      children: {
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  }
+  meta?: {
+    title?: string | null
+    description?: string | null
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media
+  }
+  _status?: ('draft' | 'published') | null
+  updatedAt?: string | null
+  createdAt?: string | null
+}
+/**
+ * Autorenansicht für die Datenschutzerklärung.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-policy-page".
+ */
+export interface PrivacyPolicyPage {
+  id: number
+  pageTitle: string
+  content: {
+    root: {
+      type: string
+      children: {
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  }
+  meta?: {
+    title?: string | null
+    description?: string | null
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media
+  }
+  _status?: ('draft' | 'published') | null
+  updatedAt?: string | null
+  createdAt?: string | null
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "start-page_select".
  */
@@ -877,6 +953,44 @@ export interface StartPageSelect<T extends boolean = true> {
               blockName?: T
             }
       }
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        image?: T
+      }
+  _status?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imprint-page_select".
+ */
+export interface ImprintPageSelect<T extends boolean = true> {
+  pageTitle?: T
+  content?: T
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        image?: T
+      }
+  _status?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-policy-page_select".
+ */
+export interface PrivacyPolicyPageSelect<T extends boolean = true> {
+  pageTitle?: T
+  content?: T
   meta?:
     | T
     | {

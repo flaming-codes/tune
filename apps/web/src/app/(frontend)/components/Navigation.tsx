@@ -5,6 +5,7 @@ import Link from 'next/link'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { motion, AnimatePresence, type Variants, type Easing } from 'motion/react'
 import { cn } from '@/lib/utils'
+import { LEGAL_LINKS } from '@/lib/constants'
 
 interface NavLink {
   label: string
@@ -127,6 +128,14 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
     (link) => link.label.toLowerCase() !== 'home' && link.href !== '/',
   )
 
+  const allNavLinks = [...filteredNavLinks]
+  for (const legalLink of LEGAL_LINKS) {
+    const exists = allNavLinks.some((link) => link.href === legalLink.href)
+    if (!exists) {
+      allNavLinks.push(legalLink)
+    }
+  }
+
   return (
     <motion.header
       className="fixed top-0 left-0 right-0 z-50 isolate theme-transition"
@@ -162,7 +171,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
 
             {/* Desktop Navigation - Using Radix NavigationMenu */}
             <NavigationMenu.List className="hidden md:flex items-center gap-10 list-none m-0 p-0">
-              {filteredNavLinks.map((link) => (
+              {allNavLinks.map((link) => (
                 <NavigationMenu.Item key={link.id || link.href} value={link.href}>
                   <NavigationMenu.Link asChild>
                     <Link
@@ -259,7 +268,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
                     animate="open"
                     exit="closed"
                   >
-                    {filteredNavLinks.map((link) => (
+                    {allNavLinks.map((link) => (
                       <motion.li
                         key={link.id || link.href}
                         variants={itemVariants}

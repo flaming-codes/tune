@@ -68,6 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
+    'privacy-acknowledgments': PrivacyAcknowledgment;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -76,6 +77,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
+    'privacy-acknowledgments': PrivacyAcknowledgmentsSelect<false> | PrivacyAcknowledgmentsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -138,6 +140,51 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Datenschutzerklärungen von Patientenbesitzern. Hier werden alle digital unterschriebenen Einverständniserklärungen gespeichert.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-acknowledgments".
+ */
+export interface PrivacyAcknowledgment {
+  id: number;
+  ownerLastName: string;
+  ownerFirstName: string;
+  ownerFullName?: string | null;
+  ownerTitle?: string | null;
+  ownerDateOfBirth?: string | null;
+  ownerStreet: string;
+  ownerPostalCode: string;
+  ownerCity: string;
+  ownerPhone: string;
+  ownerEmail?: string | null;
+  patientName: string;
+  patientAnimalType: 'dog' | 'cat' | 'other';
+  patientBreed?: string | null;
+  patientColor?: string | null;
+  patientGender?: ('male' | 'female' | 'neutered') | null;
+  patientDateOfBirth?: string | null;
+  patientWeight?: string | null;
+  /**
+   * Allergien, Unverträglichkeiten, Verhaltensauffälligkeiten, usw.
+   */
+  patientSpecialNotes?: string | null;
+  signedAt: string;
+  /**
+   * Die digitale Unterschrift als Base64 Data URL
+   */
+  signatureDataUrl: string;
+  /**
+   * Zur Audit-Trail (optional)
+   */
+  clientIp?: string | null;
+  /**
+   * Browser-Information (optional)
+   */
+  userAgent?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -160,10 +207,15 @@ export interface PayloadKv {
  */
 export interface PayloadLockedDocument {
   id: number;
-  document?: {
-    relationTo: 'users';
-    value: number | User;
-  } | null;
+  document?:
+    | ({
+        relationTo: 'users';
+        value: number | User;
+      } | null)
+    | ({
+        relationTo: 'privacy-acknowledgments';
+        value: number | PrivacyAcknowledgment;
+      } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
@@ -227,6 +279,36 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-acknowledgments_select".
+ */
+export interface PrivacyAcknowledgmentsSelect<T extends boolean = true> {
+  ownerLastName?: T;
+  ownerFirstName?: T;
+  ownerFullName?: T;
+  ownerTitle?: T;
+  ownerDateOfBirth?: T;
+  ownerStreet?: T;
+  ownerPostalCode?: T;
+  ownerCity?: T;
+  ownerPhone?: T;
+  ownerEmail?: T;
+  patientName?: T;
+  patientAnimalType?: T;
+  patientBreed?: T;
+  patientColor?: T;
+  patientGender?: T;
+  patientDateOfBirth?: T;
+  patientWeight?: T;
+  patientSpecialNotes?: T;
+  signedAt?: T;
+  signatureDataUrl?: T;
+  clientIp?: T;
+  userAgent?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

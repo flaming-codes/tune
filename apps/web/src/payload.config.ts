@@ -12,7 +12,10 @@ import { TeamMembers } from './collections/TeamMembers'
 import { GalleryImages } from './collections/GalleryImages'
 import { Testimonials } from './collections/Testimonials'
 import { StartPage } from './globals/StartPage'
+import { ImprintPage } from './globals/ImprintPage'
+import { PrivacyPolicyPage } from './globals/PrivacyPolicyPage'
 import { seedStartPage } from './seed/startPage'
+import { seedLegalPages } from './seed/legal-pages'
 import { envClient } from './env/client'
 import { envServer } from './env/server'
 
@@ -30,7 +33,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, TeamMembers, GalleryImages, Testimonials],
-  globals: [StartPage],
+  globals: [StartPage, ImprintPage, PrivacyPolicyPage],
   editor: lexicalEditor(),
   secret: envServer.PAYLOAD_SECRET,
   typescript: {
@@ -46,7 +49,7 @@ export default buildConfig({
   sharp,
   plugins: [
     seoPlugin({
-      globals: ['start-page'],
+      globals: ['start-page', 'imprint-page', 'privacy-policy-page'],
       uploadsCollection: 'media',
       tabbedUI: true,
       generateTitle: ({ doc }) => doc?.meta?.title || 'Tierarztpraxis Dr. Tune Lazri | Wien',
@@ -58,7 +61,8 @@ export default buildConfig({
   onInit: async (payload) => {
     if (envServer.PAYLOAD_SEED === 'true') {
       await seedStartPage(payload, envServer.PAYLOAD_SEED_OVERWRITE === 'true')
-      payload.logger.info('Startseite wurde erfolgreich geseedet.')
+      await seedLegalPages(payload, envServer.PAYLOAD_SEED_OVERWRITE === 'true')
+      payload.logger.info('Startseite und Rechtstexte wurden erfolgreich geseedet.')
     }
   },
 })
