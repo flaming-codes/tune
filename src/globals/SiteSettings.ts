@@ -271,6 +271,47 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
     {
+      name: 'testimonials',
+      type: 'group',
+      label: 'Testimonials Bereich',
+      fields: [
+        {
+          name: 'googleReviewUrl',
+          type: 'text',
+          required: true,
+          defaultValue: 'https://search.google.com/local/writereview?placeid=ChIJ7aw4mO8FbUcRmAeyWnxejUs',
+          label: 'Google Bewertungs-URL',
+          admin: {
+            description: 'Link zur Google Bewertungsseite',
+          },
+        },
+        {
+          name: 'reviewCount',
+          type: 'number',
+          required: true,
+          defaultValue: 0,
+          min: 0,
+          label: 'Anzahl der Bewertungen',
+          admin: {
+            description: 'Anzahl der Google Bewertungen (wird auf der Website angezeigt)',
+          },
+        },
+        {
+          name: 'averageRating',
+          type: 'number',
+          required: true,
+          defaultValue: 5.0,
+          min: 0,
+          max: 5,
+          label: 'Durchschnittliche Bewertung',
+          admin: {
+            description: 'Durchschnittliche Sternebewertung (0-5)',
+            step: 0.1,
+          },
+        },
+      ],
+    },
+    {
       name: 'seo',
       type: 'group',
       label: 'SEO',

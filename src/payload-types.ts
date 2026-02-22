@@ -266,6 +266,18 @@ export interface Testimonial {
   text: string;
   author: string;
   /**
+   * Profilbild des Autors
+   */
+  image?: (number | null) | Media;
+  /**
+   * Bewertung von 0 bis 5 Sternen (Dezimalzahlen erlaubt, z.B. 4.5)
+   */
+  rating: number;
+  /**
+   * Datum, an dem die Bewertung abgegeben wurde (nicht das Erstellungsdatum des Eintrags)
+   */
+  reviewDate: string;
+  /**
    * Niedrigere Zahlen werden zuerst angezeigt
    */
   sortOrder?: number | null;
@@ -482,6 +494,9 @@ export interface GalleryImagesSelect<T extends boolean = true> {
 export interface TestimonialsSelect<T extends boolean = true> {
   text?: T;
   author?: T;
+  image?: T;
+  rating?: T;
+  reviewDate?: T;
   sortOrder?: T;
   isActive?: T;
   updatedAt?: T;
@@ -585,6 +600,20 @@ export interface SiteSetting {
      */
     author?: (number | null) | TeamMember;
   };
+  testimonials: {
+    /**
+     * Link zur Google Bewertungsseite
+     */
+    googleReviewUrl: string;
+    /**
+     * Anzahl der Google Bewertungen (wird auf der Website angezeigt)
+     */
+    reviewCount: number;
+    /**
+     * Durchschnittliche Sternebewertung (0-5)
+     */
+    averageRating: number;
+  };
   seo: {
     title: string;
     description: string;
@@ -659,6 +688,13 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | {
         text?: T;
         author?: T;
+      };
+  testimonials?:
+    | T
+    | {
+        googleReviewUrl?: T;
+        reviewCount?: T;
+        averageRating?: T;
       };
   seo?:
     | T
