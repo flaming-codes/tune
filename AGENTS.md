@@ -39,6 +39,7 @@ This is a **Turborepo monorepo** containing a Next.js + Payload CMS application 
 - **Animation**: Motion library
 - **Maps**: Leaflet + React-Leaflet
 - **Icons/UI**: Radix UI Navigation Menu
+- **Classname Utilities**: `clsx` for conditional className merging
 
 ### Testing
 - **Unit/Integration**: Vitest 4.0.18 with jsdom
@@ -297,6 +298,7 @@ Environment variables are validated using Zod schemas in:
 
 ### Migration Policy
 - **Push mode is disabled** (`push: false` in payload.config.ts)
+- **All collection changes require migrations**: When modifying any collection or global schema (adding fields, changing types, etc.), you MUST create and apply migrations
 - All schema changes require explicit migration files
 - Migrations are stored in `src/migrations/`
 
@@ -326,6 +328,20 @@ pnpm --filter web db:migrate:create
 ### Prettier Configuration
 - Default formatting for `.ts`, `.tsx`, `.js`, `.jsx`, `.json`, `.css`, `.scss`, `.md`
 - Run via: `pnpm format` or `pnpm format:web`
+
+### DRY & Reusability
+- **Favor reusable components**: Extract repeated patterns into shared components
+- **Keep LOC low**: Avoid boilerplate; prefer concise, expressive code
+- **Composition over duplication**: Use component composition and utility functions to avoid repetition
+- **Shared utilities**: Place reusable helpers in `src/lib/` or appropriate shared locations
+
+### ClassName Handling
+- Use `clsx` for all conditional className merging:
+  ```typescript
+  import clsx from 'clsx'
+  
+  <div className={clsx('base-class', isActive && 'active-class', size === 'lg' && 'text-lg')}>
+  ```
 
 ### Git Hooks (Lefthook)
 - **Pre-commit**: Format and lint web app
@@ -432,6 +448,27 @@ Docker Compose files available in each app:
 - [ ] Set production `NEXT_PUBLIC_SITE_URL`
 - [ ] Configure image domains in `next.config.mjs`
 - [ ] Run `pnpm ci:fast` to verify build
+
+## Task Completion Checklist
+
+**Always run quality gates before finishing a task:**
+
+```bash
+# Run the fast CI pipeline (lint, typecheck, test:int, build)
+pnpm ci:fast
+
+# Or for app-specific changes:
+pnpm ci:web
+pnpm ci:signatures
+```
+
+**Before marking a task complete, verify:**
+- [ ] `pnpm ci:fast` passes (or app-specific CI)
+- [ ] No TypeScript errors (`pnpm typecheck`)
+- [ ] No lint errors (`pnpm lint`)
+- [ ] Tests pass (`pnpm test`)
+- [ ] If collections changed: migrations created and applied
+- [ ] Types regenerated if schema changed (`pnpm db:generate`)
 
 ## Resources
 
