@@ -1,9 +1,10 @@
 'use client'
 
-import { useRef, type FC, type ReactNode } from 'react'
-import { motion, useScroll, useTransform, type MotionValue } from 'motion/react'
+import { useRef, useState, type FC, type ReactNode } from 'react'
+import { motion, useScroll, useTransform, type MotionValue, AnimatePresence } from 'motion/react'
 import { cn } from '@/lib/utils'
 import type { TeamMember } from '@/payload-types'
+import { PayloadImage } from '@/components/PayloadImage'
 
 interface WordProps {
   children: ReactNode
@@ -30,6 +31,50 @@ const Word: FC<WordProps> = ({ children, progress, range }) => {
   )
 }
 
+interface QuoteAuthorProps {
+  author: TeamMember | number
+}
+
+function QuoteAuthor({ author }: QuoteAuthorProps) {
+  const [isHovered, setIsHovered] = useState(false)
+  const isTeamMember = typeof author === 'object'
+  const authorName = isTeamMember ? author.name : `Teammitglied #${author}`
+  const authorPhoto =
+    isTeamMember && author.photos && author.photos.length > 0 ? author.photos[0] : null
+
+  return (
+    <footer className="mt-12">
+      <motion.cite
+        className="not-italic text-sm tracking-wide-custom uppercase theme-text-muted relative inline-block cursor-default"
+        onHoverStart={() => setIsHovered(true)}
+        onHoverEnd={() => setIsHovered(false)}
+      >
+        — {authorName}
+        <AnimatePresence>
+          {isHovered && authorPhoto && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 z-10"
+            >
+              <div className="w-24 h-32 overflow-hidden shadow-lg">
+                <PayloadImage
+                  media={authorPhoto}
+                  size="thumbnail"
+                  className="w-full h-full object-cover"
+                  alt={`${authorName} Portrait`}
+                />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.cite>
+    </footer>
+  )
+}
+
 interface QuoteProps {
   quote: {
     text: string
@@ -41,7 +86,7 @@ export function Quote({ quote }: QuoteProps) {
   const targetRef = useRef<HTMLDivElement | null>(null)
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ['start 45%', 'end 75%'],
+    offset: ['start 45%', 'end 65%'],
   })
 
   const words = quote.text?.split(' ') ?? []
@@ -82,15 +127,7 @@ export function Quote({ quote }: QuoteProps) {
             </p>
 
             {/* Author */}
-            {quote.author && (
-              <footer className="mt-12">
-                <cite className="not-italic text-sm tracking-wide-custom uppercase theme-text-muted">
-                  {typeof quote.author === 'object'
-                    ? quote.author.name
-                    : `Teammitglied #${quote.author}`}
-                </cite>
-              </footer>
-            )}
+            {quote.author && <QuoteAuthor author={quote.author} />}
           </blockquote>
         </div>
       </div>
