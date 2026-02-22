@@ -20,18 +20,11 @@ const services = [
   },
   {
     category: 'Operationen',
-    items: [
-      'Weichteilchirurgie inkl. Sterilisation',
-      'Zahnbehandlungen',
-    ],
+    items: ['Weichteilchirurgie inkl. Sterilisation', 'Zahnbehandlungen'],
   },
   {
     category: 'Alternative Therapie',
-    items: [
-      'Chiropraktik',
-      'Lasertherapie',
-      'Schmerztherapie und alternative Schmerztherapie',
-    ],
+    items: ['Chiropraktik', 'Lasertherapie', 'Schmerztherapie und alternative Schmerztherapie'],
   },
   {
     category: 'Beratung',
@@ -79,9 +72,7 @@ export function Services() {
         {/* CTA */}
         <div className="mt-20 lg:mt-28 pt-12 border-t theme-border-primary">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <p className="text-lg theme-text-secondary">
-              Haben Sie Fragen zu unseren Leistungen?
-            </p>
+            <p className="text-lg theme-text-secondary">Haben Sie Fragen zu unseren Leistungen?</p>
             <a
               href="#kontakt"
               className="inline-flex items-center justify-center px-8 py-3 bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 text-sm font-medium hover:opacity-90 transition-opacity duration-200"
