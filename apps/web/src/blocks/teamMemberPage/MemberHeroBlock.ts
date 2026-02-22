@@ -1,0 +1,61 @@
+import type { Block } from 'payload'
+
+export const MemberHeroBlock: Block = {
+  slug: 'memberHero',
+  labels: {
+    singular: 'Member Hero',
+    plural: 'Member Hero',
+  },
+  fields: [
+    {
+      name: 'eyebrow',
+      type: 'text',
+      required: true,
+      defaultValue: 'Team',
+      label: 'Eyebrow',
+    },
+    {
+      name: 'headline',
+      type: 'text',
+      required: true,
+      defaultValue: 'Für Tiere da. Mit Haltung.',
+      label: 'Überschrift',
+    },
+    {
+      name: 'subheadline',
+      type: 'text',
+      required: true,
+      defaultValue: 'Persönlich, präzise und mit ruhiger Hand.',
+      label: 'Unterüberschrift',
+    },
+    {
+      name: 'description',
+      type: 'textarea',
+      required: true,
+      defaultValue:
+        'Ein klarer Blick, viel Erfahrung und ehrliche Kommunikation: so begleite ich Sie und Ihr Tier durch jede Lebensphase.',
+      label: 'Beschreibung',
+    },
+    {
+      name: 'coverImage',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+      label: 'Cover Bild',
+    },
+    {
+      name: 'ctaLabel',
+      type: 'text',
+      required: true,
+      defaultValue: 'Termin vereinbaren',
+      label: 'CTA Text',
+    },
+    {
+      name: 'ctaHref',
+      type: 'text',
+      required: true,
+      defaultValue: '/#kontakt',
+      label: 'CTA Link',
+    },
+  ],
+}

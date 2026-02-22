@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useRef, useState, useCallback } from 'react'
+import Link from 'next/link'
 import { PayloadImage } from '@/components/PayloadImage'
 import type { TeamMember, Media } from '@/payload-types'
 
@@ -71,6 +72,7 @@ function createStackItem(photo: Media, sequenceId: number, stackPosition: number
 function TeamMemberCard({ member }: TeamMemberCardProps) {
   const photos = (member.photos || []).filter(isMedia)
   const hasMultiplePhotos = photos.length > 1
+  const profileHref = member.slug ? `/team/${member.slug}` : null
 
   // Stack of visible photos with their visual properties
   const [stack, setStack] = useState<StackItem[]>(() => [createStackItem(photos[0], 0, 0)])
@@ -188,9 +190,28 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
       )}
 
       {/* Info */}
-      <h3 className="text-lg font-medium mb-1">{member.name}</h3>
+      {profileHref ? (
+        <h3 className="text-lg font-medium mb-1">
+          <Link
+            href={profileHref}
+            className="link-underline link-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--accent-primary)"
+            aria-label={`${member.name} Profil öffnen`}
+          >
+            {member.name}
+          </Link>
+        </h3>
+      ) : (
+        <h3 className="text-lg font-medium mb-1">{member.name}</h3>
+      )}
       <p className="text-sm theme-text-tertiary mb-3">{member.role}</p>
       <p className="text-sm theme-text-secondary leading-relaxed">{member.description}</p>
+      {profileHref ? (
+        <p className="mt-4">
+          <Link href={profileHref} className="text-sm theme-text-primary link-underline link-highlight">
+            Profil ansehen
+          </Link>
+        </p>
+      ) : null}
     </div>
   )
 }

@@ -4,17 +4,8 @@ import React from 'react'
 import { useLivePreview } from '@payloadcms/live-preview-react'
 
 import { Navigation } from './components/Navigation'
-import { Hero } from './sections/Hero'
-import { Services } from './sections/Services'
-import { Testimonials } from './sections/Testimonials'
-import { Quote } from './sections/Quote'
-import { Gallery } from './sections/Gallery'
-import { Team } from './sections/Team'
-import { Hours } from './sections/Hours'
-import { Contact } from './sections/Contact'
-import { ContactFormSection } from './sections/ContactFormSection'
-import { Accordion } from './sections/Accordion'
 import { Footer } from './components/Footer'
+import { RenderLayoutBlock } from './sections/RenderLayoutBlock'
 
 import type { StartPage, TeamMember, Testimonial, GalleryImage } from '@/payload-types'
 import { envClient } from '@/env/client'
@@ -97,170 +88,17 @@ export function PageContent({
       <Navigation practiceName={practiceName} navLinks={navLinks} phone={primaryPhone} />
       <main>
         {(startPage.layout || []).map((block, index) => {
-          const key = `${block.blockType}-${index}`
-
-          switch (block.blockType) {
-            case 'hero':
-              return (
-                <Hero
-                  key={key}
-                  hero={{
-                    headline: block.headline,
-                    subheadline: block.subheadline,
-                    description: block.description,
-                    heroImage: block.heroImage,
-                    ctaPrimaryText: block.ctaPrimaryText,
-                    ctaPrimaryHref: block.ctaPrimaryHref,
-                    ctaSecondaryText: block.ctaSecondaryText,
-                    ctaSecondaryHref: block.ctaSecondaryHref,
-                  }}
-                />
-              )
-            case 'services':
-              return (
-                <Services
-                  key={key}
-                  content={{
-                    eyebrow: block.eyebrow,
-                    headline: block.headline,
-                    groups: (block.groups || []).map((group) => ({
-                      id: group.id,
-                      category: group.category,
-                      items: (group.items || []).map((item) => ({
-                        id: item.id,
-                        text: item.text,
-                      })),
-                    })),
-                    ctaText: block.ctaText,
-                    ctaButtonLabel: block.ctaButtonLabel,
-                    ctaButtonHref: block.ctaButtonHref,
-                  }}
-                />
-              )
-            case 'quote':
-              return (
-                <Quote
-                  key={key}
-                  quote={{
-                    text: block.text,
-                    author: block.author,
-                  }}
-                />
-              )
-            case 'testimonials':
-              return (
-                <Testimonials
-                  key={key}
-                  content={{
-                    eyebrow: block.eyebrow,
-                    headline: block.headline,
-                    description: block.description,
-                    googleReviewUrl: block.googleReviewUrl,
-                    reviewCount: block.reviewCount,
-                  }}
-                  testimonials={testimonials}
-                />
-              )
-            case 'gallery':
-              return (
-                <Gallery
-                  key={key}
-                  content={{
-                    eyebrow: block.eyebrow,
-                    headline: block.headline,
-                    description: block.description,
-                    emptyStateText: block.emptyStateText,
-                  }}
-                  images={galleryImages}
-                />
-              )
-            case 'team':
-              return (
-                <Team
-                  key={key}
-                  content={{
-                    eyebrow: block.eyebrow,
-                    headline: block.headline,
-                    description: block.description,
-                  }}
-                  members={teamMembers}
-                />
-              )
-            case 'hours':
-              return (
-                <Hours
-                  key={key}
-                  content={{
-                    eyebrow: block.eyebrow,
-                    headline: block.headline,
-                    description: block.description,
-                    openingHours: (block.openingHours || []).map((item) => ({
-                      id: item.id,
-                      day: item.day,
-                      state: item.state,
-                      times: item.times,
-                    })),
-                    emergency: {
-                      title: block.emergency.title,
-                      description: block.emergency.description,
-                    },
-                  }}
-                  phone={primaryPhone}
-                />
-              )
-            case 'contact':
-              return (
-                <Contact
-                  key={key}
-                  content={{
-                    eyebrow: block.eyebrow,
-                    headline: block.headline,
-                    description: block.description,
-                    address: {
-                      street: block.address.street,
-                      city: block.address.city,
-                      additional: block.address.additional,
-                    },
-                    phone: block.phone,
-                    email: block.email,
-                    consultationTimes: block.consultationTimes,
-                    directionsDescription: block.directionsDescription,
-                    directionsLinkLabel: block.directionsLinkLabel,
-                  }}
-                />
-              )
-            case 'contactForm':
-              return (
-                <ContactFormSection
-                  key={key}
-                  content={{
-                    eyebrow: block.eyebrow,
-                    headline: block.headline,
-                    description: block.description,
-                  }}
-                />
-              )
-            case 'accordion':
-              return (
-                <Accordion
-                  key={key}
-                  content={{
-                    eyebrow: block.eyebrow,
-                    headline: block.headline,
-                    description: block.description,
-                    items: (block.items || []).map((item) => ({
-                      id: item.id,
-                      question: item.question,
-                      answer: item.answer,
-                    })),
-                    allowMultipleOpen: block.allowMultipleOpen,
-                    alignment: block.alignment,
-                  }}
-                />
-              )
-            default:
-              return null
-          }
+          return (
+            <RenderLayoutBlock
+              key={`${block.blockType}-${index}`}
+              block={block}
+              index={index}
+              teamMembers={teamMembers}
+              testimonials={testimonials}
+              galleryImages={galleryImages}
+              primaryPhone={primaryPhone}
+            />
+          )
         })}
       </main>
       <Footer

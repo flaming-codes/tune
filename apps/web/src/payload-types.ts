@@ -223,6 +223,10 @@ export interface Media {
 export interface TeamMember {
   id: number;
   name: string;
+  /**
+   * Wird für die Team-Seite verwendet, z. B. max-mustermann
+   */
+  slug?: string | null;
   role: string;
   description: string;
   /**
@@ -237,6 +241,169 @@ export interface TeamMember {
    * Nur aktive Teammitglieder werden auf der Website angezeigt
    */
   isActive?: boolean | null;
+  /**
+   * Inhalt für /team/{slug}. Neben team-spezifischen Blöcken können auch bestehende Startseiten-Blöcke wiederverwendet werden.
+   */
+  memberPageLayout?:
+    | (
+        | {
+            eyebrow: string;
+            headline: string;
+            subheadline: string;
+            description: string;
+            coverImage?: (number | null) | Media;
+            ctaLabel: string;
+            ctaHref: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'memberHero';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            entries: {
+              period: string;
+              title: string;
+              institution?: string | null;
+              description?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'memberCv';
+          }
+        | {
+            headline: string;
+            subheadline: string;
+            description: string;
+            heroImage?: (number | null) | Media;
+            ctaPrimaryText: string;
+            ctaPrimaryHref: string;
+            ctaSecondaryText: string;
+            ctaSecondaryHref: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            groups: {
+              category: string;
+              items: {
+                text: string;
+                id?: string | null;
+              }[];
+              id?: string | null;
+            }[];
+            ctaText: string;
+            ctaButtonLabel: string;
+            ctaButtonHref: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'services';
+          }
+        | {
+            text: string;
+            /**
+             * Wählen Sie ein Teammitglied als Autor des Zitats aus
+             */
+            author?: (number | null) | TeamMember;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quote';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description: string;
+            googleReviewUrl: string;
+            reviewCount: number;
+            averageRating: number;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonials';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description: string;
+            emptyStateText: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'gallery';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'team';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description: string;
+            openingHours?:
+              | {
+                  day: string;
+                  state: 'open' | 'reservation' | 'closed';
+                  times: string;
+                  id?: string | null;
+                }[]
+              | null;
+            emergency: {
+              title: string;
+              description: string;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hours';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description: string;
+            address: {
+              street: string;
+              city: string;
+              additional?: string | null;
+            };
+            phone: string;
+            email: string;
+            consultationTimes: string;
+            directionsDescription: string;
+            directionsLinkLabel: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contact';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contactForm';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description?: string | null;
+            alignment?: ('start' | 'end' | 'full') | null;
+            items: {
+              question: string;
+              answer: string;
+              id?: string | null;
+            }[];
+            allowMultipleOpen?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'accordion';
+          }
+      )[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -515,11 +682,193 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface TeamMembersSelect<T extends boolean = true> {
   name?: T;
+  slug?: T;
   role?: T;
   description?: T;
   photos?: T;
   sortOrder?: T;
   isActive?: T;
+  memberPageLayout?:
+    | T
+    | {
+        memberHero?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subheadline?: T;
+              description?: T;
+              coverImage?: T;
+              ctaLabel?: T;
+              ctaHref?: T;
+              id?: T;
+              blockName?: T;
+            };
+        memberCv?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              entries?:
+                | T
+                | {
+                    period?: T;
+                    title?: T;
+                    institution?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        hero?:
+          | T
+          | {
+              headline?: T;
+              subheadline?: T;
+              description?: T;
+              heroImage?: T;
+              ctaPrimaryText?: T;
+              ctaPrimaryHref?: T;
+              ctaSecondaryText?: T;
+              ctaSecondaryHref?: T;
+              id?: T;
+              blockName?: T;
+            };
+        services?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              groups?:
+                | T
+                | {
+                    category?: T;
+                    items?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              ctaText?: T;
+              ctaButtonLabel?: T;
+              ctaButtonHref?: T;
+              id?: T;
+              blockName?: T;
+            };
+        quote?:
+          | T
+          | {
+              text?: T;
+              author?: T;
+              id?: T;
+              blockName?: T;
+            };
+        testimonials?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              googleReviewUrl?: T;
+              reviewCount?: T;
+              averageRating?: T;
+              id?: T;
+              blockName?: T;
+            };
+        gallery?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              emptyStateText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        team?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              id?: T;
+              blockName?: T;
+            };
+        hours?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              openingHours?:
+                | T
+                | {
+                    day?: T;
+                    state?: T;
+                    times?: T;
+                    id?: T;
+                  };
+              emergency?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        contact?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              address?:
+                | T
+                | {
+                    street?: T;
+                    city?: T;
+                    additional?: T;
+                  };
+              phone?: T;
+              email?: T;
+              consultationTimes?: T;
+              directionsDescription?: T;
+              directionsLinkLabel?: T;
+              id?: T;
+              blockName?: T;
+            };
+        contactForm?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              id?: T;
+              blockName?: T;
+            };
+        accordion?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              alignment?: T;
+              items?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+              allowMultipleOpen?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
 }
