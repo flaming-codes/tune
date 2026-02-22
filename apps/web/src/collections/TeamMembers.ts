@@ -47,75 +47,90 @@ export const TeamMembers: CollectionConfig = {
   },
   fields: [
     {
-      name: 'name',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'slug',
-      type: 'text',
-      required: false,
-      unique: true,
-      index: true,
-      label: 'URL Slug',
-      admin: {
-        description: 'Wird für die Team-Seite verwendet, z. B. max-mustermann',
-      },
-    },
-    {
-      name: 'role',
-      type: 'text',
-      required: true,
-      label: 'Rolle / Position',
-    },
-    {
-      name: 'description',
-      type: 'textarea',
-      required: true,
-      label: 'Beschreibung',
-    },
-    {
-      name: 'photos',
-      type: 'upload',
-      relationTo: 'media',
-      hasMany: true,
-      required: true,
-      minRows: 1,
-      label: 'Fotos',
-      admin: {
-        description:
-          'Mehrere Fotos hochladen. Das erste Foto wird standardmäßig angezeigt. Bei Hover werden die Fotos basierend auf Cursor-Bewegung gewechselt.',
-      },
-    },
-    {
-      name: 'sortOrder',
-      type: 'number',
-      defaultValue: 0,
-      label: 'Sortierreihenfolge',
-      admin: {
-        description: 'Niedrigere Zahlen werden zuerst angezeigt',
-      },
-    },
-    {
-      name: 'isActive',
-      type: 'checkbox',
-      defaultValue: true,
-      label: 'Aktiv',
-      admin: {
-        description: 'Nur aktive Teammitglieder werden auf der Website angezeigt',
-      },
-    },
-    {
-      name: 'memberPageLayout',
-      type: 'blocks',
-      label: 'Team-Seiteninhalt',
-      minRows: 1,
-      blocks: teamMemberPageLayoutBlocks,
-      defaultValue: [{ blockType: 'memberHero' }, { blockType: 'memberCv' }],
-      admin: {
-        description:
-          'Inhalt für /team/{slug}. Neben team-spezifischen Blöcken können auch bestehende Startseiten-Blöcke wiederverwendet werden.',
-      },
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'Basisdaten',
+          fields: [
+            {
+              name: 'name',
+              type: 'text',
+              required: true,
+            },
+            {
+              name: 'slug',
+              type: 'text',
+              required: false,
+              unique: true,
+              index: true,
+              label: 'URL Slug',
+              admin: {
+                description: 'Wird für die Team-Seite verwendet, z. B. max-mustermann',
+              },
+            },
+            {
+              name: 'role',
+              type: 'text',
+              required: true,
+              label: 'Rolle / Position',
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+              required: true,
+              label: 'Beschreibung',
+            },
+            {
+              name: 'photos',
+              type: 'upload',
+              relationTo: 'media',
+              hasMany: true,
+              required: true,
+              minRows: 1,
+              label: 'Fotos',
+              admin: {
+                description:
+                  'Mehrere Fotos hochladen. Das erste Foto wird standardmäßig angezeigt. Bei Hover werden die Fotos basierend auf Cursor-Bewegung gewechselt.',
+              },
+            },
+            {
+              name: 'sortOrder',
+              type: 'number',
+              defaultValue: 0,
+              label: 'Sortierreihenfolge',
+              admin: {
+                description: 'Niedrigere Zahlen werden zuerst angezeigt',
+              },
+            },
+            {
+              name: 'isActive',
+              type: 'checkbox',
+              defaultValue: true,
+              label: 'Aktiv',
+              admin: {
+                description: 'Nur aktive Teammitglieder werden auf der Website angezeigt',
+              },
+            },
+          ],
+        },
+        {
+          label: 'Team-Seiteninhalt',
+          fields: [
+            {
+              name: 'memberPageLayout',
+              type: 'blocks',
+              label: false,
+              minRows: 1,
+              blocks: teamMemberPageLayoutBlocks,
+              defaultValue: [{ blockType: 'memberHero' }, { blockType: 'memberCv' }],
+              admin: {
+                description:
+                  'Inhalt für /team/{slug}. Neben team-spezifischen Blöcken können auch bestehende Startseiten-Blöcke wiederverwendet werden.',
+              },
+            },
+          ],
+        },
+      ],
     },
   ],
 }

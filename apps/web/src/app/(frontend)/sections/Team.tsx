@@ -207,7 +207,10 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
       <p className="text-sm theme-text-secondary leading-relaxed">{member.description}</p>
       {profileHref ? (
         <p className="mt-4">
-          <Link href={profileHref} className="text-sm theme-text-primary link-underline link-highlight">
+          <Link
+            href={profileHref}
+            className="text-sm theme-text-primary link-underline link-highlight"
+          >
             Profil ansehen
           </Link>
         </p>

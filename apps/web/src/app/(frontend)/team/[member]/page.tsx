@@ -128,11 +128,7 @@ async function getGalleryImages() {
   return docs
 }
 
-export default async function TeamMemberPage({
-  params,
-}: {
-  params: Promise<{ member: string }>
-}) {
+export default async function TeamMemberPage({ params }: { params: Promise<{ member: string }> }) {
   const { member: memberSlug } = await params
 
   const [startPage, teamMember, teamMembers, testimonials, galleryImages] = await Promise.all([
