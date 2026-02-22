@@ -37,27 +37,48 @@ interface QuoteAuthorProps {
 
 function QuoteAuthor({ author }: QuoteAuthorProps) {
   const [isHovered, setIsHovered] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const citeRef = useRef<HTMLElement>(null)
   const isTeamMember = typeof author === 'object'
   const authorName = isTeamMember ? author.name : `Teammitglied #${author}`
   const authorPhoto =
     isTeamMember && author.photos && author.photos.length > 0 ? author.photos[0] : null
 
+  const updateMousePosition = (e: React.MouseEvent<HTMLElement>) => {
+    if (!citeRef.current) return
+    const rect = citeRef.current.getBoundingClientRect()
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    })
+  }
+
+  const handleMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
+    updateMousePosition(e)
+    setIsHovered(true)
+  }
+
   return (
     <footer className="mt-12">
       <motion.cite
-        className="not-italic text-sm tracking-wide-custom uppercase theme-text-muted relative inline-block cursor-default"
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
+        ref={citeRef}
+        className="not-italic text-sm tracking-wide-custom uppercase theme-text-muted relative inline-block cursor-default px-4 py-2 -mx-4 -my-2"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={() => setIsHovered(false)}
+        onMouseMove={updateMousePosition}
       >
-        — {authorName}
+        {authorName}
         <AnimatePresence>
           {isHovered && authorPhoto && (
             <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.95 }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 z-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                opacity: { type: 'spring', stiffness: 200, damping: 20 },
+              }}
+              style={{ x: mousePosition.x - 48, y: mousePosition.y - 140 }}
+              className="absolute top-0 left-0 z-10 pointer-events-none"
             >
               <div className="w-24 h-32 overflow-hidden shadow-lg">
                 <PayloadImage
