@@ -1,6 +1,6 @@
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-sqlite'
 
-export async function up({ db, _payload, _req }: MigrateUpArgs): Promise<void> {
+export async function up({ db }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE TABLE \`start_page_blocks_navigation_links\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` text NOT NULL,
@@ -358,7 +358,7 @@ export async function up({ db, _payload, _req }: MigrateUpArgs): Promise<void> {
   )
 }
 
-export async function down({ db, _payload, _req }: MigrateDownArgs): Promise<void> {
+export async function down({ db }: MigrateDownArgs): Promise<void> {
   await db.run(sql`CREATE TABLE \`site_settings_opening_hours\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,

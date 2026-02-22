@@ -22,6 +22,9 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    livePreview: {
+      url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+    },
   },
   collections: [Users, Media, TeamMembers, GalleryImages, Testimonials],
   globals: [StartPage],

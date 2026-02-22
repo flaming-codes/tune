@@ -13,6 +13,9 @@ export const StartPage: GlobalConfig = {
     group: 'Seiten',
     description: 'Autorenansicht für die Startseite mit frei sortierbaren Inhaltsblöcken.',
     preview: () => '/',
+    livePreview: {
+      url: () => '/',
+    },
   },
   access: {
     read: () => true,
