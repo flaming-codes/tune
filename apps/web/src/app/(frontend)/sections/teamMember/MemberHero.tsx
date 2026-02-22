@@ -190,15 +190,15 @@ function ImmersiveVariant({
           animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
         >
-          {/* Single line meta */}
-          <p className="text-xs tracking-[0.15em] uppercase theme-text-tertiary mb-3">
-            {content.eyebrow} · {memberName}
-          </p>
-
-          {/* Headline */}
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight leading-[1]">
-            {content.headline}
+          {/* Member name - bold, high contrast, prominent */}
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] theme-text-primary mb-3">
+            {memberName}
           </h1>
+
+          {/* Headline - supporting text */}
+          <p className="text-lg sm:text-xl lg:text-2xl font-medium tracking-tight leading-[1.2] theme-text-secondary">
+            {content.headline}
+          </p>
 
           {/* Primary CTA */}
           <motion.a
