@@ -1,6 +1,13 @@
 'use client'
 
-import React, { useActionState, useCallback, useEffect, useState, startTransition } from 'react'
+import React, {
+  useActionState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  startTransition,
+} from 'react'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import { AnimatePresence, motion } from 'motion/react'
 import { submitPrivacyForm, type PrivacyFormState } from '../actions/privacy-form'
@@ -42,6 +49,13 @@ export function PrivacyForm() {
   const [state, formAction, isPending] = useActionState(submitPrivacyForm, initialState)
 
   const totalSteps = privacyFormSteps.length
+  const isFormDirty = useMemo(
+    () =>
+      (Object.keys(initialFormData) as Array<keyof PrivacyFormData>).some(
+        (key) => formData[key] !== initialFormData[key],
+      ),
+    [formData],
+  )
 
   const resetForm = useCallback(() => {
     setCurrentStep(1)
@@ -139,7 +153,9 @@ export function PrivacyForm() {
       return
     }
 
+    /* eslint-disable react-hooks/set-state-in-effect */
     setSuccessMessage(state.message)
+    /* eslint-enable react-hooks/set-state-in-effect */
 
     const resetTimer = window.setTimeout(() => {
       resetForm()
@@ -151,7 +167,11 @@ export function PrivacyForm() {
   }, [resetForm, state.message, state.success])
 
   useEffect(() => {
-    if (successMessage) {
+    if (successMessage || !isFormDirty) {
+      /* eslint-disable react-hooks/set-state-in-effect */
+      setIsIdleWarningOpen(false)
+      setIdleSecondsRemaining(10)
+      /* eslint-enable react-hooks/set-state-in-effect */
       return
     }
 
@@ -168,7 +188,7 @@ export function PrivacyForm() {
       window.clearTimeout(warningTimer)
       window.clearTimeout(resetTimer)
     }
-  }, [lastActivityAt, resetForm, successMessage])
+  }, [isFormDirty, lastActivityAt, resetForm, successMessage])
 
   useEffect(() => {
     if (!isIdleWarningOpen) {
