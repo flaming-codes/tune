@@ -272,17 +272,17 @@ export interface Testimonial {
   text: string;
   author: string;
   /**
-   * Profilbild des Autors
+   * Profilbild des Bewertenden
    */
-  image?: (number | null) | Media;
+  avatar: number | Media;
   /**
    * Bewertung von 0 bis 5 Sternen (Dezimalzahlen erlaubt, z.B. 4.5)
    */
   rating: number;
   /**
-   * Datum, an dem die Bewertung abgegeben wurde (nicht das Erstellungsdatum des Eintrags)
+   * Zeitstempel, wann die Aussage gemacht wurde (nicht das Erstellungsdatum des Eintrags)
    */
-  reviewDate: string;
+  statementTimestamp: string;
   /**
    * Niedrigere Zahlen werden zuerst angezeigt
    */
@@ -543,9 +543,9 @@ export interface GalleryImagesSelect<T extends boolean = true> {
 export interface TestimonialsSelect<T extends boolean = true> {
   text?: T;
   author?: T;
-  image?: T;
+  avatar?: T;
   rating?: T;
-  reviewDate?: T;
+  statementTimestamp?: T;
   sortOrder?: T;
   isActive?: T;
   updatedAt?: T;

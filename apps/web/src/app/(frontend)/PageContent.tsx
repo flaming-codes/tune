@@ -154,6 +154,8 @@ export function PageContent({
                     eyebrow: block.eyebrow,
                     headline: block.headline,
                     description: block.description,
+                    googleReviewUrl: block.googleReviewUrl,
+                    reviewCount: block.reviewCount,
                   }}
                   testimonials={testimonials}
                 />

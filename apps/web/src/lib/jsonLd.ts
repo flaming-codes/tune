@@ -199,7 +199,7 @@ export function buildStartPageJsonLd({
       worstRating: 1,
     },
     reviewBody: item.text,
-    datePublished: item.reviewDate || undefined,
+    datePublished: item.statementTimestamp || undefined,
   }))
 
   const aggregateRating =

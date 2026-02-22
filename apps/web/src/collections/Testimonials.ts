@@ -4,7 +4,7 @@ export const Testimonials: CollectionConfig = {
   slug: 'testimonials',
   admin: {
     useAsTitle: 'author',
-    defaultColumns: ['author', 'rating', 'reviewDate', 'sortOrder', 'isActive', 'updatedAt'],
+    defaultColumns: ['author', 'rating', 'statementTimestamp', 'sortOrder', 'isActive', 'updatedAt'],
   },
   access: {
     read: () => true,
@@ -23,12 +23,13 @@ export const Testimonials: CollectionConfig = {
       label: 'Autor',
     },
     {
-      name: 'image',
+      name: 'avatar',
       type: 'upload',
       relationTo: 'media',
+      required: true,
       label: 'Avatar Bild',
       admin: {
-        description: 'Profilbild des Autors',
+        description: 'Profilbild des Bewertenden',
       },
     },
     {
@@ -45,16 +46,16 @@ export const Testimonials: CollectionConfig = {
       },
     },
     {
-      name: 'reviewDate',
+      name: 'statementTimestamp',
       type: 'date',
       required: true,
-      label: 'Bewertungsdatum',
+      label: 'Zeitpunkt der Aussage',
       admin: {
         description:
-          'Datum, an dem die Bewertung abgegeben wurde (nicht das Erstellungsdatum des Eintrags)',
+          'Zeitstempel, wann die Aussage gemacht wurde (nicht das Erstellungsdatum des Eintrags)',
         date: {
-          pickerAppearance: 'dayOnly',
-          displayFormat: 'd.M.yyyy',
+          pickerAppearance: 'dayAndTime',
+          displayFormat: 'd.M.yyyy HH:mm',
         },
       },
     },
