@@ -138,11 +138,10 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
     >
       {/* Animated background layer handling all visual transitions */}
       <motion.div
-        className={`absolute inset-0 -z-10 border-b ${
-          isMobileMenuOpen ? 'theme-bg-primary' : 'theme-bg-primary-glass backdrop-blur-lg'
-        } border-neutral-200/20 dark:border-neutral-800/20`}
+        className={`absolute inset-0 -z-10 border-b backdrop-blur-lg ${
+          isMobileMenuOpen ? 'theme-bg-primary' : 'theme-bg-primary-glass'
+        } border-neutral-200/20 dark:border-neutral-800/20 opacity-100`}
         initial={false}
-        animate={{ opacity: isScrolled || isMobileMenuOpen ? 1 : 0 }}
         transition={{ duration: 0.3, ease: easeOut }}
       />
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
