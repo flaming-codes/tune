@@ -11,6 +11,31 @@ interface SignaturePadProps {
   disabled?: boolean
 }
 
+function getThemeColors() {
+  const styles = getComputedStyle(document.documentElement)
+  const isDark =
+    document.documentElement.getAttribute('data-theme') === 'dark' ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches &&
+      !document.documentElement.getAttribute('data-theme'))
+
+  const bg = isDark
+    ? styles.getPropertyValue('--bg-dark-offset').trim()
+    : styles.getPropertyValue('--bg-secondary').trim()
+  const text = styles.getPropertyValue('--text-primary').trim()
+
+  return {
+    bg: bg || (isDark ? '#262626' : '#fafafa'),
+    text: text || (isDark ? '#f5f5f5' : '#171717'),
+  }
+}
+
+function fillCanvasBackground(canvas: HTMLCanvasElement, color: string) {
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return
+  ctx.fillStyle = color
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+}
+
 export function SignaturePad({ value, onChange, error, disabled }: SignaturePadProps) {
   const canvasRef = useRef<SignatureCanvas>(null)
   const [canvasBackground, setCanvasBackground] = useState('rgb(255, 255, 255)')
@@ -18,12 +43,15 @@ export function SignaturePad({ value, onChange, error, disabled }: SignaturePadP
 
   useEffect(() => {
     const updateThemeColors = () => {
-      const styles = getComputedStyle(document.documentElement)
-      const bg = styles.getPropertyValue('--bg-secondary').trim()
-      const text = styles.getPropertyValue('--text-primary').trim()
+      const colors = getThemeColors()
+      setCanvasBackground(colors.bg)
+      setPenColor(colors.text)
 
-      setCanvasBackground(bg || 'rgb(255, 255, 255)')
-      setPenColor(text || 'rgb(0, 0, 0)')
+      // Apply background color to canvas directly
+      if (canvasRef.current) {
+        const canvas = canvasRef.current.getCanvas()
+        fillCanvasBackground(canvas, colors.bg)
+      }
     }
 
     updateThemeColors()
@@ -46,9 +74,12 @@ export function SignaturePad({ value, onChange, error, disabled }: SignaturePadP
   const handleClear = useCallback(() => {
     if (canvasRef.current) {
       canvasRef.current.clear()
+      // Re-apply background color after clear
+      const canvas = canvasRef.current.getCanvas()
+      fillCanvasBackground(canvas, canvasBackground)
       onChange('')
     }
-  }, [onChange])
+  }, [onChange, canvasBackground])
 
   const handleEnd = useCallback(() => {
     if (canvasRef.current) {

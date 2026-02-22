@@ -75,7 +75,7 @@ export function SegmentedField<T extends string>({
             className="sr-only peer"
             required={required}
           />
-          <span className="block px-4 py-2 text-sm font-medium theme-text-secondary transition-colors peer-checked:theme-bg-secondary peer-checked:theme-text-primary hover:theme-bg-secondary">
+          <span className="block px-4 py-2 text-sm font-medium theme-text-secondary transition-colors peer-checked:bg-neutral-200 peer-checked:theme-text-primary hover:theme-bg-secondary dark:peer-checked:bg-neutral-700">
             {option.label}
           </span>
         </label>
