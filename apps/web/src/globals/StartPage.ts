@@ -5,6 +5,7 @@ import {
   startPageHeaderBlocks,
   startPageLayoutBlocks,
 } from '@/blocks/startPage'
+import { createGlobalVersions } from '@/lib/versioning'
 
 export const StartPage: GlobalConfig = {
   slug: 'start-page',
@@ -20,6 +21,7 @@ export const StartPage: GlobalConfig = {
   access: {
     read: () => true,
   },
+  versions: createGlobalVersions(),
   fields: [
     {
       name: 'header',
