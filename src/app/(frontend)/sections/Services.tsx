@@ -62,7 +62,7 @@ export function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
           {services.map((group) => (
             <div key={group.category} className="group">
-              <h3 className="text-lg font-medium mb-6 pb-4 border-b theme-border-secondary transition-colors duration-300 group-hover:border-current group-hover:text-[var(--accent-hover)]">
+              <h3 className="text-lg font-medium mb-6 pb-4 border-b border-neutral-300 dark:border-neutral-800 transition-colors duration-300 group-hover:border-neutral-900 dark:group-hover:border-white">
                 {group.category}
               </h3>
               <ul className="space-y-3">

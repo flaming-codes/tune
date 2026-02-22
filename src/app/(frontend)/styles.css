@@ -150,6 +150,19 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Dark scrollbar for dark theme */
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+    scrollbar-color: #404040 #1a1a1a;
+  }
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  scrollbar-color: #404040 #1a1a1a;
+}
+
 /* Selection styling */
 ::selection {
   background-color: var(--selection-bg);
