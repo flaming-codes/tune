@@ -1,0 +1,13 @@
+{
+  "name": "@med/theme",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "tailwindcss": "^4.2.0"
+  },
+  "exports": {
+    "./global.css": "./src/global.css"
+  }
+}
