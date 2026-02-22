@@ -38,6 +38,14 @@ export const TeamMembers: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'slug', 'role', 'sortOrder', 'updatedAt'],
+    livePreview: {
+      url: ({ data }) => {
+        if (data?.slug) {
+          return `/team/${data.slug}`
+        }
+        return '/team'
+      },
+    },
   },
   access: {
     read: () => true,
