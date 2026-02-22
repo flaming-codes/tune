@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { motion, AnimatePresence, type Variants, type Easing } from 'motion/react'
 import { cn } from '@/lib/utils'
-import { LEGAL_LINKS } from '@/lib/constants'
 
 interface NavLink {
   label: string
@@ -134,15 +133,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
     (link) => link.label.toLowerCase() !== 'home' && link.href !== '/',
   )
 
-  const allNavLinks = [...filteredNavLinks]
-  for (const legalLink of LEGAL_LINKS) {
-    const exists = allNavLinks.some((link) => link.href === legalLink.href)
-    if (!exists) {
-      allNavLinks.push(legalLink)
-    }
-  }
-
-  const resolvedNavLinks = allNavLinks.map((link) => {
+  const resolvedNavLinks = filteredNavLinks.map((link) => {
     if (!link.href.startsWith('#')) {
       return link
     }
