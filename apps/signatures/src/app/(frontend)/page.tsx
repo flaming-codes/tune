@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { PrivacyForm } from './components/PrivacyForm'
+import { PrivacyFormScreensaver } from './components/PrivacyFormScreensaver'
 
 export const metadata: Metadata = {
   title: 'Datenschutzerklärung | Tierarztpraxis Dr. Tune Lazri',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen theme-bg-primary">
-      <PrivacyForm />
+      <PrivacyFormScreensaver />
     </main>
   )
 }

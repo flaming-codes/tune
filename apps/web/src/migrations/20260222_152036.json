@@ -796,7 +796,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'2026-02-22T11:58:55.727Z'"
+          "default": "'2026-02-22T15:20:36.048Z'"
         },
         "sort_order": {
           "name": "sort_order",
@@ -2835,6 +2835,52 @@
           "notNull": false,
           "autoincrement": false
         },
+        "meta_canonical_url": {
+          "name": "meta_canonical_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "meta_no_index": {
+          "name": "meta_no_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "json_ld_enabled": {
+          "name": "json_ld_enabled",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": true
+        },
+        "json_ld_page_type": {
+          "name": "json_ld_page_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'WebPage'"
+        },
+        "json_ld_include_organization": {
+          "name": "json_ld_include_organization",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": true
+        },
+        "json_ld_custom_schemas": {
+          "name": "json_ld_custom_schemas",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "_status": {
           "name": "_status",
           "type": "text",
@@ -2878,6 +2924,91 @@
           "columnsFrom": ["meta_image_id"],
           "columnsTo": ["id"],
           "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page_rels": {
+      "name": "start_page_rels",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "path": {
+          "name": "path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "team_members_id": {
+          "name": "team_members_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_rels_order_idx": {
+          "name": "start_page_rels_order_idx",
+          "columns": ["order"],
+          "isUnique": false
+        },
+        "start_page_rels_parent_idx": {
+          "name": "start_page_rels_parent_idx",
+          "columns": ["parent_id"],
+          "isUnique": false
+        },
+        "start_page_rels_path_idx": {
+          "name": "start_page_rels_path_idx",
+          "columns": ["path"],
+          "isUnique": false
+        },
+        "start_page_rels_team_members_id_idx": {
+          "name": "start_page_rels_team_members_id_idx",
+          "columns": ["team_members_id"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_rels_parent_fk": {
+          "name": "start_page_rels_parent_fk",
+          "tableFrom": "start_page_rels",
+          "tableTo": "start_page",
+          "columnsFrom": ["parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "start_page_rels_team_members_fk": {
+          "name": "start_page_rels_team_members_fk",
+          "tableFrom": "start_page_rels",
+          "tableTo": "team_members",
+          "columnsFrom": ["team_members_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -4494,6 +4625,52 @@
           "notNull": false,
           "autoincrement": false
         },
+        "version_meta_canonical_url": {
+          "name": "version_meta_canonical_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_meta_no_index": {
+          "name": "version_meta_no_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "version_json_ld_enabled": {
+          "name": "version_json_ld_enabled",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": true
+        },
+        "version_json_ld_page_type": {
+          "name": "version_json_ld_page_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'WebPage'"
+        },
+        "version_json_ld_include_organization": {
+          "name": "version_json_ld_include_organization",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": true
+        },
+        "version_json_ld_custom_schemas": {
+          "name": "version_json_ld_custom_schemas",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "version__status": {
           "name": "version__status",
           "type": "text",
@@ -4594,6 +4771,91 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
+    "_start_page_v_rels": {
+      "name": "_start_page_v_rels",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "path": {
+          "name": "path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "team_members_id": {
+          "name": "team_members_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "_start_page_v_rels_order_idx": {
+          "name": "_start_page_v_rels_order_idx",
+          "columns": ["order"],
+          "isUnique": false
+        },
+        "_start_page_v_rels_parent_idx": {
+          "name": "_start_page_v_rels_parent_idx",
+          "columns": ["parent_id"],
+          "isUnique": false
+        },
+        "_start_page_v_rels_path_idx": {
+          "name": "_start_page_v_rels_path_idx",
+          "columns": ["path"],
+          "isUnique": false
+        },
+        "_start_page_v_rels_team_members_id_idx": {
+          "name": "_start_page_v_rels_team_members_id_idx",
+          "columns": ["team_members_id"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "_start_page_v_rels_parent_fk": {
+          "name": "_start_page_v_rels_parent_fk",
+          "tableFrom": "_start_page_v_rels",
+          "tableTo": "_start_page_v",
+          "columnsFrom": ["parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "_start_page_v_rels_team_members_fk": {
+          "name": "_start_page_v_rels_team_members_fk",
+          "tableFrom": "_start_page_v_rels",
+          "tableTo": "team_members",
+          "columnsFrom": ["team_members_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
     "imprint_page": {
       "name": "imprint_page",
       "columns": {
@@ -4636,6 +4898,52 @@
         "meta_image_id": {
           "name": "meta_image_id",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "meta_canonical_url": {
+          "name": "meta_canonical_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "meta_no_index": {
+          "name": "meta_no_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "json_ld_enabled": {
+          "name": "json_ld_enabled",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": true
+        },
+        "json_ld_page_type": {
+          "name": "json_ld_page_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'AboutPage'"
+        },
+        "json_ld_include_organization": {
+          "name": "json_ld_include_organization",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": true
+        },
+        "json_ld_custom_schemas": {
+          "name": "json_ld_custom_schemas",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -4732,6 +5040,52 @@
         "version_meta_image_id": {
           "name": "version_meta_image_id",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_meta_canonical_url": {
+          "name": "version_meta_canonical_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_meta_no_index": {
+          "name": "version_meta_no_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "version_json_ld_enabled": {
+          "name": "version_json_ld_enabled",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": true
+        },
+        "version_json_ld_page_type": {
+          "name": "version_json_ld_page_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'AboutPage'"
+        },
+        "version_json_ld_include_organization": {
+          "name": "version_json_ld_include_organization",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": true
+        },
+        "version_json_ld_custom_schemas": {
+          "name": "version_json_ld_custom_schemas",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -4882,6 +5236,52 @@
           "notNull": false,
           "autoincrement": false
         },
+        "meta_canonical_url": {
+          "name": "meta_canonical_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "meta_no_index": {
+          "name": "meta_no_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "json_ld_enabled": {
+          "name": "json_ld_enabled",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": true
+        },
+        "json_ld_page_type": {
+          "name": "json_ld_page_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'WebPage'"
+        },
+        "json_ld_include_organization": {
+          "name": "json_ld_include_organization",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": true
+        },
+        "json_ld_custom_schemas": {
+          "name": "json_ld_custom_schemas",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "_status": {
           "name": "_status",
           "type": "text",
@@ -4974,6 +5374,52 @@
         "version_meta_image_id": {
           "name": "version_meta_image_id",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_meta_canonical_url": {
+          "name": "version_meta_canonical_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_meta_no_index": {
+          "name": "version_meta_no_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "version_json_ld_enabled": {
+          "name": "version_json_ld_enabled",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": true
+        },
+        "version_json_ld_page_type": {
+          "name": "version_json_ld_page_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'WebPage'"
+        },
+        "version_json_ld_include_organization": {
+          "name": "version_json_ld_include_organization",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": true
+        },
+        "version_json_ld_custom_schemas": {
+          "name": "version_json_ld_custom_schemas",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -5088,6 +5534,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "b61a48fe-e15c-4530-964b-6bd097cba8a1",
+  "id": "bced31ba-e39c-4347-9844-f104f9f032d3",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

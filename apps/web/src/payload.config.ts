@@ -1,6 +1,5 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { seoPlugin } from '@payloadcms/plugin-seo'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -47,17 +46,6 @@ export default buildConfig({
     push: false,
   }),
   sharp,
-  plugins: [
-    seoPlugin({
-      globals: ['start-page', 'imprint-page', 'privacy-policy-page'],
-      uploadsCollection: 'media',
-      tabbedUI: true,
-      generateTitle: ({ doc }) => doc?.meta?.title || 'Tierarztpraxis Dr. Tune Lazri | Wien',
-      generateDescription: ({ doc }) =>
-        doc?.meta?.description ||
-        'Tierarztpraxis Dr. Tune Lazri in Wien. Hausbesuche, Vorsorge, Diagnostik, Operationen.',
-    }),
-  ],
   onInit: async (payload) => {
     if (envServer.PAYLOAD_SEED === 'true') {
       await seedStartPage(payload, envServer.PAYLOAD_SEED_OVERWRITE === 'true')

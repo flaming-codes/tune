@@ -22,20 +22,34 @@ async function getSiteSettings() {
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = await getSiteSettings()
+  const metaTitle = siteSettings.meta?.title || 'Tierarztpraxis'
+  const metaDescription = siteSettings.meta?.description || ''
+  const metaImageUrl =
+    siteSettings.meta?.image && typeof siteSettings.meta.image === 'object'
+      ? siteSettings.meta.image.url || ''
+      : ''
 
   return {
-    title: siteSettings.meta?.title || 'Tierarztpraxis',
-    description: siteSettings.meta?.description || '',
+    title: metaTitle,
+    description: metaDescription,
+    alternates: siteSettings.meta?.canonicalUrl
+      ? {
+          canonical: siteSettings.meta.canonicalUrl,
+        }
+      : undefined,
+    robots: siteSettings.meta?.noIndex
+      ? {
+          index: false,
+          follow: false,
+        }
+      : undefined,
     openGraph: {
-      title: siteSettings.meta?.title || 'Tierarztpraxis',
-      description: siteSettings.meta?.description || '',
-      images: siteSettings.meta?.image
+      title: metaTitle,
+      description: metaDescription,
+      images: metaImageUrl
         ? [
             {
-              url:
-                typeof siteSettings.meta.image === 'object'
-                  ? siteSettings.meta.image.url || ''
-                  : '',
+              url: metaImageUrl,
             },
           ]
         : undefined,

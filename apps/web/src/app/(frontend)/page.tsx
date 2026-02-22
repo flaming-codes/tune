@@ -3,6 +3,8 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 
 import { PageContent } from './PageContent'
+import { JsonLdScripts } from './components/JsonLdScripts'
+import { buildStartPageJsonLd } from '@/lib/jsonLd'
 
 async function getStartPage() {
   const payload = await getPayload({ config })
@@ -62,12 +64,21 @@ export default async function HomePage() {
     getGalleryImages(),
   ])
 
+  const jsonLdItems = buildStartPageJsonLd({
+    startPage,
+    teamMembers,
+    testimonials,
+  })
+
   return (
-    <PageContent
-      initialStartPage={startPage}
-      teamMembers={teamMembers}
-      testimonials={testimonials}
-      galleryImages={galleryImages}
-    />
+    <>
+      <JsonLdScripts scriptIdPrefix="home-jsonld" items={jsonLdItems} />
+      <PageContent
+        initialStartPage={startPage}
+        teamMembers={teamMembers}
+        testimonials={testimonials}
+        galleryImages={galleryImages}
+      />
+    </>
   )
 }

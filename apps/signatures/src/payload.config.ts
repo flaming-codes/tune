@@ -7,6 +7,7 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { PrivacyAcknowledgments } from './collections/PrivacyAcknowledgments'
+import { ScreensaverImages } from './collections/ScreensaverImages'
 import { envClient } from './env/client'
 import { envServer } from './env/server'
 
@@ -23,7 +24,7 @@ export default buildConfig({
       url: envClient.NEXT_PUBLIC_SITE_URL,
     },
   },
-  collections: [Users, PrivacyAcknowledgments],
+  collections: [Users, PrivacyAcknowledgments, ScreensaverImages],
   editor: lexicalEditor(),
   secret: envServer.PAYLOAD_SECRET,
   typescript: {

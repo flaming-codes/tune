@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     'privacy-acknowledgments': PrivacyAcknowledgment;
+    'screensaver-images': ScreensaverImage;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +79,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     'privacy-acknowledgments': PrivacyAcknowledgmentsSelect<false> | PrivacyAcknowledgmentsSelect<true>;
+    'screensaver-images': ScreensaverImagesSelect<false> | ScreensaverImagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -185,6 +187,53 @@ export interface PrivacyAcknowledgment {
   createdAt: string;
 }
 /**
+ * Bilder für den Bildschirmschoner im Wartebereich.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "screensaver-images".
+ */
+export interface ScreensaverImage {
+  id: number;
+  title: string;
+  /**
+   * Nur aktive Bilder werden im Bildschirmschoner angezeigt.
+   */
+  active?: boolean | null;
+  /**
+   * Höhere Zahlen werden später angezeigt (aufsteigend sortiert).
+   */
+  displayOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    fullscreen?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -215,6 +264,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'privacy-acknowledgments';
         value: number | PrivacyAcknowledgment;
+      } | null)
+    | ({
+        relationTo: 'screensaver-images';
+        value: number | ScreensaverImage;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -309,6 +362,50 @@ export interface PrivacyAcknowledgmentsSelect<T extends boolean = true> {
   userAgent?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "screensaver-images_select".
+ */
+export interface ScreensaverImagesSelect<T extends boolean = true> {
+  title?: T;
+  active?: T;
+  displayOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        fullscreen?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

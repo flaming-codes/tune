@@ -1,6 +1,8 @@
 import type { GlobalConfig } from 'payload'
 
 import { createGlobalVersions } from '@/lib/versioning'
+import { createJsonLdField } from './jsonLdFields'
+import { createSeoField } from './seoFields'
 
 export const PrivacyPolicyPage: GlobalConfig = {
   slug: 'privacy-policy-page',
@@ -19,17 +21,39 @@ export const PrivacyPolicyPage: GlobalConfig = {
   versions: createGlobalVersions(),
   fields: [
     {
-      name: 'pageTitle',
-      type: 'text',
-      required: true,
-      defaultValue: 'Datenschutzerklärung',
-      label: 'Seitentitel',
-    },
-    {
-      name: 'content',
-      type: 'richText',
-      required: true,
-      label: 'Inhalt',
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'Inhalt',
+          fields: [
+            {
+              name: 'pageTitle',
+              type: 'text',
+              required: true,
+              defaultValue: 'Datenschutzerklärung',
+              label: 'Seitentitel',
+            },
+            {
+              name: 'content',
+              type: 'richText',
+              required: true,
+              label: 'Inhalt',
+            },
+          ],
+        },
+        {
+          label: 'SEO',
+          fields: [createSeoField()],
+        },
+        {
+          label: 'JSON+LD',
+          fields: [
+            createJsonLdField({
+              defaultPageType: 'WebPage',
+            }),
+          ],
+        },
+      ],
     },
   ],
 }

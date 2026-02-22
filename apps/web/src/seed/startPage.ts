@@ -164,6 +164,11 @@ const defaultStartPageData = {
     description:
       'Tierarztpraxis Dr. Tune Lazri in Wien. Hausbesuche, Vorsorge, Diagnostik, Operationen. Mit Leidenschaft für Ihre Lieblinge.',
   },
+  jsonLd: {
+    enabled: true,
+    pageType: 'WebPage',
+    includeOrganization: true,
+  },
 } satisfies Omit<StartPage, 'id' | 'createdAt' | 'updatedAt'>
 
 export async function seedStartPage(payload: Payload, overwrite = false): Promise<void> {

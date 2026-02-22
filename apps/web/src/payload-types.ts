@@ -700,13 +700,45 @@ export interface StartPage {
         blockType: 'footer'
       }[]
     | null
+  /**
+   * SEO-Einstellungen für Suchmaschinen und Social Preview.
+   */
   meta?: {
-    title?: string | null
-    description?: string | null
     /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     * Empfohlen für Suchmaschinen: 30–60 Zeichen.
      */
+    title?: string | null
+    /**
+     * Empfohlen für Suchmaschinen: 120–155 Zeichen.
+     */
+    description?: string | null
     image?: (number | null) | Media
+    /**
+     * Absolute URL, z. B. https://www.deine-domain.at/impressum
+     */
+    canonicalUrl?: string | null
+    noIndex?: boolean | null
+  }
+  jsonLd: {
+    enabled?: boolean | null
+    pageType: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage'
+    includeOrganization?: boolean | null
+    /**
+     * Leer lassen, um automatisch alle aktiven Teammitglieder zu verwenden. Bei Auswahl werden nur diese verwendet.
+     */
+    teamMembers?: (number | TeamMember)[] | null
+    /**
+     * Optional: zusätzliches Schema als Objekt oder Array. Wird unverändert als JSON+LD ausgegeben.
+     */
+    customSchemas?:
+      | {
+          [k: string]: unknown
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null
   }
   _status?: ('draft' | 'published') | null
   updatedAt?: string | null
@@ -736,13 +768,41 @@ export interface ImprintPage {
     }
     [k: string]: unknown
   }
+  /**
+   * SEO-Einstellungen für Suchmaschinen und Social Preview.
+   */
   meta?: {
-    title?: string | null
-    description?: string | null
     /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     * Empfohlen für Suchmaschinen: 30–60 Zeichen.
      */
+    title?: string | null
+    /**
+     * Empfohlen für Suchmaschinen: 120–155 Zeichen.
+     */
+    description?: string | null
     image?: (number | null) | Media
+    /**
+     * Absolute URL, z. B. https://www.deine-domain.at/impressum
+     */
+    canonicalUrl?: string | null
+    noIndex?: boolean | null
+  }
+  jsonLd: {
+    enabled?: boolean | null
+    pageType: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage'
+    includeOrganization?: boolean | null
+    /**
+     * Optional: zusätzliches Schema als Objekt oder Array. Wird unverändert als JSON+LD ausgegeben.
+     */
+    customSchemas?:
+      | {
+          [k: string]: unknown
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null
   }
   _status?: ('draft' | 'published') | null
   updatedAt?: string | null
@@ -772,13 +832,41 @@ export interface PrivacyPolicyPage {
     }
     [k: string]: unknown
   }
+  /**
+   * SEO-Einstellungen für Suchmaschinen und Social Preview.
+   */
   meta?: {
-    title?: string | null
-    description?: string | null
     /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     * Empfohlen für Suchmaschinen: 30–60 Zeichen.
      */
+    title?: string | null
+    /**
+     * Empfohlen für Suchmaschinen: 120–155 Zeichen.
+     */
+    description?: string | null
     image?: (number | null) | Media
+    /**
+     * Absolute URL, z. B. https://www.deine-domain.at/impressum
+     */
+    canonicalUrl?: string | null
+    noIndex?: boolean | null
+  }
+  jsonLd: {
+    enabled?: boolean | null
+    pageType: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage'
+    includeOrganization?: boolean | null
+    /**
+     * Optional: zusätzliches Schema als Objekt oder Array. Wird unverändert als JSON+LD ausgegeben.
+     */
+    customSchemas?:
+      | {
+          [k: string]: unknown
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null
   }
   _status?: ('draft' | 'published') | null
   updatedAt?: string | null
@@ -959,6 +1047,17 @@ export interface StartPageSelect<T extends boolean = true> {
         title?: T
         description?: T
         image?: T
+        canonicalUrl?: T
+        noIndex?: T
+      }
+  jsonLd?:
+    | T
+    | {
+        enabled?: T
+        pageType?: T
+        includeOrganization?: T
+        teamMembers?: T
+        customSchemas?: T
       }
   _status?: T
   updatedAt?: T
@@ -978,6 +1077,16 @@ export interface ImprintPageSelect<T extends boolean = true> {
         title?: T
         description?: T
         image?: T
+        canonicalUrl?: T
+        noIndex?: T
+      }
+  jsonLd?:
+    | T
+    | {
+        enabled?: T
+        pageType?: T
+        includeOrganization?: T
+        customSchemas?: T
       }
   _status?: T
   updatedAt?: T
@@ -997,6 +1106,16 @@ export interface PrivacyPolicyPageSelect<T extends boolean = true> {
         title?: T
         description?: T
         image?: T
+        canonicalUrl?: T
+        noIndex?: T
+      }
+  jsonLd?:
+    | T
+    | {
+        enabled?: T
+        pageType?: T
+        includeOrganization?: T
+        customSchemas?: T
       }
   _status?: T
   updatedAt?: T
