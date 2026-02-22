@@ -3,11 +3,13 @@
 import Analytics from 'analytics'
 
 import { normalizeAnalyticsEvent } from './schema'
+import { envClient } from '@/env/client'
 
 const SESSION_STORAGE_KEY = 'med-site.analytics.session-id'
 const ANON_STORAGE_KEY = 'med-site.analytics.anonymous-id'
 
 let analyticsInstance: ReturnType<typeof Analytics> | null = null
+const isAnalyticsEnabled = envClient.NEXT_PUBLIC_ANALYTICS_ENABLED
 
 function getOrCreateStorageId(storageKey: string): string {
   const current = window.localStorage.getItem(storageKey)
@@ -89,6 +91,7 @@ function payloadTransportPlugin() {
 
 export function getAnalytics() {
   if (typeof window === 'undefined') return null
+  if (!isAnalyticsEnabled) return null
 
   if (!analyticsInstance) {
     analyticsInstance = Analytics({
@@ -101,13 +104,16 @@ export function getAnalytics() {
 }
 
 export function trackPage(properties?: Record<string, unknown>) {
+  if (!isAnalyticsEnabled) return
   getAnalytics()?.page(properties)
 }
 
 export function trackEvent(eventName: string, properties?: Record<string, unknown>) {
+  if (!isAnalyticsEnabled) return
   getAnalytics()?.track(eventName, properties)
 }
 
 export function identifyUser(userId: string, traits?: Record<string, unknown>) {
+  if (!isAnalyticsEnabled) return
   getAnalytics()?.identify(userId, traits)
 }
