@@ -1,0 +1,47 @@
+# Lefthook configuration
+# https://github.com/evilmartians/lefthook
+
+# Use this as a formatter
+# https://dprint.dev/
+# formatter:
+#   name: dprint
+#   includes:
+#     - "*.ts"
+#     - "*.tsx"
+#     - "*.js"
+#     - "*.jsx"
+#     - "*.json"
+
+# Run formatter and linter on pre-commit
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      glob: "*.{ts,tsx,js,jsx}"
+      run: pnpm eslint --fix {staged_files}
+      stage_fixed: true
+    format:
+      glob: "*.{ts,tsx,js,jsx,json,css,scss,md}"
+      run: pnpm prettier --write {staged_files}
+      stage_fixed: true
+
+# Run all checks on commit-msg (optional - good for CI-like checks)
+# commit-msg:
+#   commands:
+#     commitlint:
+#       run: pnpm commitlint --edit {1}
+
+# Run all checks before push
+pre-push:
+  parallel: true
+  commands:
+    lint:
+      run: pnpm lint
+    typecheck:
+      run: pnpm tsc --noEmit
+
+# Example of custom command
+# test:
+#   commands:
+#     test:
+#       run: pnpm test
