@@ -120,7 +120,7 @@ export function PrivacyForm() {
   return (
     <div className="min-h-screen md:h-screen flex theme-bg-primary theme-text-primary font-sans">
       <div className="flex-1 h-screen overflow-hidden">
-        <div className="max-w-3xl w-full h-full px-6 md:px-8 lg:px-12 md:ml-[10vw] lg:ml-[15vw]">
+        <div className="max-w-2xl w-full h-full px-6 md:px-8 lg:px-12 mx-auto md:mx-0 md:ml-[5vw] lg:ml-[10vw] xl:ml-[15vw]">
           <form onSubmit={handleSubmit} className="h-full flex flex-col">
             <div className="flex-1 overflow-y-auto pt-[20svh] pb-8 md:pb-10">
               <div className="space-y-10">
