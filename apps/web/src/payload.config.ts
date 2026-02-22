@@ -1,5 +1,6 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { seoPlugin } from '@payloadcms/plugin-seo'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -11,6 +12,7 @@ import { TeamMembers } from './collections/TeamMembers'
 import { GalleryImages } from './collections/GalleryImages'
 import { Testimonials } from './collections/Testimonials'
 import { StartPage } from './globals/StartPage'
+import type { StartPage as StartPageType } from './payload-types'
 import { seedStartPage } from './seed/startPage'
 import { envClient } from './env/client'
 import { envServer } from './env/server'
@@ -43,7 +45,16 @@ export default buildConfig({
     push: false,
   }),
   sharp,
-  plugins: [],
+  plugins: [
+    seoPlugin({
+      globals: ['start-page'],
+      uploadsCollection: 'media',
+      generateTitle: ({ doc }) => doc?.meta?.title || 'Tierarztpraxis Dr. Tune Lazri | Wien',
+      generateDescription: ({ doc }) =>
+        doc?.meta?.description ||
+        'Tierarztpraxis Dr. Tune Lazri in Wien. Hausbesuche, Vorsorge, Diagnostik, Operationen.',
+    }),
+  ],
   onInit: async (payload) => {
     if (envServer.PAYLOAD_SEED === 'true') {
       await seedStartPage(payload, envServer.PAYLOAD_SEED_OVERWRITE === 'true')

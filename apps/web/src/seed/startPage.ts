@@ -157,7 +157,7 @@ const defaultStartPageData = {
       copyright: 'Mit Leidenschaft für Ihre Lieblinge.',
     },
   ],
-  seo: {
+  meta: {
     title: 'Tierarztpraxis Dr. Tune Lazri | Wien',
     description:
       'Tierarztpraxis Dr. Tune Lazri in Wien. Hausbesuche, Vorsorge, Diagnostik, Operationen. Mit Leidenschaft für Ihre Lieblinge.',

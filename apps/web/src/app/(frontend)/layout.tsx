@@ -23,11 +23,20 @@ export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = await getSiteSettings()
 
   return {
-    title: siteSettings.seo?.title || 'Tierarztpraxis',
-    description: siteSettings.seo?.description || '',
+    title: siteSettings.meta?.title || 'Tierarztpraxis',
+    description: siteSettings.meta?.description || '',
     openGraph: {
-      title: siteSettings.seo?.title || 'Tierarztpraxis',
-      description: siteSettings.seo?.description || '',
+      title: siteSettings.meta?.title || 'Tierarztpraxis',
+      description: siteSettings.meta?.description || '',
+      images: siteSettings.meta?.image
+        ? [
+            {
+              url: typeof siteSettings.meta.image === 'object'
+                ? siteSettings.meta.image.url || ''
+                : '',
+            },
+          ]
+        : undefined,
       type: 'website',
     },
   }

@@ -44,12 +44,16 @@
       "indexes": {
         "users_sessions_order_idx": {
           "name": "users_sessions_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "users_sessions_parent_id_idx": {
           "name": "users_sessions_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         }
       },
@@ -58,8 +62,12 @@
           "name": "users_sessions_parent_id_fk",
           "tableFrom": "users_sessions",
           "tableTo": "users",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -148,17 +156,23 @@
       "indexes": {
         "users_updated_at_idx": {
           "name": "users_updated_at_idx",
-          "columns": ["updated_at"],
+          "columns": [
+            "updated_at"
+          ],
           "isUnique": false
         },
         "users_created_at_idx": {
           "name": "users_created_at_idx",
-          "columns": ["created_at"],
+          "columns": [
+            "created_at"
+          ],
           "isUnique": false
         },
         "users_email_idx": {
           "name": "users_email_idx",
-          "columns": ["email"],
+          "columns": [
+            "email"
+          ],
           "isUnique": true
         }
       },
@@ -449,37 +463,51 @@
       "indexes": {
         "media_updated_at_idx": {
           "name": "media_updated_at_idx",
-          "columns": ["updated_at"],
+          "columns": [
+            "updated_at"
+          ],
           "isUnique": false
         },
         "media_created_at_idx": {
           "name": "media_created_at_idx",
-          "columns": ["created_at"],
+          "columns": [
+            "created_at"
+          ],
           "isUnique": false
         },
         "media_filename_idx": {
           "name": "media_filename_idx",
-          "columns": ["filename"],
+          "columns": [
+            "filename"
+          ],
           "isUnique": true
         },
         "media_sizes_thumbnail_sizes_thumbnail_filename_idx": {
           "name": "media_sizes_thumbnail_sizes_thumbnail_filename_idx",
-          "columns": ["sizes_thumbnail_filename"],
+          "columns": [
+            "sizes_thumbnail_filename"
+          ],
           "isUnique": false
         },
         "media_sizes_card_sizes_card_filename_idx": {
           "name": "media_sizes_card_sizes_card_filename_idx",
-          "columns": ["sizes_card_filename"],
+          "columns": [
+            "sizes_card_filename"
+          ],
           "isUnique": false
         },
         "media_sizes_tablet_sizes_tablet_filename_idx": {
           "name": "media_sizes_tablet_sizes_tablet_filename_idx",
-          "columns": ["sizes_tablet_filename"],
+          "columns": [
+            "sizes_tablet_filename"
+          ],
           "isUnique": false
         },
         "media_sizes_hero_sizes_hero_filename_idx": {
           "name": "media_sizes_hero_sizes_hero_filename_idx",
-          "columns": ["sizes_hero_filename"],
+          "columns": [
+            "sizes_hero_filename"
+          ],
           "isUnique": false
         }
       },
@@ -555,12 +583,16 @@
       "indexes": {
         "team_members_updated_at_idx": {
           "name": "team_members_updated_at_idx",
-          "columns": ["updated_at"],
+          "columns": [
+            "updated_at"
+          ],
           "isUnique": false
         },
         "team_members_created_at_idx": {
           "name": "team_members_created_at_idx",
-          "columns": ["created_at"],
+          "columns": [
+            "created_at"
+          ],
           "isUnique": false
         }
       },
@@ -611,22 +643,30 @@
       "indexes": {
         "team_members_rels_order_idx": {
           "name": "team_members_rels_order_idx",
-          "columns": ["order"],
+          "columns": [
+            "order"
+          ],
           "isUnique": false
         },
         "team_members_rels_parent_idx": {
           "name": "team_members_rels_parent_idx",
-          "columns": ["parent_id"],
+          "columns": [
+            "parent_id"
+          ],
           "isUnique": false
         },
         "team_members_rels_path_idx": {
           "name": "team_members_rels_path_idx",
-          "columns": ["path"],
+          "columns": [
+            "path"
+          ],
           "isUnique": false
         },
         "team_members_rels_media_id_idx": {
           "name": "team_members_rels_media_id_idx",
-          "columns": ["media_id"],
+          "columns": [
+            "media_id"
+          ],
           "isUnique": false
         }
       },
@@ -635,8 +675,12 @@
           "name": "team_members_rels_parent_fk",
           "tableFrom": "team_members_rels",
           "tableTo": "team_members",
-          "columnsFrom": ["parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -644,8 +688,12 @@
           "name": "team_members_rels_media_fk",
           "tableFrom": "team_members_rels",
           "tableTo": "media",
-          "columnsFrom": ["media_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "media_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -722,17 +770,23 @@
       "indexes": {
         "gallery_images_image_idx": {
           "name": "gallery_images_image_idx",
-          "columns": ["image_id"],
+          "columns": [
+            "image_id"
+          ],
           "isUnique": false
         },
         "gallery_images_updated_at_idx": {
           "name": "gallery_images_updated_at_idx",
-          "columns": ["updated_at"],
+          "columns": [
+            "updated_at"
+          ],
           "isUnique": false
         },
         "gallery_images_created_at_idx": {
           "name": "gallery_images_created_at_idx",
-          "columns": ["created_at"],
+          "columns": [
+            "created_at"
+          ],
           "isUnique": false
         }
       },
@@ -741,8 +795,12 @@
           "name": "gallery_images_image_id_media_id_fk",
           "tableFrom": "gallery_images",
           "tableTo": "media",
-          "columnsFrom": ["image_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "image_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -796,7 +854,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'2026-02-22T09:05:58.868Z'"
+          "default": "'2026-02-22T10:30:26.337Z'"
         },
         "sort_order": {
           "name": "sort_order",
@@ -834,17 +892,23 @@
       "indexes": {
         "testimonials_image_idx": {
           "name": "testimonials_image_idx",
-          "columns": ["image_id"],
+          "columns": [
+            "image_id"
+          ],
           "isUnique": false
         },
         "testimonials_updated_at_idx": {
           "name": "testimonials_updated_at_idx",
-          "columns": ["updated_at"],
+          "columns": [
+            "updated_at"
+          ],
           "isUnique": false
         },
         "testimonials_created_at_idx": {
           "name": "testimonials_created_at_idx",
-          "columns": ["created_at"],
+          "columns": [
+            "created_at"
+          ],
           "isUnique": false
         }
       },
@@ -853,8 +917,12 @@
           "name": "testimonials_image_id_media_id_fk",
           "tableFrom": "testimonials",
           "tableTo": "media",
-          "columnsFrom": ["image_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "image_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -891,7 +959,9 @@
       "indexes": {
         "payload_kv_key_idx": {
           "name": "payload_kv_key_idx",
-          "columns": ["key"],
+          "columns": [
+            "key"
+          ],
           "isUnique": true
         }
       },
@@ -937,17 +1007,23 @@
       "indexes": {
         "payload_locked_documents_global_slug_idx": {
           "name": "payload_locked_documents_global_slug_idx",
-          "columns": ["global_slug"],
+          "columns": [
+            "global_slug"
+          ],
           "isUnique": false
         },
         "payload_locked_documents_updated_at_idx": {
           "name": "payload_locked_documents_updated_at_idx",
-          "columns": ["updated_at"],
+          "columns": [
+            "updated_at"
+          ],
           "isUnique": false
         },
         "payload_locked_documents_created_at_idx": {
           "name": "payload_locked_documents_created_at_idx",
-          "columns": ["created_at"],
+          "columns": [
+            "created_at"
+          ],
           "isUnique": false
         }
       },
@@ -1026,42 +1102,58 @@
       "indexes": {
         "payload_locked_documents_rels_order_idx": {
           "name": "payload_locked_documents_rels_order_idx",
-          "columns": ["order"],
+          "columns": [
+            "order"
+          ],
           "isUnique": false
         },
         "payload_locked_documents_rels_parent_idx": {
           "name": "payload_locked_documents_rels_parent_idx",
-          "columns": ["parent_id"],
+          "columns": [
+            "parent_id"
+          ],
           "isUnique": false
         },
         "payload_locked_documents_rels_path_idx": {
           "name": "payload_locked_documents_rels_path_idx",
-          "columns": ["path"],
+          "columns": [
+            "path"
+          ],
           "isUnique": false
         },
         "payload_locked_documents_rels_users_id_idx": {
           "name": "payload_locked_documents_rels_users_id_idx",
-          "columns": ["users_id"],
+          "columns": [
+            "users_id"
+          ],
           "isUnique": false
         },
         "payload_locked_documents_rels_media_id_idx": {
           "name": "payload_locked_documents_rels_media_id_idx",
-          "columns": ["media_id"],
+          "columns": [
+            "media_id"
+          ],
           "isUnique": false
         },
         "payload_locked_documents_rels_team_members_id_idx": {
           "name": "payload_locked_documents_rels_team_members_id_idx",
-          "columns": ["team_members_id"],
+          "columns": [
+            "team_members_id"
+          ],
           "isUnique": false
         },
         "payload_locked_documents_rels_gallery_images_id_idx": {
           "name": "payload_locked_documents_rels_gallery_images_id_idx",
-          "columns": ["gallery_images_id"],
+          "columns": [
+            "gallery_images_id"
+          ],
           "isUnique": false
         },
         "payload_locked_documents_rels_testimonials_id_idx": {
           "name": "payload_locked_documents_rels_testimonials_id_idx",
-          "columns": ["testimonials_id"],
+          "columns": [
+            "testimonials_id"
+          ],
           "isUnique": false
         }
       },
@@ -1070,8 +1162,12 @@
           "name": "payload_locked_documents_rels_parent_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "payload_locked_documents",
-          "columnsFrom": ["parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1079,8 +1175,12 @@
           "name": "payload_locked_documents_rels_users_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "users",
-          "columnsFrom": ["users_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "users_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1088,8 +1188,12 @@
           "name": "payload_locked_documents_rels_media_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "media",
-          "columnsFrom": ["media_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "media_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1097,8 +1201,12 @@
           "name": "payload_locked_documents_rels_team_members_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "team_members",
-          "columnsFrom": ["team_members_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "team_members_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1106,8 +1214,12 @@
           "name": "payload_locked_documents_rels_gallery_images_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "gallery_images",
-          "columnsFrom": ["gallery_images_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "gallery_images_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1115,8 +1227,12 @@
           "name": "payload_locked_documents_rels_testimonials_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "testimonials",
-          "columnsFrom": ["testimonials_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "testimonials_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1169,17 +1285,23 @@
       "indexes": {
         "payload_preferences_key_idx": {
           "name": "payload_preferences_key_idx",
-          "columns": ["key"],
+          "columns": [
+            "key"
+          ],
           "isUnique": false
         },
         "payload_preferences_updated_at_idx": {
           "name": "payload_preferences_updated_at_idx",
-          "columns": ["updated_at"],
+          "columns": [
+            "updated_at"
+          ],
           "isUnique": false
         },
         "payload_preferences_created_at_idx": {
           "name": "payload_preferences_created_at_idx",
-          "columns": ["created_at"],
+          "columns": [
+            "created_at"
+          ],
           "isUnique": false
         }
       },
@@ -1230,22 +1352,30 @@
       "indexes": {
         "payload_preferences_rels_order_idx": {
           "name": "payload_preferences_rels_order_idx",
-          "columns": ["order"],
+          "columns": [
+            "order"
+          ],
           "isUnique": false
         },
         "payload_preferences_rels_parent_idx": {
           "name": "payload_preferences_rels_parent_idx",
-          "columns": ["parent_id"],
+          "columns": [
+            "parent_id"
+          ],
           "isUnique": false
         },
         "payload_preferences_rels_path_idx": {
           "name": "payload_preferences_rels_path_idx",
-          "columns": ["path"],
+          "columns": [
+            "path"
+          ],
           "isUnique": false
         },
         "payload_preferences_rels_users_id_idx": {
           "name": "payload_preferences_rels_users_id_idx",
-          "columns": ["users_id"],
+          "columns": [
+            "users_id"
+          ],
           "isUnique": false
         }
       },
@@ -1254,8 +1384,12 @@
           "name": "payload_preferences_rels_parent_fk",
           "tableFrom": "payload_preferences_rels",
           "tableTo": "payload_preferences",
-          "columnsFrom": ["parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1263,8 +1397,12 @@
           "name": "payload_preferences_rels_users_fk",
           "tableFrom": "payload_preferences_rels",
           "tableTo": "users",
-          "columnsFrom": ["users_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "users_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1317,12 +1455,16 @@
       "indexes": {
         "payload_migrations_updated_at_idx": {
           "name": "payload_migrations_updated_at_idx",
-          "columns": ["updated_at"],
+          "columns": [
+            "updated_at"
+          ],
           "isUnique": false
         },
         "payload_migrations_created_at_idx": {
           "name": "payload_migrations_created_at_idx",
-          "columns": ["created_at"],
+          "columns": [
+            "created_at"
+          ],
           "isUnique": false
         }
       },
@@ -1373,12 +1515,16 @@
       "indexes": {
         "start_page_blocks_navigation_links_order_idx": {
           "name": "start_page_blocks_navigation_links_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_navigation_links_parent_id_idx": {
           "name": "start_page_blocks_navigation_links_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         }
       },
@@ -1387,8 +1533,12 @@
           "name": "start_page_blocks_navigation_links_parent_id_fk",
           "tableFrom": "start_page_blocks_navigation_links",
           "tableTo": "start_page_blocks_navigation",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1455,17 +1605,23 @@
       "indexes": {
         "start_page_blocks_navigation_order_idx": {
           "name": "start_page_blocks_navigation_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_navigation_parent_id_idx": {
           "name": "start_page_blocks_navigation_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         },
         "start_page_blocks_navigation_path_idx": {
           "name": "start_page_blocks_navigation_path_idx",
-          "columns": ["_path"],
+          "columns": [
+            "_path"
+          ],
           "isUnique": false
         }
       },
@@ -1474,8 +1630,12 @@
           "name": "start_page_blocks_navigation_parent_id_fk",
           "tableFrom": "start_page_blocks_navigation",
           "tableTo": "start_page",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1589,22 +1749,30 @@
       "indexes": {
         "start_page_blocks_hero_order_idx": {
           "name": "start_page_blocks_hero_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_hero_parent_id_idx": {
           "name": "start_page_blocks_hero_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         },
         "start_page_blocks_hero_path_idx": {
           "name": "start_page_blocks_hero_path_idx",
-          "columns": ["_path"],
+          "columns": [
+            "_path"
+          ],
           "isUnique": false
         },
         "start_page_blocks_hero_hero_image_idx": {
           "name": "start_page_blocks_hero_hero_image_idx",
-          "columns": ["hero_image_id"],
+          "columns": [
+            "hero_image_id"
+          ],
           "isUnique": false
         }
       },
@@ -1613,8 +1781,12 @@
           "name": "start_page_blocks_hero_hero_image_id_media_id_fk",
           "tableFrom": "start_page_blocks_hero",
           "tableTo": "media",
-          "columnsFrom": ["hero_image_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "hero_image_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1622,8 +1794,12 @@
           "name": "start_page_blocks_hero_parent_id_fk",
           "tableFrom": "start_page_blocks_hero",
           "tableTo": "start_page",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1667,12 +1843,16 @@
       "indexes": {
         "start_page_blocks_services_groups_items_order_idx": {
           "name": "start_page_blocks_services_groups_items_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_services_groups_items_parent_id_idx": {
           "name": "start_page_blocks_services_groups_items_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         }
       },
@@ -1681,8 +1861,12 @@
           "name": "start_page_blocks_services_groups_items_parent_id_fk",
           "tableFrom": "start_page_blocks_services_groups_items",
           "tableTo": "start_page_blocks_services_groups",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1726,12 +1910,16 @@
       "indexes": {
         "start_page_blocks_services_groups_order_idx": {
           "name": "start_page_blocks_services_groups_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_services_groups_parent_id_idx": {
           "name": "start_page_blocks_services_groups_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         }
       },
@@ -1740,8 +1928,12 @@
           "name": "start_page_blocks_services_groups_parent_id_fk",
           "tableFrom": "start_page_blocks_services_groups",
           "tableTo": "start_page_blocks_services",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1832,17 +2024,23 @@
       "indexes": {
         "start_page_blocks_services_order_idx": {
           "name": "start_page_blocks_services_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_services_parent_id_idx": {
           "name": "start_page_blocks_services_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         },
         "start_page_blocks_services_path_idx": {
           "name": "start_page_blocks_services_path_idx",
-          "columns": ["_path"],
+          "columns": [
+            "_path"
+          ],
           "isUnique": false
         }
       },
@@ -1851,8 +2049,12 @@
           "name": "start_page_blocks_services_parent_id_fk",
           "tableFrom": "start_page_blocks_services",
           "tableTo": "start_page",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1918,22 +2120,30 @@
       "indexes": {
         "start_page_blocks_quote_order_idx": {
           "name": "start_page_blocks_quote_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_quote_parent_id_idx": {
           "name": "start_page_blocks_quote_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         },
         "start_page_blocks_quote_path_idx": {
           "name": "start_page_blocks_quote_path_idx",
-          "columns": ["_path"],
+          "columns": [
+            "_path"
+          ],
           "isUnique": false
         },
         "start_page_blocks_quote_author_idx": {
           "name": "start_page_blocks_quote_author_idx",
-          "columns": ["author_id"],
+          "columns": [
+            "author_id"
+          ],
           "isUnique": false
         }
       },
@@ -1942,8 +2152,12 @@
           "name": "start_page_blocks_quote_author_id_team_members_id_fk",
           "tableFrom": "start_page_blocks_quote",
           "tableTo": "team_members",
-          "columnsFrom": ["author_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "author_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -1951,8 +2165,12 @@
           "name": "start_page_blocks_quote_parent_id_fk",
           "tableFrom": "start_page_blocks_quote",
           "tableTo": "start_page",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2051,17 +2269,23 @@
       "indexes": {
         "start_page_blocks_testimonials_order_idx": {
           "name": "start_page_blocks_testimonials_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_testimonials_parent_id_idx": {
           "name": "start_page_blocks_testimonials_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         },
         "start_page_blocks_testimonials_path_idx": {
           "name": "start_page_blocks_testimonials_path_idx",
-          "columns": ["_path"],
+          "columns": [
+            "_path"
+          ],
           "isUnique": false
         }
       },
@@ -2070,8 +2294,12 @@
           "name": "start_page_blocks_testimonials_parent_id_fk",
           "tableFrom": "start_page_blocks_testimonials",
           "tableTo": "start_page",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2154,17 +2382,23 @@
       "indexes": {
         "start_page_blocks_gallery_order_idx": {
           "name": "start_page_blocks_gallery_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_gallery_parent_id_idx": {
           "name": "start_page_blocks_gallery_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         },
         "start_page_blocks_gallery_path_idx": {
           "name": "start_page_blocks_gallery_path_idx",
-          "columns": ["_path"],
+          "columns": [
+            "_path"
+          ],
           "isUnique": false
         }
       },
@@ -2173,8 +2407,12 @@
           "name": "start_page_blocks_gallery_parent_id_fk",
           "tableFrom": "start_page_blocks_gallery",
           "tableTo": "start_page",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2249,17 +2487,23 @@
       "indexes": {
         "start_page_blocks_team_order_idx": {
           "name": "start_page_blocks_team_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_team_parent_id_idx": {
           "name": "start_page_blocks_team_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         },
         "start_page_blocks_team_path_idx": {
           "name": "start_page_blocks_team_path_idx",
-          "columns": ["_path"],
+          "columns": [
+            "_path"
+          ],
           "isUnique": false
         }
       },
@@ -2268,8 +2512,12 @@
           "name": "start_page_blocks_team_parent_id_fk",
           "tableFrom": "start_page_blocks_team",
           "tableTo": "start_page",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2328,12 +2576,16 @@
       "indexes": {
         "start_page_blocks_hours_opening_hours_order_idx": {
           "name": "start_page_blocks_hours_opening_hours_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_hours_opening_hours_parent_id_idx": {
           "name": "start_page_blocks_hours_opening_hours_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         }
       },
@@ -2342,8 +2594,12 @@
           "name": "start_page_blocks_hours_opening_hours_parent_id_fk",
           "tableFrom": "start_page_blocks_hours_opening_hours",
           "tableTo": "start_page_blocks_hours",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2434,17 +2690,23 @@
       "indexes": {
         "start_page_blocks_hours_order_idx": {
           "name": "start_page_blocks_hours_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_hours_parent_id_idx": {
           "name": "start_page_blocks_hours_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         },
         "start_page_blocks_hours_path_idx": {
           "name": "start_page_blocks_hours_path_idx",
-          "columns": ["_path"],
+          "columns": [
+            "_path"
+          ],
           "isUnique": false
         }
       },
@@ -2453,8 +2715,12 @@
           "name": "start_page_blocks_hours_parent_id_fk",
           "tableFrom": "start_page_blocks_hours",
           "tableTo": "start_page",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2593,17 +2859,23 @@
       "indexes": {
         "start_page_blocks_contact_order_idx": {
           "name": "start_page_blocks_contact_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_contact_parent_id_idx": {
           "name": "start_page_blocks_contact_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         },
         "start_page_blocks_contact_path_idx": {
           "name": "start_page_blocks_contact_path_idx",
-          "columns": ["_path"],
+          "columns": [
+            "_path"
+          ],
           "isUnique": false
         }
       },
@@ -2612,8 +2884,12 @@
           "name": "start_page_blocks_contact_parent_id_fk",
           "tableFrom": "start_page_blocks_contact",
           "tableTo": "start_page",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2688,17 +2964,23 @@
       "indexes": {
         "start_page_blocks_contact_form_order_idx": {
           "name": "start_page_blocks_contact_form_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_contact_form_parent_id_idx": {
           "name": "start_page_blocks_contact_form_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         },
         "start_page_blocks_contact_form_path_idx": {
           "name": "start_page_blocks_contact_form_path_idx",
-          "columns": ["_path"],
+          "columns": [
+            "_path"
+          ],
           "isUnique": false
         }
       },
@@ -2707,8 +2989,12 @@
           "name": "start_page_blocks_contact_form_parent_id_fk",
           "tableFrom": "start_page_blocks_contact_form",
           "tableTo": "start_page",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2775,17 +3061,23 @@
       "indexes": {
         "start_page_blocks_footer_order_idx": {
           "name": "start_page_blocks_footer_order_idx",
-          "columns": ["_order"],
+          "columns": [
+            "_order"
+          ],
           "isUnique": false
         },
         "start_page_blocks_footer_parent_id_idx": {
           "name": "start_page_blocks_footer_parent_id_idx",
-          "columns": ["_parent_id"],
+          "columns": [
+            "_parent_id"
+          ],
           "isUnique": false
         },
         "start_page_blocks_footer_path_idx": {
           "name": "start_page_blocks_footer_path_idx",
-          "columns": ["_path"],
+          "columns": [
+            "_path"
+          ],
           "isUnique": false
         }
       },
@@ -2794,8 +3086,12 @@
           "name": "start_page_blocks_footer_parent_id_fk",
           "tableFrom": "start_page_blocks_footer",
           "tableTo": "start_page",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2814,21 +3110,26 @@
           "notNull": true,
           "autoincrement": false
         },
-        "seo_title": {
-          "name": "seo_title",
+        "meta_title": {
+          "name": "meta_title",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'Tierarztpraxis Dr. Tune Lazri | Wien'"
+          "notNull": false,
+          "autoincrement": false
         },
-        "seo_description": {
-          "name": "seo_description",
+        "meta_description": {
+          "name": "meta_description",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'Tierarztpraxis Dr. Tune Lazri in Wien. Hausbesuche, Vorsorge, Diagnostik, Operationen. Mit Leidenschaft für Ihre Lieblinge.'"
+          "notNull": false,
+          "autoincrement": false
+        },
+        "meta_image_id": {
+          "name": "meta_image_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         },
         "updated_at": {
           "name": "updated_at",
@@ -2845,8 +3146,30 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
-      "foreignKeys": {},
+      "indexes": {
+        "start_page_meta_meta_image_idx": {
+          "name": "start_page_meta_meta_image_idx",
+          "columns": [
+            "meta_image_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_meta_image_id_media_id_fk": {
+          "name": "start_page_meta_image_id_media_id_fk",
+          "tableFrom": "start_page",
+          "tableTo": "media",
+          "columnsFrom": [
+            "meta_image_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}
@@ -2861,6 +3184,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "31a8f800-4e8a-4e75-a9ca-1f70488a13e2",
+  "id": "71733c56-795f-4c61-bb11-0ea19f27e97b",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

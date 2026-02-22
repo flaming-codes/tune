@@ -57,27 +57,5 @@ export const StartPage: GlobalConfig = {
       blocks: startPageFooterBlocks,
       defaultValue: [{ blockType: 'footer' }],
     },
-    {
-      name: 'seo',
-      type: 'group',
-      label: 'SEO',
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-          defaultValue: 'Tierarztpraxis Dr. Tune Lazri | Wien',
-          label: 'Seitentitel',
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          required: true,
-          defaultValue:
-            'Tierarztpraxis Dr. Tune Lazri in Wien. Hausbesuche, Vorsorge, Diagnostik, Operationen. Mit Leidenschaft für Ihre Lieblinge.',
-          label: 'Meta Beschreibung',
-        },
-      ],
-    },
   ],
 }
