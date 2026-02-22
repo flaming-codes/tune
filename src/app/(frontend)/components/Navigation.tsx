@@ -80,9 +80,20 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
 
   // Handle scroll for header styling
   useEffect(() => {
+    const SCROLL_DOWN_THRESHOLD = 56
+    const SCROLL_UP_THRESHOLD = 28
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      const scrollY = window.scrollY
+
+      setIsScrolled((current) => {
+        if (!current && scrollY > SCROLL_DOWN_THRESHOLD) return true
+        if (current && scrollY < SCROLL_UP_THRESHOLD) return false
+        return current
+      })
     }
+
+    handleScroll()
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -117,13 +128,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 isolate ${
-        isMobileMenuOpen
-          ? 'theme-bg-primary shadow-sm' // Solid bg when mobile menu is open
-          : isScrolled
-            ? 'theme-bg-primary/60 backdrop-blur-lg shadow-sm'
-            : 'bg-transparent'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 isolate theme-transition"
       initial={false}
       animate={{
         paddingTop: isScrolled || isMobileMenuOpen ? 16 : 24, // py-4 = 16px, py-6 = 24px
@@ -131,6 +136,15 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
       }}
       transition={{ duration: 0.3, ease: easeOut }}
     >
+      {/* Animated background layer handling all visual transitions */}
+      <motion.div
+        className={`absolute inset-0 -z-10 border-b ${
+          isMobileMenuOpen ? 'theme-bg-primary' : 'theme-bg-primary-glass backdrop-blur-lg'
+        } border-neutral-200/20 dark:border-neutral-800/20`}
+        initial={false}
+        animate={{ opacity: isScrolled || isMobileMenuOpen ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: easeOut }}
+      />
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <NavigationMenu.Root className="relative">
           <nav

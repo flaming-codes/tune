@@ -36,7 +36,8 @@ export const TeamMembers: CollectionConfig = {
       minRows: 1,
       label: 'Fotos',
       admin: {
-        description: 'Mehrere Fotos hochladen. Das erste Foto wird standardmäßig angezeigt. Bei Hover werden die Fotos basierend auf Cursor-Bewegung gewechselt.',
+        description:
+          'Mehrere Fotos hochladen. Das erste Foto wird standardmäßig angezeigt. Bei Hover werden die Fotos basierend auf Cursor-Bewegung gewechselt.',
       },
     },
     {

@@ -519,13 +519,6 @@
           "notNull": true,
           "autoincrement": false
         },
-        "photo_id": {
-          "name": "photo_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
         "sort_order": {
           "name": "sort_order",
           "type": "numeric",
@@ -560,11 +553,6 @@
         }
       },
       "indexes": {
-        "team_members_photo_idx": {
-          "name": "team_members_photo_idx",
-          "columns": ["photo_id"],
-          "isUnique": false
-        },
         "team_members_updated_at_idx": {
           "name": "team_members_updated_at_idx",
           "columns": ["updated_at"],
@@ -576,14 +564,89 @@
           "isUnique": false
         }
       },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "team_members_rels": {
+      "name": "team_members_rels",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "path": {
+          "name": "path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "media_id": {
+          "name": "media_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "team_members_rels_order_idx": {
+          "name": "team_members_rels_order_idx",
+          "columns": ["order"],
+          "isUnique": false
+        },
+        "team_members_rels_parent_idx": {
+          "name": "team_members_rels_parent_idx",
+          "columns": ["parent_id"],
+          "isUnique": false
+        },
+        "team_members_rels_path_idx": {
+          "name": "team_members_rels_path_idx",
+          "columns": ["path"],
+          "isUnique": false
+        },
+        "team_members_rels_media_id_idx": {
+          "name": "team_members_rels_media_id_idx",
+          "columns": ["media_id"],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {
-        "team_members_photo_id_media_id_fk": {
-          "name": "team_members_photo_id_media_id_fk",
-          "tableFrom": "team_members",
-          "tableTo": "media",
-          "columnsFrom": ["photo_id"],
+        "team_members_rels_parent_fk": {
+          "name": "team_members_rels_parent_fk",
+          "tableFrom": "team_members_rels",
+          "tableTo": "team_members",
+          "columnsFrom": ["parent_id"],
           "columnsTo": ["id"],
-          "onDelete": "set null",
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "team_members_rels_media_fk": {
+          "name": "team_members_rels_media_fk",
+          "tableFrom": "team_members_rels",
+          "tableTo": "media",
+          "columnsFrom": ["media_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -1483,6 +1546,30 @@
           "autoincrement": false,
           "default": "'Bei Notfällen rufen Sie uns bitte an. Wir sind für Sie erreichbar.'"
         },
+        "contact_form_eyebrow": {
+          "name": "contact_form_eyebrow",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Anfrage'"
+        },
+        "contact_form_headline": {
+          "name": "contact_form_headline",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Schreiben Sie uns'"
+        },
+        "contact_form_description": {
+          "name": "contact_form_description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Haben Sie Fragen oder möchten Sie einen Termin vereinbaren? Wir antworten innerhalb von 24 Stunden.'"
+        },
         "footer_tagline": {
           "name": "footer_tagline",
           "type": "text",
@@ -1562,6 +1649,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "5cc2729e-cb66-44bc-912f-5e5ddd1c24c2",
+  "id": "21cc3c2e-50d1-4902-b21c-ec1eddae347c",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

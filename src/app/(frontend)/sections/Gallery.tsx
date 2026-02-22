@@ -10,7 +10,7 @@ interface GalleryProps {
 
 /**
  * Gallery Section Component
- * 
+ *
  * Renders an infinite scrolling ticker gallery that extends edge-to-edge.
  * Features:
  * - Full viewport width overflow (items extend to screen edges)

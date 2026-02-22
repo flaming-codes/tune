@@ -32,11 +32,7 @@ function randomRange(min: number, max: number): number {
   return Math.random() * (max - min) + min
 }
 
-function createStackItem(
-  photo: Media,
-  sequenceId: number,
-  stackPosition: number,
-): StackItem {
+function createStackItem(photo: Media, sequenceId: number, stackPosition: number): StackItem {
   // First image (bottom of stack) is always straight and scale 1
   if (stackPosition === 0) {
     return {
@@ -72,15 +68,13 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
   const hasMultiplePhotos = photos.length > 1
 
   // Stack of visible photos with their visual properties
-  const [stack, setStack] = useState<StackItem[]>(() => [
-    createStackItem(photos[0], 0, 0),
-  ])
+  const [stack, setStack] = useState<StackItem[]>(() => [createStackItem(photos[0], 0, 0)])
   const [photoIndex, setPhotoIndex] = useState(0)
   const nextSequenceIdRef = useRef(1)
 
   // Track cursor movement distance
   const totalDistanceRef = useRef(0)
-  const lastPositionRef = useRef<{ x: number; y: number } | null>( null)
+  const lastPositionRef = useRef<{ x: number; y: number } | null>(null)
 
   const handleMouseEnter = useCallback(() => {
     totalDistanceRef.current = 0
@@ -198,7 +192,7 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
 
 export function Team({ members }: TeamProps) {
   return (
-    <section id="team" className="py-24 lg:py-36 theme-bg-primary">
+    <section id="team" className="py-24 lg:py-36 theme-bg-primary overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="max-w-2xl mb-20 lg:mb-28">
@@ -208,9 +202,7 @@ export function Team({ members }: TeamProps) {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight">
             Unser Team
           </h2>
-          <p className="mt-6 text-xl theme-text-secondary">
-            Mit Leidenschaft für Ihre Lieblinge
-          </p>
+          <p className="mt-6 text-xl theme-text-secondary">Mit Leidenschaft für Ihre Lieblinge</p>
         </div>
 
         {/* Team Grid */}

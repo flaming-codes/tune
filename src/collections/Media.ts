@@ -10,9 +10,9 @@ async function generateBlurPlaceholder(docId: number, filename: string, mimeType
     // Try to find the file in the media directory
     const mediaDir = path.resolve(process.cwd(), 'media')
     const filePath = path.join(mediaDir, filename)
-    
+
     let imageBuffer: Buffer
-    
+
     try {
       // Read directly from disk (most reliable)
       imageBuffer = await readFile(filePath)
@@ -20,7 +20,7 @@ async function generateBlurPlaceholder(docId: number, filename: string, mimeType
       // Fallback: try to fetch via HTTP
       const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
       const imageUrl = `${serverUrl}/api/media/file/${filename}`
-      
+
       console.log(`Reading from disk failed, trying HTTP: ${imageUrl}`)
       const response = await fetch(imageUrl)
       if (!response.ok) {
@@ -28,7 +28,7 @@ async function generateBlurPlaceholder(docId: number, filename: string, mimeType
       }
       imageBuffer = Buffer.from(await response.arrayBuffer())
     }
-    
+
     // Generate blur placeholder using sharp
     const { default: sharp } = await import('sharp')
     const blurBuffer = await sharp(imageBuffer)
@@ -36,9 +36,9 @@ async function generateBlurPlaceholder(docId: number, filename: string, mimeType
       .blur()
       .png({ quality: 20, compressionLevel: 9 })
       .toBuffer()
-    
+
     const base64 = `data:image/png;base64,${blurBuffer.toString('base64')}`
-    
+
     // Update the document with a fresh payload instance
     const payload = await getPayload({ config })
     await payload.update({
@@ -46,7 +46,7 @@ async function generateBlurPlaceholder(docId: number, filename: string, mimeType
       id: docId,
       data: { blurDataURL: base64 },
     })
-    
+
     console.log(`✓ Blur placeholder generated for: ${filename}`)
   } catch (error) {
     console.error(`✗ Failed to generate blur for ${filename}:`, error)

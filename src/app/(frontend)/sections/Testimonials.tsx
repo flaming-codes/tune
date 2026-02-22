@@ -21,8 +21,8 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
             Was die Lieblingsmenschen unserer Fellnasen über uns sagen
           </h2>
           <p className="mt-6 theme-text-secondary leading-relaxed">
-            Wir reden ungern über uns selbst, daher lassen wir lieber die Frauchen und Herrchen erzählen. 
-            Schau Dir ihre Erfahrungen an und überzeuge Dich selbst!
+            Wir reden ungern über uns selbst, daher lassen wir lieber die Frauchen und Herrchen
+            erzählen. Schau Dir ihre Erfahrungen an und überzeuge Dich selbst!
           </p>
         </div>
 
@@ -38,9 +38,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
               <p className="theme-text-primary leading-relaxed mb-6">
                 &ldquo;{testimonial.text}&rdquo;
               </p>
-              <footer className="text-sm theme-text-tertiary">
-                — {testimonial.author}
-              </footer>
+              <footer className="text-sm theme-text-tertiary">— {testimonial.author}</footer>
             </motion.blockquote>
           ))}
         </div>

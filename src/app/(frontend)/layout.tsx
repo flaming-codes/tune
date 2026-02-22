@@ -14,7 +14,7 @@ async function getSiteSettings() {
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = await getSiteSettings()
-  
+
   return {
     title: siteSettings.seo.title,
     description: siteSettings.seo.description,

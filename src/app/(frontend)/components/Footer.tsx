@@ -25,9 +25,7 @@ export function Footer({ practiceName, footer, contact, navLinks }: FooterProps)
           {/* Brand */}
           <div>
             <p className="text-white text-sm font-medium mb-4">{practiceName}</p>
-            <p className="text-sm theme-text-muted-dark leading-relaxed">
-              {footer.tagline}
-            </p>
+            <p className="text-sm theme-text-muted-dark leading-relaxed">{footer.tagline}</p>
           </div>
 
           {/* Contact */}
@@ -62,8 +60,8 @@ export function Footer({ practiceName, footer, contact, navLinks }: FooterProps)
             <ul className="space-y-2 text-sm">
               {navLinks.map((link) => (
                 <li key={link.id || link.href}>
-                  <Link 
-                    href={link.href} 
+                  <Link
+                    href={link.href}
                     className="theme-text-muted-dark hover:text-white transition-colors link-underline"
                   >
                     {link.label}
@@ -78,9 +76,7 @@ export function Footer({ practiceName, footer, contact, navLinks }: FooterProps)
           <p className="text-xs theme-text-muted-dark">
             © {new Date().getFullYear()} {practiceName}. Alle Rechte vorbehalten.
           </p>
-          <p className="text-xs theme-text-muted-dark">
-            {footer.copyright}
-          </p>
+          <p className="text-xs theme-text-muted-dark">{footer.copyright}</p>
         </div>
       </div>
     </footer>

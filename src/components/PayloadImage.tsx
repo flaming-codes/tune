@@ -17,15 +17,15 @@ interface PayloadImageProps {
 
 /**
  * A Next.js Image component wrapper for PayloadCMS Media.
- * 
+ *
  * Usage:
  * ```tsx
  * // With full media object from Payload
  * <PayloadImage media={mediaDoc} size="card" />
- * 
+ *
  * // With priority loading (above the fold)
  * <PayloadImage media={heroImage} size="hero" priority />
- * 
+ *
  * // With fill mode (responsive container)
  * <PayloadImage media={mediaDoc} fill className="object-cover" />
  * ```
@@ -48,10 +48,7 @@ export function PayloadImage({
   }
 
   // Determine which URL to use based on size
-  const imageUrl =
-    size === 'original' || !media.sizes?.[size]
-      ? media.url
-      : media.sizes[size]?.url
+  const imageUrl = size === 'original' || !media.sizes?.[size] ? media.url : media.sizes[size]?.url
 
   if (!imageUrl) {
     return null
@@ -86,7 +83,7 @@ export function PayloadImage({
  */
 export function getMediaUrl(
   media: Media | number | null | undefined,
-  size: 'original' | 'thumbnail' | 'card' | 'tablet' | 'hero' = 'original'
+  size: 'original' | 'thumbnail' | 'card' | 'tablet' | 'hero' = 'original',
 ): string | null {
   if (typeof media === 'number' || !media) {
     return null
@@ -102,9 +99,7 @@ export function getMediaUrl(
 /**
  * Get blur placeholder from Payload media
  */
-export function getBlurDataURL(
-  media: Media | number | null | undefined
-): string | null {
+export function getBlurDataURL(media: Media | number | null | undefined): string | null {
   if (typeof media === 'number' || !media) {
     return null
   }

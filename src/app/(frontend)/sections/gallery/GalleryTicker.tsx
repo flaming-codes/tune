@@ -21,26 +21,19 @@ function duplicateItems<T>(items: T[], minCount: number): T[] {
 /**
  * TickerItem - Individual image in the ticker with intrinsic aspect ratio
  */
-function TickerItem({
-  image,
-  index,
-}: {
-  image: GalleryImage
-  index: number
-}) {
+function TickerItem({ image, index }: { image: GalleryImage; index: number }) {
   const [isHovered, setIsHovered] = useState(false)
   const imageData = image.image as Media
 
   // Quick transitions for hover effects
-  const scale = useSpring(isHovered ? 1.03 : 1, { 
+  const scale = useSpring(isHovered ? 1.03 : 1, {
     stiffness: 400,
     damping: 30,
   })
 
   // Calculate aspect ratio from image dimensions if available
-  const aspectRatio = imageData.width && imageData.height 
-    ? `${imageData.width} / ${imageData.height}`
-    : 'auto'
+  const aspectRatio =
+    imageData.width && imageData.height ? `${imageData.width} / ${imageData.height}` : 'auto'
 
   return (
     <figure className="flex-shrink-0 relative">
@@ -67,7 +60,7 @@ function TickerItem({
       <figcaption className="absolute top-full left-0 right-0 mt-2 overflow-hidden">
         <motion.div
           initial={{ y: -10, opacity: 0 }}
-          animate={{ 
+          animate={{
             y: isHovered ? 0 : -10,
             opacity: isHovered ? 1 : 0,
           }}
@@ -76,11 +69,7 @@ function TickerItem({
           <p className="text-sm font-medium theme-text-primary leading-tight break-words">
             {image.title}
           </p>
-          {image.isFeatured && (
-            <p className="text-xs theme-text-tertiary mt-0.5">
-              Featured
-            </p>
-          )}
+          {image.isFeatured && <p className="text-xs theme-text-tertiary mt-0.5">Featured</p>}
         </motion.div>
       </figcaption>
     </figure>
@@ -89,7 +78,7 @@ function TickerItem({
 
 /**
  * GalleryTicker - Edge-to-edge infinite scrolling ticker (single row)
- * 
+ *
  * Features:
  * - Full viewport width overflow (extends edge-to-edge)
  * - Single row with intrinsic aspect ratio images
@@ -106,12 +95,12 @@ export function GalleryTicker({ images }: GalleryTickerProps) {
   // Animation state with asymmetric spring behavior
   const [isPaused, setIsPaused] = useState(false)
   const baseVelocity = useMotionValue(-70)
-  
+
   // Use a motion value for target velocity to enable asymmetric transitions
   const targetVelocity = useMotionValue(-70)
-  
+
   // Asymmetric spring: we manipulate this via useEffect for different speeds
-  const velocity = useSpring(targetVelocity, { 
+  const velocity = useSpring(targetVelocity, {
     stiffness: 50,
     damping: 20,
     mass: 1,
@@ -229,14 +218,13 @@ export function GalleryTicker({ images }: GalleryTickerProps) {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header - no fade-in animations */}
         <header className="max-w-2xl mb-12 lg:mb-16">
-          <p className="text-sm tracking-wide-custom uppercase theme-text-tertiary mb-6">
-            Galerie
-          </p>
+          <p className="text-sm tracking-wide-custom uppercase theme-text-tertiary mb-6">Galerie</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight">
             Das sind unsere tierischen Patienten
           </h2>
           <p className="mt-6 theme-text-secondary leading-relaxed">
-            Schau Dir unsere Galerie an! Du warst noch nicht bei uns? Dann fehlt genau Dein Haustier hier.
+            Schau Dir unsere Galerie an! Du warst noch nicht bei uns? Dann fehlt genau Dein Haustier
+            hier.
           </p>
         </header>
       </div>
@@ -247,11 +235,7 @@ export function GalleryTicker({ images }: GalleryTickerProps) {
         </div>
       ) : (
         /* Single Ticker container - full viewport width with overflow visible */
-        <div
-          className="relative"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
+        <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           {/* Gradient masks for edge fade */}
           <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
@@ -264,11 +248,7 @@ export function GalleryTicker({ images }: GalleryTickerProps) {
           >
             {/* First set of items */}
             {firstTrack.map((image, index) => (
-              <TickerItem
-                key={`first-${image.id}-${index}`}
-                image={image}
-                index={index}
-              />
+              <TickerItem key={`first-${image.id}-${index}`} image={image} index={index} />
             ))}
             {/* Duplicate set for seamless loop */}
             {secondTrack.map((image, index) => (

@@ -11,6 +11,7 @@ import { Gallery } from './sections/Gallery'
 import { Team } from './sections/Team'
 import { Hours } from './sections/Hours'
 import { Contact } from './sections/Contact'
+import { ContactFormSection } from './sections/ContactFormSection'
 import { Footer } from './components/Footer'
 
 async function getSiteSettings(): Promise<SiteSetting> {
@@ -73,8 +74,8 @@ export default async function HomePage() {
 
   return (
     <>
-      <Navigation 
-        practiceName={siteSettings.practiceName} 
+      <Navigation
+        practiceName={siteSettings.practiceName}
         navLinks={siteSettings.navigation ?? []}
         phone={siteSettings.contact.phone}
       />
@@ -84,14 +85,15 @@ export default async function HomePage() {
         <Testimonials testimonials={testimonials} />
         <Gallery images={galleryImages} />
         <Team members={teamMembers} />
-        <Hours 
-          openingHours={siteSettings.openingHours ?? []} 
+        <Hours
+          openingHours={siteSettings.openingHours ?? []}
           emergency={siteSettings.emergency}
           phone={siteSettings.contact.phone}
         />
         <Contact contact={siteSettings.contact} />
+        <ContactFormSection contactForm={siteSettings.contactForm} />
       </main>
-      <Footer 
+      <Footer
         practiceName={siteSettings.practiceName}
         footer={siteSettings.footer}
         contact={siteSettings.contact}

@@ -53,9 +53,9 @@ export function Hero({ hero }: HeroProps) {
                 />
               </div>
             ) : (
-              <div 
-                className="image-placeholder aspect-[4/5] lg:aspect-[3/4]" 
-                aria-label={`${hero.headline} - Platzhalter`} 
+              <div
+                className="image-placeholder aspect-[4/5] lg:aspect-[3/4]"
+                aria-label={`${hero.headline} - Platzhalter`}
               />
             )}
           </div>
