@@ -313,8 +313,8 @@ export const PrivacyAcknowledgments: CollectionConfig = {
   access: {
     read: ({ req: { user } }) => !!user,
     create: () => true,
-    update: ({ req: { user } }) => !!user,
-    delete: ({ req: { user } }) => !!user,
+    update: () => false,
+    delete: () => false,
   },
   fields: [
     {
