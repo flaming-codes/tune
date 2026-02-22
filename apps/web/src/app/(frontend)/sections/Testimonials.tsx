@@ -220,7 +220,7 @@ export function Testimonials({ content, testimonials }: TestimonialsProps) {
     <section ref={sectionRef} className="py-20 lg:py-24 theme-bg-primary">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
-        <div className="max-w-3xl mb-20 lg:mb-28">
+        <div className="max-w-3xl mb-16 lg:mb-20">
           <p className="text-sm tracking-wide-custom uppercase theme-text-tertiary mb-6">
             {content.eyebrow}
           </p>
@@ -241,7 +241,7 @@ export function Testimonials({ content, testimonials }: TestimonialsProps) {
           </div>
         </div>
 
-        <div className="h-24 sm:h-28 lg:h-36">
+        <div className="h-16 sm:h-20 lg:h-24">
           {testimonials.length === 0 ? (
             <div className="h-full flex items-center justify-center px-6 text-center">
               <p className="theme-text-secondary">Aktuell sind noch keine Bewertungen verfügbar.</p>
@@ -250,7 +250,7 @@ export function Testimonials({ content, testimonials }: TestimonialsProps) {
         </div>
 
         {featuredReviews.length > 0 ? (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 mt-6 lg:mt-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 mt-4 lg:mt-6">
             {featuredReviews.map((review) => (
               <FeaturedReviewHero key={review.id} testimonial={review} formatDate={formatDate} />
             ))}
