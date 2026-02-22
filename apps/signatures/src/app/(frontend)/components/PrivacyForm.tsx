@@ -150,6 +150,7 @@ export function PrivacyForm() {
                         animate="center"
                         exit="exit"
                         transition={{ duration: 0.4, ease: easeOut }}
+                        className="px-2"
                       >
                         <PrivacyFormOwnerStep
                           formData={formData}
@@ -168,6 +169,7 @@ export function PrivacyForm() {
                         animate="center"
                         exit="exit"
                         transition={{ duration: 0.4, ease: easeOut }}
+                        className="px-2"
                       >
                         <PrivacyFormPatientStep
                           formData={formData}
@@ -186,6 +188,7 @@ export function PrivacyForm() {
                         animate="center"
                         exit="exit"
                         transition={{ duration: 0.4, ease: easeOut }}
+                        className="px-2"
                       >
                         <PrivacyFormConsentStep
                           formData={formData}
