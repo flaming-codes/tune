@@ -340,6 +340,22 @@ body {
   color: #a3a3a3;
 }
 
+/* Muted text for always-dark sections - darker on light theme for contrast */
+.theme-text-muted-dark-section {
+  color: #525252;
+}
+@media (prefers-color-scheme: dark) {
+  .theme-text-muted-dark-section {
+    color: #525252;
+  }
+}
+[data-theme='dark'] .theme-text-muted-dark-section {
+  color: #525252;
+}
+[data-theme='light'] .theme-text-muted-dark-section {
+  color: #525252;
+}
+
 .theme-border-primary {
   border-color: var(--border-primary);
 }

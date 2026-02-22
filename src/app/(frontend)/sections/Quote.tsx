@@ -19,11 +19,11 @@ const Word: FC<WordProps> = ({ children, progress, range }) => {
   return (
     <span className="relative mx-1 lg:mx-1.5">
       {/* Background word - always visible with low opacity */}
-      <span className="theme-text-muted">{children}</span>
+      <span className="theme-text-muted-dark-section">{children}</span>
       {/* Foreground word - animates with scroll */}
       <motion.span
         style={{ opacity: colorOpacity }}
-        className="absolute inset-0 theme-text-primary"
+        className="absolute inset-0 text-white"
       >
         {children}
       </motion.span>
@@ -119,7 +119,7 @@ export function Quote({ quote }: QuoteProps) {
           {/* Quote mark */}
           <div className="mb-8">
             <svg
-              className="w-12 h-12 mx-auto theme-text-muted"
+              className="w-12 h-12 mx-auto theme-text-muted-dark-section"
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"
