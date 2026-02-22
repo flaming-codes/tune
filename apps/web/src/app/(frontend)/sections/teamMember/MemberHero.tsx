@@ -6,6 +6,20 @@ import { motion, useReducedMotion } from 'motion/react'
 import { PayloadImage } from '@/components/PayloadImage'
 import type { Media } from '@/payload-types'
 
+/**
+ * Get aspect ratio from media object for preserving original dimensions
+ */
+function getImageAspectRatio(media: Media | number): string {
+  if (typeof media === 'number' || !media) return '16/9'
+  
+  const width = media.width
+  const height = media.height
+  
+  if (!width || !height) return '16/9'
+  
+  return `${width}/${height}`
+}
+
 type HeroVariant = 'editorial' | 'immersive' | 'minimal'
 
 interface MemberHeroProps {
@@ -144,7 +158,7 @@ function ImmersiveVariant({
   shouldReduceMotion: boolean | null
 }) {
   return (
-    <section className="pt-24 lg:pt-32 theme-bg-primary">
+    <section className="pt-12 lg:pt-20 theme-bg-primary">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Image: Edge-to-edge within container, original aspect ratio */}
         <motion.div
@@ -154,13 +168,16 @@ function ImmersiveVariant({
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           {content.coverImage ? (
-            <PayloadImage
-              media={content.coverImage}
-              size="hero"
-              className="w-full h-auto"
-              priority
-              alt={`${memberName} - Portrait`}
-            />
+            <div className="relative w-full" style={{ aspectRatio: getImageAspectRatio(content.coverImage) }}>
+              <PayloadImage
+                media={content.coverImage}
+                size="hero"
+                fill
+                className="object-contain"
+                priority
+                alt={`${memberName} - Portrait`}
+              />
+            </div>
           ) : (
             <div className="w-full aspect-video image-placeholder" aria-label={`${memberName} - Platzhalter`} />
           )}
