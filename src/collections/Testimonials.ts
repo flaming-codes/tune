@@ -51,7 +51,8 @@ export const Testimonials: CollectionConfig = {
       defaultValue: new Date().toISOString(),
       label: 'Bewertungsdatum',
       admin: {
-        description: 'Datum, an dem die Bewertung abgegeben wurde (nicht das Erstellungsdatum des Eintrags)',
+        description:
+          'Datum, an dem die Bewertung abgegeben wurde (nicht das Erstellungsdatum des Eintrags)',
         date: {
           pickerAppearance: 'dayOnly',
           displayFormat: 'd.M.yyyy',

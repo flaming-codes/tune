@@ -1,10 +1,19 @@
 import React from 'react'
 import { QuickServices } from '../components/QuickServices'
 import { PayloadImage } from '@/components/PayloadImage'
-import type { SiteSetting } from '@/payload-types'
+import type { Media } from '@/payload-types'
 
 interface HeroProps {
-  hero: SiteSetting['hero']
+  hero: {
+    headline: string
+    subheadline: string
+    description: string
+    heroImage?: Media | number | null
+    ctaPrimaryText: string
+    ctaPrimaryHref: string
+    ctaSecondaryText: string
+    ctaSecondaryHref: string
+  }
 }
 
 export function Hero({ hero }: HeroProps) {
@@ -25,16 +34,16 @@ export function Hero({ hero }: HeroProps) {
             </p>
             <div className="flex flex-wrap gap-4">
               <a
-                href="#kontakt"
+                href={hero.ctaPrimaryHref}
                 className="inline-flex items-center justify-center px-8 py-3 bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 text-sm font-medium hover:opacity-90 transition-opacity duration-200"
               >
-                {hero.ctaPrimary}
+                {hero.ctaPrimaryText}
               </a>
               <a
-                href="#leistungen"
+                href={hero.ctaSecondaryHref}
                 className="inline-flex items-center justify-center px-8 py-3 border theme-border-primary theme-text-primary text-sm font-medium hover:border-current hover:theme-bg-secondary transition-all duration-200"
               >
-                {hero.ctaSecondary}
+                {hero.ctaSecondaryText}
               </a>
             </div>
           </div>

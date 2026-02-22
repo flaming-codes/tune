@@ -7,7 +7,7 @@ import './styles.css'
 async function getSiteSettings() {
   const payload = await getPayload({ config })
   const settings = await payload.findGlobal({
-    slug: 'site-settings',
+    slug: 'start-page',
   })
   return settings
 }
@@ -16,11 +16,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = await getSiteSettings()
 
   return {
-    title: siteSettings.seo.title,
-    description: siteSettings.seo.description,
+    title: siteSettings.seo?.title || 'Tierarztpraxis',
+    description: siteSettings.seo?.description || '',
     openGraph: {
-      title: siteSettings.seo.title,
-      description: siteSettings.seo.description,
+      title: siteSettings.seo?.title || 'Tierarztpraxis',
+      description: siteSettings.seo?.description || '',
       type: 'website',
     },
   }

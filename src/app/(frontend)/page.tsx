@@ -1,7 +1,6 @@
 import React from 'react'
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import type { SiteSetting, TeamMember, Testimonial, GalleryImage } from '@/payload-types'
 
 import { Navigation } from './components/Navigation'
 import { Hero } from './sections/Hero'
@@ -15,15 +14,15 @@ import { Contact } from './sections/Contact'
 import { ContactFormSection } from './sections/ContactFormSection'
 import { Footer } from './components/Footer'
 
-async function getSiteSettings(): Promise<SiteSetting> {
+async function getStartPage() {
   const payload = await getPayload({ config })
-  const settings = await payload.findGlobal({
-    slug: 'site-settings',
+  return payload.findGlobal({
+    slug: 'start-page',
+    depth: 2,
   })
-  return settings as SiteSetting
 }
 
-async function getTeamMembers(): Promise<TeamMember[]> {
+async function getTeamMembers() {
   const payload = await getPayload({ config })
   const { docs } = await payload.find({
     collection: 'team-members',
@@ -34,10 +33,10 @@ async function getTeamMembers(): Promise<TeamMember[]> {
     },
     sort: 'sortOrder',
   })
-  return docs as TeamMember[]
+  return docs
 }
 
-async function getTestimonials(): Promise<Testimonial[]> {
+async function getTestimonials() {
   const payload = await getPayload({ config })
   const { docs } = await payload.find({
     collection: 'testimonials',
@@ -48,10 +47,10 @@ async function getTestimonials(): Promise<Testimonial[]> {
     },
     sort: 'sortOrder',
   })
-  return docs as Testimonial[]
+  return docs
 }
 
-async function getGalleryImages(): Promise<GalleryImage[]> {
+async function getGalleryImages() {
   const payload = await getPayload({ config })
   const { docs } = await payload.find({
     collection: 'gallery-images',
@@ -62,44 +61,233 @@ async function getGalleryImages(): Promise<GalleryImage[]> {
     },
     sort: 'sortOrder',
   })
-  return docs as GalleryImage[]
+  return docs
+}
+
+type StartPageData = Awaited<ReturnType<typeof getStartPage>>
+type StartPageBlock = NonNullable<StartPageData['layout']>[number]
+type StartPageHeaderBlock = NonNullable<StartPageData['header']>[number]
+type StartPageFooterBlock = NonNullable<StartPageData['footer']>[number]
+
+function findHeaderBlock<TType extends StartPageHeaderBlock['blockType']>(
+  blocks: StartPageData['header'] | undefined | null,
+  blockType: TType,
+): Extract<StartPageHeaderBlock, { blockType: TType }> | null {
+  if (!Array.isArray(blocks)) return null
+  return (
+    blocks.find(
+      (block): block is Extract<StartPageHeaderBlock, { blockType: TType }> =>
+        block.blockType === blockType,
+    ) || null
+  )
+}
+
+function findFooterBlock<TType extends StartPageFooterBlock['blockType']>(
+  blocks: StartPageData['footer'] | undefined | null,
+  blockType: TType,
+): Extract<StartPageFooterBlock, { blockType: TType }> | null {
+  if (!Array.isArray(blocks)) return null
+  return (
+    blocks.find(
+      (block): block is Extract<StartPageFooterBlock, { blockType: TType }> =>
+        block.blockType === blockType,
+    ) || null
+  )
+}
+
+function findLayoutBlock<TType extends StartPageBlock['blockType']>(
+  blocks: StartPageData['layout'] | undefined | null,
+  blockType: TType,
+): Extract<StartPageBlock, { blockType: TType }> | null {
+  if (!Array.isArray(blocks)) return null
+  return (
+    blocks.find(
+      (block): block is Extract<StartPageBlock, { blockType: TType }> =>
+        block.blockType === blockType,
+    ) || null
+  )
 }
 
 export default async function HomePage() {
-  const [siteSettings, teamMembers, testimonials, galleryImages] = await Promise.all([
-    getSiteSettings(),
+  const [startPage, teamMembers, testimonials, galleryImages] = await Promise.all([
+    getStartPage(),
     getTeamMembers(),
     getTestimonials(),
     getGalleryImages(),
   ])
 
+  const navBlock = findHeaderBlock(startPage.header, 'navigation')
+
+  const footerBlock = findFooterBlock(startPage.footer, 'footer')
+
+  const contactBlock = findLayoutBlock(startPage.layout, 'contact')
+
+  const practiceName = navBlock?.practiceName || 'Tierarztpraxis'
+  const navLinks = navBlock?.links || []
+  const primaryPhone = navBlock?.phone || contactBlock?.phone || ''
+
   return (
     <>
-      <Navigation
-        practiceName={siteSettings.practiceName}
-        navLinks={siteSettings.navigation ?? []}
-        phone={siteSettings.contact.phone}
-      />
+      <Navigation practiceName={practiceName} navLinks={navLinks} phone={primaryPhone} />
       <main>
-        <Hero hero={siteSettings.hero} />
-        <Services />
-        <Quote quote={siteSettings.quote} />
-        <Testimonials testimonials={testimonials} />
-        <Gallery images={galleryImages} />
-        <Team members={teamMembers} />
-        <Hours
-          openingHours={siteSettings.openingHours ?? []}
-          emergency={siteSettings.emergency}
-          phone={siteSettings.contact.phone}
-        />
-        <Contact contact={siteSettings.contact} />
-        <ContactFormSection contactForm={siteSettings.contactForm} />
+        {(startPage.layout || []).map((block, index) => {
+          const key = `${block.blockType}-${index}`
+
+          switch (block.blockType) {
+            case 'hero':
+              return (
+                <Hero
+                  key={key}
+                  hero={{
+                    headline: block.headline,
+                    subheadline: block.subheadline,
+                    description: block.description,
+                    heroImage: block.heroImage,
+                    ctaPrimaryText: block.ctaPrimaryText,
+                    ctaPrimaryHref: block.ctaPrimaryHref,
+                    ctaSecondaryText: block.ctaSecondaryText,
+                    ctaSecondaryHref: block.ctaSecondaryHref,
+                  }}
+                />
+              )
+            case 'services':
+              return (
+                <Services
+                  key={key}
+                  content={{
+                    eyebrow: block.eyebrow,
+                    headline: block.headline,
+                    groups: (block.groups || []).map((group) => ({
+                      id: group.id,
+                      category: group.category,
+                      items: (group.items || []).map((item) => ({
+                        id: item.id,
+                        text: item.text,
+                      })),
+                    })),
+                    ctaText: block.ctaText,
+                    ctaButtonLabel: block.ctaButtonLabel,
+                    ctaButtonHref: block.ctaButtonHref,
+                  }}
+                />
+              )
+            case 'quote':
+              return (
+                <Quote
+                  key={key}
+                  quote={{
+                    text: block.text,
+                    author: block.author,
+                  }}
+                />
+              )
+            case 'testimonials':
+              return (
+                <Testimonials
+                  key={key}
+                  content={{
+                    eyebrow: block.eyebrow,
+                    headline: block.headline,
+                    description: block.description,
+                  }}
+                  testimonials={testimonials}
+                />
+              )
+            case 'gallery':
+              return (
+                <Gallery
+                  key={key}
+                  content={{
+                    eyebrow: block.eyebrow,
+                    headline: block.headline,
+                    description: block.description,
+                    emptyStateText: block.emptyStateText,
+                  }}
+                  images={galleryImages}
+                />
+              )
+            case 'team':
+              return (
+                <Team
+                  key={key}
+                  content={{
+                    eyebrow: block.eyebrow,
+                    headline: block.headline,
+                    description: block.description,
+                  }}
+                  members={teamMembers}
+                />
+              )
+            case 'hours':
+              return (
+                <Hours
+                  key={key}
+                  content={{
+                    eyebrow: block.eyebrow,
+                    headline: block.headline,
+                    description: block.description,
+                    openingHours: (block.openingHours || []).map((item) => ({
+                      id: item.id,
+                      day: item.day,
+                      times: item.times,
+                    })),
+                    emergency: {
+                      title: block.emergency.title,
+                      description: block.emergency.description,
+                    },
+                  }}
+                  phone={primaryPhone}
+                />
+              )
+            case 'contact':
+              return (
+                <Contact
+                  key={key}
+                  content={{
+                    eyebrow: block.eyebrow,
+                    headline: block.headline,
+                    description: block.description,
+                    address: {
+                      street: block.address.street,
+                      city: block.address.city,
+                      additional: block.address.additional,
+                    },
+                    phone: block.phone,
+                    email: block.email,
+                    consultationTimes: block.consultationTimes,
+                    directionsDescription: block.directionsDescription,
+                    directionsLinkLabel: block.directionsLinkLabel,
+                  }}
+                />
+              )
+            case 'contactForm':
+              return (
+                <ContactFormSection
+                  key={key}
+                  content={{
+                    eyebrow: block.eyebrow,
+                    headline: block.headline,
+                    description: block.description,
+                  }}
+                />
+              )
+            default:
+              return null
+          }
+        })}
       </main>
       <Footer
-        practiceName={siteSettings.practiceName}
-        footer={siteSettings.footer}
-        contact={siteSettings.contact}
-        navLinks={siteSettings.navigation ?? []}
+        practiceName={practiceName}
+        footer={{
+          tagline: footerBlock?.tagline || '',
+          copyright: footerBlock?.copyright || '',
+        }}
+        contact={{
+          address: contactBlock?.address || { street: '', city: '' },
+          phone: contactBlock?.phone || primaryPhone,
+          email: contactBlock?.email || '',
+        }}
+        navLinks={navLinks}
       />
     </>
   )

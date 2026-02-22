@@ -10,7 +10,8 @@ import { Media } from './collections/Media'
 import { TeamMembers } from './collections/TeamMembers'
 import { GalleryImages } from './collections/GalleryImages'
 import { Testimonials } from './collections/Testimonials'
-import { SiteSettings } from './globals/SiteSettings'
+import { StartPage } from './globals/StartPage'
+import { seedStartPage } from './seed/startPage'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -23,7 +24,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, TeamMembers, GalleryImages, Testimonials],
-  globals: [SiteSettings],
+  globals: [StartPage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -38,4 +39,10 @@ export default buildConfig({
   }),
   sharp,
   plugins: [],
+  onInit: async (payload) => {
+    if (process.env.PAYLOAD_SEED === 'true') {
+      await seedStartPage(payload, process.env.PAYLOAD_SEED_OVERWRITE === 'true')
+      payload.logger.info('Startseite wurde erfolgreich geseedet.')
+    }
+  },
 })

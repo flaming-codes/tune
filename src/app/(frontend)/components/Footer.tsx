@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import { getGoogleMapsDirectionsUrl } from '@/lib/constants'
-import type { SiteSetting } from '@/payload-types'
 
 interface NavLink {
   label: string
@@ -11,8 +10,19 @@ interface NavLink {
 
 interface FooterProps {
   practiceName: string
-  footer: SiteSetting['footer']
-  contact: SiteSetting['contact']
+  footer: {
+    tagline: string
+    copyright: string
+  }
+  contact: {
+    address: {
+      street: string
+      city: string
+      additional?: string | null
+    }
+    phone: string
+    email: string
+  }
   navLinks: NavLink[]
 }
 

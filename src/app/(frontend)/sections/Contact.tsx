@@ -1,27 +1,41 @@
 import React from 'react'
 import { MapLoader } from '../components/MapLoader'
 import { getGoogleMapsDirectionsUrl } from '@/lib/constants'
-import type { SiteSetting } from '@/payload-types'
 
 interface ContactProps {
-  contact: SiteSetting['contact']
+  content: {
+    eyebrow: string
+    headline: string
+    description: string
+    address: {
+      street: string
+      city: string
+      additional?: string | null
+    }
+    phone: string
+    email: string
+    consultationTimes: string
+    directionsDescription: string
+    directionsLinkLabel: string
+  }
 }
 
-export function Contact({ contact }: ContactProps) {
-  const { address, phone, email } = contact
+export function Contact({ content }: ContactProps) {
+  const { address, phone, email } = content
+  const consultationLines = content.consultationTimes.split('\n')
 
   return (
     <section id="kontakt" className="py-24 lg:py-36 theme-bg-offgray">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="max-w-2xl mb-16 lg:mb-20">
-          <p className="text-sm tracking-wide-custom uppercase theme-text-tertiary mb-6">Kontakt</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight mb-6">
-            Wir freuen uns auf Sie
-          </h2>
-          <p className="text-lg theme-text-secondary leading-relaxed">
-            Ihr Liebling braucht Zuhause tierärztliche Betreuung? Ich bin nur einen Anruf entfernt.
+          <p className="text-sm tracking-wide-custom uppercase theme-text-tertiary mb-6">
+            {content.eyebrow}
           </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight mb-6">
+            {content.headline}
+          </h2>
+          <p className="text-lg theme-text-secondary leading-relaxed">{content.description}</p>
         </div>
 
         {/* Two Column Layout: Contact Info | Map */}
@@ -71,9 +85,12 @@ export function Contact({ contact }: ContactProps) {
                 Sprechzeiten
               </h3>
               <p className="theme-text-primary leading-relaxed">
-                Mo–Fr: 09:00 – 12:00
-                <br />
-                Nachmittags nach Vereinbarung
+                {consultationLines.map((line) => (
+                  <React.Fragment key={line}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))}
               </p>
             </div>
 
@@ -83,8 +100,7 @@ export function Contact({ contact }: ContactProps) {
                 Anfahrt
               </h3>
               <p className="text-sm theme-text-primary leading-relaxed mb-3">
-                Unsere Praxis befindet sich im Einkaufszentrum B7 an der Brünnerstraße.
-                Parkmöglichkeiten sind direkt vor dem Eingang vorhanden.
+                {content.directionsDescription}
               </p>
               <a
                 href={getGoogleMapsDirectionsUrl(address)}
@@ -100,7 +116,7 @@ export function Contact({ contact }: ContactProps) {
                     d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                   />
                 </svg>
-                In Google Maps öffnen
+                {content.directionsLinkLabel}
               </a>
             </div>
           </div>

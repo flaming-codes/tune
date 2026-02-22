@@ -796,7 +796,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'2026-02-22T01:39:57.027Z'"
+          "default": "'2026-02-22T06:56:52.206Z'"
         },
         "sort_order": {
           "name": "sort_order",
@@ -1331,8 +1331,8 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "site_settings_opening_hours": {
-      "name": "site_settings_opening_hours",
+    "start_page_blocks_navigation_links": {
+      "name": "start_page_blocks_navigation_links",
       "columns": {
         "_order": {
           "name": "_order",
@@ -1343,73 +1343,7 @@
         },
         "_parent_id": {
           "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "id": {
-          "name": "id",
           "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "day": {
-          "name": "day",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "times": {
-          "name": "times",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {
-        "site_settings_opening_hours_order_idx": {
-          "name": "site_settings_opening_hours_order_idx",
-          "columns": ["_order"],
-          "isUnique": false
-        },
-        "site_settings_opening_hours_parent_id_idx": {
-          "name": "site_settings_opening_hours_parent_id_idx",
-          "columns": ["_parent_id"],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {
-        "site_settings_opening_hours_parent_id_fk": {
-          "name": "site_settings_opening_hours_parent_id_fk",
-          "tableFrom": "site_settings_opening_hours",
-          "tableTo": "site_settings",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "site_settings_navigation": {
-      "name": "site_settings_navigation",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -1437,22 +1371,22 @@
         }
       },
       "indexes": {
-        "site_settings_navigation_order_idx": {
-          "name": "site_settings_navigation_order_idx",
+        "start_page_blocks_navigation_links_order_idx": {
+          "name": "start_page_blocks_navigation_links_order_idx",
           "columns": ["_order"],
           "isUnique": false
         },
-        "site_settings_navigation_parent_id_idx": {
-          "name": "site_settings_navigation_parent_id_idx",
+        "start_page_blocks_navigation_links_parent_id_idx": {
+          "name": "start_page_blocks_navigation_links_parent_id_idx",
           "columns": ["_parent_id"],
           "isUnique": false
         }
       },
       "foreignKeys": {
-        "site_settings_navigation_parent_id_fk": {
-          "name": "site_settings_navigation_parent_id_fk",
-          "tableFrom": "site_settings_navigation",
-          "tableTo": "site_settings",
+        "start_page_blocks_navigation_links_parent_id_fk": {
+          "name": "start_page_blocks_navigation_links_parent_id_fk",
+          "tableFrom": "start_page_blocks_navigation_links",
+          "tableTo": "start_page_blocks_navigation",
           "columnsFrom": ["_parent_id"],
           "columnsTo": ["id"],
           "onDelete": "cascade",
@@ -1463,12 +1397,33 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "site_settings": {
-      "name": "site_settings",
+    "start_page_blocks_navigation": {
+      "name": "start_page_blocks_navigation",
       "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_path": {
+          "name": "_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": true,
           "notNull": true,
           "autoincrement": false
@@ -1481,92 +1436,968 @@
           "autoincrement": false,
           "default": "'Tierarztpraxis Dr. Tune Lazri'"
         },
-        "hero_headline": {
-          "name": "hero_headline",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'Dr. Tune Lazri'"
-        },
-        "hero_subheadline": {
-          "name": "hero_subheadline",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'Tierarztpraxis'"
-        },
-        "hero_description": {
-          "name": "hero_description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'Wir sind gerne für Sie und Ihren Liebling da. Auf Wunsch besuche ich Sie und Ihren Liebling gerne bei Ihnen zu Hause.'"
-        },
-        "hero_hero_image_id": {
-          "name": "hero_hero_image_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "hero_cta_primary": {
-          "name": "hero_cta_primary",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'Termin vereinbaren'"
-        },
-        "hero_cta_secondary": {
-          "name": "hero_cta_secondary",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'Leistungen'"
-        },
-        "contact_address_street": {
-          "name": "contact_address_street",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'Brünnerstraße 219-221'"
-        },
-        "contact_address_city": {
-          "name": "contact_address_city",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'1210 Wien'"
-        },
-        "contact_address_additional": {
-          "name": "contact_address_additional",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "'1 TOP 60 (Einkaufszentrum B7)'"
-        },
-        "contact_phone": {
-          "name": "contact_phone",
+        "phone": {
+          "name": "phone",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "'+43 699 190 12 012'"
         },
-        "contact_email": {
-          "name": "contact_email",
+        "block_name": {
+          "name": "block_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_blocks_navigation_order_idx": {
+          "name": "start_page_blocks_navigation_order_idx",
+          "columns": ["_order"],
+          "isUnique": false
+        },
+        "start_page_blocks_navigation_parent_id_idx": {
+          "name": "start_page_blocks_navigation_parent_id_idx",
+          "columns": ["_parent_id"],
+          "isUnique": false
+        },
+        "start_page_blocks_navigation_path_idx": {
+          "name": "start_page_blocks_navigation_path_idx",
+          "columns": ["_path"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_blocks_navigation_parent_id_fk": {
+          "name": "start_page_blocks_navigation_parent_id_fk",
+          "tableFrom": "start_page_blocks_navigation",
+          "tableTo": "start_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page_blocks_hero": {
+      "name": "start_page_blocks_hero",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_path": {
+          "name": "_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "headline": {
+          "name": "headline",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'contact@tierarztpraxis-lazri.at'"
+          "default": "'Dr. Tune Lazri'"
+        },
+        "subheadline": {
+          "name": "subheadline",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Tierarztpraxis'"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Wir sind gerne für Sie und Ihren Liebling da. Auf Wunsch besuche ich Sie und Ihren Liebling gerne bei Ihnen zu Hause.'"
+        },
+        "hero_image_id": {
+          "name": "hero_image_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "cta_primary_text": {
+          "name": "cta_primary_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Termin vereinbaren'"
+        },
+        "cta_primary_href": {
+          "name": "cta_primary_href",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'#kontakt'"
+        },
+        "cta_secondary_text": {
+          "name": "cta_secondary_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Leistungen'"
+        },
+        "cta_secondary_href": {
+          "name": "cta_secondary_href",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'#leistungen'"
+        },
+        "block_name": {
+          "name": "block_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_blocks_hero_order_idx": {
+          "name": "start_page_blocks_hero_order_idx",
+          "columns": ["_order"],
+          "isUnique": false
+        },
+        "start_page_blocks_hero_parent_id_idx": {
+          "name": "start_page_blocks_hero_parent_id_idx",
+          "columns": ["_parent_id"],
+          "isUnique": false
+        },
+        "start_page_blocks_hero_path_idx": {
+          "name": "start_page_blocks_hero_path_idx",
+          "columns": ["_path"],
+          "isUnique": false
+        },
+        "start_page_blocks_hero_hero_image_idx": {
+          "name": "start_page_blocks_hero_hero_image_idx",
+          "columns": ["hero_image_id"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_blocks_hero_hero_image_id_media_id_fk": {
+          "name": "start_page_blocks_hero_hero_image_id_media_id_fk",
+          "tableFrom": "start_page_blocks_hero",
+          "tableTo": "media",
+          "columnsFrom": ["hero_image_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "start_page_blocks_hero_parent_id_fk": {
+          "name": "start_page_blocks_hero_parent_id_fk",
+          "tableFrom": "start_page_blocks_hero",
+          "tableTo": "start_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page_blocks_services_groups_items": {
+      "name": "start_page_blocks_services_groups_items",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "text": {
+          "name": "text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_blocks_services_groups_items_order_idx": {
+          "name": "start_page_blocks_services_groups_items_order_idx",
+          "columns": ["_order"],
+          "isUnique": false
+        },
+        "start_page_blocks_services_groups_items_parent_id_idx": {
+          "name": "start_page_blocks_services_groups_items_parent_id_idx",
+          "columns": ["_parent_id"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_blocks_services_groups_items_parent_id_fk": {
+          "name": "start_page_blocks_services_groups_items_parent_id_fk",
+          "tableFrom": "start_page_blocks_services_groups_items",
+          "tableTo": "start_page_blocks_services_groups",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page_blocks_services_groups": {
+      "name": "start_page_blocks_services_groups",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_blocks_services_groups_order_idx": {
+          "name": "start_page_blocks_services_groups_order_idx",
+          "columns": ["_order"],
+          "isUnique": false
+        },
+        "start_page_blocks_services_groups_parent_id_idx": {
+          "name": "start_page_blocks_services_groups_parent_id_idx",
+          "columns": ["_parent_id"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_blocks_services_groups_parent_id_fk": {
+          "name": "start_page_blocks_services_groups_parent_id_fk",
+          "tableFrom": "start_page_blocks_services_groups",
+          "tableTo": "start_page_blocks_services",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page_blocks_services": {
+      "name": "start_page_blocks_services",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_path": {
+          "name": "_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "eyebrow": {
+          "name": "eyebrow",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Leistungen'"
+        },
+        "headline": {
+          "name": "headline",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Umfassende tierärztliche Betreuung für Ihren Liebling'"
+        },
+        "cta_text": {
+          "name": "cta_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Haben Sie Fragen zu unseren Leistungen?'"
+        },
+        "cta_button_label": {
+          "name": "cta_button_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Kontaktieren Sie uns'"
+        },
+        "cta_button_href": {
+          "name": "cta_button_href",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'#kontakt'"
+        },
+        "block_name": {
+          "name": "block_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_blocks_services_order_idx": {
+          "name": "start_page_blocks_services_order_idx",
+          "columns": ["_order"],
+          "isUnique": false
+        },
+        "start_page_blocks_services_parent_id_idx": {
+          "name": "start_page_blocks_services_parent_id_idx",
+          "columns": ["_parent_id"],
+          "isUnique": false
+        },
+        "start_page_blocks_services_path_idx": {
+          "name": "start_page_blocks_services_path_idx",
+          "columns": ["_path"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_blocks_services_parent_id_fk": {
+          "name": "start_page_blocks_services_parent_id_fk",
+          "tableFrom": "start_page_blocks_services",
+          "tableTo": "start_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page_blocks_quote": {
+      "name": "start_page_blocks_quote",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_path": {
+          "name": "_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "text": {
+          "name": "text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Die Liebe zu Tieren ist eine der edelsten Eigenschaften des menschlichen Herzens. Jeder Tierarzt trägt die Verantwortung, diese Liebe mit Wissen, Mitgefühl und Hingabe zu ehren.'"
+        },
+        "author_id": {
+          "name": "author_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "block_name": {
+          "name": "block_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_blocks_quote_order_idx": {
+          "name": "start_page_blocks_quote_order_idx",
+          "columns": ["_order"],
+          "isUnique": false
+        },
+        "start_page_blocks_quote_parent_id_idx": {
+          "name": "start_page_blocks_quote_parent_id_idx",
+          "columns": ["_parent_id"],
+          "isUnique": false
+        },
+        "start_page_blocks_quote_path_idx": {
+          "name": "start_page_blocks_quote_path_idx",
+          "columns": ["_path"],
+          "isUnique": false
+        },
+        "start_page_blocks_quote_author_idx": {
+          "name": "start_page_blocks_quote_author_idx",
+          "columns": ["author_id"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_blocks_quote_author_id_team_members_id_fk": {
+          "name": "start_page_blocks_quote_author_id_team_members_id_fk",
+          "tableFrom": "start_page_blocks_quote",
+          "tableTo": "team_members",
+          "columnsFrom": ["author_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "start_page_blocks_quote_parent_id_fk": {
+          "name": "start_page_blocks_quote_parent_id_fk",
+          "tableFrom": "start_page_blocks_quote",
+          "tableTo": "start_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page_blocks_testimonials": {
+      "name": "start_page_blocks_testimonials",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_path": {
+          "name": "_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "eyebrow": {
+          "name": "eyebrow",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Erfahrungen'"
+        },
+        "headline": {
+          "name": "headline",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Was die Lieblingsmenschen unserer Fellnasen über uns sagen'"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Wir reden ungern über uns selbst, daher lassen wir lieber die Frauchen und Herrchen erzählen. Schau Dir ihre Erfahrungen an und überzeuge Dich selbst!'"
+        },
+        "google_review_url": {
+          "name": "google_review_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'https://search.google.com/local/writereview?placeid=ChIJ7aw4mO8FbUcRmAeyWnxejUs'"
+        },
+        "review_count": {
+          "name": "review_count",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "average_rating": {
+          "name": "average_rating",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 5
+        },
+        "block_name": {
+          "name": "block_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_blocks_testimonials_order_idx": {
+          "name": "start_page_blocks_testimonials_order_idx",
+          "columns": ["_order"],
+          "isUnique": false
+        },
+        "start_page_blocks_testimonials_parent_id_idx": {
+          "name": "start_page_blocks_testimonials_parent_id_idx",
+          "columns": ["_parent_id"],
+          "isUnique": false
+        },
+        "start_page_blocks_testimonials_path_idx": {
+          "name": "start_page_blocks_testimonials_path_idx",
+          "columns": ["_path"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_blocks_testimonials_parent_id_fk": {
+          "name": "start_page_blocks_testimonials_parent_id_fk",
+          "tableFrom": "start_page_blocks_testimonials",
+          "tableTo": "start_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page_blocks_gallery": {
+      "name": "start_page_blocks_gallery",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_path": {
+          "name": "_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "eyebrow": {
+          "name": "eyebrow",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Galerie'"
+        },
+        "headline": {
+          "name": "headline",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Das sind unsere tierischen Patienten'"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Schau Dir unsere Galerie an! Du warst noch nicht bei uns? Dann fehlt genau Dein Haustier hier.'"
+        },
+        "empty_state_text": {
+          "name": "empty_state_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Noch keine Bilder in der Galerie.'"
+        },
+        "block_name": {
+          "name": "block_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_blocks_gallery_order_idx": {
+          "name": "start_page_blocks_gallery_order_idx",
+          "columns": ["_order"],
+          "isUnique": false
+        },
+        "start_page_blocks_gallery_parent_id_idx": {
+          "name": "start_page_blocks_gallery_parent_id_idx",
+          "columns": ["_parent_id"],
+          "isUnique": false
+        },
+        "start_page_blocks_gallery_path_idx": {
+          "name": "start_page_blocks_gallery_path_idx",
+          "columns": ["_path"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_blocks_gallery_parent_id_fk": {
+          "name": "start_page_blocks_gallery_parent_id_fk",
+          "tableFrom": "start_page_blocks_gallery",
+          "tableTo": "start_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page_blocks_team": {
+      "name": "start_page_blocks_team",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_path": {
+          "name": "_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "eyebrow": {
+          "name": "eyebrow",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Über uns'"
+        },
+        "headline": {
+          "name": "headline",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Unser Team'"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Mit Leidenschaft für Ihre Lieblinge'"
+        },
+        "block_name": {
+          "name": "block_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_blocks_team_order_idx": {
+          "name": "start_page_blocks_team_order_idx",
+          "columns": ["_order"],
+          "isUnique": false
+        },
+        "start_page_blocks_team_parent_id_idx": {
+          "name": "start_page_blocks_team_parent_id_idx",
+          "columns": ["_parent_id"],
+          "isUnique": false
+        },
+        "start_page_blocks_team_path_idx": {
+          "name": "start_page_blocks_team_path_idx",
+          "columns": ["_path"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_blocks_team_parent_id_fk": {
+          "name": "start_page_blocks_team_parent_id_fk",
+          "tableFrom": "start_page_blocks_team",
+          "tableTo": "start_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page_blocks_hours_opening_hours": {
+      "name": "start_page_blocks_hours_opening_hours",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "day": {
+          "name": "day",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "times": {
+          "name": "times",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_blocks_hours_opening_hours_order_idx": {
+          "name": "start_page_blocks_hours_opening_hours_order_idx",
+          "columns": ["_order"],
+          "isUnique": false
+        },
+        "start_page_blocks_hours_opening_hours_parent_id_idx": {
+          "name": "start_page_blocks_hours_opening_hours_parent_id_idx",
+          "columns": ["_parent_id"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_blocks_hours_opening_hours_parent_id_fk": {
+          "name": "start_page_blocks_hours_opening_hours_parent_id_fk",
+          "tableFrom": "start_page_blocks_hours_opening_hours",
+          "tableTo": "start_page_blocks_hours",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page_blocks_hours": {
+      "name": "start_page_blocks_hours",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_path": {
+          "name": "_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "eyebrow": {
+          "name": "eyebrow",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Öffnungszeiten'"
+        },
+        "headline": {
+          "name": "headline",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Wann wir für Sie da sind'"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Flexible Öffnungszeiten für Sie und Ihre Lieblinge. Auch Hausbesuche sind nach Vereinbarung möglich.'"
         },
         "emergency_title": {
           "name": "emergency_title",
@@ -1584,84 +2415,396 @@
           "autoincrement": false,
           "default": "'Bei Notfällen rufen Sie uns bitte an. Wir sind für Sie erreichbar.'"
         },
-        "contact_form_eyebrow": {
-          "name": "contact_form_eyebrow",
+        "block_name": {
+          "name": "block_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_blocks_hours_order_idx": {
+          "name": "start_page_blocks_hours_order_idx",
+          "columns": ["_order"],
+          "isUnique": false
+        },
+        "start_page_blocks_hours_parent_id_idx": {
+          "name": "start_page_blocks_hours_parent_id_idx",
+          "columns": ["_parent_id"],
+          "isUnique": false
+        },
+        "start_page_blocks_hours_path_idx": {
+          "name": "start_page_blocks_hours_path_idx",
+          "columns": ["_path"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_blocks_hours_parent_id_fk": {
+          "name": "start_page_blocks_hours_parent_id_fk",
+          "tableFrom": "start_page_blocks_hours",
+          "tableTo": "start_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page_blocks_contact": {
+      "name": "start_page_blocks_contact",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_path": {
+          "name": "_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "eyebrow": {
+          "name": "eyebrow",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Kontakt'"
+        },
+        "headline": {
+          "name": "headline",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Wir freuen uns auf Sie'"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Ihr Liebling braucht Zuhause tierärztliche Betreuung? Ich bin nur einen Anruf entfernt.'"
+        },
+        "address_street": {
+          "name": "address_street",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Brünnerstraße 219-221'"
+        },
+        "address_city": {
+          "name": "address_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'1210 Wien'"
+        },
+        "address_additional": {
+          "name": "address_additional",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'1 TOP 60 (Einkaufszentrum B7)'"
+        },
+        "phone": {
+          "name": "phone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'+43 699 190 12 012'"
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'contact@tierarztpraxis-lazri.at'"
+        },
+        "consultation_times": {
+          "name": "consultation_times",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Mo–Fr: 09:00 – 12:00\nNachmittags nach Vereinbarung'"
+        },
+        "directions_description": {
+          "name": "directions_description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Unsere Praxis befindet sich im Einkaufszentrum B7 an der Brünnerstraße. Parkmöglichkeiten sind direkt vor dem Eingang vorhanden.'"
+        },
+        "directions_link_label": {
+          "name": "directions_link_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'In Google Maps öffnen'"
+        },
+        "block_name": {
+          "name": "block_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_blocks_contact_order_idx": {
+          "name": "start_page_blocks_contact_order_idx",
+          "columns": ["_order"],
+          "isUnique": false
+        },
+        "start_page_blocks_contact_parent_id_idx": {
+          "name": "start_page_blocks_contact_parent_id_idx",
+          "columns": ["_parent_id"],
+          "isUnique": false
+        },
+        "start_page_blocks_contact_path_idx": {
+          "name": "start_page_blocks_contact_path_idx",
+          "columns": ["_path"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_blocks_contact_parent_id_fk": {
+          "name": "start_page_blocks_contact_parent_id_fk",
+          "tableFrom": "start_page_blocks_contact",
+          "tableTo": "start_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page_blocks_contact_form": {
+      "name": "start_page_blocks_contact_form",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_path": {
+          "name": "_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "eyebrow": {
+          "name": "eyebrow",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "'Anfrage'"
         },
-        "contact_form_headline": {
-          "name": "contact_form_headline",
+        "headline": {
+          "name": "headline",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "'Schreiben Sie uns'"
         },
-        "contact_form_description": {
-          "name": "contact_form_description",
+        "description": {
+          "name": "description",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "'Haben Sie Fragen oder möchten Sie einen Termin vereinbaren? Wir antworten innerhalb von 24 Stunden.'"
         },
-        "footer_tagline": {
-          "name": "footer_tagline",
+        "block_name": {
+          "name": "block_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_blocks_contact_form_order_idx": {
+          "name": "start_page_blocks_contact_form_order_idx",
+          "columns": ["_order"],
+          "isUnique": false
+        },
+        "start_page_blocks_contact_form_parent_id_idx": {
+          "name": "start_page_blocks_contact_form_parent_id_idx",
+          "columns": ["_parent_id"],
+          "isUnique": false
+        },
+        "start_page_blocks_contact_form_path_idx": {
+          "name": "start_page_blocks_contact_form_path_idx",
+          "columns": ["_path"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_blocks_contact_form_parent_id_fk": {
+          "name": "start_page_blocks_contact_form_parent_id_fk",
+          "tableFrom": "start_page_blocks_contact_form",
+          "tableTo": "start_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page_blocks_footer": {
+      "name": "start_page_blocks_footer",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_path": {
+          "name": "_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "tagline": {
+          "name": "tagline",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "'Tierarztpraxis mit Leidenschaft für Ihre Lieblinge.'"
         },
-        "footer_copyright": {
-          "name": "footer_copyright",
+        "copyright": {
+          "name": "copyright",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "'Mit Leidenschaft für Ihre Lieblinge.'"
         },
-        "quote_text": {
-          "name": "quote_text",
+        "block_name": {
+          "name": "block_name",
           "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'Die Liebe zu Tieren ist eine der edelsten Eigenschaften des menschlichen Herzens. Jeder Tierarzt trägt die Verantwortung, diese Liebe mit Wissen, Mitgefühl und Hingabe zu ehren.'"
-        },
-        "quote_author_id": {
-          "name": "quote_author_id",
-          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        }
+      },
+      "indexes": {
+        "start_page_blocks_footer_order_idx": {
+          "name": "start_page_blocks_footer_order_idx",
+          "columns": ["_order"],
+          "isUnique": false
         },
-        "testimonials_google_review_url": {
-          "name": "testimonials_google_review_url",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'https://search.google.com/local/writereview?placeid=ChIJ7aw4mO8FbUcRmAeyWnxejUs'"
+        "start_page_blocks_footer_parent_id_idx": {
+          "name": "start_page_blocks_footer_parent_id_idx",
+          "columns": ["_parent_id"],
+          "isUnique": false
         },
-        "testimonials_review_count": {
-          "name": "testimonials_review_count",
-          "type": "numeric",
-          "primaryKey": false,
+        "start_page_blocks_footer_path_idx": {
+          "name": "start_page_blocks_footer_path_idx",
+          "columns": ["_path"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "start_page_blocks_footer_parent_id_fk": {
+          "name": "start_page_blocks_footer_parent_id_fk",
+          "tableFrom": "start_page_blocks_footer",
+          "tableTo": "start_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "start_page": {
+      "name": "start_page",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
           "notNull": true,
-          "autoincrement": false,
-          "default": 0
-        },
-        "testimonials_average_rating": {
-          "name": "testimonials_average_rating",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 5
+          "autoincrement": false
         },
         "seo_title": {
           "name": "seo_title",
@@ -1694,38 +2837,8 @@
           "autoincrement": false
         }
       },
-      "indexes": {
-        "site_settings_hero_hero_hero_image_idx": {
-          "name": "site_settings_hero_hero_hero_image_idx",
-          "columns": ["hero_hero_image_id"],
-          "isUnique": false
-        },
-        "site_settings_quote_quote_author_idx": {
-          "name": "site_settings_quote_quote_author_idx",
-          "columns": ["quote_author_id"],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {
-        "site_settings_hero_hero_image_id_media_id_fk": {
-          "name": "site_settings_hero_hero_image_id_media_id_fk",
-          "tableFrom": "site_settings",
-          "tableTo": "media",
-          "columnsFrom": ["hero_hero_image_id"],
-          "columnsTo": ["id"],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "site_settings_quote_author_id_team_members_id_fk": {
-          "name": "site_settings_quote_author_id_team_members_id_fk",
-          "tableFrom": "site_settings",
-          "tableTo": "team_members",
-          "columnsFrom": ["quote_author_id"],
-          "columnsTo": ["id"],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        }
-      },
+      "indexes": {},
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}
@@ -1740,6 +2853,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "155f2e21-e142-4dd6-b7eb-5586865990d8",
+  "id": "60cc3da2-7c0c-4c1e-9aba-fcb1ed8dfd18",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

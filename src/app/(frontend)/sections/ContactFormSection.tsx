@@ -2,7 +2,6 @@
 
 import { useActionState } from 'react'
 import { submitContactForm, type ContactFormState } from '../actions/contact'
-import type { SiteSetting } from '@/payload-types'
 
 const initialState: ContactFormState = {
   message: '',
@@ -10,10 +9,14 @@ const initialState: ContactFormState = {
 }
 
 interface ContactFormSectionProps {
-  contactForm: SiteSetting['contactForm']
+  content: {
+    eyebrow: string
+    headline: string
+    description: string
+  }
 }
 
-export function ContactFormSection({ contactForm }: ContactFormSectionProps) {
+export function ContactFormSection({ content }: ContactFormSectionProps) {
   const [state, formAction, isPending] = useActionState(submitContactForm, initialState)
 
   return (
@@ -22,15 +25,12 @@ export function ContactFormSection({ contactForm }: ContactFormSectionProps) {
         {/* Header - Left aligned like other sections */}
         <div className="max-w-2xl mb-16 lg:mb-20">
           <p className="text-sm tracking-wide-custom uppercase theme-text-tertiary mb-6">
-            {contactForm?.eyebrow || 'Anfrage'}
+            {content.eyebrow}
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight">
-            {contactForm?.headline || 'Schreiben Sie uns'}
+            {content.headline}
           </h2>
-          <p className="mt-6 text-lg theme-text-secondary leading-relaxed">
-            {contactForm?.description ||
-              'Haben Sie Fragen oder möchten Sie einen Termin vereinbaren?'}
-          </p>
+          <p className="mt-6 text-lg theme-text-secondary leading-relaxed">{content.description}</p>
         </div>
 
         {/* Form - Left aligned, max width constraint */}

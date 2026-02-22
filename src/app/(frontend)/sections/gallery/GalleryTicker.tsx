@@ -6,6 +6,12 @@ import { PayloadImage } from '@/components/PayloadImage'
 import type { GalleryImage, Media } from '@/payload-types'
 
 interface GalleryTickerProps {
+  content: {
+    eyebrow: string
+    headline: string
+    description: string
+    emptyStateText: string
+  }
   images: GalleryImage[]
 }
 
@@ -87,7 +93,7 @@ function TickerItem({ image, index }: { image: GalleryImage; index: number }) {
  * - Text appears below image on hover (no overlay)
  * - Semantic HTML with figure/figcaption
  */
-export function GalleryTicker({ images }: GalleryTickerProps) {
+export function GalleryTicker({ content, images }: GalleryTickerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: false, amount: 0.1 })
@@ -218,21 +224,18 @@ export function GalleryTicker({ images }: GalleryTickerProps) {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header - no fade-in animations */}
         <header className="max-w-2xl mb-12 lg:mb-16">
-          <p className="text-sm tracking-wide-custom uppercase theme-text-tertiary mb-6">Galerie</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight">
-            Das sind unsere tierischen Patienten
-          </h2>
-          <p className="mt-6 theme-text-secondary leading-relaxed">
-            Schau Dir unsere Galerie an! Du warst noch nicht bei uns? Dann fehlt genau Dein Haustier
-            hier.
+          <p className="text-sm tracking-wide-custom uppercase theme-text-tertiary mb-6">
+            {content.eyebrow}
           </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight">
+            {content.headline}
+          </h2>
+          <p className="mt-6 theme-text-secondary leading-relaxed">{content.description}</p>
         </header>
       </div>
 
       {images.length === 0 ? (
-        <div className="text-center py-12 theme-text-secondary">
-          Noch keine Bilder in der Galerie.
-        </div>
+        <div className="text-center py-12 theme-text-secondary">{content.emptyStateText}</div>
       ) : (
         /* Single Ticker container - full viewport width with overflow visible */
         <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>

@@ -5,6 +5,12 @@ import { GalleryTicker } from './gallery/GalleryTicker'
 import type { GalleryImage } from '@/payload-types'
 
 interface GalleryProps {
+  content: {
+    eyebrow: string
+    headline: string
+    description: string
+    emptyStateText: string
+  }
   images: GalleryImage[]
 }
 
@@ -20,6 +26,6 @@ interface GalleryProps {
  * - Scroll velocity affects animation speed
  * - Gradient fade masks at edges
  */
-export function Gallery({ images }: GalleryProps) {
-  return <GalleryTicker images={images} />
+export function Gallery({ content, images }: GalleryProps) {
+  return <GalleryTicker content={content} images={images} />
 }

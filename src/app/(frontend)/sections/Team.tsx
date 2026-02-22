@@ -5,6 +5,11 @@ import { PayloadImage } from '@/components/PayloadImage'
 import type { TeamMember, Media } from '@/payload-types'
 
 interface TeamProps {
+  content: {
+    eyebrow: string
+    headline: string
+    description: string
+  }
   members: TeamMember[]
 }
 
@@ -190,19 +195,19 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
   )
 }
 
-export function Team({ members }: TeamProps) {
+export function Team({ content, members }: TeamProps) {
   return (
     <section id="team" className="py-24 lg:py-36 theme-bg-primary overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="max-w-2xl mb-20 lg:mb-28">
           <p className="text-sm tracking-wide-custom uppercase theme-text-tertiary mb-6">
-            Über uns
+            {content.eyebrow}
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight">
-            Unser Team
+            {content.headline}
           </h2>
-          <p className="mt-6 text-xl theme-text-secondary">Mit Leidenschaft für Ihre Lieblinge</p>
+          <p className="mt-6 text-xl theme-text-secondary">{content.description}</p>
         </div>
 
         {/* Team Grid */}

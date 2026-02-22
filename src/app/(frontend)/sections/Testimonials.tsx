@@ -5,25 +5,27 @@ import { motion } from 'motion/react'
 import type { Testimonial } from '@/payload-types'
 
 interface TestimonialsProps {
+  content: {
+    eyebrow: string
+    headline: string
+    description: string
+  }
   testimonials: Testimonial[]
 }
 
-export function Testimonials({ testimonials }: TestimonialsProps) {
+export function Testimonials({ content, testimonials }: TestimonialsProps) {
   return (
     <section className="py-24 lg:py-36 theme-bg-primary">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="max-w-3xl mb-20 lg:mb-28">
           <p className="text-sm tracking-wide-custom uppercase theme-text-tertiary mb-6">
-            Erfahrungen
+            {content.eyebrow}
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight">
-            Was die Lieblingsmenschen unserer Fellnasen über uns sagen
+            {content.headline}
           </h2>
-          <p className="mt-6 theme-text-secondary leading-relaxed">
-            Wir reden ungern über uns selbst, daher lassen wir lieber die Frauchen und Herrchen
-            erzählen. Schau Dir ihre Erfahrungen an und überzeuge Dich selbst!
-          </p>
+          <p className="mt-6 theme-text-secondary leading-relaxed">{content.description}</p>
         </div>
 
         {/* Testimonials Grid */}

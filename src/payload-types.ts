@@ -94,10 +94,10 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
-    'site-settings': SiteSetting;
+    'start-page': StartPage;
   };
   globalsSelect: {
-    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'start-page': StartPageSelect<false> | StartPageSelect<true>;
   };
   locale: null;
   user: User;
@@ -543,77 +543,156 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Autorenansicht für die Startseite mit frei sortierbaren Inhaltsblöcken.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "site-settings".
+ * via the `definition` "start-page".
  */
-export interface SiteSetting {
+export interface StartPage {
   id: number;
-  practiceName: string;
-  hero: {
-    headline: string;
-    subheadline: string;
-    description: string;
-    heroImage?: (number | null) | Media;
-    ctaPrimary: string;
-    ctaSecondary: string;
-  };
-  contact: {
-    address: {
-      street: string;
-      city: string;
-      additional?: string | null;
-    };
-    phone: string;
-    email: string;
-  };
-  openingHours?:
+  header?:
     | {
-        day: string;
-        times: string;
+        practiceName: string;
+        phone: string;
+        links?:
+          | {
+              label: string;
+              href: string;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
+        blockName?: string | null;
+        blockType: 'navigation';
       }[]
     | null;
-  emergency: {
-    title: string;
-    description: string;
-  };
-  navigation?:
+  layout?:
+    | (
+        | {
+            headline: string;
+            subheadline: string;
+            description: string;
+            heroImage?: (number | null) | Media;
+            ctaPrimaryText: string;
+            ctaPrimaryHref: string;
+            ctaSecondaryText: string;
+            ctaSecondaryHref: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            groups: {
+              category: string;
+              items: {
+                text: string;
+                id?: string | null;
+              }[];
+              id?: string | null;
+            }[];
+            ctaText: string;
+            ctaButtonLabel: string;
+            ctaButtonHref: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'services';
+          }
+        | {
+            text: string;
+            /**
+             * Wählen Sie ein Teammitglied als Autor des Zitats aus
+             */
+            author?: (number | null) | TeamMember;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quote';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description: string;
+            googleReviewUrl: string;
+            reviewCount: number;
+            averageRating: number;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonials';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description: string;
+            emptyStateText: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'gallery';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'team';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description: string;
+            openingHours?:
+              | {
+                  day: string;
+                  times: string;
+                  id?: string | null;
+                }[]
+              | null;
+            emergency: {
+              title: string;
+              description: string;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hours';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description: string;
+            address: {
+              street: string;
+              city: string;
+              additional?: string | null;
+            };
+            phone: string;
+            email: string;
+            consultationTimes: string;
+            directionsDescription: string;
+            directionsLinkLabel: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contact';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contactForm';
+          }
+      )[]
+    | null;
+  footer?:
     | {
-        label: string;
-        href: string;
+        tagline: string;
+        copyright: string;
         id?: string | null;
+        blockName?: string | null;
+        blockType: 'footer';
       }[]
     | null;
-  contactForm: {
-    eyebrow: string;
-    headline: string;
-    description: string;
-  };
-  footer: {
-    tagline: string;
-    copyright: string;
-  };
-  quote: {
-    text: string;
-    /**
-     * Wählen Sie ein Teammitglied als Autor des Zitats aus
-     */
-    author?: (number | null) | TeamMember;
-  };
-  testimonials: {
-    /**
-     * Link zur Google Bewertungsseite
-     */
-    googleReviewUrl: string;
-    /**
-     * Anzahl der Google Bewertungen (wird auf der Website angezeigt)
-     */
-    reviewCount: number;
-    /**
-     * Durchschnittliche Sternebewertung (0-5)
-     */
-    averageRating: number;
-  };
   seo: {
     title: string;
     description: string;
@@ -623,78 +702,171 @@ export interface SiteSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "site-settings_select".
+ * via the `definition` "start-page_select".
  */
-export interface SiteSettingsSelect<T extends boolean = true> {
-  practiceName?: T;
-  hero?:
+export interface StartPageSelect<T extends boolean = true> {
+  header?:
     | T
     | {
-        headline?: T;
-        subheadline?: T;
-        description?: T;
-        heroImage?: T;
-        ctaPrimary?: T;
-        ctaSecondary?: T;
-      };
-  contact?:
-    | T
-    | {
-        address?:
+        navigation?:
           | T
           | {
-              street?: T;
-              city?: T;
-              additional?: T;
+              practiceName?: T;
+              phone?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
             };
-        phone?: T;
-        email?: T;
       };
-  openingHours?:
+  layout?:
     | T
     | {
-        day?: T;
-        times?: T;
-        id?: T;
-      };
-  emergency?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-      };
-  navigation?:
-    | T
-    | {
-        label?: T;
-        href?: T;
-        id?: T;
-      };
-  contactForm?:
-    | T
-    | {
-        eyebrow?: T;
-        headline?: T;
-        description?: T;
+        hero?:
+          | T
+          | {
+              headline?: T;
+              subheadline?: T;
+              description?: T;
+              heroImage?: T;
+              ctaPrimaryText?: T;
+              ctaPrimaryHref?: T;
+              ctaSecondaryText?: T;
+              ctaSecondaryHref?: T;
+              id?: T;
+              blockName?: T;
+            };
+        services?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              groups?:
+                | T
+                | {
+                    category?: T;
+                    items?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              ctaText?: T;
+              ctaButtonLabel?: T;
+              ctaButtonHref?: T;
+              id?: T;
+              blockName?: T;
+            };
+        quote?:
+          | T
+          | {
+              text?: T;
+              author?: T;
+              id?: T;
+              blockName?: T;
+            };
+        testimonials?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              googleReviewUrl?: T;
+              reviewCount?: T;
+              averageRating?: T;
+              id?: T;
+              blockName?: T;
+            };
+        gallery?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              emptyStateText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        team?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              id?: T;
+              blockName?: T;
+            };
+        hours?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              openingHours?:
+                | T
+                | {
+                    day?: T;
+                    times?: T;
+                    id?: T;
+                  };
+              emergency?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        contact?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              address?:
+                | T
+                | {
+                    street?: T;
+                    city?: T;
+                    additional?: T;
+                  };
+              phone?: T;
+              email?: T;
+              consultationTimes?: T;
+              directionsDescription?: T;
+              directionsLinkLabel?: T;
+              id?: T;
+              blockName?: T;
+            };
+        contactForm?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   footer?:
     | T
     | {
-        tagline?: T;
-        copyright?: T;
-      };
-  quote?:
-    | T
-    | {
-        text?: T;
-        author?: T;
-      };
-  testimonials?:
-    | T
-    | {
-        googleReviewUrl?: T;
-        reviewCount?: T;
-        averageRating?: T;
+        footer?:
+          | T
+          | {
+              tagline?: T;
+              copyright?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   seo?:
     | T
