@@ -9,6 +9,7 @@ import { PrivacyFormOwnerStep } from './privacy-form/PrivacyFormOwnerStep'
 import { PrivacyFormPatientStep } from './privacy-form/PrivacyFormPatientStep'
 import { PrivacyFormSuccessState } from './privacy-form/PrivacyFormSuccessState'
 import { initialFormData, privacyFormSteps, type PrivacyFormData } from './privacy-form/types'
+import { validatePrivacyForm, validatePrivacyStep } from './privacy-form/validation'
 
 const initialState: PrivacyFormState = {}
 
@@ -31,6 +32,7 @@ export function PrivacyForm() {
   const [direction, setDirection] = useState(0)
   const [formData, setFormData] = useState<PrivacyFormData>(initialFormData)
   const [showValidation, setShowValidation] = useState(false)
+  const [validationErrors, setValidationErrors] = useState<Record<string, string[]>>({})
 
   const [state, formAction, isPending] = useActionState(submitPrivacyForm, initialState)
 
@@ -43,43 +45,25 @@ export function PrivacyForm() {
     [],
   )
 
-  const validateStep = useCallback(
-    (step: number): boolean => {
-      const errors: string[] = []
-
-      if (step === 1) {
-        if (!formData.ownerLastName.trim()) errors.push('ownerLastName')
-        if (!formData.ownerFirstName.trim()) errors.push('ownerFirstName')
-        if (!formData.ownerStreet.trim()) errors.push('ownerStreet')
-        if (!formData.ownerPostalCode.trim()) errors.push('ownerPostalCode')
-        if (!formData.ownerCity.trim()) errors.push('ownerCity')
-        if (!formData.ownerPhone.trim()) errors.push('ownerPhone')
-      } else if (step === 2) {
-        if (!formData.patientName.trim()) errors.push('patientName')
-        if (!formData.patientAnimalType) errors.push('patientAnimalType')
-      } else if (step === 3) {
-        if (!formData.signatureDataUrl) errors.push('signature')
-      }
-
-      return errors.length === 0
-    },
-    [formData],
-  )
-
   const handleNext = useCallback(() => {
     setShowValidation(true)
-    if (validateStep(currentStep) && currentStep < totalSteps) {
+    const stepErrors = validatePrivacyStep(formData, currentStep as 1 | 2 | 3)
+    setValidationErrors(stepErrors)
+
+    if (Object.keys(stepErrors).length === 0 && currentStep < totalSteps) {
       setDirection(1)
       setCurrentStep((prev) => prev + 1)
       setShowValidation(false)
+      setValidationErrors({})
     }
-  }, [currentStep, totalSteps, validateStep])
+  }, [currentStep, formData, totalSteps])
 
   const handleBack = useCallback(() => {
     if (currentStep > 1) {
       setDirection(-1)
       setCurrentStep((prev) => prev - 1)
       setShowValidation(false)
+      setValidationErrors({})
     }
   }, [currentStep])
 
@@ -87,8 +71,10 @@ export function PrivacyForm() {
     (event: React.FormEvent) => {
       event.preventDefault()
       setShowValidation(true)
+      const formErrors = validatePrivacyForm(formData)
+      setValidationErrors(formErrors)
 
-      if (validateStep(currentStep)) {
+      if (Object.keys(formErrors).length === 0) {
         const submissionData = {
           ...formData,
           patientAnimalType:
@@ -102,12 +88,14 @@ export function PrivacyForm() {
         })
       }
     },
-    [currentStep, formAction, formData, validateStep],
+    [formAction, formData],
   )
 
   const isFieldInvalid = useCallback(
-    (field: keyof PrivacyFormData) => showValidation && !formData[field],
-    [formData, showValidation],
+    (field: keyof PrivacyFormData) =>
+      showValidation &&
+      (Boolean(validationErrors[field]?.length) || Boolean(state.errors?.[field]?.length)),
+    [showValidation, state.errors, validationErrors],
   )
 
   if (state.success) {
@@ -119,7 +107,7 @@ export function PrivacyForm() {
       <div className="flex-1 h-screen overflow-hidden">
         <div className="max-w-2xl w-full h-full px-6 md:px-8 lg:px-12 mx-auto md:mx-0 md:ml-[5vw] lg:ml-[10vw] xl:ml-[15vw]">
           <form onSubmit={handleSubmit} className="h-full flex flex-col">
-            <div className="flex-1 overflow-y-auto pt-[20svh] pb-8 md:pb-10">
+            <div className="flex-1 overflow-y-auto overflow-x-hidden pt-[20svh] pb-8 md:pb-10">
               <div className="space-y-10">
                 <AnimatePresence>
                   {state.message && !state.success && (
@@ -136,7 +124,7 @@ export function PrivacyForm() {
                   )}
                 </AnimatePresence>
 
-                <div className="min-h-80">
+                <div className="min-h-80 overflow-hidden relative">
                   <AnimatePresence mode="wait" custom={direction}>
                     {currentStep === 1 && (
                       <motion.div

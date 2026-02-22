@@ -3,6 +3,8 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { headers } from 'next/headers'
+import { validatePrivacyForm } from '../components/privacy-form/validation'
+import type { PrivacyFormData } from '../components/privacy-form/types'
 
 export interface PrivacyFormState {
   message?: string
@@ -10,75 +12,13 @@ export interface PrivacyFormState {
   success?: boolean
 }
 
-interface FormData {
-  ownerLastName: string
-  ownerFirstName: string
-  ownerTitle?: string
-  ownerDateOfBirth?: string
-  ownerStreet: string
-  ownerPostalCode: string
-  ownerCity: string
-  ownerPhone: string
-  ownerEmail?: string
-
-  patientName: string
-  patientAnimalType: 'dog' | 'cat' | 'other'
-  patientBreed?: string
-  patientColor?: string
-  patientGender?: 'male' | 'female' | 'neutered'
-  patientDateOfBirth?: string
-  patientWeight?: string
-  patientSpecialNotes?: string
-
-  signatureDataUrl: string
-}
-
-function validateFormData(data: FormData): Record<string, string[]> {
-  const errors: Record<string, string[]> = {}
-
-  // Required owner fields
-  if (!data.ownerLastName?.trim()) {
-    errors.ownerLastName = ['Nachname ist erforderlich']
-  }
-  if (!data.ownerFirstName?.trim()) {
-    errors.ownerFirstName = ['Vorname ist erforderlich']
-  }
-  if (!data.ownerStreet?.trim()) {
-    errors.ownerStreet = ['Straße/Hausnummer ist erforderlich']
-  }
-  if (!data.ownerPostalCode?.trim()) {
-    errors.ownerPostalCode = ['PLZ ist erforderlich']
-  }
-  if (!data.ownerCity?.trim()) {
-    errors.ownerCity = ['Ort ist erforderlich']
-  }
-  if (!data.ownerPhone?.trim()) {
-    errors.ownerPhone = ['Telefon ist erforderlich']
-  }
-
-  // Required patient fields
-  if (!data.patientName?.trim()) {
-    errors.patientName = ['Patientenname ist erforderlich']
-  }
-  if (!data.patientAnimalType) {
-    errors.patientAnimalType = ['Tierart ist erforderlich']
-  }
-
-  // Signature validation
-  if (!data.signatureDataUrl?.trim()) {
-    errors.signature = ['Unterschrift ist erforderlich']
-  }
-
-  return errors
-}
-
 export async function submitPrivacyForm(
   _prevState: PrivacyFormState,
-  formData: FormData,
+  formData: PrivacyFormData,
 ): Promise<PrivacyFormState> {
   try {
     // Validate form data
-    const errors = validateFormData(formData)
+    const errors = validatePrivacyForm(formData)
     if (Object.keys(errors).length > 0) {
       return {
         success: false,
@@ -106,7 +46,7 @@ export async function submitPrivacyForm(
       ownerEmail: formData.ownerEmail?.trim() || undefined,
 
       patientName: formData.patientName.trim(),
-      patientAnimalType: formData.patientAnimalType,
+      patientAnimalType: formData.patientAnimalType as 'dog' | 'cat' | 'other',
       patientBreed: formData.patientBreed?.trim() || undefined,
       patientColor: formData.patientColor?.trim() || undefined,
       patientGender: formData.patientGender || undefined,
