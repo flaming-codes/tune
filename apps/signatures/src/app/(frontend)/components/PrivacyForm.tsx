@@ -18,6 +18,7 @@ import { PrivacyFormPatientStep } from './privacy-form/PrivacyFormPatientStep'
 import { PrivacyFormSuccessState } from './privacy-form/PrivacyFormSuccessState'
 import { initialFormData, privacyFormSteps, type PrivacyFormData } from './privacy-form/types'
 import { validatePrivacyForm, validatePrivacyStep } from './privacy-form/validation'
+import { useWakeLock } from '../hooks/useWakeLock'
 
 const initialState: PrivacyFormState = {}
 
@@ -56,6 +57,9 @@ export function PrivacyForm() {
       ),
     [formData],
   )
+
+  // Prevent device from sleeping.
+  useWakeLock({ enabled: true /* isFormDirty && !successMessage */ })
 
   const resetForm = useCallback(() => {
     setCurrentStep(1)

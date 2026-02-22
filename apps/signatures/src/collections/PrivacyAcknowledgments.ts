@@ -177,6 +177,9 @@ export const PrivacyAcknowledgments: CollectionConfig = {
       label: 'Unterschrift (Base64)',
       admin: {
         description: 'Die digitale Unterschrift als Base64 Data URL',
+        components: {
+          afterInput: ['/admin/components/SignaturePreviewAfterInput#SignaturePreviewAfterInput'],
+        },
       },
     },
     {
