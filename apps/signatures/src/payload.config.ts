@@ -23,6 +23,30 @@ export default buildConfig({
     livePreview: {
       url: envClient.NEXT_PUBLIC_SITE_URL,
     },
+    dashboard: {
+      // Define the default layout - network info widget first, then collections
+      defaultLayout: ({ req: _req }) => [
+        { widgetSlug: 'collections', width: 'full' },
+        { widgetSlug: 'network-info', width: 'full' },
+      ],
+      widgets: [
+        {
+          slug: 'network-info',
+          ComponentPath: '/components/NetworkInfoWidget#default',
+          minWidth: 'medium',
+          maxWidth: 'full',
+        },
+      ],
+    },
+    components: {
+      views: {
+        // Keep the Network Info view at /admin/network-info as a standalone page
+        'network-info': {
+          Component: '/components/LocalIpWidget',
+          path: '/network-info',
+        },
+      },
+    },
   },
   collections: [Users, PrivacyAcknowledgments, ScreensaverImages],
   editor: lexicalEditor(),

@@ -1,6 +1,6 @@
-import * as migration_20260222_095811_init_signatures from './20260222_095811_init_signatures';
-import * as migration_20260222_113307 from './20260222_113307';
-import * as migration_20260222_145853 from './20260222_145853';
+import * as migration_20260222_095811_init_signatures from './20260222_095811_init_signatures'
+import * as migration_20260222_113307 from './20260222_113307'
+import * as migration_20260222_145853 from './20260222_145853'
 
 export const migrations = [
   {
@@ -16,6 +16,6 @@ export const migrations = [
   {
     up: migration_20260222_145853.up,
     down: migration_20260222_145853.down,
-    name: '20260222_145853'
+    name: '20260222_145853',
   },
-];
+]
