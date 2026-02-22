@@ -754,6 +754,21 @@ export interface StartPage {
             blockName?: string | null;
             blockType: 'contactForm';
           }
+        | {
+            eyebrow: string;
+            headline: string;
+            description?: string | null;
+            alignment?: ('start' | 'end' | 'full') | null;
+            items: {
+              question: string;
+              answer: string;
+              id?: string | null;
+            }[];
+            allowMultipleOpen?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'accordion';
+          }
       )[]
     | null;
   footer?:
@@ -1090,6 +1105,24 @@ export interface StartPageSelect<T extends boolean = true> {
               eyebrow?: T;
               headline?: T;
               description?: T;
+              id?: T;
+              blockName?: T;
+            };
+        accordion?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              alignment?: T;
+              items?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+              allowMultipleOpen?: T;
               id?: T;
               blockName?: T;
             };

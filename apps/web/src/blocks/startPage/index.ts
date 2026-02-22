@@ -1,3 +1,4 @@
+import { AccordionBlock } from './AccordionBlock'
 import { ContactBlock } from './ContactBlock'
 import { ContactFormBlock } from './ContactFormBlock'
 import { FooterBlock } from './FooterBlock'
@@ -22,6 +23,7 @@ export const startPageLayoutBlocks = [
   HoursBlock,
   ContactBlock,
   ContactFormBlock,
+  AccordionBlock,
 ]
 
 export const startPageFooterBlocks = [FooterBlock]

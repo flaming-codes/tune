@@ -13,6 +13,7 @@ import { Team } from './sections/Team'
 import { Hours } from './sections/Hours'
 import { Contact } from './sections/Contact'
 import { ContactFormSection } from './sections/ContactFormSection'
+import { Accordion } from './sections/Accordion'
 import { Footer } from './components/Footer'
 
 import type { StartPage, TeamMember, Testimonial, GalleryImage } from '@/payload-types'
@@ -236,6 +237,24 @@ export function PageContent({
                     eyebrow: block.eyebrow,
                     headline: block.headline,
                     description: block.description,
+                  }}
+                />
+              )
+            case 'accordion':
+              return (
+                <Accordion
+                  key={key}
+                  content={{
+                    eyebrow: block.eyebrow,
+                    headline: block.headline,
+                    description: block.description,
+                    items: (block.items || []).map((item) => ({
+                      id: item.id,
+                      question: item.question,
+                      answer: item.answer,
+                    })),
+                    allowMultipleOpen: block.allowMultipleOpen,
+                    alignment: block.alignment,
                   }}
                 />
               )
