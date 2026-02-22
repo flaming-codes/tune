@@ -17,8 +17,8 @@ export function PrivacyFormConsentStep({
   return (
     <div className="space-y-10">
       <h2 className="text-3xl md:text-3xl lg:text-3xl font-medium tracking-tight leading-tight">
-        <span className="theme-text-primary">Einverständnis.</span>{' '}
-        <span className="theme-text-tertiary">Bitte unterschreiben Sie hier.</span>
+        <span className="theme-text-primary">Fast fertig.</span>{' '}
+        <span className="theme-text-tertiary">Bitte unterschreiben.</span>
       </h2>
 
       <div className="py-8 border-y theme-border-primary">

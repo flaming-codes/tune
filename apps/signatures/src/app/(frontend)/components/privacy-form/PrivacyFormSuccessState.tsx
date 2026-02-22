@@ -16,8 +16,8 @@ export function PrivacyFormSuccessState({ message }: PrivacyFormSuccessStateProp
     >
       <div className="text-center max-w-2xl px-8">
         <h2 className="text-4xl md:text-4xl lg:text-4xl font-medium tracking-tight leading-tight mb-6">
-          <span className="theme-text-primary">Vielen Dank.</span>{' '}
-          <span className="theme-text-tertiary">Ihre Daten wurden erfolgreich übermittelt.</span>
+          <span className="theme-text-primary">Danke!</span>{' '}
+          <span className="theme-text-tertiary">Alles erledigt.</span>
         </h2>
         <p className="text-xl theme-text-secondary leading-relaxed">{message}</p>
       </div>
