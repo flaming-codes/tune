@@ -247,6 +247,10 @@ export interface TeamMember {
   memberPageLayout?:
     | (
         | {
+            /**
+             * Wählen Sie das Layout für den Hero-Bereich
+             */
+            variant: 'editorial' | 'immersive' | 'minimal';
             eyebrow: string;
             headline: string;
             subheadline: string;
@@ -694,6 +698,7 @@ export interface TeamMembersSelect<T extends boolean = true> {
         memberHero?:
           | T
           | {
+              variant?: T;
               eyebrow?: T;
               headline?: T;
               subheadline?: T;

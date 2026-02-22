@@ -209,6 +209,7 @@ export function RenderLayoutBlock({
           memberName={activeMember?.name || ''}
           memberRole={activeMember?.role || ''}
           content={{
+            variant: block.variant,
             eyebrow: block.eyebrow,
             headline: block.headline,
             subheadline: block.subheadline,

@@ -8,6 +8,30 @@ export const MemberHeroBlock: Block = {
   },
   fields: [
     {
+      name: 'variant',
+      type: 'select',
+      required: true,
+      defaultValue: 'editorial',
+      label: 'Layout Variante',
+      options: [
+        {
+          label: 'Editorial (Bild dominant, überlappend)',
+          value: 'editorial',
+        },
+        {
+          label: 'Immersive (Vollbild, widescreen)',
+          value: 'immersive',
+        },
+        {
+          label: 'Minimal (Text zentriert, kleines Bild)',
+          value: 'minimal',
+        },
+      ],
+      admin: {
+        description: 'Wählen Sie das Layout für den Hero-Bereich',
+      },
+    },
+    {
       name: 'eyebrow',
       type: 'text',
       required: true,
