@@ -16,7 +16,7 @@ export function PrivacyFormConsentStep({
 }: PrivacyFormConsentStepProps) {
   return (
     <div className="space-y-10">
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-tight">
+      <h2 className="text-3xl md:text-3xl lg:text-3xl font-medium tracking-tight leading-tight">
         <span className="theme-text-primary">Einverständnis.</span>{' '}
         <span className="theme-text-tertiary">Bitte unterschreiben Sie hier.</span>
       </h2>

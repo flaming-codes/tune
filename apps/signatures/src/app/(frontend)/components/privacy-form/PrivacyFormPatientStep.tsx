@@ -26,7 +26,7 @@ export function PrivacyFormPatientStep({
 }: PrivacyFormPatientStepProps) {
   return (
     <div className="space-y-10">
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-tight">
+      <h2 className="text-3xl md:text-3xl lg:text-3xl font-medium tracking-tight leading-tight">
         <span className="theme-text-primary">Patient.</span>{' '}
         <span className="theme-text-tertiary">Informationen zu Ihrem Tier.</span>
       </h2>

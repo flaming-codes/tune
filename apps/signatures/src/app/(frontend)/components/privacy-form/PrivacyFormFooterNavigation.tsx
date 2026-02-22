@@ -14,12 +14,12 @@ export function PrivacyFormFooterNavigation({
   onNext,
 }: PrivacyFormFooterNavigationProps) {
   return (
-    <div className="sticky bottom-0 z-10 flex items-center justify-between border-t theme-border-primary theme-bg-primary py-4">
+    <div className="sticky bottom-0 z-10 flex items-center justify-between theme-bg-primary-glass backdrop-blur-sm py-4">
       <button
         type="button"
         onClick={onBack}
         disabled={currentStep === 1 || isPending}
-        className={`text-sm theme-text-tertiary hover:theme-text-primary transition-colors ${
+        className={`inline-flex items-center justify-center px-6 py-2 text-sm font-medium border theme-border-primary theme-text-secondary hover:theme-text-primary hover:theme-bg-secondary transition-colors duration-200 rounded-none disabled:opacity-50 ${
           currentStep === 1 ? 'invisible' : ''
         }`}
       >
@@ -30,7 +30,7 @@ export function PrivacyFormFooterNavigation({
         <button
           type="button"
           onClick={onNext}
-          className="inline-flex items-center justify-center px-6 py-2 theme-bg-primary theme-text-primary border border-current text-sm font-medium hover:opacity-80 transition-opacity duration-200 rounded-none"
+          className="inline-flex items-center justify-center px-6 py-2 theme-bg-dark theme-text-inverse text-sm font-medium hover:opacity-90 transition-opacity duration-200 rounded-none"
         >
           Weiter
         </button>
@@ -38,7 +38,7 @@ export function PrivacyFormFooterNavigation({
         <button
           type="submit"
           disabled={isPending}
-          className="inline-flex items-center justify-center px-6 py-2 theme-bg-primary theme-text-primary border border-current text-sm font-medium hover:opacity-80 transition-opacity duration-200 rounded-none disabled:opacity-50"
+          className="inline-flex items-center justify-center px-6 py-2 theme-bg-dark theme-text-inverse text-sm font-medium hover:opacity-90 transition-opacity duration-200 rounded-none disabled:opacity-50"
         >
           {isPending ? (
             <>

@@ -7,7 +7,6 @@ import { PrivacyFormConsentStep } from './privacy-form/PrivacyFormConsentStep'
 import { PrivacyFormFooterNavigation } from './privacy-form/PrivacyFormFooterNavigation'
 import { PrivacyFormOwnerStep } from './privacy-form/PrivacyFormOwnerStep'
 import { PrivacyFormPatientStep } from './privacy-form/PrivacyFormPatientStep'
-import { PrivacyFormStepNavigation } from './privacy-form/PrivacyFormStepNavigation'
 import { PrivacyFormSuccessState } from './privacy-form/PrivacyFormSuccessState'
 import { initialFormData, privacyFormSteps, type PrivacyFormData } from './privacy-form/types'
 
@@ -120,12 +119,10 @@ export function PrivacyForm() {
 
   return (
     <div className="min-h-screen md:h-screen flex theme-bg-primary theme-text-primary font-sans">
-      <PrivacyFormStepNavigation currentStep={currentStep} steps={privacyFormSteps} />
-
-      <div className="flex-1 h-screen overflow-hidden md:ml-6 lg:ml-8">
-        <div className="max-w-3xl mx-auto w-full h-full px-6 md:px-8 lg:px-12">
+      <div className="flex-1 h-screen overflow-hidden">
+        <div className="max-w-3xl w-full h-full px-6 md:px-8 lg:px-12 md:ml-[10vw] lg:ml-[15vw]">
           <form onSubmit={handleSubmit} className="h-full flex flex-col">
-            <div className="flex-1 overflow-y-auto py-8 md:py-10">
+            <div className="flex-1 overflow-y-auto pt-[20svh] pb-8 md:pb-10">
               <div className="space-y-10">
                 <AnimatePresence>
                   {state.message && !state.success && (

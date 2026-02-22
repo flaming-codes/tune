@@ -14,7 +14,7 @@ export function PrivacyFormOwnerStep({
 }: PrivacyFormOwnerStepProps) {
   return (
     <div className="space-y-10">
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-tight">
+      <h2 className="text-3xl md:text-3xl lg:text-3xl font-medium tracking-tight leading-tight">
         <span className="theme-text-primary">Besitzer.</span>{' '}
         <span className="theme-text-tertiary">Bitte geben Sie Ihre Daten ein.</span>
       </h2>
