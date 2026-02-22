@@ -49,6 +49,7 @@ export default buildConfig({
     seoPlugin({
       globals: ['start-page'],
       uploadsCollection: 'media',
+      tabbedUI: true,
       generateTitle: ({ doc }) => doc?.meta?.title || 'Tierarztpraxis Dr. Tune Lazri | Wien',
       generateDescription: ({ doc }) =>
         doc?.meta?.description ||
