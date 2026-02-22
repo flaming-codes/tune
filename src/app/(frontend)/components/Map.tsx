@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import L from 'leaflet'
 
@@ -23,11 +23,7 @@ const createCustomIcon = () => {
 }
 
 export function Map() {
-  const [icon, setIcon] = useState<L.DivIcon | null>(null)
-
-  useEffect(() => {
-    setIcon(createCustomIcon())
-  }, [])
+  const [icon] = useState<L.DivIcon>(() => createCustomIcon())
 
   if (!icon) {
     return <div className="w-full h-full min-h-[400px] bg-neutral-100 animate-pulse" />

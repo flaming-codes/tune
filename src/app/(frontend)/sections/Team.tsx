@@ -33,6 +33,10 @@ interface StackItem {
   zIndex: number // Fixed z-index for this item
 }
 
+function isMedia(value: number | Media): value is Media {
+  return typeof value === 'object' && value !== null
+}
+
 function randomRange(min: number, max: number): number {
   return Math.random() * (max - min) + min
 }
@@ -69,7 +73,7 @@ function createStackItem(photo: Media, sequenceId: number, stackPosition: number
 }
 
 function TeamMemberCard({ member }: TeamMemberCardProps) {
-  const photos = (member.photos as Media[]) || []
+  const photos = (member.photos || []).filter(isMedia)
   const hasMultiplePhotos = photos.length > 1
 
   // Stack of visible photos with their visual properties

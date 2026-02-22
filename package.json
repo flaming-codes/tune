@@ -17,7 +17,7 @@
     "db:migrate:fresh": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:fresh",
     "db:migrate:status": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:status",
     "seed:start-page": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm src/seed/runStartPageSeed.ts",
-    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
+    "lint": "cross-env NODE_OPTIONS=--no-deprecation eslint .",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\" \"tests/**/*.{ts,tsx}\"",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",

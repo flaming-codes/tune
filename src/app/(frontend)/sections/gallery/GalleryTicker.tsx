@@ -15,6 +15,10 @@ interface GalleryTickerProps {
   images: GalleryImage[]
 }
 
+function isMedia(value: number | Media): value is Media {
+  return typeof value === 'object' && value !== null
+}
+
 // Duplicate images to ensure seamless looping
 function duplicateItems<T>(items: T[], minCount: number): T[] {
   const result: T[] = []
@@ -27,15 +31,23 @@ function duplicateItems<T>(items: T[], minCount: number): T[] {
 /**
  * TickerItem - Individual image in the ticker with intrinsic aspect ratio
  */
-function TickerItem({ image, index }: { image: GalleryImage; index: number }) {
+function TickerItem({ image }: { image: GalleryImage; index: number }) {
   const [isHovered, setIsHovered] = useState(false)
-  const imageData = image.image as Media
 
-  // Quick transitions for hover effects
   const scale = useSpring(isHovered ? 1.03 : 1, {
     stiffness: 400,
     damping: 30,
   })
+
+  const imageData = isMedia(image.image) ? image.image : null
+
+  if (!imageData) {
+    return (
+      <figure className="shrink-0 relative">
+        <div className="relative h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px] overflow-hidden cursor-pointer image-placeholder w-[240px] sm:w-[280px] md:w-[320px] lg:w-[360px]" />
+      </figure>
+    )
+  }
 
   // Calculate aspect ratio from image dimensions if available
   const aspectRatio =
