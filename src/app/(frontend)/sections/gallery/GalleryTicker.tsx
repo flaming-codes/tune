@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useRef, useEffect, useState, useCallback } from 'react'
-import { motion, useMotionValue, useSpring, useInView } from 'motion/react'
+import { motion, useMotionValue, useSpring, useInView, useReducedMotion } from 'motion/react'
 import { PayloadImage } from '@/components/PayloadImage'
 import type { GalleryImage, Media } from '@/payload-types'
 
@@ -33,18 +33,54 @@ function duplicateItems<T>(items: T[], minCount: number): T[] {
  */
 function TickerItem({ image }: { image: GalleryImage; index: number }) {
   const [isHovered, setIsHovered] = useState(false)
+  const itemRef = useRef<HTMLElement>(null)
+  const shouldReduceMotion = useReducedMotion()
+
+  const parallaxTarget = useMotionValue(0)
+  const parallaxX = useSpring(parallaxTarget, {
+    stiffness: 120,
+    damping: 22,
+    mass: 0.6,
+  })
 
   const scale = useSpring(isHovered ? 1.03 : 1, {
     stiffness: 400,
     damping: 30,
   })
 
+  useEffect(() => {
+    const maxParallax = 36
+    let frameId = 0
+
+    const updateParallax = () => {
+      const element = itemRef.current
+
+      if (element) {
+        const rect = element.getBoundingClientRect()
+        const itemCenter = rect.left + rect.width / 2
+        const viewportCenter = window.innerWidth / 2
+        const normalizedDistance = (itemCenter - viewportCenter) / viewportCenter
+        const clampedDistance = Math.max(-1, Math.min(1, normalizedDistance))
+
+        parallaxTarget.set(shouldReduceMotion ? 0 : -clampedDistance * maxParallax)
+      }
+
+      frameId = requestAnimationFrame(updateParallax)
+    }
+
+    frameId = requestAnimationFrame(updateParallax)
+
+    return () => {
+      cancelAnimationFrame(frameId)
+    }
+  }, [parallaxTarget, shouldReduceMotion])
+
   const imageData = isMedia(image.image) ? image.image : null
 
   if (!imageData) {
     return (
       <figure className="shrink-0 relative">
-        <div className="relative h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px] overflow-hidden cursor-pointer image-placeholder w-[240px] sm:w-[280px] md:w-[320px] lg:w-[360px]" />
+        <div className="relative h-70 sm:h-80 md:h-90 lg:h-100 overflow-hidden cursor-pointer image-placeholder w-60 sm:w-70 md:w-[320px] lg:w-90" />
       </figure>
     )
   }
@@ -54,10 +90,10 @@ function TickerItem({ image }: { image: GalleryImage; index: number }) {
     imageData.width && imageData.height ? `${imageData.width} / ${imageData.height}` : 'auto'
 
   return (
-    <figure className="flex-shrink-0 relative">
+    <figure ref={itemRef} className="shrink-0 relative">
       {/* Image container - defines the width */}
       <motion.div
-        className="relative h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px] overflow-hidden cursor-pointer"
+        className="relative h-70 sm:h-80 md:h-90 lg:h-100 overflow-hidden cursor-pointer"
         style={{
           scale,
           aspectRatio,
@@ -65,13 +101,15 @@ function TickerItem({ image }: { image: GalleryImage; index: number }) {
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
       >
-        <PayloadImage
-          media={imageData}
-          size="card"
-          fill
-          className="object-cover transition-transform duration-500"
-          alt={image.title}
-        />
+        <motion.div className="absolute inset-0" style={{ x: parallaxX }}>
+          <PayloadImage
+            media={imageData}
+            size="card"
+            fill
+            className="object-cover transition-transform duration-500"
+            alt={image.title}
+          />
+        </motion.div>
       </motion.div>
 
       {/* Caption - absolutely positioned below image, translates in */}
@@ -252,8 +290,8 @@ export function GalleryTicker({ content, images }: GalleryTickerProps) {
         /* Single Ticker container - full viewport width with overflow visible */
         <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           {/* Gradient masks for edge fade */}
-          <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-linear-to-r from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-linear-to-l from-background to-transparent z-10 pointer-events-none" />
 
           {/* Scrolling track - single row */}
           <motion.div
