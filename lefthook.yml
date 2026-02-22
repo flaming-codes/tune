@@ -17,13 +17,9 @@ pre-commit:
   parallel: true
   commands:
     lint:
-      glob: "*.{ts,tsx,js,jsx}"
-      run: pnpm eslint --fix {staged_files}
-      stage_fixed: true
+      run: pnpm --filter web lint
     format:
-      glob: "*.{ts,tsx,js,jsx,json,css,scss,md}"
-      run: pnpm prettier --write {staged_files}
-      stage_fixed: true
+      run: pnpm --filter web format
 
 # Run all checks on commit-msg (optional - good for CI-like checks)
 # commit-msg:
@@ -38,7 +34,7 @@ pre-push:
     lint:
       run: pnpm lint
     typecheck:
-      run: pnpm tsc --noEmit
+      run: pnpm --filter web tsc --noEmit
 
 # Example of custom command
 # test:

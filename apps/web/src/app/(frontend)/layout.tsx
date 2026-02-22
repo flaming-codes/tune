@@ -2,7 +2,7 @@ import React from 'react'
 import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import './styles.css'
+import '@med/theme/global.css'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({
