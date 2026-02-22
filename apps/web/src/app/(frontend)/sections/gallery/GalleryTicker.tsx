@@ -101,7 +101,11 @@ function TickerItem({ image }: { image: GalleryImage; index: number }) {
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
       >
-        <motion.div className="absolute inset-0" style={{ x: parallaxX }}>
+        {/* Parallax container - expanded to allow movement without revealing gaps */}
+        <motion.div
+          className="absolute -inset-12"
+          style={{ x: parallaxX }}
+        >
           <PayloadImage
             media={imageData}
             size="card"
