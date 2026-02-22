@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { getGoogleMapsDirectionsUrl } from '@/lib/constants'
 import type { SiteSetting } from '@/payload-types'
 
 interface NavLink {
@@ -32,9 +33,16 @@ export function Footer({ practiceName, footer, contact, navLinks }: FooterProps)
           <div>
             <p className="text-white text-sm font-medium mb-4">Kontakt</p>
             <address className="not-italic text-sm theme-text-muted-dark leading-relaxed space-y-2">
-              <p>{address.street}</p>
-              <p>{address.additional}</p>
-              <p>{address.city}</p>
+              <a
+                href={getGoogleMapsDirectionsUrl(address)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors link-underline inline-block"
+              >
+                <p>{address.street}</p>
+                <p>{address.additional}</p>
+                <p>{address.city}</p>
+              </a>
               <p className="mt-4">
                 <a
                   href={`tel:${phone.replace(/\s/g, '')}`}

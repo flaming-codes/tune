@@ -1,5 +1,6 @@
 import React from 'react'
 import { MapLoader } from '../components/MapLoader'
+import { getGoogleMapsDirectionsUrl } from '@/lib/constants'
 import type { SiteSetting } from '@/payload-types'
 
 interface ContactProps {
@@ -86,7 +87,7 @@ export function Contact({ contact }: ContactProps) {
                 Parkmöglichkeiten sind direkt vor dem Eingang vorhanden.
               </p>
               <a
-                href={`https://maps.google.com/maps/dir//${encodeURIComponent(`${address.street}, ${address.city}`)}`}
+                href={getGoogleMapsDirectionsUrl(address)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-sm font-medium theme-text-primary hover:theme-text-secondary transition-colors link-underline"
