@@ -10,7 +10,7 @@ export interface LegalLink {
 
 export const LEGAL_LINKS: LegalLink[] = [
   { label: 'Impressum', href: '/impressum' },
-  { label: 'Datenschutzerklärung', href: '/datenschutzerklarung' },
+  { label: 'Datenschutz', href: '/datenschutzerklarung' },
 ]
 
 /**

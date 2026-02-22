@@ -13,7 +13,7 @@ const defaultStartPageData = {
         { label: 'Über uns', href: '#team' },
         { label: 'Kontakt', href: '#kontakt' },
         { label: 'Impressum', href: '/impressum' },
-        { label: 'Datenschutzerklärung', href: '/datenschutzerklarung' },
+        { label: 'Datenschutz', href: '/datenschutzerklarung' },
       ],
     },
   ],
