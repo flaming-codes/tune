@@ -159,9 +159,9 @@ export interface PrivacyAcknowledgment {
   ownerEmail?: string | null;
   patientName: string;
   patientAnimalType: 'dog' | 'cat' | 'other';
+  patientGender?: ('male' | 'female' | 'neutered') | null;
   patientBreed?: string | null;
   patientColor?: string | null;
-  patientGender?: ('male' | 'female' | 'neutered') | null;
   patientDateOfBirth?: string | null;
   patientWeight?: string | null;
   /**
@@ -297,9 +297,9 @@ export interface PrivacyAcknowledgmentsSelect<T extends boolean = true> {
   ownerEmail?: T;
   patientName?: T;
   patientAnimalType?: T;
+  patientGender?: T;
   patientBreed?: T;
   patientColor?: T;
-  patientGender?: T;
   patientDateOfBirth?: T;
   patientWeight?: T;
   patientSpecialNotes?: T;
