@@ -129,12 +129,12 @@ function EditorialVariant({
 
 // ============================================================================
 // VARIANT 2: IMMERSIVE
-// Full-bleed widescreen image with floating content card
-// Best for: wide/landscape hero images, cinematic feel
+// Container-width image at original aspect ratio, minimal content below
+// Best for: showcasing the full image within bounds, clean typography
 // ============================================================================
 function ImmersiveVariant({
   memberName,
-  memberRole,
+  memberRole: _memberRole,
   content,
   shouldReduceMotion,
 }: {
@@ -144,97 +144,59 @@ function ImmersiveVariant({
   shouldReduceMotion: boolean | null
 }) {
   return (
-    <section className="relative min-h-[85vh] lg:min-h-screen theme-bg-primary">
-      {/* Full-bleed background image */}
-      <div className="absolute inset-0">
-        {content.coverImage ? (
-          <>
+    <section className="pt-24 lg:pt-32 theme-bg-primary">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        {/* Image: Edge-to-edge within container, original aspect ratio */}
+        <motion.div
+          className="w-full"
+          initial={shouldReduceMotion ? false : { opacity: 0 }}
+          animate={shouldReduceMotion ? undefined : { opacity: 1 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
+          {content.coverImage ? (
             <PayloadImage
               media={content.coverImage}
               size="hero"
-              fill
-              className="object-cover"
+              className="w-full h-auto"
               priority
               alt={`${memberName} - Portrait`}
             />
-            {/* Stronger gradient for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent lg:from-black/60 lg:via-black/30" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
-          </>
-        ) : (
-          <div className="absolute inset-0 image-placeholder" aria-label={`${memberName} - Platzhalter`} />
-        )}
-      </div>
+          ) : (
+            <div className="w-full aspect-video image-placeholder" aria-label={`${memberName} - Platzhalter`} />
+          )}
+        </motion.div>
 
-      {/* Floating content card - left aligned */}
-      <div className="relative z-10 min-h-[85vh] lg:min-h-screen flex items-end lg:items-center">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full py-16 lg:py-0">
-          <motion.div
-            className="max-w-xl lg:max-w-2xl"
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 40 }}
-            animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+        {/* Minimal content below: left aligned, restrained width */}
+        <motion.div
+          className="max-w-xl mt-10 lg:mt-12"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
+        >
+          {/* Single line meta */}
+          <p className="text-xs tracking-[0.15em] uppercase theme-text-tertiary mb-3">
+            {content.eyebrow} · {memberName}
+          </p>
+
+          {/* Headline */}
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight leading-[1]">
+            {content.headline}
+          </h1>
+
+          {/* Primary CTA */}
+          <motion.a
+            href={content.ctaHref}
+            whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+            whileTap={shouldReduceMotion ? undefined : { y: 0 }}
+            transition={{ duration: 0.2 }}
+            className="inline-flex items-center justify-center mt-6 px-6 py-2.5 bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 text-sm font-medium"
           >
-            {/* Eyebrow badge */}
-            <div className="inline-block px-3 py-1.5 mb-6 border border-white/30 rounded-full">
-              <p className="text-xs tracking-[0.15em] uppercase text-white/90">
-                {content.eyebrow}
-              </p>
-            </div>
-
-            {/* Large headline - white for contrast */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-medium tracking-tight-custom leading-[0.95] text-white">
-              {content.headline}
-            </h1>
-
-            <p className="mt-6 text-lg lg:text-xl text-white/80 leading-relaxed max-w-lg">
-              {content.subheadline}
-            </p>
-
-            <p className="mt-4 text-sm lg:text-base text-white/60 leading-relaxed max-w-md">
-              {content.description}
-            </p>
-
-            {/* CTA and meta row */}
-            <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10">
-              <motion.a
-                href={content.ctaHref}
-                whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
-                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-                transition={{ duration: 0.2 }}
-                className="inline-flex items-center justify-center px-8 py-3.5 bg-white text-neutral-900 text-sm font-medium tracking-wide"
-              >
-                {content.ctaLabel}
-              </motion.a>
-
-              <p className="text-xs tracking-[0.1em] uppercase text-white/50">
-                {memberName} · {memberRole}
-              </p>
-            </div>
-          </motion.div>
-        </div>
+            {content.ctaLabel}
+          </motion.a>
+        </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden lg:block"
-        initial={shouldReduceMotion ? false : { opacity: 0 }}
-        animate={shouldReduceMotion ? undefined : { opacity: 1 }}
-        transition={{ delay: 1, duration: 0.5 }}
-      >
-        <div className="w-px h-12 bg-white/30 relative overflow-hidden">
-          <motion.div
-            className="absolute top-0 left-0 w-full bg-white/80"
-            initial={{ height: 0, top: 0 }}
-            animate={{ height: '100%', top: ['0%', '100%'] }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-        </div>
-      </motion.div>
+      <div className="h-16 lg:h-24" />
     </section>
   )
 }
