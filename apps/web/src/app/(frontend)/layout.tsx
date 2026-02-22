@@ -31,9 +31,10 @@ export async function generateMetadata(): Promise<Metadata> {
       images: siteSettings.meta?.image
         ? [
             {
-              url: typeof siteSettings.meta.image === 'object'
-                ? siteSettings.meta.image.url || ''
-                : '',
+              url:
+                typeof siteSettings.meta.image === 'object'
+                  ? siteSettings.meta.image.url || ''
+                  : '',
             },
           ]
         : undefined,

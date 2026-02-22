@@ -14,12 +14,12 @@
 
 # Run formatter and linter on pre-commit
 pre-commit:
-  parallel: true
+  parallel: false
   commands:
+    format:
+      run: pnpm --filter web format && git add -A
     lint:
       run: pnpm --filter web lint
-    format:
-      run: pnpm --filter web format
 
 # Run all checks on commit-msg (optional - good for CI-like checks)
 # commit-msg:
