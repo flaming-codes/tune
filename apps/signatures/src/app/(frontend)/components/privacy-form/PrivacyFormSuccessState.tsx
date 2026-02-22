@@ -12,7 +12,7 @@ export function PrivacyFormSuccessState({ message }: PrivacyFormSuccessStateProp
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: easeOut }}
-      className="min-h-screen flex items-center justify-center theme-bg-primary theme-text-primary font-sans"
+      className="h-screen min-h-screen overflow-y-hidden flex items-center justify-center theme-bg-primary theme-text-primary font-sans"
     >
       <div className="text-center max-w-2xl px-8">
         <h2 className="text-4xl md:text-4xl lg:text-4xl font-medium tracking-tight leading-tight mb-6">

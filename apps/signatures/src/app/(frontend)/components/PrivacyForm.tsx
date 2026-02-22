@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useActionState, useCallback, useState, startTransition } from 'react'
+import React, { useActionState, useCallback, useEffect, useState, startTransition } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { submitPrivacyForm, type PrivacyFormState } from '../actions/privacy-form'
 import { PrivacyFormConsentStep } from './privacy-form/PrivacyFormConsentStep'
@@ -33,6 +33,7 @@ export function PrivacyForm() {
   const [formData, setFormData] = useState<PrivacyFormData>(initialFormData)
   const [showValidation, setShowValidation] = useState(false)
   const [validationErrors, setValidationErrors] = useState<Record<string, string[]>>({})
+  const [successMessage, setSuccessMessage] = useState<string | undefined>(undefined)
 
   const [state, formAction, isPending] = useActionState(submitPrivacyForm, initialState)
 
@@ -98,8 +99,29 @@ export function PrivacyForm() {
     [showValidation, state.errors, validationErrors],
   )
 
-  if (state.success) {
-    return <PrivacyFormSuccessState message={state.message} />
+  useEffect(() => {
+    if (!state.success) {
+      return
+    }
+
+    setSuccessMessage(state.message)
+
+    const resetTimer = window.setTimeout(() => {
+      setCurrentStep(1)
+      setDirection(0)
+      setFormData(initialFormData)
+      setShowValidation(false)
+      setValidationErrors({})
+      setSuccessMessage(undefined)
+    }, 4000)
+
+    return () => {
+      window.clearTimeout(resetTimer)
+    }
+  }, [state.message, state.success])
+
+  if (successMessage) {
+    return <PrivacyFormSuccessState message={successMessage} />
   }
 
   return (

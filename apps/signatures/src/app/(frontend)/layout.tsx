@@ -6,13 +6,13 @@ import { Inter } from 'next/font/google'
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
+  preload: true,
   weight: ['300', '400', '500', '600'],
 })
 
 export const metadata: Metadata = {
   title: 'Datenschutzerklärung | Tierarztpraxis Dr. Tune Lazri',
-  description:
-    'Digitale Datenschutzerklärung für Patienten der Tierarztpraxis Dr. Tune Lazri.',
+  description: 'Digitale Datenschutzerklärung für Patienten der Tierarztpraxis Dr. Tune Lazri.',
 }
 
 export default function RootLayout(props: { children: React.ReactNode }) {
