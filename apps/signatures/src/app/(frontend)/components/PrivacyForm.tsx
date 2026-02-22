@@ -17,15 +17,12 @@ const easeOut = [0.4, 0, 0.2, 1] as const
 const contentVariants = {
   enter: (direction: number) => ({
     x: direction > 0 ? '100%' : '-100%',
-    opacity: 0,
   }),
   center: {
     x: 0,
-    opacity: 1,
   },
   exit: (direction: number) => ({
     x: direction < 0 ? '100%' : '-100%',
-    opacity: 0,
   }),
 }
 
@@ -139,8 +136,8 @@ export function PrivacyForm() {
                   )}
                 </AnimatePresence>
 
-                <div className="min-h-80 overflow-hidden">
-                  <AnimatePresence mode="wait" custom={direction}>
+                <div className="min-h-80 overflow-hidden relative">
+                  <AnimatePresence mode="popLayout" custom={direction}>
                     {currentStep === 1 && (
                       <motion.div
                         key="step1"
@@ -150,7 +147,7 @@ export function PrivacyForm() {
                         animate="center"
                         exit="exit"
                         transition={{ duration: 0.4, ease: easeOut }}
-                        className="px-2"
+                        className="px-2 w-full absolute inset-0"
                       >
                         <PrivacyFormOwnerStep
                           formData={formData}
@@ -169,7 +166,7 @@ export function PrivacyForm() {
                         animate="center"
                         exit="exit"
                         transition={{ duration: 0.4, ease: easeOut }}
-                        className="px-2"
+                        className="px-2 w-full absolute inset-0"
                       >
                         <PrivacyFormPatientStep
                           formData={formData}
@@ -188,7 +185,7 @@ export function PrivacyForm() {
                         animate="center"
                         exit="exit"
                         transition={{ duration: 0.4, ease: easeOut }}
-                        className="px-2"
+                        className="px-2 w-full absolute inset-0"
                       >
                         <PrivacyFormConsentStep
                           formData={formData}
