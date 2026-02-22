@@ -112,7 +112,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
 
   // Filter out "Home" from nav links
   const filteredNavLinks = navLinks.filter(
-    (link) => link.label.toLowerCase() !== 'home' && link.href !== '/'
+    (link) => link.label.toLowerCase() !== 'home' && link.href !== '/',
   )
 
   return (
@@ -121,7 +121,7 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
         isMobileMenuOpen
           ? 'theme-bg-primary shadow-sm' // Solid bg when mobile menu is open
           : isScrolled
-            ? 'theme-bg-primary/95 backdrop-blur-sm shadow-sm'
+            ? 'theme-bg-primary/60 backdrop-blur-lg shadow-sm'
             : 'bg-transparent'
       }`}
       initial={false}
@@ -133,7 +133,10 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <NavigationMenu.Root className="relative">
-          <nav className="flex items-center justify-between relative z-50" aria-label="Main Navigation">
+          <nav
+            className="flex items-center justify-between relative z-50"
+            aria-label="Main Navigation"
+          >
             {/* Logo */}
             <Link
               href="/"
@@ -149,9 +152,9 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
                   <NavigationMenu.Link asChild>
                     <Link
                       href={link.href}
-                      className="text-sm theme-text-secondary hover:theme-text-primary transition-colors duration-200 link-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-primary)] rounded px-1 -mx-1"
+                      className="text-sm theme-text-secondary hover:theme-text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-primary)] rounded px-1 -mx-1"
                     >
-                      {link.label}
+                      <span className="link-underline">{link.label}</span>
                     </Link>
                   </NavigationMenu.Link>
                 </NavigationMenu.Item>
@@ -242,7 +245,11 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
                     exit="closed"
                   >
                     {filteredNavLinks.map((link) => (
-                      <motion.li key={link.id || link.href} variants={itemVariants} className="w-full">
+                      <motion.li
+                        key={link.id || link.href}
+                        variants={itemVariants}
+                        className="w-full"
+                      >
                         <Link
                           href={link.href}
                           onClick={() => setIsMobileMenuOpen(false)}
@@ -252,7 +259,10 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
                         </Link>
                       </motion.li>
                     ))}
-                    <motion.li variants={itemVariants} className="w-full pt-4 border-t theme-border-primary mt-2">
+                    <motion.li
+                      variants={itemVariants}
+                      className="w-full pt-4 border-t theme-border-primary mt-2"
+                    >
                       <a
                         href={`tel:${phone.replace(/\s/g, '')}`}
                         className="block text-lg font-medium theme-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-primary)] rounded px-2 py-2 -mx-2"
