@@ -37,10 +37,6 @@ function isMedia(value: number | Media): value is Media {
   return typeof value === 'object' && value !== null
 }
 
-function randomRange(min: number, max: number): number {
-  return Math.random() * (max - min) + min
-}
-
 function createStackItem(photo: Media, sequenceId: number, stackPosition: number): StackItem {
   // First image (bottom of stack) is always straight and scale 1
   if (stackPosition === 0) {

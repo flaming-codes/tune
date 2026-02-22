@@ -5,7 +5,7 @@ import path from 'path'
 import { readFile } from 'fs/promises'
 
 // Helper to generate blur placeholder
-async function generateBlurPlaceholder(docId: number, filename: string, mimeType: string) {
+async function generateBlurPlaceholder(docId: number, filename: string, _mimeType: string) {
   try {
     // Try to find the file in the media directory
     const mediaDir = path.resolve(process.cwd(), 'media')
@@ -16,7 +16,7 @@ async function generateBlurPlaceholder(docId: number, filename: string, mimeType
     try {
       // Read directly from disk (most reliable)
       imageBuffer = await readFile(filePath)
-    } catch (diskError) {
+    } catch (_diskError) {
       // Fallback: try to fetch via HTTP
       const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
       const imageUrl = `${serverUrl}/api/media/file/${filename}`
@@ -53,7 +53,7 @@ async function generateBlurPlaceholder(docId: number, filename: string, mimeType
   }
 }
 
-const generateBlurHook: CollectionAfterChangeHook = async ({ doc, req, operation }) => {
+const generateBlurHook: CollectionAfterChangeHook = async ({ doc, operation }) => {
   // Skip if no filename, not an image, or already has blurDataURL
   if (!doc.filename || !doc.mimeType?.startsWith('image/') || doc.blurDataURL) {
     return doc
