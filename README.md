@@ -34,7 +34,10 @@ pnpm dev
 - `pnpm dev` - run web app in dev mode through Turborepo
 - `pnpm build` - production build for `apps/web`
 - `pnpm lint` - lint all workspace packages that expose a `lint` script
-- `pnpm test` - run tests for `apps/web`
+- `pnpm typecheck` - run TypeScript checks for `apps/web`
+- `pnpm test` - run integration tests (`test:int`) for `apps/web`
+- `pnpm test:e2e` - run Playwright end-to-end tests for `apps/web`
+- `pnpm ci:fast` - optimized CI task set (`lint`, `typecheck`, `test:int`, `build`)
 - `pnpm db:migrate` - run Payload migrations for `apps/web`
 
 ## Theme package
