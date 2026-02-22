@@ -4,7 +4,14 @@ export const Testimonials: CollectionConfig = {
   slug: 'testimonials',
   admin: {
     useAsTitle: 'author',
-    defaultColumns: ['author', 'rating', 'statementTimestamp', 'sortOrder', 'isActive', 'updatedAt'],
+    defaultColumns: [
+      'author',
+      'rating',
+      'statementTimestamp',
+      'sortOrder',
+      'isActive',
+      'updatedAt',
+    ],
   },
   access: {
     read: () => true,
