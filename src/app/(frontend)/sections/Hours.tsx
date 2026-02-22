@@ -2,23 +2,15 @@
 
 import React from 'react'
 import { motion } from 'motion/react'
+import { cn } from '@/lib/utils'
+import type { StartPage } from '@/payload-types'
 
-interface OpeningHour {
-  day: string
-  times: string
-  id?: string | null
-}
+type HoursBlock = Extract<NonNullable<StartPage['layout']>[number], { blockType: 'hours' }>
+type OpeningHour = NonNullable<HoursBlock['openingHours']>[number]
 
 interface HoursProps {
-  content: {
-    eyebrow: string
-    headline: string
-    description: string
+  content: Omit<HoursBlock, 'blockType' | 'id' | 'blockName'> & {
     openingHours: OpeningHour[]
-    emergency: {
-      title: string
-      description: string
-    }
   }
   phone: string
 }
@@ -64,23 +56,44 @@ export function Hours({ content, phone }: HoursProps) {
 
           <div>
             <dl className="space-y-0">
-              {content.openingHours.map((item, index) => (
-                <motion.div
-                  key={item.id || item.day}
-                  initial="initial"
-                  whileHover="hovered"
-                  className={`flex justify-between items-center py-5 group cursor-default ${
-                    index !== content.openingHours.length - 1 ? 'border-b border-neutral-700' : ''
-                  }`}
-                >
-                  <dt className="theme-text-muted-dark transition-colors duration-300 group-hover:text-white">
-                    <RollingText>{item.day}</RollingText>
-                  </dt>
-                  <dd className="font-medium text-right text-white">
-                    <RollingText>{item.times}</RollingText>
-                  </dd>
-                </motion.div>
-              ))}
+              {content.openingHours.map((item, index) => {
+                const isClosed = item.state === 'closed'
+                return (
+                  <motion.div
+                    key={item.id || item.day}
+                    initial="initial"
+                    whileHover={isClosed ? undefined : 'hovered'}
+                    className={cn(
+                      'flex justify-between items-center py-5 group cursor-default',
+                      index !== content.openingHours.length - 1 && 'border-b border-neutral-700',
+                      isClosed && 'opacity-50',
+                    )}
+                  >
+                    <dt
+                      className={cn(
+                        'transition-colors duration-300',
+                        isClosed
+                          ? 'text-neutral-300'
+                          : 'theme-text-muted-dark group-hover:text-white',
+                      )}
+                    >
+                      {isClosed ? <span>{item.day}</span> : <RollingText>{item.day}</RollingText>}
+                    </dt>
+                    <dd
+                      className={cn(
+                        'font-medium text-right',
+                        isClosed ? 'text-neutral-300' : 'text-white',
+                      )}
+                    >
+                      {isClosed ? (
+                        <span>{item.times}</span>
+                      ) : (
+                        <RollingText>{item.times}</RollingText>
+                      )}
+                    </dd>
+                  </motion.div>
+                )
+              })}
             </dl>
           </div>
         </div>

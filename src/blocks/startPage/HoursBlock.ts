@@ -40,13 +40,13 @@ export const HoursBlock: Block = {
         plural: 'Tage',
       },
       defaultValue: [
-        { day: 'Montag', times: '12:30 – 14:30 und 17:00 – 19:00' },
-        { day: 'Dienstag', times: '08:30 – 12:00 und 17:00 – 19:00' },
-        { day: 'Mittwoch', times: '12:30 – 14:30 und 17:00 – 19:00' },
-        { day: 'Donnerstag', times: '08:30 – 12:30 und 17:00 – 19:00' },
-        { day: 'Freitag', times: '09:00 – 12:00 und 17:00 – 19:00' },
-        { day: 'Samstag', times: 'Nach Vereinbarung' },
-        { day: 'Sonntag', times: 'Geschlossen' },
+        { day: 'Montag', state: 'open', times: '12:30 – 14:30 und 17:00 – 19:00' },
+        { day: 'Dienstag', state: 'open', times: '08:30 – 12:00 und 17:00 – 19:00' },
+        { day: 'Mittwoch', state: 'open', times: '12:30 – 14:30 und 17:00 – 19:00' },
+        { day: 'Donnerstag', state: 'open', times: '08:30 – 12:30 und 17:00 – 19:00' },
+        { day: 'Freitag', state: 'open', times: '09:00 – 12:00 und 17:00 – 19:00' },
+        { day: 'Samstag', state: 'reservation', times: 'Nach Vereinbarung' },
+        { day: 'Sonntag', state: 'closed', times: 'Geschlossen' },
       ],
       fields: [
         {
@@ -54,6 +54,18 @@ export const HoursBlock: Block = {
           type: 'text',
           required: true,
           label: 'Wochentag',
+        },
+        {
+          name: 'state',
+          type: 'select',
+          required: true,
+          label: 'Status',
+          defaultValue: 'open',
+          options: [
+            { label: 'Geöffnet', value: 'open' },
+            { label: 'Nur nach Vereinbarung', value: 'reservation' },
+            { label: 'Geschlossen', value: 'closed' },
+          ],
         },
         {
           name: 'times',

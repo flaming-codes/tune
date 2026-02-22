@@ -194,6 +194,7 @@ export function PageContent({
                     openingHours: (block.openingHours || []).map((item) => ({
                       id: item.id,
                       day: item.day,
+                      state: item.state,
                       times: item.times,
                     })),
                     emergency: {

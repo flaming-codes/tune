@@ -646,6 +646,7 @@ export interface StartPage {
             openingHours?:
               | {
                   day: string
+                  state: 'open' | 'reservation' | 'closed'
                   times: string
                   id?: string | null
                 }[]
@@ -815,6 +816,7 @@ export interface StartPageSelect<T extends boolean = true> {
                 | T
                 | {
                     day?: T
+                    state?: T
                     times?: T
                     id?: T
                   }

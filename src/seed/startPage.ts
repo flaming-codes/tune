@@ -111,13 +111,13 @@ const defaultStartPageData = {
       description:
         'Flexible Öffnungszeiten für Sie und Ihre Lieblinge. Auch Hausbesuche sind nach Vereinbarung möglich.',
       openingHours: [
-        { day: 'Montag', times: '12:30 – 14:30 und 17:00 – 19:00' },
-        { day: 'Dienstag', times: '08:30 – 12:00 und 17:00 – 19:00' },
-        { day: 'Mittwoch', times: '12:30 – 14:30 und 17:00 – 19:00' },
-        { day: 'Donnerstag', times: '08:30 – 12:30 und 17:00 – 19:00' },
-        { day: 'Freitag', times: '09:00 – 12:00 und 17:00 – 19:00' },
-        { day: 'Samstag', times: 'Nach Vereinbarung' },
-        { day: 'Sonntag', times: 'Geschlossen' },
+        { day: 'Montag', state: 'open', times: '12:30 – 14:30 und 17:00 – 19:00' },
+        { day: 'Dienstag', state: 'open', times: '08:30 – 12:00 und 17:00 – 19:00' },
+        { day: 'Mittwoch', state: 'open', times: '12:30 – 14:30 und 17:00 – 19:00' },
+        { day: 'Donnerstag', state: 'open', times: '08:30 – 12:30 und 17:00 – 19:00' },
+        { day: 'Freitag', state: 'open', times: '09:00 – 12:00 und 17:00 – 19:00' },
+        { day: 'Samstag', state: 'reservation', times: 'Nach Vereinbarung' },
+        { day: 'Sonntag', state: 'closed', times: 'Geschlossen' },
       ],
       emergency: {
         title: 'Notfälle außerhalb der Öffnungszeiten',
