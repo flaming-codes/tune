@@ -4,7 +4,7 @@ import React from 'react'
 import { useLivePreview } from '@payloadcms/live-preview-react'
 
 import { Navigation } from './components/Navigation'
-import { Footer } from './components/Footer'
+import { Footer, FooterWrapper } from './components/Footer'
 import { RenderLayoutBlock } from './sections/RenderLayoutBlock'
 
 import type { StartPage, TeamMember, Testimonial, GalleryImage } from '@/payload-types'
@@ -85,22 +85,24 @@ export function PageContent({
 
   return (
     <>
-      <Navigation practiceName={practiceName} navLinks={navLinks} phone={primaryPhone} />
-      <main>
-        {(startPage.layout || []).map((block, index) => {
-          return (
-            <RenderLayoutBlock
-              key={`${block.blockType}-${index}`}
-              block={block}
-              index={index}
-              teamMembers={teamMembers}
-              testimonials={testimonials}
-              galleryImages={galleryImages}
-              primaryPhone={primaryPhone}
-            />
-          )
-        })}
-      </main>
+      <FooterWrapper>
+        <Navigation practiceName={practiceName} navLinks={navLinks} phone={primaryPhone} />
+        <main>
+          {(startPage.layout || []).map((block, index) => {
+            return (
+              <RenderLayoutBlock
+                key={`${block.blockType}-${index}`}
+                block={block}
+                index={index}
+                teamMembers={teamMembers}
+                testimonials={testimonials}
+                galleryImages={galleryImages}
+                primaryPhone={primaryPhone}
+              />
+            )
+          })}
+        </main>
+      </FooterWrapper>
       <Footer
         practiceName={practiceName}
         footer={{

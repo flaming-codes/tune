@@ -38,9 +38,9 @@ export function Footer({ practiceName, footer, contact, navLinks }: FooterProps)
   }
 
   return (
-    <footer className="theme-bg-dark-section theme-text-white py-16 lg:py-24">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-24">
+    <footer className="sticky bottom-0 left-0 right-0 h-[50svh] -z-10 theme-bg-dark-section">
+      <div className="h-full flex flex-col justify-center max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-24">
           {/* Brand */}
           <div>
             <p className="text-white text-sm font-medium mb-4">{practiceName}</p>
@@ -98,7 +98,7 @@ export function Footer({ practiceName, footer, contact, navLinks }: FooterProps)
           </div>
         </div>
 
-        <div className="border-t border-neutral-700 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="border-t border-neutral-700 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs theme-text-muted-dark">
             © {new Date().getFullYear()} {practiceName}. Alle Rechte vorbehalten.
           </p>
@@ -106,5 +106,13 @@ export function Footer({ practiceName, footer, contact, navLinks }: FooterProps)
         </div>
       </div>
     </footer>
+  )
+}
+
+export function FooterWrapper({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="relative z-10 theme-bg-primary shadow-2xl">
+      {children}
+    </div>
   )
 }
