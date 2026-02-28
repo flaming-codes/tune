@@ -1,19 +1,24 @@
+'use client'
+
+import { useInputControl } from '@conform-to/react'
 import { SignaturePad } from '../SignaturePad'
-import type { IsPrivacyFieldInvalid, PrivacyFormData, UpdatePrivacyField } from './types'
+import { FieldError } from './PrivacyFormFields'
+import type { PrivacyFormFields } from './types'
 
 interface PrivacyFormConsentStepProps {
-  formData: PrivacyFormData
-  updateField: UpdatePrivacyField
-  isFieldInvalid: IsPrivacyFieldInvalid
+  fields: PrivacyFormFields
   isPending: boolean
+  hasSubmitted: boolean
 }
 
 export function PrivacyFormConsentStep({
-  formData,
-  updateField,
-  isFieldInvalid,
+  fields,
   isPending,
+  hasSubmitted,
 }: PrivacyFormConsentStepProps) {
+  const signatureControl = useInputControl(fields.signatureDataUrl)
+  const signatureErrors = hasSubmitted ? fields.signatureDataUrl.errors : undefined
+
   return (
     <div className="space-y-10">
       <h2 className="text-3xl md:text-3xl lg:text-3xl font-medium tracking-tight leading-tight">
@@ -32,15 +37,21 @@ export function PrivacyFormConsentStep({
 
       <div className="space-y-4">
         <p className="text-sm theme-text-tertiary">
-          Unterschrift{' '}
-          {isFieldInvalid('signatureDataUrl') && <span className="text-red-400">*</span>}
+          Unterschrift {Boolean(signatureErrors?.length) && <span className="text-red-400">*</span>}
         </p>
+        <input
+          type="hidden"
+          name={fields.signatureDataUrl.name}
+          value={signatureControl.value ?? ''}
+          onChange={() => {}}
+        />
         <SignaturePad
-          value={formData.signatureDataUrl}
-          onChange={(value) => updateField('signatureDataUrl', value)}
-          error={isFieldInvalid('signatureDataUrl') ? 'Erforderlich' : undefined}
+          value={signatureControl.value ?? ''}
+          onChange={(dataUrl) => signatureControl.change(dataUrl)}
+          error={signatureErrors?.length ? 'Erforderlich' : undefined}
           disabled={isPending}
         />
+        <FieldError errors={signatureErrors} />
       </div>
 
       <p className="theme-text-secondary">

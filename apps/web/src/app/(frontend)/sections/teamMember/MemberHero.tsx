@@ -11,12 +11,12 @@ import type { Media } from '@/payload-types'
  */
 function getImageAspectRatio(media: Media | number): string {
   if (typeof media === 'number' || !media) return '16/9'
-  
+
   const width = media.width
   const height = media.height
-  
+
   if (!width || !height) return '16/9'
-  
+
   return `${width}/${height}`
 }
 
@@ -168,7 +168,10 @@ function ImmersiveVariant({
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           {content.coverImage ? (
-            <div className="relative w-full" style={{ aspectRatio: getImageAspectRatio(content.coverImage) }}>
+            <div
+              className="relative w-full"
+              style={{ aspectRatio: getImageAspectRatio(content.coverImage) }}
+            >
               <PayloadImage
                 media={content.coverImage}
                 size="hero"
@@ -179,7 +182,10 @@ function ImmersiveVariant({
               />
             </div>
           ) : (
-            <div className="w-full aspect-video image-placeholder" aria-label={`${memberName} - Platzhalter`} />
+            <div
+              className="w-full aspect-video image-placeholder"
+              aria-label={`${memberName} - Platzhalter`}
+            />
           )}
         </motion.div>
 
@@ -308,7 +314,12 @@ function MinimalVariant({
             >
               {content.ctaLabel}
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
               </svg>
             </a>
           </motion.div>

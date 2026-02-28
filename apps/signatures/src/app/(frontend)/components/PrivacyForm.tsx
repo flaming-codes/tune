@@ -1,25 +1,18 @@
 'use client'
 
-import React, {
-  useActionState,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  startTransition,
-} from 'react'
+import React, { useActionState, useCallback, useEffect, useRef, useState } from 'react'
+import { useForm, getFormProps } from '@conform-to/react'
+import { parseWithZod } from '@conform-to/zod/v4'
 import { AnimatePresence, motion } from 'motion/react'
-import { submitPrivacyForm, type PrivacyFormState } from '../actions/privacy-form'
+import { submitPrivacyForm, type PrivacyFormActionResult } from '../actions/privacy-form'
 import { PrivacyFormConsentStep } from './privacy-form/PrivacyFormConsentStep'
 import { PrivacyFormFooterNavigation } from './privacy-form/PrivacyFormFooterNavigation'
 import { PrivacyFormOwnerStep } from './privacy-form/PrivacyFormOwnerStep'
 import { PrivacyFormPatientStep } from './privacy-form/PrivacyFormPatientStep'
 import { PrivacyFormSuccessState } from './privacy-form/PrivacyFormSuccessState'
-import { initialFormData, privacyFormSteps, type PrivacyFormData } from './privacy-form/types'
-import { validatePrivacyForm, validatePrivacyStep } from './privacy-form/validation'
+import { initialFormData, privacyFormSteps } from './privacy-form/types'
+import { basePrivacySchema, stepSchemas, type PrivacyStep } from './privacy-form/validation'
 import { useWakeLock } from '../hooks/useWakeLock'
-
-const initialState: PrivacyFormState = {}
 
 const easeOut = [0.4, 0, 0.2, 1] as const
 
@@ -30,9 +23,31 @@ const contentVariants = {
   center: {
     x: 0,
   },
-  exit: (direction: number) => ({
-    x: direction < 0 ? '100%' : '-100%',
-  }),
+}
+
+const stepFieldNames: Record<PrivacyStep, string[]> = {
+  1: [
+    'ownerLastName',
+    'ownerFirstName',
+    'ownerTitle',
+    'ownerDateOfBirth',
+    'ownerStreet',
+    'ownerPostalCode',
+    'ownerCity',
+    'ownerPhone',
+    'ownerEmail',
+  ],
+  2: [
+    'patientName',
+    'patientAnimalType',
+    'patientBreed',
+    'patientColor',
+    'patientGender',
+    'patientDateOfBirth',
+    'patientWeight',
+    'patientSpecialNotes',
+  ],
+  3: ['signatureDataUrl'],
 }
 
 export interface PrivacyFormProps {
@@ -43,33 +58,34 @@ export interface PrivacyFormProps {
 export function PrivacyForm({ onActivity }: PrivacyFormProps) {
   const [currentStep, setCurrentStep] = useState(1)
   const [direction, setDirection] = useState(0)
-  const [formData, setFormData] = useState<PrivacyFormData>(initialFormData)
-  const [showValidation, setShowValidation] = useState(false)
-  const [validationErrors, setValidationErrors] = useState<Record<string, string[]>>({})
   const [successMessage, setSuccessMessage] = useState<string | undefined>(undefined)
+  const formRef = useRef<HTMLFormElement>(null)
 
-  const [state, formAction, isPending] = useActionState(submitPrivacyForm, initialState)
+  const [lastResult, action, isPending] = useActionState(submitPrivacyForm, undefined)
+  const [form, fields] = useForm({
+    lastResult:
+      lastResult && 'status' in lastResult && lastResult.status === 'success'
+        ? undefined
+        : (lastResult as PrivacyFormActionResult | undefined),
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: basePrivacySchema })
+    },
+    shouldValidate: 'onBlur',
+    shouldRevalidate: 'onInput',
+    defaultValue: initialFormData,
+  })
 
   const totalSteps = privacyFormSteps.length
-  const isFormDirty = useMemo(
-    () =>
-      (Object.keys(initialFormData) as Array<keyof PrivacyFormData>).some(
-        (key) => formData[key] !== initialFormData[key],
-      ),
-    [formData],
-  )
 
   // Prevent device from sleeping while form is being filled
-  useWakeLock({ enabled: isFormDirty && !successMessage })
+  useWakeLock({ enabled: form.dirty && !successMessage })
 
   const resetForm = useCallback(() => {
+    form.reset()
     setCurrentStep(1)
     setDirection(0)
-    setFormData(initialFormData)
-    setShowValidation(false)
-    setValidationErrors({})
     setSuccessMessage(undefined)
-  }, [])
+  }, [form])
 
   const handleUserActivity = useCallback(() => {
     if (successMessage) {
@@ -78,101 +94,86 @@ export function PrivacyForm({ onActivity }: PrivacyFormProps) {
     onActivity?.()
   }, [onActivity, successMessage])
 
-  const updateField = useCallback(
-    <K extends keyof PrivacyFormData>(field: K, value: PrivacyFormData[K]) => {
-      handleUserActivity()
-      setFormData((prev) => ({ ...prev, [field]: value }))
-    },
-    [handleUserActivity],
-  )
-
   const handleNext = useCallback(() => {
     handleUserActivity()
-    setShowValidation(true)
-    const stepErrors = validatePrivacyStep(formData, currentStep as 1 | 2 | 3)
-    setValidationErrors(stepErrors)
 
-    if (Object.keys(stepErrors).length === 0 && currentStep < totalSteps) {
-      setDirection(1)
-      setCurrentStep((prev) => prev + 1)
-      setShowValidation(false)
-      setValidationErrors({})
+    if (!formRef.current || currentStep >= totalSteps) return
+
+    const nativeFormData = new FormData(formRef.current)
+    const stepSchema = stepSchemas[currentStep as PrivacyStep]
+    const result = parseWithZod(nativeFormData, { schema: stepSchema })
+
+    if (result.status !== 'success') {
+      // Trigger error display on each field in this step
+      for (const name of stepFieldNames[currentStep as PrivacyStep]) {
+        form.validate({ name })
+      }
+      return
     }
-  }, [currentStep, formData, handleUserActivity, totalSteps])
+
+    setDirection(1)
+    setCurrentStep((prev) => prev + 1)
+  }, [currentStep, form, handleUserActivity, totalSteps])
 
   const handleBack = useCallback(() => {
     handleUserActivity()
     if (currentStep > 1) {
       setDirection(-1)
       setCurrentStep((prev) => prev - 1)
-      setShowValidation(false)
-      setValidationErrors({})
     }
   }, [currentStep, handleUserActivity])
 
-  const handleSubmit = useCallback(
-    (event: React.FormEvent) => {
-      event.preventDefault()
-      handleUserActivity()
-      setShowValidation(true)
-      const formErrors = validatePrivacyForm(formData)
-      setValidationErrors(formErrors)
-
-      if (Object.keys(formErrors).length === 0) {
-        const submissionData = {
-          ...formData,
-          patientAnimalType:
-            formData.patientAnimalType === '' ? undefined : formData.patientAnimalType,
-          patientGender: formData.patientGender === '' ? undefined : formData.patientGender,
-        }
-
-        startTransition(() => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          formAction(submissionData as any)
-        })
-      }
-    },
-    [formAction, formData, handleUserActivity],
-  )
-
-  const isFieldInvalid = useCallback(
-    (field: keyof PrivacyFormData) =>
-      showValidation &&
-      (Boolean(validationErrors[field]?.length) || Boolean(state.errors?.[field]?.length)),
-    [showValidation, state.errors, validationErrors],
-  )
-
+  // Detect server success
   useEffect(() => {
-    if (!state.success) {
-      return
+    if (
+      lastResult &&
+      'status' in lastResult &&
+      lastResult.status === 'success' &&
+      'message' in lastResult
+    ) {
+      /* eslint-disable react-hooks/set-state-in-effect */
+      setSuccessMessage(lastResult.message)
+      /* eslint-enable react-hooks/set-state-in-effect */
+
+      const resetTimer = window.setTimeout(() => {
+        resetForm()
+      }, 4000)
+
+      return () => {
+        window.clearTimeout(resetTimer)
+      }
     }
-
-    /* eslint-disable react-hooks/set-state-in-effect */
-    setSuccessMessage(state.message)
-    /* eslint-enable react-hooks/set-state-in-effect */
-
-    const resetTimer = window.setTimeout(() => {
-      resetForm()
-    }, 4000)
-
-    return () => {
-      window.clearTimeout(resetTimer)
-    }
-  }, [resetForm, state.message, state.success])
+  }, [lastResult, resetForm])
 
   if (successMessage) {
     return <PrivacyFormSuccessState message={successMessage} />
   }
 
+  // Derive server error message for display
+  const serverErrorMessage =
+    lastResult &&
+    'error' in lastResult &&
+    typeof (lastResult as Record<string, unknown>).error === 'string'
+      ? ((lastResult as Record<string, unknown>).error as string)
+      : lastResult && 'status' in lastResult && lastResult.status === 'error' && form.errors?.length
+        ? form.errors.join(', ')
+        : undefined
+
   return (
     <div className="min-h-screen md:h-screen flex theme-bg-primary theme-text-primary font-sans">
       <div className="flex-1 h-screen overflow-hidden">
         <div className="max-w-2xl w-full h-full px-6 md:px-8 lg:px-12 mx-auto md:mx-0 md:ml-[5vw] lg:ml-[10vw] xl:ml-[15vw]">
-          <form onSubmit={handleSubmit} className="h-full flex flex-col">
+          <form
+            ref={formRef}
+            {...getFormProps(form)}
+            action={action}
+            onInput={handleUserActivity}
+            className="h-full flex flex-col"
+          >
             <div className="flex-1 overflow-y-auto overflow-x-hidden pt-[20svh] pb-8 md:pb-10">
               <div className="space-y-10">
                 <AnimatePresence>
-                  {state.message && !state.success && (
+                  {serverErrorMessage && (
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -181,71 +182,57 @@ export function PrivacyForm({ onActivity }: PrivacyFormProps) {
                       aria-live="polite"
                       className="text-sm text-red-500"
                     >
-                      {state.message}
+                      {serverErrorMessage}
                     </motion.div>
                   )}
                 </AnimatePresence>
 
                 <div className="min-h-80 overflow-hidden relative">
-                  <AnimatePresence mode="wait" custom={direction}>
-                    {currentStep === 1 && (
-                      <motion.div
-                        key="step1"
-                        custom={direction}
-                        variants={contentVariants}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        transition={{ duration: 0.4, ease: easeOut }}
-                        className="px-2"
-                      >
-                        <PrivacyFormOwnerStep
-                          formData={formData}
-                          updateField={updateField}
-                          isFieldInvalid={isFieldInvalid}
-                        />
-                      </motion.div>
-                    )}
+                  {privacyFormSteps.map(({ id }) => {
+                    const isActive = id === currentStep
 
-                    {currentStep === 2 && (
-                      <motion.div
-                        key="step2"
-                        custom={direction}
-                        variants={contentVariants}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        transition={{ duration: 0.4, ease: easeOut }}
-                        className="px-2"
+                    return (
+                      <div
+                        key={`step-${id}`}
+                        style={{ display: isActive ? 'block' : 'none' }}
+                        aria-hidden={!isActive}
                       >
-                        <PrivacyFormPatientStep
-                          formData={formData}
-                          updateField={updateField}
-                          isFieldInvalid={isFieldInvalid}
-                        />
-                      </motion.div>
-                    )}
-
-                    {currentStep === 3 && (
-                      <motion.div
-                        key="step3"
-                        custom={direction}
-                        variants={contentVariants}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        transition={{ duration: 0.4, ease: easeOut }}
-                        className="px-2"
-                      >
-                        <PrivacyFormConsentStep
-                          formData={formData}
-                          updateField={updateField}
-                          isFieldInvalid={isFieldInvalid}
-                          isPending={isPending}
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                        {isActive ? (
+                          <motion.div
+                            key={`active-${id}-${direction}`}
+                            custom={direction}
+                            variants={contentVariants}
+                            initial="enter"
+                            animate="center"
+                            transition={{ duration: 0.4, ease: easeOut }}
+                            className="px-2"
+                          >
+                            {id === 1 && <PrivacyFormOwnerStep fields={fields} />}
+                            {id === 2 && <PrivacyFormPatientStep fields={fields} />}
+                            {id === 3 && (
+                              <PrivacyFormConsentStep
+                                fields={fields}
+                                isPending={isPending}
+                                hasSubmitted={lastResult !== undefined}
+                              />
+                            )}
+                          </motion.div>
+                        ) : (
+                          <div className="px-2">
+                            {id === 1 && <PrivacyFormOwnerStep fields={fields} />}
+                            {id === 2 && <PrivacyFormPatientStep fields={fields} />}
+                            {id === 3 && (
+                              <PrivacyFormConsentStep
+                                fields={fields}
+                                isPending={isPending}
+                                hasSubmitted={lastResult !== undefined}
+                              />
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
             </div>

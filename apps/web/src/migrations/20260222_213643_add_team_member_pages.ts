@@ -18,10 +18,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_member_hero_order_idx\` ON \`team_members_blocks_member_hero\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_member_hero_parent_id_idx\` ON \`team_members_blocks_member_hero\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_member_hero_path_idx\` ON \`team_members_blocks_member_hero\` (\`_path\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_member_hero_cover_image_idx\` ON \`team_members_blocks_member_hero\` (\`cover_image_id\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_member_hero_order_idx\` ON \`team_members_blocks_member_hero\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_member_hero_parent_id_idx\` ON \`team_members_blocks_member_hero\` (\`_parent_id\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_member_hero_path_idx\` ON \`team_members_blocks_member_hero\` (\`_path\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_member_hero_cover_image_idx\` ON \`team_members_blocks_member_hero\` (\`cover_image_id\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_member_cv_entries\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` text NOT NULL,
@@ -33,8 +41,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members_blocks_member_cv\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_member_cv_entries_order_idx\` ON \`team_members_blocks_member_cv_entries\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_member_cv_entries_parent_id_idx\` ON \`team_members_blocks_member_cv_entries\` (\`_parent_id\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_member_cv_entries_order_idx\` ON \`team_members_blocks_member_cv_entries\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_member_cv_entries_parent_id_idx\` ON \`team_members_blocks_member_cv_entries\` (\`_parent_id\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_member_cv\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -46,9 +58,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_member_cv_order_idx\` ON \`team_members_blocks_member_cv\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_member_cv_parent_id_idx\` ON \`team_members_blocks_member_cv\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_member_cv_path_idx\` ON \`team_members_blocks_member_cv\` (\`_path\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_member_cv_order_idx\` ON \`team_members_blocks_member_cv\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_member_cv_parent_id_idx\` ON \`team_members_blocks_member_cv\` (\`_parent_id\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_member_cv_path_idx\` ON \`team_members_blocks_member_cv\` (\`_path\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_hero\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -67,10 +85,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_hero_order_idx\` ON \`team_members_blocks_hero\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_hero_parent_id_idx\` ON \`team_members_blocks_hero\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_hero_path_idx\` ON \`team_members_blocks_hero\` (\`_path\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_hero_hero_image_idx\` ON \`team_members_blocks_hero\` (\`hero_image_id\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_hero_order_idx\` ON \`team_members_blocks_hero\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_hero_parent_id_idx\` ON \`team_members_blocks_hero\` (\`_parent_id\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_hero_path_idx\` ON \`team_members_blocks_hero\` (\`_path\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_hero_hero_image_idx\` ON \`team_members_blocks_hero\` (\`hero_image_id\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_services_groups_items\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` text NOT NULL,
@@ -79,8 +105,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members_blocks_services_groups\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_services_groups_items_order_idx\` ON \`team_members_blocks_services_groups_items\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_services_groups_items_parent_id_idx\` ON \`team_members_blocks_services_groups_items\` (\`_parent_id\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_services_groups_items_order_idx\` ON \`team_members_blocks_services_groups_items\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_services_groups_items_parent_id_idx\` ON \`team_members_blocks_services_groups_items\` (\`_parent_id\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_services_groups\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` text NOT NULL,
@@ -89,8 +119,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members_blocks_services\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_services_groups_order_idx\` ON \`team_members_blocks_services_groups\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_services_groups_parent_id_idx\` ON \`team_members_blocks_services_groups\` (\`_parent_id\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_services_groups_order_idx\` ON \`team_members_blocks_services_groups\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_services_groups_parent_id_idx\` ON \`team_members_blocks_services_groups\` (\`_parent_id\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_services\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -105,9 +139,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_services_order_idx\` ON \`team_members_blocks_services\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_services_parent_id_idx\` ON \`team_members_blocks_services\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_services_path_idx\` ON \`team_members_blocks_services\` (\`_path\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_services_order_idx\` ON \`team_members_blocks_services\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_services_parent_id_idx\` ON \`team_members_blocks_services\` (\`_parent_id\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_services_path_idx\` ON \`team_members_blocks_services\` (\`_path\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_quote\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -120,10 +160,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_quote_order_idx\` ON \`team_members_blocks_quote\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_quote_parent_id_idx\` ON \`team_members_blocks_quote\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_quote_path_idx\` ON \`team_members_blocks_quote\` (\`_path\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_quote_author_idx\` ON \`team_members_blocks_quote\` (\`author_id\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_quote_order_idx\` ON \`team_members_blocks_quote\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_quote_parent_id_idx\` ON \`team_members_blocks_quote\` (\`_parent_id\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_quote_path_idx\` ON \`team_members_blocks_quote\` (\`_path\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_quote_author_idx\` ON \`team_members_blocks_quote\` (\`author_id\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_testimonials\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -139,9 +187,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_testimonials_order_idx\` ON \`team_members_blocks_testimonials\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_testimonials_parent_id_idx\` ON \`team_members_blocks_testimonials\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_testimonials_path_idx\` ON \`team_members_blocks_testimonials\` (\`_path\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_testimonials_order_idx\` ON \`team_members_blocks_testimonials\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_testimonials_parent_id_idx\` ON \`team_members_blocks_testimonials\` (\`_parent_id\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_testimonials_path_idx\` ON \`team_members_blocks_testimonials\` (\`_path\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_gallery\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -155,9 +209,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_gallery_order_idx\` ON \`team_members_blocks_gallery\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_gallery_parent_id_idx\` ON \`team_members_blocks_gallery\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_gallery_path_idx\` ON \`team_members_blocks_gallery\` (\`_path\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_gallery_order_idx\` ON \`team_members_blocks_gallery\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_gallery_parent_id_idx\` ON \`team_members_blocks_gallery\` (\`_parent_id\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_gallery_path_idx\` ON \`team_members_blocks_gallery\` (\`_path\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_team\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -170,9 +230,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_team_order_idx\` ON \`team_members_blocks_team\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_team_parent_id_idx\` ON \`team_members_blocks_team\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_team_path_idx\` ON \`team_members_blocks_team\` (\`_path\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_team_order_idx\` ON \`team_members_blocks_team\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_team_parent_id_idx\` ON \`team_members_blocks_team\` (\`_parent_id\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_team_path_idx\` ON \`team_members_blocks_team\` (\`_path\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_hours_opening_hours\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` text NOT NULL,
@@ -183,8 +249,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members_blocks_hours\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_hours_opening_hours_order_idx\` ON \`team_members_blocks_hours_opening_hours\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_hours_opening_hours_parent_id_idx\` ON \`team_members_blocks_hours_opening_hours\` (\`_parent_id\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_hours_opening_hours_order_idx\` ON \`team_members_blocks_hours_opening_hours\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_hours_opening_hours_parent_id_idx\` ON \`team_members_blocks_hours_opening_hours\` (\`_parent_id\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_hours\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -199,9 +269,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_hours_order_idx\` ON \`team_members_blocks_hours\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_hours_parent_id_idx\` ON \`team_members_blocks_hours\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_hours_path_idx\` ON \`team_members_blocks_hours\` (\`_path\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_hours_order_idx\` ON \`team_members_blocks_hours\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_hours_parent_id_idx\` ON \`team_members_blocks_hours\` (\`_parent_id\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_hours_path_idx\` ON \`team_members_blocks_hours\` (\`_path\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_contact\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -223,9 +299,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_contact_order_idx\` ON \`team_members_blocks_contact\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_contact_parent_id_idx\` ON \`team_members_blocks_contact\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_contact_path_idx\` ON \`team_members_blocks_contact\` (\`_path\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_contact_order_idx\` ON \`team_members_blocks_contact\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_contact_parent_id_idx\` ON \`team_members_blocks_contact\` (\`_parent_id\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_contact_path_idx\` ON \`team_members_blocks_contact\` (\`_path\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_contact_form\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -238,9 +320,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_contact_form_order_idx\` ON \`team_members_blocks_contact_form\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_contact_form_parent_id_idx\` ON \`team_members_blocks_contact_form\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_contact_form_path_idx\` ON \`team_members_blocks_contact_form\` (\`_path\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_contact_form_order_idx\` ON \`team_members_blocks_contact_form\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_contact_form_parent_id_idx\` ON \`team_members_blocks_contact_form\` (\`_parent_id\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_contact_form_path_idx\` ON \`team_members_blocks_contact_form\` (\`_path\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_accordion_items\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` text NOT NULL,
@@ -250,8 +338,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members_blocks_accordion\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_accordion_items_order_idx\` ON \`team_members_blocks_accordion_items\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_accordion_items_parent_id_idx\` ON \`team_members_blocks_accordion_items\` (\`_parent_id\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_accordion_items_order_idx\` ON \`team_members_blocks_accordion_items\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_accordion_items_parent_id_idx\` ON \`team_members_blocks_accordion_items\` (\`_parent_id\`);`,
+  )
   await db.run(sql`CREATE TABLE \`team_members_blocks_accordion\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -266,9 +358,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`team_members\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_accordion_order_idx\` ON \`team_members_blocks_accordion\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_accordion_parent_id_idx\` ON \`team_members_blocks_accordion\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`team_members_blocks_accordion_path_idx\` ON \`team_members_blocks_accordion\` (\`_path\`);`)
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_accordion_order_idx\` ON \`team_members_blocks_accordion\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_accordion_parent_id_idx\` ON \`team_members_blocks_accordion\` (\`_parent_id\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`team_members_blocks_accordion_path_idx\` ON \`team_members_blocks_accordion\` (\`_path\`);`,
+  )
   await db.run(sql`ALTER TABLE \`team_members\` ADD \`slug\` text;`)
   await db.run(sql`CREATE UNIQUE INDEX \`team_members_slug_idx\` ON \`team_members\` (\`slug\`);`)
 }

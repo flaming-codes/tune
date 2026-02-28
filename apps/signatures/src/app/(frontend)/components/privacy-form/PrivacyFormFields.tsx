@@ -1,9 +1,15 @@
 import React from 'react'
+import type { FieldMetadata } from '@conform-to/react'
 
 const baseFieldClasses =
   'w-full px-0 py-2.5 bg-transparent border-0 border-b theme-text-primary placeholder:theme-text-tertiary focus:outline-none focus:border-current transition-colors'
 
 const defaultBorderClass = 'theme-border-primary'
+
+export function FieldError({ errors }: { errors?: string[] }) {
+  if (!errors?.length) return null
+  return <p className="mt-1 text-xs text-red-400">{errors[0]}</p>
+}
 
 interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   invalid?: boolean
@@ -36,21 +42,18 @@ interface Option<T extends string> {
 }
 
 interface SegmentedFieldProps<T extends string> {
-  name: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  field: FieldMetadata<T, any, string[]>
   ariaLabel: string
   options: Option<T>[]
-  value: T | ''
-  onChange: (value: T) => void
   invalid?: boolean
   required?: boolean
 }
 
 export function SegmentedField<T extends string>({
-  name,
+  field,
   ariaLabel,
   options,
-  value,
-  onChange,
   invalid = false,
   required = false,
 }: SegmentedFieldProps<T>) {
@@ -59,7 +62,7 @@ export function SegmentedField<T extends string>({
       role="radiogroup"
       aria-label={ariaLabel}
       aria-invalid={invalid}
-      className={`inline-flex overflow-hidden border ${invalid ? 'border-red-300' : defaultBorderClass}`}
+      className={`inline-flex overflow-hidden rounded-full border ${invalid ? 'border-red-300' : defaultBorderClass}`}
     >
       {options.map((option, index) => (
         <label
@@ -68,10 +71,10 @@ export function SegmentedField<T extends string>({
         >
           <input
             type="radio"
-            name={name}
+            key={`${field.key}-${option.value}`}
+            name={field.name}
             value={option.value}
-            checked={value === option.value}
-            onChange={() => onChange(option.value)}
+            defaultChecked={field.initialValue === option.value}
             className="sr-only peer"
             required={required}
           />

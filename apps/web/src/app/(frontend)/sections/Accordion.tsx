@@ -198,25 +198,27 @@ export function Accordion({ content }: AccordionProps) {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight mb-6">
               {headline}
             </h2>
-            {description && <p className="text-lg theme-text-secondary leading-relaxed">{description}</p>}
+            {description && (
+              <p className="text-lg theme-text-secondary leading-relaxed">{description}</p>
+            )}
           </div>
 
           {/* Accordion Items */}
           <div className="border-t theme-border-primary" role="presentation">
-          {items.map((item, index) => {
-            const key = item.id || index
-            const isOpen = openItems.has(key)
+            {items.map((item, index) => {
+              const key = item.id || index
+              const isOpen = openItems.has(key)
 
-            return (
-              <AccordionItemComponent
-                key={key}
-                item={item}
-                isOpen={isOpen}
-                onToggle={() => handleToggle(index, item.id)}
-                index={index}
-              />
-            )
-          })}
+              return (
+                <AccordionItemComponent
+                  key={key}
+                  item={item}
+                  isOpen={isOpen}
+                  onToggle={() => handleToggle(index, item.id)}
+                  index={index}
+                />
+              )
+            })}
           </div>
         </div>
       </div>

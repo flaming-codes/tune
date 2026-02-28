@@ -10,8 +10,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`start_page_blocks_accordion\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`start_page_blocks_accordion_items_order_idx\` ON \`start_page_blocks_accordion_items\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`start_page_blocks_accordion_items_parent_id_idx\` ON \`start_page_blocks_accordion_items\` (\`_parent_id\`);`)
+  await db.run(
+    sql`CREATE INDEX \`start_page_blocks_accordion_items_order_idx\` ON \`start_page_blocks_accordion_items\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`start_page_blocks_accordion_items_parent_id_idx\` ON \`start_page_blocks_accordion_items\` (\`_parent_id\`);`,
+  )
   await db.run(sql`CREATE TABLE \`start_page_blocks_accordion\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -25,9 +29,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`start_page\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`start_page_blocks_accordion_order_idx\` ON \`start_page_blocks_accordion\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`start_page_blocks_accordion_parent_id_idx\` ON \`start_page_blocks_accordion\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`start_page_blocks_accordion_path_idx\` ON \`start_page_blocks_accordion\` (\`_path\`);`)
+  await db.run(
+    sql`CREATE INDEX \`start_page_blocks_accordion_order_idx\` ON \`start_page_blocks_accordion\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`start_page_blocks_accordion_parent_id_idx\` ON \`start_page_blocks_accordion\` (\`_parent_id\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`start_page_blocks_accordion_path_idx\` ON \`start_page_blocks_accordion\` (\`_path\`);`,
+  )
   await db.run(sql`CREATE TABLE \`_start_page_v_blocks_accordion_items\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -38,8 +48,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`_start_page_v_blocks_accordion\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`_start_page_v_blocks_accordion_items_order_idx\` ON \`_start_page_v_blocks_accordion_items\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`_start_page_v_blocks_accordion_items_parent_id_idx\` ON \`_start_page_v_blocks_accordion_items\` (\`_parent_id\`);`)
+  await db.run(
+    sql`CREATE INDEX \`_start_page_v_blocks_accordion_items_order_idx\` ON \`_start_page_v_blocks_accordion_items\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`_start_page_v_blocks_accordion_items_parent_id_idx\` ON \`_start_page_v_blocks_accordion_items\` (\`_parent_id\`);`,
+  )
   await db.run(sql`CREATE TABLE \`_start_page_v_blocks_accordion\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -54,9 +68,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`_start_page_v\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`_start_page_v_blocks_accordion_order_idx\` ON \`_start_page_v_blocks_accordion\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`_start_page_v_blocks_accordion_parent_id_idx\` ON \`_start_page_v_blocks_accordion\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`_start_page_v_blocks_accordion_path_idx\` ON \`_start_page_v_blocks_accordion\` (\`_path\`);`)
+  await db.run(
+    sql`CREATE INDEX \`_start_page_v_blocks_accordion_order_idx\` ON \`_start_page_v_blocks_accordion\` (\`_order\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`_start_page_v_blocks_accordion_parent_id_idx\` ON \`_start_page_v_blocks_accordion\` (\`_parent_id\`);`,
+  )
+  await db.run(
+    sql`CREATE INDEX \`_start_page_v_blocks_accordion_path_idx\` ON \`_start_page_v_blocks_accordion\` (\`_path\`);`,
+  )
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {

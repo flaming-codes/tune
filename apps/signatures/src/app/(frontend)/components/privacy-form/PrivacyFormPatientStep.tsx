@@ -1,5 +1,5 @@
-import { SegmentedField, TextAreaField, TextField } from './PrivacyFormFields'
-import type { IsPrivacyFieldInvalid, PrivacyFormData, UpdatePrivacyField } from './types'
+import { FieldError, SegmentedField, TextAreaField, TextField } from './PrivacyFormFields'
+import type { PrivacyFormFields } from './types'
 
 const animalTypeOptions = [
   { value: 'dog', label: 'Hund' },
@@ -14,16 +14,10 @@ const patientGenderOptions = [
 ] as const
 
 interface PrivacyFormPatientStepProps {
-  formData: PrivacyFormData
-  updateField: UpdatePrivacyField
-  isFieldInvalid: IsPrivacyFieldInvalid
+  fields: PrivacyFormFields
 }
 
-export function PrivacyFormPatientStep({
-  formData,
-  updateField,
-  isFieldInvalid,
-}: PrivacyFormPatientStepProps) {
+export function PrivacyFormPatientStep({ fields }: PrivacyFormPatientStepProps) {
   return (
     <div className="space-y-10">
       <h2 className="text-3xl md:text-3xl lg:text-3xl font-medium tracking-tight leading-tight">
@@ -34,121 +28,134 @@ export function PrivacyFormPatientStep({
       <div className="space-y-6">
         <div>
           <TextField
+            key={fields.patientName.key}
+            id={fields.patientName.id}
+            name={fields.patientName.name}
+            defaultValue={fields.patientName.initialValue ?? ''}
             type="text"
-            value={formData.patientName}
-            onChange={(e) => updateField('patientName', e.target.value)}
             aria-label="Name des Tieres"
-            aria-invalid={isFieldInvalid('patientName')}
             placeholder="Name des Tieres *"
-            invalid={isFieldInvalid('patientName')}
+            invalid={Boolean(fields.patientName.errors?.length)}
             required
           />
+          <FieldError errors={fields.patientName.errors} />
         </div>
 
         <fieldset className="space-y-3">
           <legend className="text-sm theme-text-tertiary">
-            Tierart {isFieldInvalid('patientAnimalType') && <span className="text-red-400">*</span>}
+            Tierart{' '}
+            {Boolean(fields.patientAnimalType.errors?.length) && (
+              <span className="text-red-400">*</span>
+            )}
           </legend>
           <SegmentedField
-            name="patientAnimalType"
+            field={fields.patientAnimalType}
             ariaLabel="Tierart"
             options={[...animalTypeOptions]}
-            value={formData.patientAnimalType}
-            onChange={(value) => updateField('patientAnimalType', value)}
-            invalid={isFieldInvalid('patientAnimalType')}
+            invalid={Boolean(fields.patientAnimalType.errors?.length)}
             required
           />
+          <FieldError errors={fields.patientAnimalType.errors} />
         </fieldset>
 
         <div className="grid grid-cols-2 gap-6">
           <div>
             <TextField
+              key={fields.patientBreed.key}
+              id={fields.patientBreed.id}
+              name={fields.patientBreed.name}
+              defaultValue={fields.patientBreed.initialValue ?? ''}
               type="text"
-              value={formData.patientBreed}
-              onChange={(e) => updateField('patientBreed', e.target.value)}
               aria-label="Rasse"
-              aria-invalid={isFieldInvalid('patientBreed')}
               placeholder="Rasse *"
-              invalid={isFieldInvalid('patientBreed')}
+              invalid={Boolean(fields.patientBreed.errors?.length)}
               required
             />
+            <FieldError errors={fields.patientBreed.errors} />
           </div>
           <div>
             <TextField
+              key={fields.patientColor.key}
+              id={fields.patientColor.id}
+              name={fields.patientColor.name}
+              defaultValue={fields.patientColor.initialValue ?? ''}
               type="text"
-              value={formData.patientColor}
-              onChange={(e) => updateField('patientColor', e.target.value)}
               aria-label="Farbe"
-              aria-invalid={isFieldInvalid('patientColor')}
               placeholder="Farbe *"
-              invalid={isFieldInvalid('patientColor')}
+              invalid={Boolean(fields.patientColor.errors?.length)}
               required
             />
+            <FieldError errors={fields.patientColor.errors} />
           </div>
         </div>
 
         <fieldset className="space-y-3">
           <legend className="text-sm theme-text-tertiary">
-            Geschlecht {isFieldInvalid('patientGender') && <span className="text-red-400">*</span>}
+            Geschlecht{' '}
+            {Boolean(fields.patientGender.errors?.length) && (
+              <span className="text-red-400">*</span>
+            )}
           </legend>
           <SegmentedField
-            name="patientGender"
+            field={fields.patientGender}
             ariaLabel="Geschlecht"
             options={[...patientGenderOptions]}
-            value={formData.patientGender}
-            onChange={(value) => updateField('patientGender', value)}
-            invalid={isFieldInvalid('patientGender')}
+            invalid={Boolean(fields.patientGender.errors?.length)}
             required
           />
+          <FieldError errors={fields.patientGender.errors} />
         </fieldset>
 
         <div className="grid grid-cols-2 gap-6">
           <div>
             <TextField
+              key={fields.patientDateOfBirth.key}
+              id={fields.patientDateOfBirth.id}
+              name={fields.patientDateOfBirth.name}
+              defaultValue={fields.patientDateOfBirth.initialValue ?? ''}
               type="date"
-              value={formData.patientDateOfBirth}
-              onChange={(e) => updateField('patientDateOfBirth', e.target.value)}
               aria-label="Geburtsdatum Tier"
-              aria-invalid={isFieldInvalid('patientDateOfBirth')}
-              invalid={isFieldInvalid('patientDateOfBirth')}
+              invalid={Boolean(fields.patientDateOfBirth.errors?.length)}
               required
             />
             <p className="text-sm theme-text-tertiary mt-2">Geburtsdatum *</p>
+            <FieldError errors={fields.patientDateOfBirth.errors} />
           </div>
           <div>
             <div className="relative">
               <TextField
-                type="number"
-                value={formData.patientWeight}
-                onChange={(e) => updateField('patientWeight', e.target.value)}
+                key={fields.patientWeight.key}
+                id={fields.patientWeight.id}
+                name={fields.patientWeight.name}
+                defaultValue={fields.patientWeight.initialValue ?? ''}
+                type="text"
                 aria-label="Gewicht"
-                aria-invalid={isFieldInvalid('patientWeight')}
                 placeholder="Gewicht *"
-                invalid={isFieldInvalid('patientWeight')}
+                invalid={Boolean(fields.patientWeight.errors?.length)}
                 className="pr-12"
                 inputMode="decimal"
-                min={0}
-                step="0.1"
                 required
               />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium theme-text-tertiary">
                 kg
               </span>
             </div>
+            <FieldError errors={fields.patientWeight.errors} />
           </div>
         </div>
 
         <div>
           <TextAreaField
+            key={fields.patientSpecialNotes.key}
+            id={fields.patientSpecialNotes.id}
+            name={fields.patientSpecialNotes.name}
+            defaultValue={fields.patientSpecialNotes.initialValue ?? ''}
             rows={3}
-            value={formData.patientSpecialNotes}
-            onChange={(e) => updateField('patientSpecialNotes', e.target.value)}
             aria-label="Besondere Hinweise"
-            aria-invalid={isFieldInvalid('patientSpecialNotes')}
-            placeholder="Besondere Hinweise (Allergien, Unverträglichkeiten...) *"
-            invalid={isFieldInvalid('patientSpecialNotes')}
-            required
+            placeholder="Besondere Hinweise (Allergien, Unverträglichkeiten...)"
+            invalid={false}
           />
+          <FieldError errors={fields.patientSpecialNotes.errors} />
         </div>
       </div>
     </div>

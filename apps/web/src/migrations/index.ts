@@ -1,10 +1,10 @@
-import * as migration_20260222_152036 from './20260222_152036';
-import * as migration_20260222_192908_analytics_subsystem from './20260222_192908_analytics_subsystem';
-import * as migration_20260222_195213 from './20260222_195213';
-import * as migration_20260222_210801 from './20260222_210801';
-import * as migration_20260222_211327 from './20260222_211327';
-import * as migration_20260222_213643_add_team_member_pages from './20260222_213643_add_team_member_pages';
-import * as migration_20260222_215505 from './20260222_215505';
+import * as migration_20260222_152036 from './20260222_152036'
+import * as migration_20260222_192908_analytics_subsystem from './20260222_192908_analytics_subsystem'
+import * as migration_20260222_195213 from './20260222_195213'
+import * as migration_20260222_210801 from './20260222_210801'
+import * as migration_20260222_211327 from './20260222_211327'
+import * as migration_20260222_213643_add_team_member_pages from './20260222_213643_add_team_member_pages'
+import * as migration_20260222_215505 from './20260222_215505'
 
 export const migrations = [
   {
@@ -40,6 +40,6 @@ export const migrations = [
   {
     up: migration_20260222_215505.up,
     down: migration_20260222_215505.down,
-    name: '20260222_215505'
+    name: '20260222_215505',
   },
-];
+]

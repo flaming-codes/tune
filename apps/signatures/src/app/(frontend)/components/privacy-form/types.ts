@@ -1,3 +1,5 @@
+import type { FieldMetadata } from '@conform-to/react'
+
 export interface PrivacyFormData {
   ownerLastName: string
   ownerFirstName: string
@@ -21,12 +23,9 @@ export interface PrivacyFormData {
   signatureDataUrl: string
 }
 
-export type UpdatePrivacyField = <K extends keyof PrivacyFormData>(
-  field: K,
-  value: PrivacyFormData[K],
-) => void
-
-export type IsPrivacyFieldInvalid = (field: keyof PrivacyFormData) => boolean
+export type PrivacyFormFields = {
+  [K in keyof PrivacyFormData]: FieldMetadata<PrivacyFormData[K], PrivacyFormData, string[]>
+}
 
 export const initialFormData: PrivacyFormData = {
   ownerLastName: '',

@@ -14,10 +14,7 @@ function StarLine({ rating }: { rating: number }) {
       aria-label={`${rating.toFixed(1)} von 5 Sternen`}
     >
       {Array.from({ length: 5 }, (_, index) => (
-        <span
-          key={index}
-          className={index < rounded ? 'text-amber-400' : 'theme-text-muted'}
-        >
+        <span key={index} className={index < rounded ? 'text-amber-400' : 'theme-text-muted'}>
           ★
         </span>
       ))}

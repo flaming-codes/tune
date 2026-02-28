@@ -26,6 +26,8 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
+    "@conform-to/react": "^1.17.1",
+    "@conform-to/zod": "^1.17.1",
     "@med/theme": "workspace:*",
     "@payloadcms/db-sqlite": "3.78.0",
     "@payloadcms/next": "3.78.0",

@@ -3,29 +3,26 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { headers } from 'next/headers'
-import { validatePrivacyForm } from '../components/privacy-form/validation'
-import type { PrivacyFormData } from '../components/privacy-form/types'
+import { parseWithZod } from '@conform-to/zod/v4'
+import type { SubmissionResult } from '@conform-to/react'
+import { basePrivacySchema } from '../components/privacy-form/validation'
 
-export interface PrivacyFormState {
-  message?: string
-  errors?: Record<string, string[]>
-  success?: boolean
-}
+export type PrivacyFormActionResult =
+  | SubmissionResult<string[]>
+  | { status: 'success'; message: string }
 
 export async function submitPrivacyForm(
-  _prevState: PrivacyFormState,
-  formData: PrivacyFormData,
-): Promise<PrivacyFormState> {
+  _prevState: PrivacyFormActionResult | undefined,
+  formData: FormData,
+): Promise<PrivacyFormActionResult> {
+  const submission = parseWithZod(formData, { schema: basePrivacySchema })
+
+  if (submission.status !== 'success') {
+    return submission.reply()
+  }
+
   try {
-    // Validate form data
-    const errors = validatePrivacyForm(formData)
-    if (Object.keys(errors).length > 0) {
-      return {
-        success: false,
-        errors,
-        message: 'Bitte korrigieren Sie die markierten Felder.',
-      }
-    }
+    const data = submission.value
 
     // Get client info for audit trail
     const headersList = await headers()
@@ -34,27 +31,27 @@ export async function submitPrivacyForm(
 
     // Prepare data for Payload
     const payloadData = {
-      ownerLastName: formData.ownerLastName.trim(),
-      ownerFirstName: formData.ownerFirstName.trim(),
-      ownerFullName: `${formData.ownerFirstName.trim()} ${formData.ownerLastName.trim()}`,
-      ownerTitle: formData.ownerTitle?.trim() || undefined,
-      ownerDateOfBirth: formData.ownerDateOfBirth || undefined,
-      ownerStreet: formData.ownerStreet.trim(),
-      ownerPostalCode: formData.ownerPostalCode.trim(),
-      ownerCity: formData.ownerCity.trim(),
-      ownerPhone: formData.ownerPhone.trim(),
-      ownerEmail: formData.ownerEmail?.trim() || undefined,
+      ownerLastName: data.ownerLastName,
+      ownerFirstName: data.ownerFirstName,
+      ownerFullName: `${data.ownerFirstName} ${data.ownerLastName}`,
+      ownerTitle: data.ownerTitle || undefined,
+      ownerDateOfBirth: data.ownerDateOfBirth || undefined,
+      ownerStreet: data.ownerStreet,
+      ownerPostalCode: data.ownerPostalCode,
+      ownerCity: data.ownerCity,
+      ownerPhone: data.ownerPhone,
+      ownerEmail: data.ownerEmail || undefined,
 
-      patientName: formData.patientName.trim(),
-      patientAnimalType: formData.patientAnimalType as 'dog' | 'cat' | 'other',
-      patientBreed: formData.patientBreed?.trim() || undefined,
-      patientColor: formData.patientColor?.trim() || undefined,
-      patientGender: formData.patientGender || undefined,
-      patientDateOfBirth: formData.patientDateOfBirth || undefined,
-      patientWeight: formData.patientWeight?.trim() || undefined,
-      patientSpecialNotes: formData.patientSpecialNotes?.trim() || undefined,
+      patientName: data.patientName,
+      patientAnimalType: data.patientAnimalType,
+      patientBreed: data.patientBreed || undefined,
+      patientColor: data.patientColor || undefined,
+      patientGender: data.patientGender || undefined,
+      patientDateOfBirth: data.patientDateOfBirth || undefined,
+      patientWeight: data.patientWeight || undefined,
+      patientSpecialNotes: data.patientSpecialNotes || undefined,
 
-      signatureDataUrl: formData.signatureDataUrl,
+      signatureDataUrl: data.signatureDataUrl,
       signedAt: new Date().toISOString(),
       clientIp: clientIp.split(',')[0]?.trim(),
       userAgent,
@@ -68,15 +65,14 @@ export async function submitPrivacyForm(
     })
 
     return {
-      success: true,
+      status: 'success',
       message:
         'Vielen Dank! Ihre Datenschutzerklärung wurde erfolgreich übermittelt und gespeichert.',
     }
   } catch (error) {
     console.error('Error submitting privacy form:', error)
-    return {
-      success: false,
-      message: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.',
-    }
+    return submission.reply({
+      formErrors: ['Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.'],
+    })
   }
 }

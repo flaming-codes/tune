@@ -3,26 +3,28 @@ import type { PrivacyFormData } from './types'
 
 export type PrivacyStep = 1 | 2 | 3
 
-const requiredText = (label: string) => z.string().trim().min(1, `${label} ist erforderlich`)
+const REQUIRED = 'Bitte füllen Sie dieses Feld aus.'
+
+const requiredText = () => z.string().trim().min(1, REQUIRED)
 
 const requiredPostalCode = z
   .string()
   .trim()
-  .min(1, 'PLZ ist erforderlich')
+  .min(1, REQUIRED)
   .regex(/^\d{4,10}$/, 'Bitte geben Sie eine gültige PLZ ein.')
 
 const requiredWeight = z
   .string()
   .trim()
-  .min(1, 'Gewicht ist erforderlich')
+  .min(1, REQUIRED)
   .regex(/^\d+(?:[.,]\d+)?$/, 'Bitte geben Sie ein gültiges Gewicht ein.')
 
-const requiredDate = (label: string) =>
+const requiredDate = () =>
   z
     .string()
     .trim()
-    .min(1, `${label} ist erforderlich`)
-    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Ungültiges Datum')
+    .min(1, REQUIRED)
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Bitte geben Sie ein gültiges Datum ein.')
 
 const optionalEmail = z.union([
   z.literal(''),
@@ -37,38 +39,38 @@ const optionalPhone = z.union([
     .regex(/^[+()0-9\s/-]{6,25}$/, 'Bitte geben Sie eine gültige Telefonnummer ein.'),
 ])
 
-const basePrivacySchema = z.object({
-  ownerLastName: requiredText('Nachname'),
-  ownerFirstName: requiredText('Vorname'),
+export const basePrivacySchema = z.object({
+  ownerLastName: requiredText(),
+  ownerFirstName: requiredText(),
   ownerTitle: z.string(),
-  ownerDateOfBirth: requiredDate('Geburtsdatum'),
-  ownerStreet: requiredText('Straße/Hausnummer'),
+  ownerDateOfBirth: requiredDate(),
+  ownerStreet: requiredText(),
   ownerPostalCode: requiredPostalCode,
-  ownerCity: requiredText('Ort'),
-  ownerPhone: optionalPhone.pipe(requiredText('Telefon')),
+  ownerCity: requiredText(),
+  ownerPhone: optionalPhone.pipe(requiredText()),
   ownerEmail: optionalEmail,
 
-  patientName: requiredText('Patientenname'),
+  patientName: requiredText(),
   patientAnimalType: z.enum(['dog', 'cat', 'other'], {
-    error: 'Tierart ist erforderlich',
+    error: 'Bitte wählen Sie eine Option aus.',
   }),
-  patientBreed: requiredText('Rasse'),
-  patientColor: requiredText('Farbe'),
+  patientBreed: requiredText(),
+  patientColor: requiredText(),
   patientGender: z.enum(['male', 'female', 'neutered'], {
-    error: 'Geschlecht ist erforderlich',
+    error: 'Bitte wählen Sie eine Option aus.',
   }),
-  patientDateOfBirth: requiredDate('Geburtsdatum'),
+  patientDateOfBirth: requiredDate(),
   patientWeight: requiredWeight,
-  patientSpecialNotes: requiredText('Besondere Hinweise'),
+  patientSpecialNotes: z.string(),
 
   signatureDataUrl: z
     .string()
     .trim()
-    .min(1, 'Unterschrift ist erforderlich')
+    .min(1, 'Bitte leisten Sie Ihre Unterschrift.')
     .startsWith('data:image/', 'Ungültige Unterschrift'),
 })
 
-const stepSchemas: Record<PrivacyStep, z.ZodTypeAny> = {
+export const stepSchemas: Record<PrivacyStep, z.ZodTypeAny> = {
   1: basePrivacySchema.pick({
     ownerLastName: true,
     ownerFirstName: true,

@@ -80,7 +80,7 @@ function TickerItem({ image }: { image: GalleryImage; index: number }) {
   if (!imageData) {
     return (
       <figure className="shrink-0 relative">
-        <div className="relative h-70 sm:h-80 md:h-90 lg:h-100 overflow-hidden cursor-pointer image-placeholder w-60 sm:w-70 md:w-[320px] lg:w-90" />
+        <div className="relative h-70 sm:h-80 md:h-90 lg:h-100 overflow-hidden image-placeholder w-60 sm:w-70 md:w-[320px] lg:w-90" />
       </figure>
     )
   }
@@ -93,7 +93,7 @@ function TickerItem({ image }: { image: GalleryImage; index: number }) {
     <figure ref={itemRef} className="shrink-0 relative">
       {/* Image container - defines the width */}
       <motion.div
-        className="relative h-70 sm:h-80 md:h-90 lg:h-100 overflow-hidden cursor-pointer"
+        className="relative h-70 sm:h-80 md:h-90 lg:h-100 overflow-hidden"
         style={{
           scale,
           aspectRatio,
@@ -102,10 +102,7 @@ function TickerItem({ image }: { image: GalleryImage; index: number }) {
         onHoverEnd={() => setIsHovered(false)}
       >
         {/* Parallax container - expanded to allow movement without revealing gaps */}
-        <motion.div
-          className="absolute -inset-12"
-          style={{ x: parallaxX }}
-        >
+        <motion.div className="absolute -inset-12" style={{ x: parallaxX }}>
           <PayloadImage
             media={imageData}
             size="card"

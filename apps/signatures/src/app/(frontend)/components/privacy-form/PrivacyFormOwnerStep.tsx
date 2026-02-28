@@ -1,17 +1,11 @@
-import { TextField } from './PrivacyFormFields'
-import type { IsPrivacyFieldInvalid, PrivacyFormData, UpdatePrivacyField } from './types'
+import { FieldError, TextField } from './PrivacyFormFields'
+import type { PrivacyFormFields } from './types'
 
 interface PrivacyFormOwnerStepProps {
-  formData: PrivacyFormData
-  updateField: UpdatePrivacyField
-  isFieldInvalid: IsPrivacyFieldInvalid
+  fields: PrivacyFormFields
 }
 
-export function PrivacyFormOwnerStep({
-  formData,
-  updateField,
-  isFieldInvalid,
-}: PrivacyFormOwnerStepProps) {
+export function PrivacyFormOwnerStep({ fields }: PrivacyFormOwnerStepProps) {
   return (
     <div className="space-y-10">
       <h2 className="text-3xl md:text-3xl lg:text-3xl font-medium tracking-tight leading-tight">
@@ -23,9 +17,11 @@ export function PrivacyFormOwnerStep({
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-2">
             <TextField
+              key={fields.ownerTitle.key}
+              id={fields.ownerTitle.id}
+              name={fields.ownerTitle.name}
+              defaultValue={fields.ownerTitle.initialValue ?? ''}
               type="text"
-              value={formData.ownerTitle}
-              onChange={(e) => updateField('ownerTitle', e.target.value)}
               aria-label="Titel"
               placeholder="Titel"
               invalid={false}
@@ -33,103 +29,119 @@ export function PrivacyFormOwnerStep({
           </div>
           <div className="col-span-5">
             <TextField
+              key={fields.ownerFirstName.key}
+              id={fields.ownerFirstName.id}
+              name={fields.ownerFirstName.name}
+              defaultValue={fields.ownerFirstName.initialValue ?? ''}
               type="text"
-              value={formData.ownerFirstName}
-              onChange={(e) => updateField('ownerFirstName', e.target.value)}
               aria-label="Vorname"
-              aria-invalid={isFieldInvalid('ownerFirstName')}
               placeholder="Vorname *"
-              invalid={isFieldInvalid('ownerFirstName')}
+              invalid={Boolean(fields.ownerFirstName.errors?.length)}
             />
+            <FieldError errors={fields.ownerFirstName.errors} />
           </div>
           <div className="col-span-5">
             <TextField
+              key={fields.ownerLastName.key}
+              id={fields.ownerLastName.id}
+              name={fields.ownerLastName.name}
+              defaultValue={fields.ownerLastName.initialValue ?? ''}
               type="text"
-              value={formData.ownerLastName}
-              onChange={(e) => updateField('ownerLastName', e.target.value)}
               aria-label="Nachname"
-              aria-invalid={isFieldInvalid('ownerLastName')}
               placeholder="Nachname *"
-              invalid={isFieldInvalid('ownerLastName')}
+              invalid={Boolean(fields.ownerLastName.errors?.length)}
             />
+            <FieldError errors={fields.ownerLastName.errors} />
           </div>
         </div>
 
         <div>
           <TextField
+            key={fields.ownerDateOfBirth.key}
+            id={fields.ownerDateOfBirth.id}
+            name={fields.ownerDateOfBirth.name}
+            defaultValue={fields.ownerDateOfBirth.initialValue ?? ''}
             type="date"
-            value={formData.ownerDateOfBirth}
-            onChange={(e) => updateField('ownerDateOfBirth', e.target.value)}
             aria-label="Geburtsdatum Besitzer"
-            aria-invalid={isFieldInvalid('ownerDateOfBirth')}
             className="w-full sm:w-64"
-            invalid={isFieldInvalid('ownerDateOfBirth')}
+            invalid={Boolean(fields.ownerDateOfBirth.errors?.length)}
             required
           />
           <p className="text-sm theme-text-tertiary mt-2">Geburtsdatum *</p>
+          <FieldError errors={fields.ownerDateOfBirth.errors} />
         </div>
 
         <div>
           <TextField
+            key={fields.ownerStreet.key}
+            id={fields.ownerStreet.id}
+            name={fields.ownerStreet.name}
+            defaultValue={fields.ownerStreet.initialValue ?? ''}
             type="text"
-            value={formData.ownerStreet}
-            onChange={(e) => updateField('ownerStreet', e.target.value)}
             aria-label="Straße und Hausnummer"
-            aria-invalid={isFieldInvalid('ownerStreet')}
             placeholder="Straße, Hausnummer *"
-            invalid={isFieldInvalid('ownerStreet')}
+            invalid={Boolean(fields.ownerStreet.errors?.length)}
           />
+          <FieldError errors={fields.ownerStreet.errors} />
         </div>
 
         <div className="grid grid-cols-2 gap-6">
           <div>
             <TextField
-              type="number"
-              value={formData.ownerPostalCode}
-              onChange={(e) => updateField('ownerPostalCode', e.target.value)}
+              key={fields.ownerPostalCode.key}
+              id={fields.ownerPostalCode.id}
+              name={fields.ownerPostalCode.name}
+              defaultValue={fields.ownerPostalCode.initialValue ?? ''}
+              type="text"
               aria-label="Postleitzahl"
-              aria-invalid={isFieldInvalid('ownerPostalCode')}
               placeholder="PLZ *"
-              invalid={isFieldInvalid('ownerPostalCode')}
+              invalid={Boolean(fields.ownerPostalCode.errors?.length)}
               inputMode="numeric"
-              min={0}
-              step={1}
+              pattern="[0-9]*"
             />
+            <FieldError errors={fields.ownerPostalCode.errors} />
           </div>
           <div>
             <TextField
+              key={fields.ownerCity.key}
+              id={fields.ownerCity.id}
+              name={fields.ownerCity.name}
+              defaultValue={fields.ownerCity.initialValue ?? ''}
               type="text"
-              value={formData.ownerCity}
-              onChange={(e) => updateField('ownerCity', e.target.value)}
               aria-label="Ort"
-              aria-invalid={isFieldInvalid('ownerCity')}
               placeholder="Ort *"
-              invalid={isFieldInvalid('ownerCity')}
+              invalid={Boolean(fields.ownerCity.errors?.length)}
             />
+            <FieldError errors={fields.ownerCity.errors} />
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <TextField
+              key={fields.ownerPhone.key}
+              id={fields.ownerPhone.id}
+              name={fields.ownerPhone.name}
+              defaultValue={fields.ownerPhone.initialValue ?? ''}
               type="tel"
-              value={formData.ownerPhone}
-              onChange={(e) => updateField('ownerPhone', e.target.value)}
               aria-label="Telefon"
-              aria-invalid={isFieldInvalid('ownerPhone')}
               placeholder="Telefon *"
-              invalid={isFieldInvalid('ownerPhone')}
+              invalid={Boolean(fields.ownerPhone.errors?.length)}
             />
+            <FieldError errors={fields.ownerPhone.errors} />
           </div>
           <div>
             <TextField
+              key={fields.ownerEmail.key}
+              id={fields.ownerEmail.id}
+              name={fields.ownerEmail.name}
+              defaultValue={fields.ownerEmail.initialValue ?? ''}
               type="email"
-              value={formData.ownerEmail}
-              onChange={(e) => updateField('ownerEmail', e.target.value)}
               aria-label="E-Mail"
               placeholder="E-Mail"
-              invalid={false}
+              invalid={Boolean(fields.ownerEmail.errors?.length)}
             />
+            <FieldError errors={fields.ownerEmail.errors} />
           </div>
         </div>
       </div>

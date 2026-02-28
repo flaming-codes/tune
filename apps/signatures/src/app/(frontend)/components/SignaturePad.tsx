@@ -71,6 +71,14 @@ export function SignaturePad({ value, onChange, error, disabled }: SignaturePadP
     }
   }, [])
 
+  // Clear canvas when value is externally reset (e.g. form reset)
+  useEffect(() => {
+    if (!value && canvasRef.current) {
+      canvasRef.current.clear()
+      fillCanvasBackground(canvasRef.current.getCanvas(), canvasBackground)
+    }
+  }, [value, canvasBackground])
+
   const handleClear = useCallback(() => {
     if (canvasRef.current) {
       canvasRef.current.clear()
