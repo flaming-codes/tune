@@ -1,13 +1,7 @@
 'use client'
 
 import React, { useRef, useMemo, useSyncExternalStore } from 'react'
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from 'motion/react'
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { PayloadImage } from '@/components/PayloadImage'
 import type { Media } from '@/payload-types'
@@ -46,11 +40,7 @@ function RevealLine({
   const lineProgress = useTransform(progress, [lineStart, lineEnd], [0, 1])
   const opacity = useTransform(lineProgress, [0, 1], [0, 1])
   const y = useTransform(lineProgress, [0, 1], [30, 0])
-  const filter = useTransform(lineProgress, [0, 0.5, 1], [
-    'blur(4px)',
-    'blur(1px)',
-    'blur(0px)',
-  ])
+  const filter = useTransform(lineProgress, [0, 0.5, 1], ['blur(4px)', 'blur(1px)', 'blur(0px)'])
 
   return (
     <motion.span className="block" style={{ opacity, y, filter }}>
@@ -66,10 +56,7 @@ function StaticEditorial({ content }: EditorialRevealProps) {
   return (
     <section className="py-24 lg:py-36">
       <div
-        className={cn(
-          'max-w-7xl mx-auto px-6 lg:px-12',
-          alignment === 'center' && 'text-center',
-        )}
+        className={cn('max-w-7xl mx-auto px-6 lg:px-12', alignment === 'center' && 'text-center')}
       >
         <p
           className={cn(
@@ -80,9 +67,7 @@ function StaticEditorial({ content }: EditorialRevealProps) {
           {content.text}
         </p>
 
-        {content.showDivider && (
-          <hr className="theme-border-primary mt-12 mb-8 max-w-xs mx-auto" />
-        )}
+        {content.showDivider && <hr className="theme-border-primary mt-12 mb-8 max-w-xs mx-auto" />}
 
         {(content.authorName || authorPhoto) && (
           <div
@@ -93,7 +78,13 @@ function StaticEditorial({ content }: EditorialRevealProps) {
           >
             {authorPhoto && (
               <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0">
-                <PayloadImage media={authorPhoto} size="thumbnail" fill className="object-cover" alt="" />
+                <PayloadImage
+                  media={authorPhoto}
+                  size="thumbnail"
+                  fill
+                  className="object-cover"
+                  alt=""
+                />
               </div>
             )}
             <div className={alignment === 'center' ? 'text-center' : ''}>
@@ -166,12 +157,7 @@ function AnimatedEditorial({ content, sectionRef, lines }: AnimatedEditorialProp
           </p>
 
           {content.showDivider && (
-            <div
-              className={cn(
-                'mt-12 mb-8',
-                alignment === 'center' ? 'flex justify-center' : '',
-              )}
-            >
+            <div className={cn('mt-12 mb-8', alignment === 'center' ? 'flex justify-center' : '')}>
               <motion.div
                 className="h-px theme-bg-primary bg-[var(--border-primary)]"
                 style={{ width: dividerWidth, maxWidth: '20rem' }}
@@ -225,9 +211,7 @@ export function EditorialReveal({ content }: EditorialRevealProps) {
 
   // Split text into lines by sentence boundaries for natural reading rhythm
   const lines = useMemo(() => {
-    return content.text
-      .split(/(?<=[.!?])\s+/)
-      .filter((line) => line.trim().length > 0)
+    return content.text.split(/(?<=[.!?])\s+/).filter((line) => line.trim().length > 0)
   }, [content.text])
 
   // Return static version during SSR to prevent hydration mismatch

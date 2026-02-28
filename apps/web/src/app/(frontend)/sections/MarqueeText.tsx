@@ -150,13 +150,7 @@ export function MarqueeText({ content }: MarqueeTextProps) {
     >
       <motion.div ref={trackRef} className="flex items-center" style={{ x }}>
         {Array.from({ length: repeatCount }).map((_, i) => (
-          <MarqueeItem
-            key={i}
-            text={content.text}
-            separator={separator}
-            style={style}
-            index={i}
-          />
+          <MarqueeItem key={i} text={content.text} separator={separator} style={style} index={i} />
         ))}
         {/* Duplicate set for seamless loop */}
         {Array.from({ length: repeatCount }).map((_, i) => (

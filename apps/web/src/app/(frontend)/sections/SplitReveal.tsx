@@ -1,13 +1,7 @@
 'use client'
 
 import React, { useRef, useSyncExternalStore } from 'react'
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from 'motion/react'
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react'
 import { PayloadImage } from '@/components/PayloadImage'
 import type { Media } from '@/payload-types'
 
@@ -54,15 +48,12 @@ function RevealImage({
     // Fully visible when this is the active item
     if (distance >= -0.5 && distance <= 0.5) return 1
     // Partially visible during transition
-    if (distance > -1.5 && distance < -0.5) return Math.max(0, (distance + 1.5))
+    if (distance > -1.5 && distance < -0.5) return Math.max(0, distance + 1.5)
     if (distance > 0.5 && distance < 1.5) return Math.max(0, 1 - (distance - 0.5))
     return 0
   })
 
-  const clipPath = useTransform(
-    clipProgress,
-    (p) => `inset(${(1 - p) * 100}% 0 0 0)`,
-  )
+  const clipPath = useTransform(clipProgress, (p) => `inset(${(1 - p) * 100}% 0 0 0)`)
 
   const opacity = useTransform(clipProgress, [0, 0.3, 1], [0, 1, 1])
 
@@ -75,13 +66,7 @@ function RevealImage({
         zIndex: index,
       }}
     >
-      <PayloadImage
-        media={media}
-        size="hero"
-        fill
-        className="object-cover"
-        alt=""
-      />
+      <PayloadImage media={media} size="hero" fill className="object-cover" alt="" />
     </motion.div>
   )
 }
@@ -145,7 +130,10 @@ function StaticSplitReveal({ content }: SplitRevealProps) {
           {content.items.map((item, index) => {
             const media = isMedia(item.image) ? item.image : null
             return (
-              <div key={item.id || index} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+              <div
+                key={item.id || index}
+                className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16"
+              >
                 {media && (
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <PayloadImage media={media} size="hero" fill className="object-cover" alt="" />
@@ -217,11 +205,19 @@ function AnimatedSplitReveal({ content, sectionRef }: AnimatedSplitRevealProps) 
               })}
               {/* First image as fallback base layer */}
               {(() => {
-                const firstMedia = isMedia(content.items[0]?.image) ? content.items[0].image as Media : null
+                const firstMedia = isMedia(content.items[0]?.image)
+                  ? (content.items[0].image as Media)
+                  : null
                 if (!firstMedia) return null
                 return (
                   <div className="absolute inset-0" style={{ zIndex: -1 }}>
-                    <PayloadImage media={firstMedia} size="hero" fill className="object-cover" alt="" />
+                    <PayloadImage
+                      media={firstMedia}
+                      size="hero"
+                      fill
+                      className="object-cover"
+                      alt=""
+                    />
                   </div>
                 )
               })()}

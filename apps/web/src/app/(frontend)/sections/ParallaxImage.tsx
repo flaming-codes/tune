@@ -136,15 +136,9 @@ function ParallaxImageClient({
   const textY = useTransform(scrollYProgress, [0.1, 0.3], [20, 0])
 
   return (
-    <section
-      ref={sectionRef}
-      className={cn('relative overflow-hidden', HEIGHT_MAP[height])}
-    >
+    <section ref={sectionRef} className={cn('relative overflow-hidden', HEIGHT_MAP[height])}>
       {/* Parallax image container — 120% tall to allow movement */}
-      <motion.div
-        className="absolute inset-x-0 -top-[10%] h-[120%]"
-        style={{ y }}
-      >
+      <motion.div className="absolute inset-x-0 -top-[10%] h-[120%]" style={{ y }}>
         <PayloadImage
           media={media}
           size="hero"

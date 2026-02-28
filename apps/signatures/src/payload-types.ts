@@ -59,91 +59,95 @@ export type SupportedTimezones =
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
   | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+  | 'Pacific/Fiji'
 
 export interface Config {
   auth: {
-    users: UserAuthOperations;
-  };
-  blocks: {};
+    users: UserAuthOperations
+  }
+  blocks: {}
   collections: {
-    users: User;
-    'privacy-acknowledgments': PrivacyAcknowledgment;
-    'screensaver-images': ScreensaverImage;
-    'payload-kv': PayloadKv;
-    'payload-locked-documents': PayloadLockedDocument;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
-  };
-  collectionsJoins: {};
+    users: User
+    'privacy-acknowledgments': PrivacyAcknowledgment
+    'screensaver-images': ScreensaverImage
+    'payload-kv': PayloadKv
+    'payload-locked-documents': PayloadLockedDocument
+    'payload-preferences': PayloadPreference
+    'payload-migrations': PayloadMigration
+  }
+  collectionsJoins: {}
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
-    'privacy-acknowledgments': PrivacyAcknowledgmentsSelect<false> | PrivacyAcknowledgmentsSelect<true>;
-    'screensaver-images': ScreensaverImagesSelect<false> | ScreensaverImagesSelect<true>;
-    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
-  };
+    users: UsersSelect<false> | UsersSelect<true>
+    'privacy-acknowledgments':
+      | PrivacyAcknowledgmentsSelect<false>
+      | PrivacyAcknowledgmentsSelect<true>
+    'screensaver-images': ScreensaverImagesSelect<false> | ScreensaverImagesSelect<true>
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>
+    'payload-locked-documents':
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>
+  }
   db: {
-    defaultIDType: number;
-  };
-  fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
-  locale: null;
+    defaultIDType: number
+  }
+  fallbackLocale: null
+  globals: {}
+  globalsSelect: {}
+  locale: null
   widgets: {
-    'network-info': NetworkInfoWidget;
-    collections: CollectionsWidget;
-  };
-  user: User;
+    'network-info': NetworkInfoWidget
+    collections: CollectionsWidget
+  }
+  user: User
   jobs: {
-    tasks: unknown;
-    workflows: unknown;
-  };
+    tasks: unknown
+    workflows: unknown
+  }
 }
 export interface UserAuthOperations {
   forgotPassword: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   login: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   registerFirstUser: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   unlock: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
+  id: number
+  updatedAt: string
+  createdAt: string
+  email: string
+  resetPasswordToken?: string | null
+  resetPasswordExpiration?: string | null
+  salt?: string | null
+  hash?: string | null
+  loginAttempts?: number | null
+  lockUntil?: string | null
   sessions?:
     | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
+        id: string
+        createdAt?: string | null
+        expiresAt: string
       }[]
-    | null;
-  password?: string | null;
-  collection: 'users';
+    | null
+  password?: string | null
+  collection: 'users'
 }
 /**
  * Datenschutzerklärungen von Patientenbesitzern. Hier werden alle digital unterschriebenen Einverständniserklärungen gespeichert.
@@ -152,43 +156,43 @@ export interface User {
  * via the `definition` "privacy-acknowledgments".
  */
 export interface PrivacyAcknowledgment {
-  id: number;
-  ownerLastName: string;
-  ownerFirstName: string;
-  ownerFullName?: string | null;
-  ownerTitle?: string | null;
-  ownerDateOfBirth?: string | null;
-  ownerStreet: string;
-  ownerPostalCode: string;
-  ownerCity: string;
-  ownerPhone: string;
-  ownerEmail?: string | null;
-  patientName: string;
-  patientAnimalType: 'dog' | 'cat' | 'other';
-  patientGender?: ('male' | 'female' | 'neutered') | null;
-  patientBreed?: string | null;
-  patientColor?: string | null;
-  patientDateOfBirth?: string | null;
-  patientWeight?: string | null;
+  id: number
+  ownerLastName: string
+  ownerFirstName: string
+  ownerFullName?: string | null
+  ownerTitle?: string | null
+  ownerDateOfBirth?: string | null
+  ownerStreet: string
+  ownerPostalCode: string
+  ownerCity: string
+  ownerPhone: string
+  ownerEmail?: string | null
+  patientName: string
+  patientAnimalType: 'dog' | 'cat' | 'other'
+  patientGender?: ('male' | 'female' | 'neutered') | null
+  patientBreed?: string | null
+  patientColor?: string | null
+  patientDateOfBirth?: string | null
+  patientWeight?: string | null
   /**
    * Allergien, Unverträglichkeiten, Verhaltensauffälligkeiten, usw.
    */
-  patientSpecialNotes?: string | null;
-  signedAt: string;
+  patientSpecialNotes?: string | null
+  signedAt: string
   /**
    * Die digitale Unterschrift als Base64 Data URL
    */
-  signatureDataUrl: string;
+  signatureDataUrl: string
   /**
    * Zur Audit-Trail (optional)
    */
-  clientIp?: string | null;
+  clientIp?: string | null
   /**
    * Browser-Information (optional)
    */
-  userAgent?: string | null;
-  updatedAt: string;
-  createdAt: string;
+  userAgent?: string | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * Bilder für den Bildschirmschoner im Wartebereich.
@@ -197,259 +201,259 @@ export interface PrivacyAcknowledgment {
  * via the `definition` "screensaver-images".
  */
 export interface ScreensaverImage {
-  id: number;
-  title: string;
+  id: number
+  title: string
   /**
    * Nur aktive Bilder werden im Bildschirmschoner angezeigt.
    */
-  active?: boolean | null;
+  active?: boolean | null
   /**
    * Höhere Zahlen werden später angezeigt (aufsteigend sortiert).
    */
-  displayOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
+  displayOrder?: number | null
+  updatedAt: string
+  createdAt: string
+  url?: string | null
+  thumbnailURL?: string | null
+  filename?: string | null
+  mimeType?: string | null
+  filesize?: number | null
+  width?: number | null
+  height?: number | null
+  focalX?: number | null
+  focalY?: number | null
   sizes?: {
     thumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      mimeType?: string | null
+      filesize?: number | null
+      filename?: string | null
+    }
     fullscreen?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      mimeType?: string | null
+      filesize?: number | null
+      filename?: string | null
+    }
+  }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: number;
-  key: string;
+  id: number
+  key: string
   data:
     | {
-        [k: string]: unknown;
+        [k: string]: unknown
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null;
+    | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: number;
+  id: number
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'users'
+        value: number | User
       } | null)
     | ({
-        relationTo: 'privacy-acknowledgments';
-        value: number | PrivacyAcknowledgment;
+        relationTo: 'privacy-acknowledgments'
+        value: number | PrivacyAcknowledgment
       } | null)
     | ({
-        relationTo: 'screensaver-images';
-        value: number | ScreensaverImage;
-      } | null);
-  globalSlug?: string | null;
+        relationTo: 'screensaver-images'
+        value: number | ScreensaverImage
+      } | null)
+  globalSlug?: string | null
   user: {
-    relationTo: 'users';
-    value: number | User;
-  };
-  updatedAt: string;
-  createdAt: string;
+    relationTo: 'users'
+    value: number | User
+  }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: number
   user: {
-    relationTo: 'users';
-    value: number | User;
-  };
-  key?: string | null;
+    relationTo: 'users'
+    value: number | User
+  }
+  key?: string | null
   value?:
     | {
-        [k: string]: unknown;
+        [k: string]: unknown
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
+    | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
-  name?: string | null;
-  batch?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  id: number
+  name?: string | null
+  batch?: number | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
+  updatedAt?: T
+  createdAt?: T
+  email?: T
+  resetPasswordToken?: T
+  resetPasswordExpiration?: T
+  salt?: T
+  hash?: T
+  loginAttempts?: T
+  lockUntil?: T
   sessions?:
     | T
     | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
+        id?: T
+        createdAt?: T
+        expiresAt?: T
+      }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "privacy-acknowledgments_select".
  */
 export interface PrivacyAcknowledgmentsSelect<T extends boolean = true> {
-  ownerLastName?: T;
-  ownerFirstName?: T;
-  ownerFullName?: T;
-  ownerTitle?: T;
-  ownerDateOfBirth?: T;
-  ownerStreet?: T;
-  ownerPostalCode?: T;
-  ownerCity?: T;
-  ownerPhone?: T;
-  ownerEmail?: T;
-  patientName?: T;
-  patientAnimalType?: T;
-  patientGender?: T;
-  patientBreed?: T;
-  patientColor?: T;
-  patientDateOfBirth?: T;
-  patientWeight?: T;
-  patientSpecialNotes?: T;
-  signedAt?: T;
-  signatureDataUrl?: T;
-  clientIp?: T;
-  userAgent?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  ownerLastName?: T
+  ownerFirstName?: T
+  ownerFullName?: T
+  ownerTitle?: T
+  ownerDateOfBirth?: T
+  ownerStreet?: T
+  ownerPostalCode?: T
+  ownerCity?: T
+  ownerPhone?: T
+  ownerEmail?: T
+  patientName?: T
+  patientAnimalType?: T
+  patientGender?: T
+  patientBreed?: T
+  patientColor?: T
+  patientDateOfBirth?: T
+  patientWeight?: T
+  patientSpecialNotes?: T
+  signedAt?: T
+  signatureDataUrl?: T
+  clientIp?: T
+  userAgent?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "screensaver-images_select".
  */
 export interface ScreensaverImagesSelect<T extends boolean = true> {
-  title?: T;
-  active?: T;
-  displayOrder?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
+  title?: T
+  active?: T
+  displayOrder?: T
+  updatedAt?: T
+  createdAt?: T
+  url?: T
+  thumbnailURL?: T
+  filename?: T
+  mimeType?: T
+  filesize?: T
+  width?: T
+  height?: T
+  focalX?: T
+  focalY?: T
   sizes?:
     | T
     | {
         thumbnail?:
           | T
           | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
+              url?: T
+              width?: T
+              height?: T
+              mimeType?: T
+              filesize?: T
+              filename?: T
+            }
         fullscreen?:
           | T
           | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-      };
+              url?: T
+              width?: T
+              height?: T
+              mimeType?: T
+              filesize?: T
+              filename?: T
+            }
+      }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
-  key?: T;
-  data?: T;
+  key?: T
+  data?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-  document?: T;
-  globalSlug?: T;
-  user?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  document?: T
+  globalSlug?: T
+  user?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences_select".
  */
 export interface PayloadPreferencesSelect<T extends boolean = true> {
-  user?: T;
-  key?: T;
-  value?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  user?: T
+  key?: T
+  value?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations_select".
  */
 export interface PayloadMigrationsSelect<T extends boolean = true> {
-  name?: T;
-  batch?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  name?: T
+  batch?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -457,9 +461,9 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface NetworkInfoWidget {
   data?: {
-    [k: string]: unknown;
-  };
-  width: 'medium' | 'large' | 'x-large' | 'full';
+    [k: string]: unknown
+  }
+  width: 'medium' | 'large' | 'x-large' | 'full'
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -467,18 +471,17 @@ export interface NetworkInfoWidget {
  */
 export interface CollectionsWidget {
   data?: {
-    [k: string]: unknown;
-  };
-  width: 'full';
+    [k: string]: unknown
+  }
+  width: 'full'
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-  [k: string]: unknown;
+  [k: string]: unknown
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

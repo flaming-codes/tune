@@ -110,9 +110,5 @@ export function Footer({ practiceName, footer, contact, navLinks }: FooterProps)
 }
 
 export function FooterWrapper({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="relative z-10 theme-bg-primary shadow-2xl">
-      {children}
-    </div>
-  )
+  return <div className="relative z-10 theme-bg-primary shadow-2xl">{children}</div>
 }

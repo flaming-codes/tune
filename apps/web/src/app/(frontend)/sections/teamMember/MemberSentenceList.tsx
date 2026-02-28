@@ -39,15 +39,17 @@ function ScrollItem({
 
   const opacity = useTransform(y, [-fadeStart, -holdHalf, holdHalf, fadeStart], [0, 1, 1, 0])
 
-  const filter = useTransform(y, [-fadeStart, -holdHalf, holdHalf, fadeStart], [
-    `blur(${BLUR_MAX}px)`,
-    'blur(0px)',
-    'blur(0px)',
-    `blur(${BLUR_MAX}px)`,
-  ])
+  const filter = useTransform(
+    y,
+    [-fadeStart, -holdHalf, holdHalf, fadeStart],
+    [`blur(${BLUR_MAX}px)`, 'blur(0px)', 'blur(0px)', `blur(${BLUR_MAX}px)`],
+  )
 
   return (
-    <motion.span className="col-start-1 row-start-1 theme-text-tertiary" style={{ y, opacity, filter }}>
+    <motion.span
+      className="col-start-1 row-start-1 theme-text-tertiary"
+      style={{ y, opacity, filter }}
+    >
       {text}
     </motion.span>
   )

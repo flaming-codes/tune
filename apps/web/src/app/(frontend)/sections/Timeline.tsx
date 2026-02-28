@@ -44,9 +44,7 @@ function TimelineEventCard({
   return (
     <motion.div
       ref={ref}
-      className={cn(
-        'relative grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-4 lg:gap-8',
-      )}
+      className={cn('relative grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-4 lg:gap-8')}
       initial={prefersReducedMotion ? undefined : { opacity: 0, x: isLeft ? -30 : 30 }}
       animate={isInView ? { opacity: 1, x: 0 } : undefined}
       transition={{
@@ -84,12 +82,7 @@ function TimelineEventCard({
       </div>
 
       {/* Right content (or empty on left-side events) */}
-      <div
-        className={cn(
-          !isLeft && 'lg:order-3',
-          isLeft && 'lg:order-3 hidden lg:block',
-        )}
-      >
+      <div className={cn(!isLeft && 'lg:order-3', isLeft && 'lg:order-3 hidden lg:block')}>
         {!isLeft ? (
           <EventContent event={event} imageMedia={imageMedia} />
         ) : (
@@ -107,13 +100,7 @@ function TimelineEventCard({
   )
 }
 
-function EventContent({
-  event,
-  imageMedia,
-}: {
-  event: TimelineEvent
-  imageMedia: Media | null
-}) {
+function EventContent({ event, imageMedia }: { event: TimelineEvent; imageMedia: Media | null }) {
   return (
     <div className="pb-12 lg:pb-16">
       <span className="text-sm tabular-nums font-medium theme-text-muted mb-2 block">

@@ -1,13 +1,7 @@
 'use client'
 
 import React, { useRef, useSyncExternalStore } from 'react'
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from 'motion/react'
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { PayloadImage } from '@/components/PayloadImage'
 import type { Media } from '@/payload-types'

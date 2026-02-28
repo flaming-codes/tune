@@ -76,21 +76,31 @@ function ComparisonSlider({ pair }: { pair: ComparisonPair }) {
       <div className="space-y-2">
         <div className="grid grid-cols-2 gap-4">
           <div className="relative aspect-[4/3] overflow-hidden">
-            <PayloadImage media={beforeMedia} size="card" fill className="object-cover" alt={pair.beforeLabel || 'Vorher'} />
+            <PayloadImage
+              media={beforeMedia}
+              size="card"
+              fill
+              className="object-cover"
+              alt={pair.beforeLabel || 'Vorher'}
+            />
             <span className="absolute bottom-3 left-3 text-xs font-medium text-white bg-black/50 px-2 py-1">
               {pair.beforeLabel || 'Vorher'}
             </span>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden">
-            <PayloadImage media={afterMedia} size="card" fill className="object-cover" alt={pair.afterLabel || 'Nachher'} />
+            <PayloadImage
+              media={afterMedia}
+              size="card"
+              fill
+              className="object-cover"
+              alt={pair.afterLabel || 'Nachher'}
+            />
             <span className="absolute bottom-3 right-3 text-xs font-medium text-white bg-black/50 px-2 py-1">
               {pair.afterLabel || 'Nachher'}
             </span>
           </div>
         </div>
-        {pair.caption && (
-          <p className="text-sm theme-text-secondary">{pair.caption}</p>
-        )}
+        {pair.caption && <p className="text-sm theme-text-secondary">{pair.caption}</p>}
       </div>
     )
   }
@@ -166,9 +176,7 @@ function ComparisonSlider({ pair }: { pair: ComparisonPair }) {
         </span>
       </div>
 
-      {pair.caption && (
-        <p className="text-sm theme-text-secondary">{pair.caption}</p>
-      )}
+      {pair.caption && <p className="text-sm theme-text-secondary">{pair.caption}</p>}
     </div>
   )
 }
@@ -198,9 +206,7 @@ export function BeforeAfter({ content }: BeforeAfterProps) {
         <div
           className={cn(
             'grid gap-8 lg:gap-12',
-            content.pairs.length === 1
-              ? 'max-w-4xl mx-auto'
-              : 'grid-cols-1 lg:grid-cols-2',
+            content.pairs.length === 1 ? 'max-w-4xl mx-auto' : 'grid-cols-1 lg:grid-cols-2',
           )}
         >
           {content.pairs.map((pair, index) => (

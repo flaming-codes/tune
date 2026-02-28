@@ -36,12 +36,14 @@ export const TimelineBlock: Block = {
         {
           year: '2008',
           title: 'Praxisgründung',
-          description: 'Eröffnung der Tierarztpraxis mit dem Ziel, eine persönliche und moderne tiermedizinische Versorgung zu bieten.',
+          description:
+            'Eröffnung der Tierarztpraxis mit dem Ziel, eine persönliche und moderne tiermedizinische Versorgung zu bieten.',
         },
         {
           year: '2015',
           title: 'Umzug in neue Räumlichkeiten',
-          description: 'Größere Praxisräume mit modernster Ausstattung für eine noch bessere Betreuung.',
+          description:
+            'Größere Praxisräume mit modernster Ausstattung für eine noch bessere Betreuung.',
         },
         {
           year: '2020',
