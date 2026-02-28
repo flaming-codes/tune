@@ -10,8 +10,16 @@ import { Gallery } from './Gallery'
 import { Team } from './Team'
 import { Hours } from './Hours'
 import { Contact } from './Contact'
+import { EditorialReveal } from './EditorialReveal'
 import { ContactFormSection } from './ContactFormSection'
 import { Accordion } from './Accordion'
+import { BeforeAfter } from './BeforeAfter'
+import { MarqueeText } from './MarqueeText'
+import { Metrics } from './Metrics'
+import { ParallaxImage } from './ParallaxImage'
+import { SplitReveal } from './SplitReveal'
+import { StackingCards } from './StackingCards'
+import { Timeline } from './Timeline'
 import { MemberHero } from './teamMember/MemberHero'
 import { MemberCv } from './teamMember/MemberCv'
 import { MemberSentenceList } from './teamMember/MemberSentenceList'
@@ -200,6 +208,133 @@ export function RenderLayoutBlock({
             })),
             allowMultipleOpen: block.allowMultipleOpen,
             alignment: block.alignment,
+          }}
+        />
+      )
+    case 'metrics':
+      return (
+        <Metrics
+          key={key}
+          content={{
+            eyebrow: block.eyebrow,
+            headline: block.headline,
+            description: block.description,
+            items: (block.items || []).map((item) => ({
+              id: item.id,
+              value: item.value,
+              suffix: item.suffix,
+              label: item.label,
+            })),
+            variant: block.variant,
+          }}
+        />
+      )
+    case 'timeline':
+      return (
+        <Timeline
+          key={key}
+          content={{
+            eyebrow: block.eyebrow,
+            headline: block.headline,
+            events: (block.events || []).map((event) => ({
+              id: event.id,
+              year: event.year,
+              title: event.title,
+              description: event.description,
+              image: event.image,
+            })),
+          }}
+        />
+      )
+    case 'beforeAfter':
+      return (
+        <BeforeAfter
+          key={key}
+          content={{
+            eyebrow: block.eyebrow,
+            headline: block.headline,
+            description: block.description,
+            pairs: (block.pairs || []).map((pair) => ({
+              id: pair.id,
+              beforeImage: pair.beforeImage,
+              afterImage: pair.afterImage,
+              beforeLabel: pair.beforeLabel,
+              afterLabel: pair.afterLabel,
+              caption: pair.caption,
+            })),
+          }}
+        />
+      )
+    case 'editorialReveal':
+      return (
+        <EditorialReveal
+          key={key}
+          content={{
+            text: block.text,
+            authorName: block.authorName,
+            authorRole: block.authorRole,
+            authorPhoto: block.authorPhoto,
+            alignment: block.alignment,
+            showDivider: block.showDivider,
+          }}
+        />
+      )
+    case 'parallaxImage':
+      return (
+        <ParallaxImage
+          key={key}
+          content={{
+            image: block.image,
+            headline: block.headline,
+            subtext: block.subtext,
+            overlayOpacity: block.overlayOpacity,
+            height: block.height,
+          }}
+        />
+      )
+    case 'splitReveal':
+      return (
+        <SplitReveal
+          key={key}
+          content={{
+            eyebrow: block.eyebrow,
+            headline: block.headline,
+            items: (block.items || []).map((item) => ({
+              id: item.id,
+              title: item.title,
+              description: item.description,
+              image: item.image,
+            })),
+          }}
+        />
+      )
+    case 'stackingCards':
+      return (
+        <StackingCards
+          key={key}
+          content={{
+            eyebrow: block.eyebrow,
+            headline: block.headline,
+            description: block.description,
+            steps: (block.steps || []).map((step) => ({
+              id: step.id,
+              title: step.title,
+              description: step.description,
+              icon: step.icon,
+            })),
+          }}
+        />
+      )
+    case 'marqueeText':
+      return (
+        <MarqueeText
+          key={key}
+          content={{
+            text: block.text,
+            separator: block.separator,
+            style: block.style,
+            speed: block.speed,
+            direction: block.direction,
           }}
         />
       )

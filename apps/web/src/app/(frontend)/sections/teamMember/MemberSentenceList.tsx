@@ -79,26 +79,18 @@ function StaticSentence({
 
 const emptySubscribe = () => () => {}
 
-export function MemberSentenceList({ content }: MemberSentenceListProps) {
-  const prefersReducedMotion = useReducedMotion()
-  const mounted = useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false,
-  )
+interface AnimatedSentenceListProps extends MemberSentenceListProps {
+  sectionRef: React.RefObject<HTMLDivElement | null>
+}
+
+function AnimatedSentenceList({ content, sectionRef }: AnimatedSentenceListProps) {
   const { sentenceStart, items } = content
-  const sectionRef = useRef<HTMLDivElement>(null)
+  const scrollPx = (items.length - 1) * SCROLL_STEP
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end end'],
   })
-
-  if (items.length <= 1 || (mounted && prefersReducedMotion)) {
-    return <StaticSentence sentenceStart={sentenceStart} items={items} />
-  }
-
-  const scrollPx = (items.length - 1) * SCROLL_STEP
 
   return (
     <section
@@ -126,4 +118,22 @@ export function MemberSentenceList({ content }: MemberSentenceListProps) {
       </div>
     </section>
   )
+}
+
+export function MemberSentenceList({ content }: MemberSentenceListProps) {
+  const prefersReducedMotion = useReducedMotion()
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  )
+  const { sentenceStart, items } = content
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  // Return static version during SSR to prevent hydration mismatch
+  if (items.length <= 1 || !mounted || prefersReducedMotion) {
+    return <StaticSentence sentenceStart={sentenceStart} items={items} />
+  }
+
+  return <AnimatedSentenceList content={content} sectionRef={sectionRef} />
 }
