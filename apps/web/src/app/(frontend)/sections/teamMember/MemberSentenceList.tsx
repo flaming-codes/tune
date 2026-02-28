@@ -18,7 +18,7 @@ interface MemberSentenceListProps {
 const SCROLL_STEP = 250
 const ITEM_GAP = 64
 const BLUR_MAX = 8
-const FADE_RANGE = 0.6
+const HOLD_PX = 60
 
 function ScrollItem({
   text,
@@ -34,15 +34,17 @@ function ScrollItem({
   const span = Math.max(itemCount - 1, 1)
   const y = useTransform(progress, (p) => (index - p * span) * ITEM_GAP)
 
-  const opacity = useTransform(y, (yPx) => {
-    const d = Math.abs(yPx) / ITEM_GAP
-    return Math.max(0, 1 - d / FADE_RANGE)
-  })
+  const holdHalf = HOLD_PX / 2
+  const fadeStart = ITEM_GAP
 
-  const filter = useTransform(y, (yPx) => {
-    const d = Math.abs(yPx) / ITEM_GAP
-    return `blur(${Math.min((d / FADE_RANGE) * BLUR_MAX, BLUR_MAX)}px)`
-  })
+  const opacity = useTransform(y, [-fadeStart, -holdHalf, holdHalf, fadeStart], [0, 1, 1, 0])
+
+  const filter = useTransform(y, [-fadeStart, -holdHalf, holdHalf, fadeStart], [
+    `blur(${BLUR_MAX}px)`,
+    'blur(0px)',
+    'blur(0px)',
+    `blur(${BLUR_MAX}px)`,
+  ])
 
   return (
     <motion.span className="col-start-1 row-start-1 theme-text-tertiary" style={{ y, opacity, filter }}>
