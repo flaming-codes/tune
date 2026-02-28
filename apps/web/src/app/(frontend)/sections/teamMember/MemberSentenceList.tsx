@@ -18,7 +18,7 @@ interface MemberSentenceListProps {
 const SCROLL_STEP = 250
 const ITEM_GAP = 64
 const BLUR_MAX = 8
-const FADE_RANGE = 2
+const FADE_RANGE = 0.6
 
 function ScrollItem({
   text,
@@ -45,7 +45,7 @@ function ScrollItem({
   })
 
   return (
-    <motion.span className="col-start-1 row-start-1" style={{ y, opacity, filter }}>
+    <motion.span className="col-start-1 row-start-1 theme-text-tertiary" style={{ y, opacity, filter }}>
       {text}
     </motion.span>
   )
@@ -61,7 +61,7 @@ function StaticSentence({
   return (
     <section className="py-20 lg:py-32 theme-bg-primary">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <p className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight-custom leading-tight theme-text-primary">
+        <p className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold tracking-tight-custom leading-tight theme-text-primary">
           {sentenceStart}{' '}
           {items.map((item, i) => (
             <React.Fragment key={item.id || `item-${i}`}>
@@ -106,7 +106,7 @@ export function MemberSentenceList({ content }: MemberSentenceListProps) {
     >
       <div className="sticky top-0 h-screen flex items-center">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
-          <p className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight-custom leading-tight theme-text-primary">
+          <p className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold tracking-tight-custom leading-tight theme-text-primary">
             {sentenceStart}{' '}
             <span className="inline-grid align-baseline">
               {items.map((item, i) => (
