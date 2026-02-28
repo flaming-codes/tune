@@ -59,3 +59,36 @@ test-results/
 playwright-report/
 blob-report/
 playwright/.cache/
+
+# Distributable output
+dist/
+*.exe
+
+# Agent skills — keep only .agents (canonical), .claude, .vscode
+.adal/
+.agent/
+.augment/
+.codebuddy/
+.commandcode/
+.continue/
+.crush/
+.factory/
+.goose/
+.iflow/
+.junie/
+.kilocode/
+.kiro/
+.kode/
+.mcpjam/
+.mux/
+.neovate/
+.openhands/
+.pi/
+.pochi/
+.qoder/
+.qwen/
+.roo/
+.trae/
+.vibe/
+.windsurf/
+.zencoder/

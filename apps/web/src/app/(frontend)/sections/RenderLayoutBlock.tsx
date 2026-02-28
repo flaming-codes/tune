@@ -14,6 +14,7 @@ import { ContactFormSection } from './ContactFormSection'
 import { Accordion } from './Accordion'
 import { MemberHero } from './teamMember/MemberHero'
 import { MemberCv } from './teamMember/MemberCv'
+import { MemberSentenceList } from './teamMember/MemberSentenceList'
 
 import type { GalleryImage, StartPage, TeamMember, Testimonial } from '@/payload-types'
 
@@ -233,6 +234,19 @@ export function RenderLayoutBlock({
               title: entry.title,
               institution: entry.institution,
               description: entry.description,
+            })),
+          }}
+        />
+      )
+    case 'memberSentenceList':
+      return (
+        <MemberSentenceList
+          key={key}
+          content={{
+            sentenceStart: block.sentenceStart,
+            items: (block.items || []).map((item) => ({
+              id: item.id,
+              text: item.text,
             })),
           }}
         />

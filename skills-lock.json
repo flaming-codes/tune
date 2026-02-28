@@ -1,6 +1,16 @@
 {
   "version": 1,
   "skills": {
+    "payload": {
+      "source": "payloadcms/skills",
+      "sourceType": "github",
+      "computedHash": "868c518cec5efe3862accee8ef3751b72fac06d7e12a27c263dc17320f27b20c"
+    },
+    "tailwind-v4": {
+      "source": "existential-birds/beagle",
+      "sourceType": "github",
+      "computedHash": "1765f9873060271fe9a0ba7c06465b8fbd6137a0a285a56cb5c38295c6057a5e"
+    },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",

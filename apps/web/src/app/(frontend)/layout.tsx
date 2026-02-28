@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import config from '@payload-config'
@@ -75,7 +75,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       <body
         className={`${inter.className} theme-bg-primary theme-text-primary antialiased theme-transition`}
       >
-        <AnalyticsTracker />
+        <Suspense fallback={null}>
+          <AnalyticsTracker />
+        </Suspense>
         {children}
       </body>
     </html>

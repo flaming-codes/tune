@@ -2,23 +2,10 @@
 
 import React from 'react'
 import { motion, useReducedMotion } from 'motion/react'
+import clsx from 'clsx'
 
 import { PayloadImage } from '@/components/PayloadImage'
 import type { Media } from '@/payload-types'
-
-/**
- * Get aspect ratio from media object for preserving original dimensions
- */
-function getImageAspectRatio(media: Media | number): string {
-  if (typeof media === 'number' || !media) return '16/9'
-
-  const width = media.width
-  const height = media.height
-
-  if (!width || !height) return '16/9'
-
-  return `${width}/${height}`
-}
 
 type HeroVariant = 'editorial' | 'immersive' | 'minimal'
 
@@ -37,25 +24,90 @@ interface MemberHeroProps {
   }
 }
 
-// ============================================================================
-// VARIANT 1: EDITORIAL (Default)
-// Large dominant image with overlapping text content
-// ============================================================================
-function EditorialVariant({
-  memberName,
-  memberRole,
-  content,
-  shouldReduceMotion,
-}: {
+type VariantProps = {
   memberName: string
   memberRole: string
   content: MemberHeroProps['content']
   shouldReduceMotion: boolean | null
+}
+
+function CoverImage({
+  media,
+  memberName,
+  className,
+  objectFit = 'cover',
+  size = 'hero',
+  dynamicAspect = false,
+  children,
+}: {
+  media: Media | number | null | undefined
+  memberName: string
+  className: string
+  objectFit?: 'cover' | 'contain'
+  size?: 'hero' | 'thumbnail'
+  dynamicAspect?: boolean
+  children?: React.ReactNode
 }) {
+  if (media) {
+    const style =
+      dynamicAspect && typeof media !== 'number' && media.width && media.height
+        ? { aspectRatio: `${media.width}/${media.height}` }
+        : undefined
+
+    return (
+      <div className={clsx('relative', className)} style={style}>
+        <PayloadImage
+          media={media}
+          size={size}
+          fill
+          className={`object-${objectFit}`}
+          priority
+          alt={`${memberName} - Portrait`}
+        />
+        {children}
+      </div>
+    )
+  }
+
+  return (
+    <div
+      className={clsx('image-placeholder', className)}
+      aria-label={`${memberName} - Platzhalter`}
+    />
+  )
+}
+
+function CtaPrimary({
+  href,
+  label,
+  shouldReduceMotion,
+  className,
+}: {
+  href: string
+  label: string
+  shouldReduceMotion: boolean | null
+  className?: string
+}) {
+  return (
+    <motion.a
+      href={href}
+      whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+      whileTap={shouldReduceMotion ? undefined : { y: 0 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
+      className={clsx(
+        'inline-flex items-center justify-center bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 text-sm font-medium',
+        className,
+      )}
+    >
+      {label}
+    </motion.a>
+  )
+}
+
+function EditorialVariant({ memberName, memberRole, content, shouldReduceMotion }: VariantProps) {
   return (
     <section className="pt-24 lg:pt-32 theme-bg-primary overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        {/* Top eyebrow row */}
         <div className="flex justify-between items-baseline mb-6 lg:mb-8">
           <p className="text-sm tracking-wide-custom uppercase theme-text-tertiary">
             {content.eyebrow}
@@ -64,39 +116,23 @@ function EditorialVariant({
             {memberName} · {memberRole}
           </p>
         </div>
-      </div>
 
-      {/* Main editorial grid */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-0 items-end">
-          {/* Image: Takes 7 columns */}
           <motion.div
             className="lg:col-span-7 relative"
             initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.98 }}
             animate={shouldReduceMotion ? undefined : { opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
-            {content.coverImage ? (
-              <div className="relative aspect-[3/4] lg:aspect-[4/5] overflow-hidden">
-                <PayloadImage
-                  media={content.coverImage}
-                  size="hero"
-                  fill
-                  className="object-cover"
-                  priority
-                  alt={`${memberName} - Portrait`}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
-              </div>
-            ) : (
-              <div
-                className="image-placeholder aspect-[3/4] lg:aspect-[4/5]"
-                aria-label={`${memberName} - Platzhalter`}
-              />
-            )}
+            <CoverImage
+              media={content.coverImage}
+              memberName={memberName}
+              className="aspect-3/4 lg:aspect-4/5 overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-linear-to-t from-black/10 via-transparent to-transparent" />
+            </CoverImage>
           </motion.div>
 
-          {/* Text content: Overlaps image on desktop */}
           <div className="lg:col-span-6 lg:col-start-7 lg:-ml-24 relative z-10">
             <motion.div
               className="theme-bg-primary lg:p-8 lg:pb-0"
@@ -107,27 +143,20 @@ function EditorialVariant({
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-medium tracking-tight-custom leading-[0.95]">
                 {content.headline}
               </h1>
-
               <p className="mt-5 lg:mt-6 text-lg lg:text-xl xl:text-2xl theme-text-secondary leading-relaxed">
                 {content.subheadline}
               </p>
-
               <p className="mt-4 lg:mt-5 text-base lg:text-lg leading-relaxed theme-text-secondary max-w-xl">
                 {content.description}
               </p>
-
               <div className="mt-8 lg:mt-10 flex flex-wrap items-center gap-4 lg:gap-6">
-                <motion.a
+                <CtaPrimary
                   href={content.ctaHref}
-                  whileHover={shouldReduceMotion ? undefined : { y: -2 }}
-                  whileTap={shouldReduceMotion ? undefined : { y: 0 }}
-                  transition={{ duration: 0.2, ease: 'easeOut' }}
-                  className="inline-flex items-center justify-center px-8 py-3.5 bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 text-sm font-medium tracking-wide"
-                >
-                  {content.ctaLabel}
-                </motion.a>
+                  label={content.ctaLabel}
+                  shouldReduceMotion={shouldReduceMotion}
+                  className="px-8 py-3.5 tracking-wide"
+                />
               </div>
-
               <p className="mt-6 text-sm theme-text-tertiary lg:hidden">
                 {memberName} · {memberRole}
               </p>
@@ -141,81 +170,42 @@ function EditorialVariant({
   )
 }
 
-// ============================================================================
-// VARIANT 2: IMMERSIVE
-// Container-width image at original aspect ratio, minimal content below
-// Best for: showcasing the full image within bounds, clean typography
-// ============================================================================
-function ImmersiveVariant({
-  memberName,
-  memberRole: _memberRole,
-  content,
-  shouldReduceMotion,
-}: {
-  memberName: string
-  memberRole: string
-  content: MemberHeroProps['content']
-  shouldReduceMotion: boolean | null
-}) {
+function ImmersiveVariant({ memberName, content, shouldReduceMotion }: VariantProps) {
   return (
     <section className="pt-12 lg:pt-20 theme-bg-primary">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        {/* Image: Edge-to-edge within container, original aspect ratio */}
         <motion.div
-          className="w-full"
           initial={shouldReduceMotion ? false : { opacity: 0 }}
           animate={shouldReduceMotion ? undefined : { opacity: 1 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
-          {content.coverImage ? (
-            <div
-              className="relative w-full"
-              style={{ aspectRatio: getImageAspectRatio(content.coverImage) }}
-            >
-              <PayloadImage
-                media={content.coverImage}
-                size="hero"
-                fill
-                className="object-contain"
-                priority
-                alt={`${memberName} - Portrait`}
-              />
-            </div>
-          ) : (
-            <div
-              className="w-full aspect-video image-placeholder"
-              aria-label={`${memberName} - Platzhalter`}
-            />
-          )}
+          <CoverImage
+            media={content.coverImage}
+            memberName={memberName}
+            className={content.coverImage ? 'w-full' : 'w-full aspect-video'}
+            objectFit="contain"
+            dynamicAspect
+          />
         </motion.div>
 
-        {/* Minimal content below: left aligned, restrained width */}
         <motion.div
           className="max-w-xl mt-10 lg:mt-12"
           initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
           animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
         >
-          {/* Member name - bold, high contrast, prominent */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] theme-text-primary mb-3">
             {memberName}
           </h1>
-
-          {/* Headline - supporting text */}
           <p className="text-lg sm:text-xl lg:text-2xl font-medium tracking-tight leading-[1.2] theme-text-secondary">
             {content.headline}
           </p>
-
-          {/* Primary CTA */}
-          <motion.a
+          <CtaPrimary
             href={content.ctaHref}
-            whileHover={shouldReduceMotion ? undefined : { y: -2 }}
-            whileTap={shouldReduceMotion ? undefined : { y: 0 }}
-            transition={{ duration: 0.2 }}
-            className="inline-flex items-center justify-center mt-6 px-6 py-2.5 bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 text-sm font-medium"
-          >
-            {content.ctaLabel}
-          </motion.a>
+            label={content.ctaLabel}
+            shouldReduceMotion={shouldReduceMotion}
+            className="mt-6 px-6 py-2.5"
+          />
         </motion.div>
       </div>
 
@@ -224,22 +214,7 @@ function ImmersiveVariant({
   )
 }
 
-// ============================================================================
-// VARIANT 3: MINIMAL
-// Centered layout with small circular image, typography-focused
-// Best for: clean, modern, text-heavy presentations
-// ============================================================================
-function MinimalVariant({
-  memberName,
-  memberRole,
-  content,
-  shouldReduceMotion,
-}: {
-  memberName: string
-  memberRole: string
-  content: MemberHeroProps['content']
-  shouldReduceMotion: boolean | null
-}) {
+function MinimalVariant({ memberName, memberRole, content, shouldReduceMotion }: VariantProps) {
   return (
     <section className="pt-20 pb-16 lg:pt-32 lg:pb-24 theme-bg-primary">
       <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center">
@@ -248,51 +223,34 @@ function MinimalVariant({
           animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
         >
-          {/* Eyebrow */}
           <p className="text-xs tracking-[0.2em] uppercase theme-text-tertiary mb-8">
             {content.eyebrow}
           </p>
 
-          {/* Small circular image */}
           <motion.div
             className="relative w-32 h-32 lg:w-40 lg:h-40 mx-auto mb-10"
             initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.9 }}
             animate={shouldReduceMotion ? undefined : { opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            {content.coverImage ? (
-              <div className="w-full h-full rounded-full overflow-hidden border-2 border-current/10">
-                <PayloadImage
-                  media={content.coverImage}
-                  size="thumbnail"
-                  fill
-                  className="object-cover"
-                  priority
-                  alt={`${memberName} - Portrait`}
-                />
-              </div>
-            ) : (
-              <div
-                className="w-full h-full rounded-full image-placeholder border-2 border-current/10"
-                aria-label={`${memberName} - Platzhalter`}
-              />
-            )}
+            <CoverImage
+              media={content.coverImage}
+              memberName={memberName}
+              size="thumbnail"
+              className="w-full h-full rounded-full overflow-hidden border-2 border-current/10"
+            />
           </motion.div>
 
-          {/* Typography stack */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight leading-[0.95]">
             {content.headline}
           </h1>
-
           <p className="mt-6 text-xl lg:text-2xl theme-text-secondary leading-relaxed max-w-2xl mx-auto">
             {content.subheadline}
           </p>
-
           <p className="mt-6 text-base theme-text-tertiary leading-relaxed max-w-xl mx-auto">
             {content.description}
           </p>
 
-          {/* Divider with name */}
           <div className="mt-10 flex items-center justify-center gap-4">
             <div className="h-px w-12 bg-current/20" />
             <p className="text-sm theme-text-secondary">
@@ -301,7 +259,6 @@ function MinimalVariant({
             <div className="h-px w-12 bg-current/20" />
           </div>
 
-          {/* CTA */}
           <motion.div
             className="mt-10"
             initial={shouldReduceMotion ? false : { opacity: 0 }}
@@ -329,41 +286,22 @@ function MinimalVariant({
   )
 }
 
-// ============================================================================
-// MAIN COMPONENT
-// ============================================================================
+const VARIANTS = {
+  editorial: EditorialVariant,
+  immersive: ImmersiveVariant,
+  minimal: MinimalVariant,
+} as const
+
 export function MemberHero({ memberName, memberRole, content }: MemberHeroProps) {
   const shouldReduceMotion = useReducedMotion()
-  const variant = content.variant || 'editorial'
+  const Variant = VARIANTS[content.variant ?? 'editorial']
 
-  switch (variant) {
-    case 'immersive':
-      return (
-        <ImmersiveVariant
-          memberName={memberName}
-          memberRole={memberRole}
-          content={content}
-          shouldReduceMotion={shouldReduceMotion}
-        />
-      )
-    case 'minimal':
-      return (
-        <MinimalVariant
-          memberName={memberName}
-          memberRole={memberRole}
-          content={content}
-          shouldReduceMotion={shouldReduceMotion}
-        />
-      )
-    case 'editorial':
-    default:
-      return (
-        <EditorialVariant
-          memberName={memberName}
-          memberRole={memberRole}
-          content={content}
-          shouldReduceMotion={shouldReduceMotion}
-        />
-      )
-  }
+  return (
+    <Variant
+      memberName={memberName}
+      memberRole={memberRole}
+      content={content}
+      shouldReduceMotion={shouldReduceMotion}
+    />
+  )
 }

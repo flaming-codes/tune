@@ -287,6 +287,19 @@ export interface TeamMember {
             blockType: 'memberCv'
           }
         | {
+            /**
+             * Kurzer Satzbeginn (max. 60 Zeichen). Für beste Wirkung als einzeiligen Satz formulieren.
+             */
+            sentenceStart: string
+            items: {
+              text: string
+              id?: string | null
+            }[]
+            id?: string | null
+            blockName?: string | null
+            blockType: 'memberSentenceList'
+          }
+        | {
             headline: string
             subheadline: string
             description: string
@@ -731,6 +744,19 @@ export interface TeamMembersSelect<T extends boolean = true> {
                     title?: T
                     institution?: T
                     description?: T
+                    id?: T
+                  }
+              id?: T
+              blockName?: T
+            }
+        memberSentenceList?:
+          | T
+          | {
+              sentenceStart?: T
+              items?:
+                | T
+                | {
+                    text?: T
                     id?: T
                   }
               id?: T

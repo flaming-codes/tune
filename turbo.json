@@ -31,6 +31,10 @@
     },
     "format": {
       "cache": false
+    },
+    "build:exe": {
+      "dependsOn": ["build"],
+      "cache": false
     }
   }
 }

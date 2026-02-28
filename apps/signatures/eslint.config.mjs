@@ -24,7 +24,7 @@ const eslintConfig = [
     },
   },
   {
-    ignores: ['.next/', 'src/migrations/'],
+    ignores: ['.next/', 'src/migrations/', 'standalone-entry.cjs'],
   },
 ]
 

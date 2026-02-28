@@ -449,6 +449,21 @@ Docker Compose files available in each app:
 - [ ] Configure image domains in `next.config.mjs`
 - [ ] Run `pnpm ci:fast` to verify build
 
+## Documentation Workflow (`docs/`)
+
+Architecture and system-level implementations are documented in `docs/` as Markdown files (lower-kebab-case filenames).
+
+### Pre-task
+
+Before starting work, list filenames in `docs/` and read any files relevant to the current task. This provides context on existing architectural decisions and system patterns.
+
+### Post-task
+
+After work is complete, list filenames in `docs/` again and update, create, or delete files to keep documentation in sync with the codebase. Only document architectural and system-relevant implementations. Do **not** create or update docs for:
+- Changelog-only items
+- Simple bug fixes
+- Purely visual or cosmetic changes
+
 ## Task Completion Checklist
 
 **Always run quality gates before finishing a task:**

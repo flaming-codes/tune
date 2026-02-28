@@ -111,6 +111,14 @@ ComponentPath: '/components/MyWidget#default'
 2. Apply it: `pnpm db:migrate`
 3. Regenerate types: `pnpm db:generate` (updates `payload-types.ts` + `importMap.js`)
 
+### Documentation (`docs/`)
+
+Architecture and system-level implementations are documented in `docs/` as Markdown files (lower-kebab-case filenames).
+
+**Pre-task:** List filenames in `docs/` and read any files relevant to the current task before starting work.
+
+**Post-task:** After work is complete, list filenames in `docs/` again and update, create, or delete documentation to reflect new code. Only document architectural and system-relevant implementations — skip changelog-only items, simple fixes, and purely visual changes.
+
 ### Task Completion Gate
 
 Before finishing any task, run:

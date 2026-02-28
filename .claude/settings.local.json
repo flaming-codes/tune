@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__serper__google_search"
+    ]
+  }
+}
