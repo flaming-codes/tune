@@ -35,7 +35,7 @@
     "db:migrate": "pnpm --filter web db:migrate && pnpm --filter signatures db:migrate",
     "db:migrate:web": "pnpm --filter web db:migrate",
     "db:migrate:signatures": "pnpm --filter signatures db:migrate",
-    "seed:start-page": "pnpm --filter web seed:start-page",
+    "seed:web": "pnpm --filter web seed",
     "build:exe": "turbo run build:exe",
     "build:exe:web": "turbo run build:exe --filter=web",
     "build:exe:signatures": "turbo run build:exe --filter=signatures"

@@ -33,23 +33,6 @@ export const MetricsBlock: Block = {
         singular: 'Kennzahl',
         plural: 'Kennzahlen',
       },
-      defaultValue: [
-        {
-          value: 15,
-          suffix: '+',
-          label: 'Jahre Erfahrung',
-        },
-        {
-          value: 12000,
-          suffix: '+',
-          label: 'behandelte Tiere',
-        },
-        {
-          value: 4.9,
-          suffix: '',
-          label: 'Google-Bewertung',
-        },
-      ],
       fields: [
         {
           name: 'value',

@@ -11,7 +11,6 @@ export const MarqueeTextBlock: Block = {
       name: 'text',
       type: 'text',
       required: true,
-      defaultValue: 'Ihre Tiere in besten Händen',
       label: 'Text',
       admin: {
         description: 'Der Text, der wiederholt über die Seite läuft',

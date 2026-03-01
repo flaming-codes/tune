@@ -38,7 +38,6 @@ export const StartPage: GlobalConfig = {
               minRows: 1,
               maxRows: 1,
               blocks: startPageHeaderBlocks,
-              defaultValue: [{ blockType: 'navigation' }],
             },
             {
               name: 'layout',
@@ -46,17 +45,6 @@ export const StartPage: GlobalConfig = {
               label: 'Seiteninhalt',
               minRows: 1,
               blocks: startPageLayoutBlocks,
-              defaultValue: [
-                { blockType: 'hero' },
-                { blockType: 'services' },
-                { blockType: 'quote' },
-                { blockType: 'testimonials' },
-                { blockType: 'gallery' },
-                { blockType: 'team' },
-                { blockType: 'hours' },
-                { blockType: 'contact' },
-                { blockType: 'contactForm' },
-              ],
             },
             {
               name: 'footer',
@@ -65,7 +53,6 @@ export const StartPage: GlobalConfig = {
               minRows: 1,
               maxRows: 1,
               blocks: startPageFooterBlocks,
-              defaultValue: [{ blockType: 'footer' }],
             },
           ],
         },

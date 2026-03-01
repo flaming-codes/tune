@@ -59,198 +59,196 @@ export type SupportedTimezones =
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
   | 'Pacific/Auckland'
-  | 'Pacific/Fiji'
+  | 'Pacific/Fiji';
 
 export interface Config {
   auth: {
-    users: UserAuthOperations
-  }
-  blocks: {}
+    users: UserAuthOperations;
+  };
+  blocks: {};
   collections: {
-    users: User
-    media: Media
-    'team-members': TeamMember
-    'gallery-images': GalleryImage
-    testimonials: Testimonial
-    'analytics-events': AnalyticsEvent
-    'payload-kv': PayloadKv
-    'payload-locked-documents': PayloadLockedDocument
-    'payload-preferences': PayloadPreference
-    'payload-migrations': PayloadMigration
-  }
-  collectionsJoins: {}
+    users: User;
+    media: Media;
+    'team-members': TeamMember;
+    'gallery-images': GalleryImage;
+    testimonials: Testimonial;
+    'analytics-events': AnalyticsEvent;
+    'payload-kv': PayloadKv;
+    'payload-locked-documents': PayloadLockedDocument;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
+  };
+  collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>
-    media: MediaSelect<false> | MediaSelect<true>
-    'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>
-    'gallery-images': GalleryImagesSelect<false> | GalleryImagesSelect<true>
-    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>
-    'analytics-events': AnalyticsEventsSelect<false> | AnalyticsEventsSelect<true>
-    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>
-    'payload-locked-documents':
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>
-  }
+    users: UsersSelect<false> | UsersSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
+    'gallery-images': GalleryImagesSelect<false> | GalleryImagesSelect<true>;
+    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
+    'analytics-events': AnalyticsEventsSelect<false> | AnalyticsEventsSelect<true>;
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
   db: {
-    defaultIDType: number
-  }
-  fallbackLocale: null
+    defaultIDType: number;
+  };
+  fallbackLocale: null;
   globals: {
-    'start-page': StartPage
-    'imprint-page': ImprintPage
-    'privacy-policy-page': PrivacyPolicyPage
-  }
+    'start-page': StartPage;
+    'imprint-page': ImprintPage;
+    'privacy-policy-page': PrivacyPolicyPage;
+  };
   globalsSelect: {
-    'start-page': StartPageSelect<false> | StartPageSelect<true>
-    'imprint-page': ImprintPageSelect<false> | ImprintPageSelect<true>
-    'privacy-policy-page': PrivacyPolicyPageSelect<false> | PrivacyPolicyPageSelect<true>
-  }
-  locale: null
+    'start-page': StartPageSelect<false> | StartPageSelect<true>;
+    'imprint-page': ImprintPageSelect<false> | ImprintPageSelect<true>;
+    'privacy-policy-page': PrivacyPolicyPageSelect<false> | PrivacyPolicyPageSelect<true>;
+  };
+  locale: null;
   widgets: {
-    'analytics-section-title': AnalyticsSectionTitleWidget
-    'analytics-events-total': AnalyticsEventsTotalWidget
-    'analytics-page-views': AnalyticsPageViewsWidget
-    'analytics-track-events': AnalyticsTrackEventsWidget
-    'analytics-top-pages': AnalyticsTopPagesWidget
-    collections: CollectionsWidget
-  }
-  user: User
+    'analytics-section-title': AnalyticsSectionTitleWidget;
+    'analytics-events-total': AnalyticsEventsTotalWidget;
+    'analytics-page-views': AnalyticsPageViewsWidget;
+    'analytics-track-events': AnalyticsTrackEventsWidget;
+    'analytics-top-pages': AnalyticsTopPagesWidget;
+    collections: CollectionsWidget;
+  };
+  user: User;
   jobs: {
-    tasks: unknown
-    workflows: unknown
-  }
+    tasks: unknown;
+    workflows: unknown;
+  };
 }
 export interface UserAuthOperations {
   forgotPassword: {
-    email: string
-    password: string
-  }
+    email: string;
+    password: string;
+  };
   login: {
-    email: string
-    password: string
-  }
+    email: string;
+    password: string;
+  };
   registerFirstUser: {
-    email: string
-    password: string
-  }
+    email: string;
+    password: string;
+  };
   unlock: {
-    email: string
-    password: string
-  }
+    email: string;
+    password: string;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: number
-  updatedAt: string
-  createdAt: string
-  email: string
-  resetPasswordToken?: string | null
-  resetPasswordExpiration?: string | null
-  salt?: string | null
-  hash?: string | null
-  loginAttempts?: number | null
-  lockUntil?: string | null
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
   sessions?:
     | {
-        id: string
-        createdAt?: string | null
-        expiresAt: string
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
       }[]
-    | null
-  password?: string | null
-  collection: 'users'
+    | null;
+  password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-  id: number
+  id: number;
   /**
    * Beschreibung des Bildes für Barrierefreiheit und SEO
    */
-  alt: string
+  alt: string;
   /**
    * Base64-kodiertes Vorschaubild (automatisch generiert)
    */
-  blurDataURL?: string | null
-  caption?: string | null
-  updatedAt: string
-  createdAt: string
-  url?: string | null
-  thumbnailURL?: string | null
-  filename?: string | null
-  mimeType?: string | null
-  filesize?: number | null
-  width?: number | null
-  height?: number | null
-  focalX?: number | null
-  focalY?: number | null
+  blurDataURL?: string | null;
+  caption?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
   sizes?: {
     thumbnail?: {
-      url?: string | null
-      width?: number | null
-      height?: number | null
-      mimeType?: string | null
-      filesize?: number | null
-      filename?: string | null
-    }
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
     card?: {
-      url?: string | null
-      width?: number | null
-      height?: number | null
-      mimeType?: string | null
-      filesize?: number | null
-      filename?: string | null
-    }
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
     tablet?: {
-      url?: string | null
-      width?: number | null
-      height?: number | null
-      mimeType?: string | null
-      filesize?: number | null
-      filename?: string | null
-    }
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
     hero?: {
-      url?: string | null
-      width?: number | null
-      height?: number | null
-      mimeType?: string | null
-      filesize?: number | null
-      filename?: string | null
-    }
-  }
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "team-members".
  */
 export interface TeamMember {
-  id: number
-  name: string
+  id: number;
+  name: string;
   /**
    * Wird für die Team-Seite verwendet, z. B. max-mustermann
    */
-  slug?: string | null
-  role: string
-  description: string
+  slug?: string | null;
+  role: string;
+  description: string;
   /**
    * Mehrere Fotos hochladen. Das erste Foto wird standardmäßig angezeigt. Bei Hover werden die Fotos basierend auf Cursor-Bewegung gewechselt.
    */
-  photos: (number | Media)[]
+  photos: (number | Media)[];
   /**
    * Niedrigere Zahlen werden zuerst angezeigt
    */
-  sortOrder?: number | null
+  sortOrder?: number | null;
   /**
    * Nur aktive Teammitglieder werden auf der Website angezeigt
    */
-  isActive?: boolean | null
+  isActive?: boolean | null;
   /**
    * Inhalt für /team/{slug}. Neben team-spezifischen Blöcken können auch bestehende Startseiten-Blöcke wiederverwendet werden.
    */
@@ -260,1014 +258,1014 @@ export interface TeamMember {
             /**
              * Wählen Sie das Layout für den Hero-Bereich
              */
-            variant: 'editorial' | 'immersive' | 'minimal'
-            eyebrow: string
-            headline: string
-            subheadline: string
-            description: string
-            coverImage?: (number | null) | Media
-            ctaLabel: string
-            ctaHref: string
-            id?: string | null
-            blockName?: string | null
-            blockType: 'memberHero'
+            variant: 'editorial' | 'immersive' | 'minimal';
+            eyebrow: string;
+            headline: string;
+            subheadline: string;
+            description: string;
+            coverImage?: (number | null) | Media;
+            ctaLabel: string;
+            ctaHref: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'memberHero';
           }
         | {
-            eyebrow: string
-            headline: string
+            eyebrow: string;
+            headline: string;
             entries: {
-              period: string
-              title: string
-              institution?: string | null
-              description?: string | null
-              id?: string | null
-            }[]
-            id?: string | null
-            blockName?: string | null
-            blockType: 'memberCv'
+              period: string;
+              title: string;
+              institution?: string | null;
+              description?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'memberCv';
           }
         | {
             /**
              * Kurzer Satzbeginn (max. 60 Zeichen). Für beste Wirkung als einzeiligen Satz formulieren.
              */
-            sentenceStart: string
+            sentenceStart: string;
             items: {
-              text: string
-              id?: string | null
-            }[]
-            id?: string | null
-            blockName?: string | null
-            blockType: 'memberSentenceList'
+              text: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'memberSentenceList';
           }
         | {
-            headline: string
-            subheadline: string
-            description: string
-            heroImage?: (number | null) | Media
-            ctaPrimaryText: string
-            ctaPrimaryHref: string
-            ctaSecondaryText: string
-            ctaSecondaryHref: string
-            id?: string | null
-            blockName?: string | null
-            blockType: 'hero'
+            headline: string;
+            subheadline: string;
+            description: string;
+            heroImage?: (number | null) | Media;
+            ctaPrimaryText: string;
+            ctaPrimaryHref: string;
+            ctaSecondaryText: string;
+            ctaSecondaryHref: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
           }
         | {
-            eyebrow: string
-            headline: string
+            eyebrow: string;
+            headline: string;
             groups: {
-              category: string
+              category: string;
               items: {
-                text: string
-                id?: string | null
-              }[]
-              id?: string | null
-            }[]
-            ctaText: string
-            ctaButtonLabel: string
-            ctaButtonHref: string
-            id?: string | null
-            blockName?: string | null
-            blockType: 'services'
+                text: string;
+                id?: string | null;
+              }[];
+              id?: string | null;
+            }[];
+            ctaText: string;
+            ctaButtonLabel: string;
+            ctaButtonHref: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'services';
           }
         | {
-            text: string
+            text: string;
             /**
              * Wählen Sie ein Teammitglied als Autor des Zitats aus
              */
-            author?: (number | null) | TeamMember
-            id?: string | null
-            blockName?: string | null
-            blockType: 'quote'
+            author?: (number | null) | TeamMember;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quote';
           }
         | {
-            eyebrow: string
-            headline: string
-            description: string
-            googleReviewUrl: string
-            reviewCount: number
-            averageRating: number
-            id?: string | null
-            blockName?: string | null
-            blockType: 'testimonials'
+            eyebrow: string;
+            headline: string;
+            description: string;
+            googleReviewUrl: string;
+            reviewCount: number;
+            averageRating: number;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonials';
           }
         | {
-            eyebrow: string
-            headline: string
-            description: string
-            emptyStateText: string
-            id?: string | null
-            blockName?: string | null
-            blockType: 'gallery'
+            eyebrow: string;
+            headline: string;
+            description: string;
+            emptyStateText: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'gallery';
           }
         | {
-            eyebrow: string
-            headline: string
-            description: string
-            id?: string | null
-            blockName?: string | null
-            blockType: 'team'
+            eyebrow: string;
+            headline: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'team';
           }
         | {
-            eyebrow: string
-            headline: string
-            description: string
+            eyebrow: string;
+            headline: string;
+            description: string;
             openingHours?:
               | {
-                  day: string
-                  state: 'open' | 'reservation' | 'closed'
-                  times: string
-                  id?: string | null
+                  day: string;
+                  state: 'open' | 'reservation' | 'closed';
+                  times: string;
+                  id?: string | null;
                 }[]
-              | null
+              | null;
             emergency: {
-              title: string
-              description: string
-            }
-            id?: string | null
-            blockName?: string | null
-            blockType: 'hours'
+              title: string;
+              description: string;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hours';
           }
         | {
-            eyebrow: string
-            headline: string
-            description: string
+            eyebrow: string;
+            headline: string;
+            description: string;
             address: {
-              street: string
-              city: string
-              additional?: string | null
-            }
-            phone: string
-            email: string
-            consultationTimes: string
-            directionsDescription: string
-            directionsLinkLabel: string
-            id?: string | null
-            blockName?: string | null
-            blockType: 'contact'
+              street: string;
+              city: string;
+              additional?: string | null;
+            };
+            phone: string;
+            email: string;
+            consultationTimes: string;
+            directionsDescription: string;
+            directionsLinkLabel: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contact';
           }
         | {
-            eyebrow: string
-            headline: string
-            description: string
-            id?: string | null
-            blockName?: string | null
-            blockType: 'contactForm'
+            eyebrow: string;
+            headline: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contactForm';
           }
         | {
-            eyebrow: string
-            headline: string
-            description?: string | null
-            alignment?: ('start' | 'end' | 'full') | null
+            eyebrow: string;
+            headline: string;
+            description?: string | null;
+            alignment?: ('start' | 'end' | 'full') | null;
             items: {
-              question: string
-              answer: string
-              id?: string | null
-            }[]
-            allowMultipleOpen?: boolean | null
-            id?: string | null
-            blockName?: string | null
-            blockType: 'accordion'
+              question: string;
+              answer: string;
+              id?: string | null;
+            }[];
+            allowMultipleOpen?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'accordion';
           }
         | {
-            eyebrow?: string | null
-            headline?: string | null
-            description?: string | null
+            eyebrow?: string | null;
+            headline?: string | null;
+            description?: string | null;
             items: {
               /**
                * Die Zielzahl, zu der hochgezählt wird
                */
-              value: number
+              value: number;
               /**
                * Text nach der Zahl (z.B. "+", "%", "★")
                */
-              suffix?: string | null
+              suffix?: string | null;
               /**
                * Was die Zahl bedeutet
                */
-              label: string
-              id?: string | null
-            }[]
-            variant?: ('light' | 'dark') | null
-            id?: string | null
-            blockName?: string | null
-            blockType: 'metrics'
+              label: string;
+              id?: string | null;
+            }[];
+            variant?: ('light' | 'dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'metrics';
           }
         | {
             /**
              * Der Text, der wiederholt über die Seite läuft
              */
-            text: string
-            separator?: ('dot' | 'diamond' | 'paw' | 'none') | null
-            style?: ('filled' | 'outlined' | 'alternating') | null
-            speed?: ('slow' | 'normal' | 'fast') | null
-            direction?: ('left' | 'right') | null
-            id?: string | null
-            blockName?: string | null
-            blockType: 'marqueeText'
+            text: string;
+            separator?: ('dot' | 'diamond' | 'paw' | 'none') | null;
+            style?: ('filled' | 'outlined' | 'alternating') | null;
+            speed?: ('slow' | 'normal' | 'fast') | null;
+            direction?: ('left' | 'right') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'marqueeText';
           }
         | {
-            eyebrow: string
-            headline: string
-            description?: string | null
+            eyebrow: string;
+            headline: string;
+            description?: string | null;
             steps: {
-              title: string
-              description: string
+              title: string;
+              description: string;
               /**
                * Optionales Icon oder Illustration für diesen Schritt
                */
-              icon?: (number | null) | Media
-              id?: string | null
-            }[]
-            id?: string | null
-            blockName?: string | null
-            blockType: 'stackingCards'
+              icon?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stackingCards';
           }
         | {
-            eyebrow: string
-            headline: string
+            eyebrow: string;
+            headline: string;
             items: {
-              title: string
-              description: string
+              title: string;
+              description: string;
               /**
                * Das Bild, das beim Scrollen zu diesem Eintrag eingeblendet wird
                */
-              image: number | Media
-              id?: string | null
-            }[]
-            id?: string | null
-            blockName?: string | null
-            blockType: 'splitReveal'
+              image: number | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'splitReveal';
           }
         | {
             /**
              * Vollflächiges Bild mit Parallax-Effekt
              */
-            image: number | Media
+            image: number | Media;
             /**
              * Optionaler Text über dem Bild
              */
-            headline?: string | null
-            subtext?: string | null
+            headline?: string | null;
+            subtext?: string | null;
             /**
              * Wie dunkel der Verlauf über dem Bild ist (0 = transparent, 100 = schwarz)
              */
-            overlayOpacity?: number | null
-            height?: ('medium' | 'tall' | 'fullscreen') | null
-            id?: string | null
-            blockName?: string | null
-            blockType: 'parallaxImage'
+            overlayOpacity?: number | null;
+            height?: ('medium' | 'tall' | 'fullscreen') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'parallaxImage';
           }
         | {
             /**
              * Der Text wird zeilenweise beim Scrollen eingeblendet. Jede Zeile wird einzeln animiert.
              */
-            text: string
-            authorName?: string | null
-            authorRole?: string | null
+            text: string;
+            authorName?: string | null;
+            authorRole?: string | null;
             /**
              * Kleines Porträt des Autors
              */
-            authorPhoto?: (number | null) | Media
-            alignment?: ('left' | 'center') | null
+            authorPhoto?: (number | null) | Media;
+            alignment?: ('left' | 'center') | null;
             /**
              * Animierte horizontale Linie unter dem Text
              */
-            showDivider?: boolean | null
-            id?: string | null
-            blockName?: string | null
-            blockType: 'editorialReveal'
+            showDivider?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'editorialReveal';
           }
         | {
-            eyebrow?: string | null
-            headline?: string | null
-            description?: string | null
+            eyebrow?: string | null;
+            headline?: string | null;
+            description?: string | null;
             pairs: {
-              beforeImage: number | Media
-              afterImage: number | Media
-              beforeLabel?: string | null
-              afterLabel?: string | null
-              caption?: string | null
-              id?: string | null
-            }[]
-            id?: string | null
-            blockName?: string | null
-            blockType: 'beforeAfter'
+              beforeImage: number | Media;
+              afterImage: number | Media;
+              beforeLabel?: string | null;
+              afterLabel?: string | null;
+              caption?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'beforeAfter';
           }
         | {
-            eyebrow: string
-            headline: string
+            eyebrow: string;
+            headline: string;
             events: {
               /**
                * Jahr oder Zeitraum (z.B. "2008", "2020–2022")
                */
-              year: string
-              title: string
-              description?: string | null
+              year: string;
+              title: string;
+              description?: string | null;
               /**
                * Optionales Bild zu diesem Ereignis
                */
-              image?: (number | null) | Media
-              id?: string | null
-            }[]
-            id?: string | null
-            blockName?: string | null
-            blockType: 'timeline'
+              image?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'timeline';
           }
       )[]
-    | null
-  updatedAt: string
-  createdAt: string
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "gallery-images".
  */
 export interface GalleryImage {
-  id: number
-  title: string
-  image: number | Media
+  id: number;
+  title: string;
+  image: number | Media;
   /**
    * Niedrigere Zahlen werden zuerst angezeigt
    */
-  sortOrder?: number | null
+  sortOrder?: number | null;
   /**
    * Hervorgehobene Bilder werden größer in der Galerie dargestellt
    */
-  isFeatured?: boolean | null
+  isFeatured?: boolean | null;
   /**
    * Nur aktive Bilder werden in der Galerie angezeigt
    */
-  isActive?: boolean | null
-  updatedAt: string
-  createdAt: string
+  isActive?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "testimonials".
  */
 export interface Testimonial {
-  id: number
-  text: string
-  author: string
+  id: number;
+  text: string;
+  author: string;
   /**
    * Profilbild des Bewertenden
    */
-  avatar: number | Media
+  avatar: number | Media;
   /**
    * Bewertung von 0 bis 5 Sternen (Dezimalzahlen erlaubt, z.B. 4.5)
    */
-  rating: number
+  rating: number;
   /**
    * Zeitstempel, wann die Aussage gemacht wurde (nicht das Erstellungsdatum des Eintrags)
    */
-  statementTimestamp: string
+  statementTimestamp: string;
   /**
    * Niedrigere Zahlen werden zuerst angezeigt
    */
-  sortOrder?: number | null
+  sortOrder?: number | null;
   /**
    * Nur aktive Testimonials werden auf der Website angezeigt
    */
-  isActive?: boolean | null
-  updatedAt: string
-  createdAt: string
+  isActive?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "analytics-events".
  */
 export interface AnalyticsEvent {
-  id: number
-  eventType: 'page' | 'track' | 'identify'
-  eventName: string
-  path?: string | null
-  url?: string | null
-  referrer?: string | null
-  locale?: string | null
-  userId?: string | null
-  anonymousId?: string | null
-  sessionId?: string | null
+  id: number;
+  eventType: 'page' | 'track' | 'identify';
+  eventName: string;
+  path?: string | null;
+  url?: string | null;
+  referrer?: string | null;
+  locale?: string | null;
+  userId?: string | null;
+  anonymousId?: string | null;
+  sessionId?: string | null;
   properties?:
     | {
-        [k: string]: unknown
+        [k: string]: unknown;
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null
+    | null;
   context?:
     | {
-        [k: string]: unknown
+        [k: string]: unknown;
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null
-  userAgent?: string | null
-  ipAddress?: string | null
-  occurredAt: string
-  updatedAt: string
-  createdAt: string
+    | null;
+  userAgent?: string | null;
+  ipAddress?: string | null;
+  occurredAt: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: number
-  key: string
+  id: number;
+  key: string;
   data:
     | {
-        [k: string]: unknown
+        [k: string]: unknown;
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: number
+  id: number;
   document?:
     | ({
-        relationTo: 'users'
-        value: number | User
+        relationTo: 'users';
+        value: number | User;
       } | null)
     | ({
-        relationTo: 'media'
-        value: number | Media
+        relationTo: 'media';
+        value: number | Media;
       } | null)
     | ({
-        relationTo: 'team-members'
-        value: number | TeamMember
+        relationTo: 'team-members';
+        value: number | TeamMember;
       } | null)
     | ({
-        relationTo: 'gallery-images'
-        value: number | GalleryImage
+        relationTo: 'gallery-images';
+        value: number | GalleryImage;
       } | null)
     | ({
-        relationTo: 'testimonials'
-        value: number | Testimonial
+        relationTo: 'testimonials';
+        value: number | Testimonial;
       } | null)
     | ({
-        relationTo: 'analytics-events'
-        value: number | AnalyticsEvent
-      } | null)
-  globalSlug?: string | null
+        relationTo: 'analytics-events';
+        value: number | AnalyticsEvent;
+      } | null);
+  globalSlug?: string | null;
   user: {
-    relationTo: 'users'
-    value: number | User
-  }
-  updatedAt: string
-  createdAt: string
+    relationTo: 'users';
+    value: number | User;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number
+  id: number;
   user: {
-    relationTo: 'users'
-    value: number | User
-  }
-  key?: string | null
+    relationTo: 'users';
+    value: number | User;
+  };
+  key?: string | null;
   value?:
     | {
-        [k: string]: unknown
+        [k: string]: unknown;
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null
-  updatedAt: string
-  createdAt: string
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number
-  name?: string | null
-  batch?: number | null
-  updatedAt: string
-  createdAt: string
+  id: number;
+  name?: string | null;
+  batch?: number | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  updatedAt?: T
-  createdAt?: T
-  email?: T
-  resetPasswordToken?: T
-  resetPasswordExpiration?: T
-  salt?: T
-  hash?: T
-  loginAttempts?: T
-  lockUntil?: T
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
   sessions?:
     | T
     | {
-        id?: T
-        createdAt?: T
-        expiresAt?: T
-      }
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-  alt?: T
-  blurDataURL?: T
-  caption?: T
-  updatedAt?: T
-  createdAt?: T
-  url?: T
-  thumbnailURL?: T
-  filename?: T
-  mimeType?: T
-  filesize?: T
-  width?: T
-  height?: T
-  focalX?: T
-  focalY?: T
+  alt?: T;
+  blurDataURL?: T;
+  caption?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
   sizes?:
     | T
     | {
         thumbnail?:
           | T
           | {
-              url?: T
-              width?: T
-              height?: T
-              mimeType?: T
-              filesize?: T
-              filename?: T
-            }
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
         card?:
           | T
           | {
-              url?: T
-              width?: T
-              height?: T
-              mimeType?: T
-              filesize?: T
-              filename?: T
-            }
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
         tablet?:
           | T
           | {
-              url?: T
-              width?: T
-              height?: T
-              mimeType?: T
-              filesize?: T
-              filename?: T
-            }
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
         hero?:
           | T
           | {
-              url?: T
-              width?: T
-              height?: T
-              mimeType?: T
-              filesize?: T
-              filename?: T
-            }
-      }
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "team-members_select".
  */
 export interface TeamMembersSelect<T extends boolean = true> {
-  name?: T
-  slug?: T
-  role?: T
-  description?: T
-  photos?: T
-  sortOrder?: T
-  isActive?: T
+  name?: T;
+  slug?: T;
+  role?: T;
+  description?: T;
+  photos?: T;
+  sortOrder?: T;
+  isActive?: T;
   memberPageLayout?:
     | T
     | {
         memberHero?:
           | T
           | {
-              variant?: T
-              eyebrow?: T
-              headline?: T
-              subheadline?: T
-              description?: T
-              coverImage?: T
-              ctaLabel?: T
-              ctaHref?: T
-              id?: T
-              blockName?: T
-            }
+              variant?: T;
+              eyebrow?: T;
+              headline?: T;
+              subheadline?: T;
+              description?: T;
+              coverImage?: T;
+              ctaLabel?: T;
+              ctaHref?: T;
+              id?: T;
+              blockName?: T;
+            };
         memberCv?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
+              eyebrow?: T;
+              headline?: T;
               entries?:
                 | T
                 | {
-                    period?: T
-                    title?: T
-                    institution?: T
-                    description?: T
-                    id?: T
-                  }
-              id?: T
-              blockName?: T
-            }
+                    period?: T;
+                    title?: T;
+                    institution?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
         memberSentenceList?:
           | T
           | {
-              sentenceStart?: T
+              sentenceStart?: T;
               items?:
                 | T
                 | {
-                    text?: T
-                    id?: T
-                  }
-              id?: T
-              blockName?: T
-            }
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
         hero?:
           | T
           | {
-              headline?: T
-              subheadline?: T
-              description?: T
-              heroImage?: T
-              ctaPrimaryText?: T
-              ctaPrimaryHref?: T
-              ctaSecondaryText?: T
-              ctaSecondaryHref?: T
-              id?: T
-              blockName?: T
-            }
+              headline?: T;
+              subheadline?: T;
+              description?: T;
+              heroImage?: T;
+              ctaPrimaryText?: T;
+              ctaPrimaryHref?: T;
+              ctaSecondaryText?: T;
+              ctaSecondaryHref?: T;
+              id?: T;
+              blockName?: T;
+            };
         services?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
+              eyebrow?: T;
+              headline?: T;
               groups?:
                 | T
                 | {
-                    category?: T
+                    category?: T;
                     items?:
                       | T
                       | {
-                          text?: T
-                          id?: T
-                        }
-                    id?: T
-                  }
-              ctaText?: T
-              ctaButtonLabel?: T
-              ctaButtonHref?: T
-              id?: T
-              blockName?: T
-            }
+                          text?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              ctaText?: T;
+              ctaButtonLabel?: T;
+              ctaButtonHref?: T;
+              id?: T;
+              blockName?: T;
+            };
         quote?:
           | T
           | {
-              text?: T
-              author?: T
-              id?: T
-              blockName?: T
-            }
+              text?: T;
+              author?: T;
+              id?: T;
+              blockName?: T;
+            };
         testimonials?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
-              googleReviewUrl?: T
-              reviewCount?: T
-              averageRating?: T
-              id?: T
-              blockName?: T
-            }
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              googleReviewUrl?: T;
+              reviewCount?: T;
+              averageRating?: T;
+              id?: T;
+              blockName?: T;
+            };
         gallery?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
-              emptyStateText?: T
-              id?: T
-              blockName?: T
-            }
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              emptyStateText?: T;
+              id?: T;
+              blockName?: T;
+            };
         team?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
-              id?: T
-              blockName?: T
-            }
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              id?: T;
+              blockName?: T;
+            };
         hours?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
               openingHours?:
                 | T
                 | {
-                    day?: T
-                    state?: T
-                    times?: T
-                    id?: T
-                  }
+                    day?: T;
+                    state?: T;
+                    times?: T;
+                    id?: T;
+                  };
               emergency?:
                 | T
                 | {
-                    title?: T
-                    description?: T
-                  }
-              id?: T
-              blockName?: T
-            }
+                    title?: T;
+                    description?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
         contact?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
               address?:
                 | T
                 | {
-                    street?: T
-                    city?: T
-                    additional?: T
-                  }
-              phone?: T
-              email?: T
-              consultationTimes?: T
-              directionsDescription?: T
-              directionsLinkLabel?: T
-              id?: T
-              blockName?: T
-            }
+                    street?: T;
+                    city?: T;
+                    additional?: T;
+                  };
+              phone?: T;
+              email?: T;
+              consultationTimes?: T;
+              directionsDescription?: T;
+              directionsLinkLabel?: T;
+              id?: T;
+              blockName?: T;
+            };
         contactForm?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
-              id?: T
-              blockName?: T
-            }
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              id?: T;
+              blockName?: T;
+            };
         accordion?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
-              alignment?: T
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              alignment?: T;
               items?:
                 | T
                 | {
-                    question?: T
-                    answer?: T
-                    id?: T
-                  }
-              allowMultipleOpen?: T
-              id?: T
-              blockName?: T
-            }
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+              allowMultipleOpen?: T;
+              id?: T;
+              blockName?: T;
+            };
         metrics?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
               items?:
                 | T
                 | {
-                    value?: T
-                    suffix?: T
-                    label?: T
-                    id?: T
-                  }
-              variant?: T
-              id?: T
-              blockName?: T
-            }
+                    value?: T;
+                    suffix?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
         marqueeText?:
           | T
           | {
-              text?: T
-              separator?: T
-              style?: T
-              speed?: T
-              direction?: T
-              id?: T
-              blockName?: T
-            }
+              text?: T;
+              separator?: T;
+              style?: T;
+              speed?: T;
+              direction?: T;
+              id?: T;
+              blockName?: T;
+            };
         stackingCards?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
               steps?:
                 | T
                 | {
-                    title?: T
-                    description?: T
-                    icon?: T
-                    id?: T
-                  }
-              id?: T
-              blockName?: T
-            }
+                    title?: T;
+                    description?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
         splitReveal?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
+              eyebrow?: T;
+              headline?: T;
               items?:
                 | T
                 | {
-                    title?: T
-                    description?: T
-                    image?: T
-                    id?: T
-                  }
-              id?: T
-              blockName?: T
-            }
+                    title?: T;
+                    description?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
         parallaxImage?:
           | T
           | {
-              image?: T
-              headline?: T
-              subtext?: T
-              overlayOpacity?: T
-              height?: T
-              id?: T
-              blockName?: T
-            }
+              image?: T;
+              headline?: T;
+              subtext?: T;
+              overlayOpacity?: T;
+              height?: T;
+              id?: T;
+              blockName?: T;
+            };
         editorialReveal?:
           | T
           | {
-              text?: T
-              authorName?: T
-              authorRole?: T
-              authorPhoto?: T
-              alignment?: T
-              showDivider?: T
-              id?: T
-              blockName?: T
-            }
+              text?: T;
+              authorName?: T;
+              authorRole?: T;
+              authorPhoto?: T;
+              alignment?: T;
+              showDivider?: T;
+              id?: T;
+              blockName?: T;
+            };
         beforeAfter?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
               pairs?:
                 | T
                 | {
-                    beforeImage?: T
-                    afterImage?: T
-                    beforeLabel?: T
-                    afterLabel?: T
-                    caption?: T
-                    id?: T
-                  }
-              id?: T
-              blockName?: T
-            }
+                    beforeImage?: T;
+                    afterImage?: T;
+                    beforeLabel?: T;
+                    afterLabel?: T;
+                    caption?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
         timeline?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
+              eyebrow?: T;
+              headline?: T;
               events?:
                 | T
                 | {
-                    year?: T
-                    title?: T
-                    description?: T
-                    image?: T
-                    id?: T
-                  }
-              id?: T
-              blockName?: T
-            }
-      }
-  updatedAt?: T
-  createdAt?: T
+                    year?: T;
+                    title?: T;
+                    description?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "gallery-images_select".
  */
 export interface GalleryImagesSelect<T extends boolean = true> {
-  title?: T
-  image?: T
-  sortOrder?: T
-  isFeatured?: T
-  isActive?: T
-  updatedAt?: T
-  createdAt?: T
+  title?: T;
+  image?: T;
+  sortOrder?: T;
+  isFeatured?: T;
+  isActive?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "testimonials_select".
  */
 export interface TestimonialsSelect<T extends boolean = true> {
-  text?: T
-  author?: T
-  avatar?: T
-  rating?: T
-  statementTimestamp?: T
-  sortOrder?: T
-  isActive?: T
-  updatedAt?: T
-  createdAt?: T
+  text?: T;
+  author?: T;
+  avatar?: T;
+  rating?: T;
+  statementTimestamp?: T;
+  sortOrder?: T;
+  isActive?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "analytics-events_select".
  */
 export interface AnalyticsEventsSelect<T extends boolean = true> {
-  eventType?: T
-  eventName?: T
-  path?: T
-  url?: T
-  referrer?: T
-  locale?: T
-  userId?: T
-  anonymousId?: T
-  sessionId?: T
-  properties?: T
-  context?: T
-  userAgent?: T
-  ipAddress?: T
-  occurredAt?: T
-  updatedAt?: T
-  createdAt?: T
+  eventType?: T;
+  eventName?: T;
+  path?: T;
+  url?: T;
+  referrer?: T;
+  locale?: T;
+  userId?: T;
+  anonymousId?: T;
+  sessionId?: T;
+  properties?: T;
+  context?: T;
+  userAgent?: T;
+  ipAddress?: T;
+  occurredAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
-  key?: T
-  data?: T
+  key?: T;
+  data?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-  document?: T
-  globalSlug?: T
-  user?: T
-  updatedAt?: T
-  createdAt?: T
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences_select".
  */
 export interface PayloadPreferencesSelect<T extends boolean = true> {
-  user?: T
-  key?: T
-  value?: T
-  updatedAt?: T
-  createdAt?: T
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations_select".
  */
 export interface PayloadMigrationsSelect<T extends boolean = true> {
-  name?: T
-  batch?: T
-  updatedAt?: T
-  createdAt?: T
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * Autorenansicht für die Startseite mit frei sortierbaren Inhaltsblöcken.
@@ -1276,311 +1274,311 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  * via the `definition` "start-page".
  */
 export interface StartPage {
-  id: number
+  id: number;
   header?:
     | {
-        practiceName: string
-        phone: string
+        practiceName: string;
+        phone: string;
         links?:
           | {
-              label: string
-              href: string
-              id?: string | null
+              label: string;
+              href: string;
+              id?: string | null;
             }[]
-          | null
-        id?: string | null
-        blockName?: string | null
-        blockType: 'navigation'
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'navigation';
       }[]
-    | null
+    | null;
   layout?:
     | (
         | {
-            headline: string
-            subheadline: string
-            description: string
-            heroImage?: (number | null) | Media
-            ctaPrimaryText: string
-            ctaPrimaryHref: string
-            ctaSecondaryText: string
-            ctaSecondaryHref: string
-            id?: string | null
-            blockName?: string | null
-            blockType: 'hero'
+            headline: string;
+            subheadline: string;
+            description: string;
+            heroImage?: (number | null) | Media;
+            ctaPrimaryText: string;
+            ctaPrimaryHref: string;
+            ctaSecondaryText: string;
+            ctaSecondaryHref: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
           }
         | {
-            eyebrow: string
-            headline: string
+            eyebrow: string;
+            headline: string;
             groups: {
-              category: string
+              category: string;
               items: {
-                text: string
-                id?: string | null
-              }[]
-              id?: string | null
-            }[]
-            ctaText: string
-            ctaButtonLabel: string
-            ctaButtonHref: string
-            id?: string | null
-            blockName?: string | null
-            blockType: 'services'
+                text: string;
+                id?: string | null;
+              }[];
+              id?: string | null;
+            }[];
+            ctaText: string;
+            ctaButtonLabel: string;
+            ctaButtonHref: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'services';
           }
         | {
-            text: string
+            text: string;
             /**
              * Wählen Sie ein Teammitglied als Autor des Zitats aus
              */
-            author?: (number | null) | TeamMember
-            id?: string | null
-            blockName?: string | null
-            blockType: 'quote'
+            author?: (number | null) | TeamMember;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quote';
           }
         | {
-            eyebrow: string
-            headline: string
-            description: string
-            googleReviewUrl: string
-            reviewCount: number
-            averageRating: number
-            id?: string | null
-            blockName?: string | null
-            blockType: 'testimonials'
+            eyebrow: string;
+            headline: string;
+            description: string;
+            googleReviewUrl: string;
+            reviewCount: number;
+            averageRating: number;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonials';
           }
         | {
-            eyebrow: string
-            headline: string
-            description: string
-            emptyStateText: string
-            id?: string | null
-            blockName?: string | null
-            blockType: 'gallery'
+            eyebrow: string;
+            headline: string;
+            description: string;
+            emptyStateText: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'gallery';
           }
         | {
-            eyebrow: string
-            headline: string
-            description: string
-            id?: string | null
-            blockName?: string | null
-            blockType: 'team'
+            eyebrow: string;
+            headline: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'team';
           }
         | {
-            eyebrow: string
-            headline: string
-            description: string
+            eyebrow: string;
+            headline: string;
+            description: string;
             openingHours?:
               | {
-                  day: string
-                  state: 'open' | 'reservation' | 'closed'
-                  times: string
-                  id?: string | null
+                  day: string;
+                  state: 'open' | 'reservation' | 'closed';
+                  times: string;
+                  id?: string | null;
                 }[]
-              | null
+              | null;
             emergency: {
-              title: string
-              description: string
-            }
-            id?: string | null
-            blockName?: string | null
-            blockType: 'hours'
+              title: string;
+              description: string;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hours';
           }
         | {
-            eyebrow: string
-            headline: string
-            description: string
+            eyebrow: string;
+            headline: string;
+            description: string;
             address: {
-              street: string
-              city: string
-              additional?: string | null
-            }
-            phone: string
-            email: string
-            consultationTimes: string
-            directionsDescription: string
-            directionsLinkLabel: string
-            id?: string | null
-            blockName?: string | null
-            blockType: 'contact'
+              street: string;
+              city: string;
+              additional?: string | null;
+            };
+            phone: string;
+            email: string;
+            consultationTimes: string;
+            directionsDescription: string;
+            directionsLinkLabel: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contact';
           }
         | {
-            eyebrow: string
-            headline: string
-            description: string
-            id?: string | null
-            blockName?: string | null
-            blockType: 'contactForm'
+            eyebrow: string;
+            headline: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contactForm';
           }
         | {
-            eyebrow: string
-            headline: string
-            description?: string | null
-            alignment?: ('start' | 'end' | 'full') | null
+            eyebrow: string;
+            headline: string;
+            description?: string | null;
+            alignment?: ('start' | 'end' | 'full') | null;
             items: {
-              question: string
-              answer: string
-              id?: string | null
-            }[]
-            allowMultipleOpen?: boolean | null
-            id?: string | null
-            blockName?: string | null
-            blockType: 'accordion'
+              question: string;
+              answer: string;
+              id?: string | null;
+            }[];
+            allowMultipleOpen?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'accordion';
           }
         | {
-            eyebrow?: string | null
-            headline?: string | null
-            description?: string | null
+            eyebrow?: string | null;
+            headline?: string | null;
+            description?: string | null;
             items: {
               /**
                * Die Zielzahl, zu der hochgezählt wird
                */
-              value: number
+              value: number;
               /**
                * Text nach der Zahl (z.B. "+", "%", "★")
                */
-              suffix?: string | null
+              suffix?: string | null;
               /**
                * Was die Zahl bedeutet
                */
-              label: string
-              id?: string | null
-            }[]
-            variant?: ('light' | 'dark') | null
-            id?: string | null
-            blockName?: string | null
-            blockType: 'metrics'
+              label: string;
+              id?: string | null;
+            }[];
+            variant?: ('light' | 'dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'metrics';
           }
         | {
             /**
              * Der Text, der wiederholt über die Seite läuft
              */
-            text: string
-            separator?: ('dot' | 'diamond' | 'paw' | 'none') | null
-            style?: ('filled' | 'outlined' | 'alternating') | null
-            speed?: ('slow' | 'normal' | 'fast') | null
-            direction?: ('left' | 'right') | null
-            id?: string | null
-            blockName?: string | null
-            blockType: 'marqueeText'
+            text: string;
+            separator?: ('dot' | 'diamond' | 'paw' | 'none') | null;
+            style?: ('filled' | 'outlined' | 'alternating') | null;
+            speed?: ('slow' | 'normal' | 'fast') | null;
+            direction?: ('left' | 'right') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'marqueeText';
           }
         | {
-            eyebrow: string
-            headline: string
-            description?: string | null
+            eyebrow: string;
+            headline: string;
+            description?: string | null;
             steps: {
-              title: string
-              description: string
+              title: string;
+              description: string;
               /**
                * Optionales Icon oder Illustration für diesen Schritt
                */
-              icon?: (number | null) | Media
-              id?: string | null
-            }[]
-            id?: string | null
-            blockName?: string | null
-            blockType: 'stackingCards'
+              icon?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stackingCards';
           }
         | {
-            eyebrow: string
-            headline: string
+            eyebrow: string;
+            headline: string;
             items: {
-              title: string
-              description: string
+              title: string;
+              description: string;
               /**
                * Das Bild, das beim Scrollen zu diesem Eintrag eingeblendet wird
                */
-              image: number | Media
-              id?: string | null
-            }[]
-            id?: string | null
-            blockName?: string | null
-            blockType: 'splitReveal'
+              image: number | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'splitReveal';
           }
         | {
             /**
              * Vollflächiges Bild mit Parallax-Effekt
              */
-            image: number | Media
+            image: number | Media;
             /**
              * Optionaler Text über dem Bild
              */
-            headline?: string | null
-            subtext?: string | null
+            headline?: string | null;
+            subtext?: string | null;
             /**
              * Wie dunkel der Verlauf über dem Bild ist (0 = transparent, 100 = schwarz)
              */
-            overlayOpacity?: number | null
-            height?: ('medium' | 'tall' | 'fullscreen') | null
-            id?: string | null
-            blockName?: string | null
-            blockType: 'parallaxImage'
+            overlayOpacity?: number | null;
+            height?: ('medium' | 'tall' | 'fullscreen') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'parallaxImage';
           }
         | {
             /**
              * Der Text wird zeilenweise beim Scrollen eingeblendet. Jede Zeile wird einzeln animiert.
              */
-            text: string
-            authorName?: string | null
-            authorRole?: string | null
+            text: string;
+            authorName?: string | null;
+            authorRole?: string | null;
             /**
              * Kleines Porträt des Autors
              */
-            authorPhoto?: (number | null) | Media
-            alignment?: ('left' | 'center') | null
+            authorPhoto?: (number | null) | Media;
+            alignment?: ('left' | 'center') | null;
             /**
              * Animierte horizontale Linie unter dem Text
              */
-            showDivider?: boolean | null
-            id?: string | null
-            blockName?: string | null
-            blockType: 'editorialReveal'
+            showDivider?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'editorialReveal';
           }
         | {
-            eyebrow?: string | null
-            headline?: string | null
-            description?: string | null
+            eyebrow?: string | null;
+            headline?: string | null;
+            description?: string | null;
             pairs: {
-              beforeImage: number | Media
-              afterImage: number | Media
-              beforeLabel?: string | null
-              afterLabel?: string | null
-              caption?: string | null
-              id?: string | null
-            }[]
-            id?: string | null
-            blockName?: string | null
-            blockType: 'beforeAfter'
+              beforeImage: number | Media;
+              afterImage: number | Media;
+              beforeLabel?: string | null;
+              afterLabel?: string | null;
+              caption?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'beforeAfter';
           }
         | {
-            eyebrow: string
-            headline: string
+            eyebrow: string;
+            headline: string;
             events: {
               /**
                * Jahr oder Zeitraum (z.B. "2008", "2020–2022")
                */
-              year: string
-              title: string
-              description?: string | null
+              year: string;
+              title: string;
+              description?: string | null;
               /**
                * Optionales Bild zu diesem Ereignis
                */
-              image?: (number | null) | Media
-              id?: string | null
-            }[]
-            id?: string | null
-            blockName?: string | null
-            blockType: 'timeline'
+              image?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'timeline';
           }
       )[]
-    | null
+    | null;
   footer?:
     | {
-        tagline: string
-        copyright: string
-        id?: string | null
-        blockName?: string | null
-        blockType: 'footer'
+        tagline: string;
+        copyright: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'footer';
       }[]
-    | null
+    | null;
   /**
    * SEO-Einstellungen für Suchmaschinen und Social Preview.
    */
@@ -1588,42 +1586,42 @@ export interface StartPage {
     /**
      * Empfohlen für Suchmaschinen: 30–60 Zeichen.
      */
-    title?: string | null
+    title?: string | null;
     /**
      * Empfohlen für Suchmaschinen: 120–155 Zeichen.
      */
-    description?: string | null
-    image?: (number | null) | Media
+    description?: string | null;
+    image?: (number | null) | Media;
     /**
      * Absolute URL, z. B. https://www.deine-domain.at/impressum
      */
-    canonicalUrl?: string | null
-    noIndex?: boolean | null
-  }
+    canonicalUrl?: string | null;
+    noIndex?: boolean | null;
+  };
   jsonLd: {
-    enabled?: boolean | null
-    pageType: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage'
-    includeOrganization?: boolean | null
+    enabled?: boolean | null;
+    pageType: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage';
+    includeOrganization?: boolean | null;
     /**
      * Leer lassen, um automatisch alle aktiven Teammitglieder zu verwenden. Bei Auswahl werden nur diese verwendet.
      */
-    teamMembers?: (number | TeamMember)[] | null
+    teamMembers?: (number | TeamMember)[] | null;
     /**
      * Optional: zusätzliches Schema als Objekt oder Array. Wird unverändert als JSON+LD ausgegeben.
      */
     customSchemas?:
       | {
-          [k: string]: unknown
+          [k: string]: unknown;
         }
       | unknown[]
       | string
       | number
       | boolean
-      | null
-  }
-  _status?: ('draft' | 'published') | null
-  updatedAt?: string | null
-  createdAt?: string | null
+      | null;
+  };
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * Autorenansicht für die Impressum-Seite.
@@ -1632,23 +1630,23 @@ export interface StartPage {
  * via the `definition` "imprint-page".
  */
 export interface ImprintPage {
-  id: number
-  pageTitle: string
+  id: number;
+  pageTitle: string;
   content: {
     root: {
-      type: string
+      type: string;
       children: {
-        type: any
-        version: number
-        [k: string]: unknown
-      }[]
-      direction: ('ltr' | 'rtl') | null
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
-      indent: number
-      version: number
-    }
-    [k: string]: unknown
-  }
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   /**
    * SEO-Einstellungen für Suchmaschinen und Social Preview.
    */
@@ -1656,38 +1654,38 @@ export interface ImprintPage {
     /**
      * Empfohlen für Suchmaschinen: 30–60 Zeichen.
      */
-    title?: string | null
+    title?: string | null;
     /**
      * Empfohlen für Suchmaschinen: 120–155 Zeichen.
      */
-    description?: string | null
-    image?: (number | null) | Media
+    description?: string | null;
+    image?: (number | null) | Media;
     /**
      * Absolute URL, z. B. https://www.deine-domain.at/impressum
      */
-    canonicalUrl?: string | null
-    noIndex?: boolean | null
-  }
+    canonicalUrl?: string | null;
+    noIndex?: boolean | null;
+  };
   jsonLd: {
-    enabled?: boolean | null
-    pageType: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage'
-    includeOrganization?: boolean | null
+    enabled?: boolean | null;
+    pageType: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage';
+    includeOrganization?: boolean | null;
     /**
      * Optional: zusätzliches Schema als Objekt oder Array. Wird unverändert als JSON+LD ausgegeben.
      */
     customSchemas?:
       | {
-          [k: string]: unknown
+          [k: string]: unknown;
         }
       | unknown[]
       | string
       | number
       | boolean
-      | null
-  }
-  _status?: ('draft' | 'published') | null
-  updatedAt?: string | null
-  createdAt?: string | null
+      | null;
+  };
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * Autorenansicht für die Datenschutzerklärung.
@@ -1696,23 +1694,23 @@ export interface ImprintPage {
  * via the `definition` "privacy-policy-page".
  */
 export interface PrivacyPolicyPage {
-  id: number
-  pageTitle: string
+  id: number;
+  pageTitle: string;
   content: {
     root: {
-      type: string
+      type: string;
       children: {
-        type: any
-        version: number
-        [k: string]: unknown
-      }[]
-      direction: ('ltr' | 'rtl') | null
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
-      indent: number
-      version: number
-    }
-    [k: string]: unknown
-  }
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   /**
    * SEO-Einstellungen für Suchmaschinen und Social Preview.
    */
@@ -1720,38 +1718,38 @@ export interface PrivacyPolicyPage {
     /**
      * Empfohlen für Suchmaschinen: 30–60 Zeichen.
      */
-    title?: string | null
+    title?: string | null;
     /**
      * Empfohlen für Suchmaschinen: 120–155 Zeichen.
      */
-    description?: string | null
-    image?: (number | null) | Media
+    description?: string | null;
+    image?: (number | null) | Media;
     /**
      * Absolute URL, z. B. https://www.deine-domain.at/impressum
      */
-    canonicalUrl?: string | null
-    noIndex?: boolean | null
-  }
+    canonicalUrl?: string | null;
+    noIndex?: boolean | null;
+  };
   jsonLd: {
-    enabled?: boolean | null
-    pageType: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage'
-    includeOrganization?: boolean | null
+    enabled?: boolean | null;
+    pageType: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage';
+    includeOrganization?: boolean | null;
     /**
      * Optional: zusätzliches Schema als Objekt oder Array. Wird unverändert als JSON+LD ausgegeben.
      */
     customSchemas?:
       | {
-          [k: string]: unknown
+          [k: string]: unknown;
         }
       | unknown[]
       | string
       | number
       | boolean
-      | null
-  }
-  _status?: ('draft' | 'published') | null
-  updatedAt?: string | null
-  createdAt?: string | null
+      | null;
+  };
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1764,383 +1762,383 @@ export interface StartPageSelect<T extends boolean = true> {
         navigation?:
           | T
           | {
-              practiceName?: T
-              phone?: T
+              practiceName?: T;
+              phone?: T;
               links?:
                 | T
                 | {
-                    label?: T
-                    href?: T
-                    id?: T
-                  }
-              id?: T
-              blockName?: T
-            }
-      }
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
   layout?:
     | T
     | {
         hero?:
           | T
           | {
-              headline?: T
-              subheadline?: T
-              description?: T
-              heroImage?: T
-              ctaPrimaryText?: T
-              ctaPrimaryHref?: T
-              ctaSecondaryText?: T
-              ctaSecondaryHref?: T
-              id?: T
-              blockName?: T
-            }
+              headline?: T;
+              subheadline?: T;
+              description?: T;
+              heroImage?: T;
+              ctaPrimaryText?: T;
+              ctaPrimaryHref?: T;
+              ctaSecondaryText?: T;
+              ctaSecondaryHref?: T;
+              id?: T;
+              blockName?: T;
+            };
         services?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
+              eyebrow?: T;
+              headline?: T;
               groups?:
                 | T
                 | {
-                    category?: T
+                    category?: T;
                     items?:
                       | T
                       | {
-                          text?: T
-                          id?: T
-                        }
-                    id?: T
-                  }
-              ctaText?: T
-              ctaButtonLabel?: T
-              ctaButtonHref?: T
-              id?: T
-              blockName?: T
-            }
+                          text?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              ctaText?: T;
+              ctaButtonLabel?: T;
+              ctaButtonHref?: T;
+              id?: T;
+              blockName?: T;
+            };
         quote?:
           | T
           | {
-              text?: T
-              author?: T
-              id?: T
-              blockName?: T
-            }
+              text?: T;
+              author?: T;
+              id?: T;
+              blockName?: T;
+            };
         testimonials?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
-              googleReviewUrl?: T
-              reviewCount?: T
-              averageRating?: T
-              id?: T
-              blockName?: T
-            }
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              googleReviewUrl?: T;
+              reviewCount?: T;
+              averageRating?: T;
+              id?: T;
+              blockName?: T;
+            };
         gallery?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
-              emptyStateText?: T
-              id?: T
-              blockName?: T
-            }
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              emptyStateText?: T;
+              id?: T;
+              blockName?: T;
+            };
         team?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
-              id?: T
-              blockName?: T
-            }
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              id?: T;
+              blockName?: T;
+            };
         hours?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
               openingHours?:
                 | T
                 | {
-                    day?: T
-                    state?: T
-                    times?: T
-                    id?: T
-                  }
+                    day?: T;
+                    state?: T;
+                    times?: T;
+                    id?: T;
+                  };
               emergency?:
                 | T
                 | {
-                    title?: T
-                    description?: T
-                  }
-              id?: T
-              blockName?: T
-            }
+                    title?: T;
+                    description?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
         contact?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
               address?:
                 | T
                 | {
-                    street?: T
-                    city?: T
-                    additional?: T
-                  }
-              phone?: T
-              email?: T
-              consultationTimes?: T
-              directionsDescription?: T
-              directionsLinkLabel?: T
-              id?: T
-              blockName?: T
-            }
+                    street?: T;
+                    city?: T;
+                    additional?: T;
+                  };
+              phone?: T;
+              email?: T;
+              consultationTimes?: T;
+              directionsDescription?: T;
+              directionsLinkLabel?: T;
+              id?: T;
+              blockName?: T;
+            };
         contactForm?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
-              id?: T
-              blockName?: T
-            }
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              id?: T;
+              blockName?: T;
+            };
         accordion?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
-              alignment?: T
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              alignment?: T;
               items?:
                 | T
                 | {
-                    question?: T
-                    answer?: T
-                    id?: T
-                  }
-              allowMultipleOpen?: T
-              id?: T
-              blockName?: T
-            }
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+              allowMultipleOpen?: T;
+              id?: T;
+              blockName?: T;
+            };
         metrics?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
               items?:
                 | T
                 | {
-                    value?: T
-                    suffix?: T
-                    label?: T
-                    id?: T
-                  }
-              variant?: T
-              id?: T
-              blockName?: T
-            }
+                    value?: T;
+                    suffix?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
         marqueeText?:
           | T
           | {
-              text?: T
-              separator?: T
-              style?: T
-              speed?: T
-              direction?: T
-              id?: T
-              blockName?: T
-            }
+              text?: T;
+              separator?: T;
+              style?: T;
+              speed?: T;
+              direction?: T;
+              id?: T;
+              blockName?: T;
+            };
         stackingCards?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
               steps?:
                 | T
                 | {
-                    title?: T
-                    description?: T
-                    icon?: T
-                    id?: T
-                  }
-              id?: T
-              blockName?: T
-            }
+                    title?: T;
+                    description?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
         splitReveal?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
+              eyebrow?: T;
+              headline?: T;
               items?:
                 | T
                 | {
-                    title?: T
-                    description?: T
-                    image?: T
-                    id?: T
-                  }
-              id?: T
-              blockName?: T
-            }
+                    title?: T;
+                    description?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
         parallaxImage?:
           | T
           | {
-              image?: T
-              headline?: T
-              subtext?: T
-              overlayOpacity?: T
-              height?: T
-              id?: T
-              blockName?: T
-            }
+              image?: T;
+              headline?: T;
+              subtext?: T;
+              overlayOpacity?: T;
+              height?: T;
+              id?: T;
+              blockName?: T;
+            };
         editorialReveal?:
           | T
           | {
-              text?: T
-              authorName?: T
-              authorRole?: T
-              authorPhoto?: T
-              alignment?: T
-              showDivider?: T
-              id?: T
-              blockName?: T
-            }
+              text?: T;
+              authorName?: T;
+              authorRole?: T;
+              authorPhoto?: T;
+              alignment?: T;
+              showDivider?: T;
+              id?: T;
+              blockName?: T;
+            };
         beforeAfter?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
-              description?: T
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
               pairs?:
                 | T
                 | {
-                    beforeImage?: T
-                    afterImage?: T
-                    beforeLabel?: T
-                    afterLabel?: T
-                    caption?: T
-                    id?: T
-                  }
-              id?: T
-              blockName?: T
-            }
+                    beforeImage?: T;
+                    afterImage?: T;
+                    beforeLabel?: T;
+                    afterLabel?: T;
+                    caption?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
         timeline?:
           | T
           | {
-              eyebrow?: T
-              headline?: T
+              eyebrow?: T;
+              headline?: T;
               events?:
                 | T
                 | {
-                    year?: T
-                    title?: T
-                    description?: T
-                    image?: T
-                    id?: T
-                  }
-              id?: T
-              blockName?: T
-            }
-      }
+                    year?: T;
+                    title?: T;
+                    description?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
   footer?:
     | T
     | {
         footer?:
           | T
           | {
-              tagline?: T
-              copyright?: T
-              id?: T
-              blockName?: T
-            }
-      }
+              tagline?: T;
+              copyright?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
   meta?:
     | T
     | {
-        title?: T
-        description?: T
-        image?: T
-        canonicalUrl?: T
-        noIndex?: T
-      }
+        title?: T;
+        description?: T;
+        image?: T;
+        canonicalUrl?: T;
+        noIndex?: T;
+      };
   jsonLd?:
     | T
     | {
-        enabled?: T
-        pageType?: T
-        includeOrganization?: T
-        teamMembers?: T
-        customSchemas?: T
-      }
-  _status?: T
-  updatedAt?: T
-  createdAt?: T
-  globalType?: T
+        enabled?: T;
+        pageType?: T;
+        includeOrganization?: T;
+        teamMembers?: T;
+        customSchemas?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "imprint-page_select".
  */
 export interface ImprintPageSelect<T extends boolean = true> {
-  pageTitle?: T
-  content?: T
+  pageTitle?: T;
+  content?: T;
   meta?:
     | T
     | {
-        title?: T
-        description?: T
-        image?: T
-        canonicalUrl?: T
-        noIndex?: T
-      }
+        title?: T;
+        description?: T;
+        image?: T;
+        canonicalUrl?: T;
+        noIndex?: T;
+      };
   jsonLd?:
     | T
     | {
-        enabled?: T
-        pageType?: T
-        includeOrganization?: T
-        customSchemas?: T
-      }
-  _status?: T
-  updatedAt?: T
-  createdAt?: T
-  globalType?: T
+        enabled?: T;
+        pageType?: T;
+        includeOrganization?: T;
+        customSchemas?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "privacy-policy-page_select".
  */
 export interface PrivacyPolicyPageSelect<T extends boolean = true> {
-  pageTitle?: T
-  content?: T
+  pageTitle?: T;
+  content?: T;
   meta?:
     | T
     | {
-        title?: T
-        description?: T
-        image?: T
-        canonicalUrl?: T
-        noIndex?: T
-      }
+        title?: T;
+        description?: T;
+        image?: T;
+        canonicalUrl?: T;
+        noIndex?: T;
+      };
   jsonLd?:
     | T
     | {
-        enabled?: T
-        pageType?: T
-        includeOrganization?: T
-        customSchemas?: T
-      }
-  _status?: T
-  updatedAt?: T
-  createdAt?: T
-  globalType?: T
+        enabled?: T;
+        pageType?: T;
+        includeOrganization?: T;
+        customSchemas?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2148,9 +2146,9 @@ export interface PrivacyPolicyPageSelect<T extends boolean = true> {
  */
 export interface AnalyticsSectionTitleWidget {
   data?: {
-    [k: string]: unknown
-  }
-  width: 'full'
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2158,9 +2156,9 @@ export interface AnalyticsSectionTitleWidget {
  */
 export interface AnalyticsEventsTotalWidget {
   data?: {
-    [k: string]: unknown
-  }
-  width: 'small' | 'medium' | 'large' | 'x-large' | 'full'
+    [k: string]: unknown;
+  };
+  width: 'small' | 'medium' | 'large' | 'x-large' | 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2168,9 +2166,9 @@ export interface AnalyticsEventsTotalWidget {
  */
 export interface AnalyticsPageViewsWidget {
   data?: {
-    [k: string]: unknown
-  }
-  width: 'small' | 'medium' | 'large' | 'x-large' | 'full'
+    [k: string]: unknown;
+  };
+  width: 'small' | 'medium' | 'large' | 'x-large' | 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2178,9 +2176,9 @@ export interface AnalyticsPageViewsWidget {
  */
 export interface AnalyticsTrackEventsWidget {
   data?: {
-    [k: string]: unknown
-  }
-  width: 'small' | 'medium' | 'large' | 'x-large' | 'full'
+    [k: string]: unknown;
+  };
+  width: 'small' | 'medium' | 'large' | 'x-large' | 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2188,9 +2186,9 @@ export interface AnalyticsTrackEventsWidget {
  */
 export interface AnalyticsTopPagesWidget {
   data?: {
-    [k: string]: unknown
-  }
-  width: 'medium' | 'large' | 'x-large' | 'full'
+    [k: string]: unknown;
+  };
+  width: 'medium' | 'large' | 'x-large' | 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2198,17 +2196,18 @@ export interface AnalyticsTopPagesWidget {
  */
 export interface CollectionsWidget {
   data?: {
-    [k: string]: unknown
-  }
-  width: 'full'
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-  [k: string]: unknown
+  [k: string]: unknown;
 }
+
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

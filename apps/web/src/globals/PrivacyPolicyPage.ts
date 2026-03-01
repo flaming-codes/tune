@@ -30,7 +30,6 @@ export const PrivacyPolicyPage: GlobalConfig = {
               name: 'pageTitle',
               type: 'text',
               required: true,
-              defaultValue: 'Datenschutzerklärung',
               label: 'Seitentitel',
             },
             {

@@ -11,14 +11,12 @@ export const NavigationBlock: Block = {
       name: 'practiceName',
       type: 'text',
       required: true,
-      defaultValue: 'Tierarztpraxis Dr. Tune Lazri',
       label: 'Praxisname',
     },
     {
       name: 'phone',
       type: 'text',
       required: true,
-      defaultValue: '+43 699 190 12 012',
       label: 'Telefon',
     },
     {
@@ -29,14 +27,6 @@ export const NavigationBlock: Block = {
         singular: 'Link',
         plural: 'Links',
       },
-      defaultValue: [
-        { label: 'Home', href: '#home' },
-        { label: 'Leistungen', href: '#leistungen' },
-        { label: 'Über uns', href: '#team' },
-        { label: 'Kontakt', href: '#kontakt' },
-        { label: 'Impressum', href: '/impressum' },
-        { label: 'Datenschutz', href: '/datenschutzerklarung' },
-      ],
       fields: [
         {
           name: 'label',

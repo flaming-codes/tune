@@ -130,7 +130,6 @@ export const TeamMembers: CollectionConfig = {
               label: false,
               minRows: 1,
               blocks: teamMemberPageLayoutBlocks,
-              defaultValue: [{ blockType: 'memberHero' }, { blockType: 'memberCv' }],
               admin: {
                 description:
                   'Inhalt für /team/{slug}. Neben team-spezifischen Blöcken können auch bestehende Startseiten-Blöcke wiederverwendet werden.',

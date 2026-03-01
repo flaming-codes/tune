@@ -1,7 +1,7 @@
 import { getPayload } from 'payload'
 
 import config from '@/payload.config'
-import { seedStartPage } from './startPage'
+import { seed } from './index'
 import { envServer } from '@/env/server'
 
 async function run() {
@@ -9,8 +9,8 @@ async function run() {
   const payload = await getPayload({ config: payloadConfig })
   const overwrite = envServer.PAYLOAD_SEED_OVERWRITE === 'true'
 
-  await seedStartPage(payload, overwrite)
-  payload.logger.info(`Startseite geseedet (overwrite=${overwrite})`)
+  await seed(payload, overwrite)
+  payload.logger.info(`Seed abgeschlossen (overwrite=${overwrite})`)
 }
 
 run()

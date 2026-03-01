@@ -11,14 +11,12 @@ export const StackingCardsBlock: Block = {
       name: 'eyebrow',
       type: 'text',
       required: true,
-      defaultValue: 'Ihr Besuch',
       label: 'Eyebrow',
     },
     {
       name: 'headline',
       type: 'text',
       required: true,
-      defaultValue: 'Schritt für Schritt bestens betreut',
       label: 'Überschrift',
     },
     {
@@ -37,28 +35,6 @@ export const StackingCardsBlock: Block = {
         singular: 'Schritt',
         plural: 'Schritte',
       },
-      defaultValue: [
-        {
-          title: 'Terminvereinbarung',
-          description:
-            'Rufen Sie uns an oder nutzen Sie unser Kontaktformular, um einen passenden Termin zu finden.',
-        },
-        {
-          title: 'Erstgespräch',
-          description:
-            'Wir nehmen uns Zeit für Sie und Ihr Tier — erzählen Sie uns von Ihrem Liebling.',
-        },
-        {
-          title: 'Untersuchung',
-          description:
-            'Gründliche Diagnostik mit modernster Ausstattung für eine präzise Einschätzung.',
-        },
-        {
-          title: 'Behandlungsplan',
-          description:
-            'Transparente Besprechung aller Optionen — gemeinsam entscheiden wir den besten Weg.',
-        },
-      ],
       fields: [
         {
           name: 'title',

@@ -11,14 +11,12 @@ export const TimelineBlock: Block = {
       name: 'eyebrow',
       type: 'text',
       required: true,
-      defaultValue: 'Unsere Geschichte',
       label: 'Eyebrow',
     },
     {
       name: 'headline',
       type: 'text',
       required: true,
-      defaultValue: 'Meilensteine unserer Praxis',
       label: 'Überschrift',
     },
     {
@@ -32,25 +30,6 @@ export const TimelineBlock: Block = {
         singular: 'Ereignis',
         plural: 'Ereignisse',
       },
-      defaultValue: [
-        {
-          year: '2008',
-          title: 'Praxisgründung',
-          description:
-            'Eröffnung der Tierarztpraxis mit dem Ziel, eine persönliche und moderne tiermedizinische Versorgung zu bieten.',
-        },
-        {
-          year: '2015',
-          title: 'Umzug in neue Räumlichkeiten',
-          description:
-            'Größere Praxisräume mit modernster Ausstattung für eine noch bessere Betreuung.',
-        },
-        {
-          year: '2020',
-          title: 'Erweiterung des Teams',
-          description: 'Verstärkung durch spezialisierte Tierärzte und medizinisches Fachpersonal.',
-        },
-      ],
       fields: [
         {
           name: 'year',

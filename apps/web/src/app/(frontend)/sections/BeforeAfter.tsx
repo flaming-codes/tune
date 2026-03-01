@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useRef, useCallback } from 'react'
-import { motion, useMotionValue, useReducedMotion, useTransform } from 'motion/react'
+import React, { useRef, useCallback, useState } from 'react'
+import { motion, useMotionValue, useReducedMotion, useTransform, animate } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { PayloadImage } from '@/components/PayloadImage'
 import type { Media } from '@/payload-types'
@@ -30,40 +30,107 @@ function isMedia(value: unknown): value is Media {
 
 function ComparisonSlider({ pair }: { pair: ComparisonPair }) {
   const containerRef = useRef<HTMLDivElement>(null)
+  const handleRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useReducedMotion()
 
+  const [sliderPosition, setSliderPosition] = useState(50)
   const position = useMotionValue(50) // percentage
-  const isDragging = useRef(false)
 
   const beforeMedia = isMedia(pair.beforeImage) ? pair.beforeImage : null
   const afterMedia = isMedia(pair.afterImage) ? pair.afterImage : null
 
-  const handlePointerDown = useCallback(
-    (e: React.PointerEvent) => {
-      isDragging.current = true
-      ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect()
-        const x = e.clientX - rect.left
-        position.set(Math.max(0, Math.min(100, (x / rect.width) * 100)))
-      }
+  // Update position from pointer/mouse event
+  const updatePositionFromEvent = useCallback(
+    (clientX: number) => {
+      if (!containerRef.current) return
+      const rect = containerRef.current.getBoundingClientRect()
+      const x = clientX - rect.left
+      const newPosition = Math.max(0, Math.min(100, (x / rect.width) * 100))
+      position.set(newPosition)
+      setSliderPosition(newPosition)
     },
     [position],
+  )
+
+  // Mouse/Touch handlers for container
+  const handlePointerDown = useCallback(
+    (e: React.PointerEvent) => {
+      // Only respond to primary pointer (left mouse button, touch)
+      if (e.button !== 0 && e.pointerType === 'mouse') return
+
+      e.preventDefault()
+      containerRef.current?.setPointerCapture(e.pointerId)
+      updatePositionFromEvent(e.clientX)
+    },
+    [updatePositionFromEvent],
   )
 
   const handlePointerMove = useCallback(
     (e: React.PointerEvent) => {
-      if (!isDragging.current || !containerRef.current) return
+      if (!containerRef.current?.hasPointerCapture(e.pointerId)) return
+      updatePositionFromEvent(e.clientX)
+    },
+    [updatePositionFromEvent],
+  )
+
+  const handlePointerUp = useCallback(
+    (e: React.PointerEvent) => {
+      if (containerRef.current?.hasPointerCapture(e.pointerId)) {
+        containerRef.current.releasePointerCapture(e.pointerId)
+      }
+    },
+    [],
+  )
+
+  // Drag handlers for the handle
+  const handleDrag = useCallback(
+    (_: unknown, info: { delta: { x: number } }) => {
+      if (!containerRef.current) return
       const rect = containerRef.current.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      position.set(Math.max(0, Math.min(100, (x / rect.width) * 100)))
+      const deltaPercent = (info.delta.x / rect.width) * 100
+      const currentPos = position.get()
+      const newPosition = Math.max(0, Math.min(100, currentPos + deltaPercent))
+      position.set(newPosition)
+      setSliderPosition(newPosition)
     },
     [position],
   )
 
-  const handlePointerUp = useCallback(() => {
-    isDragging.current = false
-  }, [])
+  // Keyboard support
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      const step = 5
+      const currentPos = position.get()
+      let newPosition = currentPos
+
+      switch (e.key) {
+        case 'ArrowLeft':
+        case 'ArrowDown':
+          newPosition = Math.max(0, currentPos - step)
+          break
+        case 'ArrowRight':
+        case 'ArrowUp':
+          newPosition = Math.min(100, currentPos + step)
+          break
+        case 'Home':
+          newPosition = 0
+          break
+        case 'End':
+          newPosition = 100
+          break
+        default:
+          return
+      }
+
+      e.preventDefault()
+      animate(position, newPosition, {
+        type: 'tween',
+        duration: 0.2,
+        onUpdate: (v) => setSliderPosition(v),
+      })
+    },
+    [position],
+  )
 
   const clipPath = useTransform(position, (p) => `inset(0 ${100 - p}% 0 0)`)
   const handleX = useTransform(position, (p) => `${p}%`)
@@ -109,7 +176,7 @@ function ComparisonSlider({ pair }: { pair: ComparisonPair }) {
     <div className="space-y-3">
       <div
         ref={containerRef}
-        className="relative aspect-[4/3] overflow-hidden cursor-ew-resize select-none touch-none"
+        className="relative aspect-[4/3] overflow-hidden cursor-ew-resize select-none touch-pan-y"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -118,7 +185,10 @@ function ComparisonSlider({ pair }: { pair: ComparisonPair }) {
         aria-label="Vorher-Nachher-Vergleich"
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-valuenow={50}
+        aria-valuenow={Math.round(sliderPosition)}
+        aria-valuetext={`${Math.round(sliderPosition)}% Vorher, ${Math.round(100 - sliderPosition)}% Nachher`}
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
       >
         {/* After image (base layer) */}
         <div className="absolute inset-0">
@@ -142,13 +212,24 @@ function ComparisonSlider({ pair }: { pair: ComparisonPair }) {
           />
         </motion.div>
 
-        {/* Divider line */}
+        {/* Divider line and handle */}
         <motion.div
-          className="absolute top-0 bottom-0 w-px bg-white/80 pointer-events-none"
+          className="absolute top-0 bottom-0 w-px bg-white/80"
           style={{ left: handleX }}
         >
-          {/* Handle */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center pointer-events-none">
+          {/* Draggable handle */}
+          <motion.div
+            ref={handleRef}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center cursor-ew-resize focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+            drag="x"
+            dragConstraints={containerRef}
+            dragElastic={0}
+            dragMomentum={false}
+            onDrag={handleDrag}
+            tabIndex={-1}
+            whileHover={{ scale: 1.1 }}
+            whileDrag={{ scale: 0.95 }}
+          >
             <svg
               width="16"
               height="16"
@@ -164,7 +245,7 @@ function ComparisonSlider({ pair }: { pair: ComparisonPair }) {
                 strokeLinejoin="round"
               />
             </svg>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Labels */}

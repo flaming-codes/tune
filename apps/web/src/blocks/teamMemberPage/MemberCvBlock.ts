@@ -11,14 +11,12 @@ export const MemberCvBlock: Block = {
       name: 'eyebrow',
       type: 'text',
       required: true,
-      defaultValue: 'Werdegang',
       label: 'Eyebrow',
     },
     {
       name: 'headline',
       type: 'text',
       required: true,
-      defaultValue: 'Curriculum Vitae',
       label: 'Überschrift',
     },
     {
@@ -51,14 +49,6 @@ export const MemberCvBlock: Block = {
           type: 'textarea',
           required: false,
           label: 'Beschreibung',
-        },
-      ],
-      defaultValue: [
-        {
-          period: '2022–Heute',
-          title: 'Tierärztin',
-          institution: 'Tierarztpraxis Tune Lazri',
-          description: 'Ambulante und stationäre Versorgung mit Fokus auf Kleintiere.',
         },
       ],
     },

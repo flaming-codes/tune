@@ -11,8 +11,6 @@ export const QuoteBlock: Block = {
       name: 'text',
       type: 'textarea',
       required: true,
-      defaultValue:
-        'Die Liebe zu Tieren ist eine der edelsten Eigenschaften des menschlichen Herzens. Jeder Tierarzt trägt die Verantwortung, diese Liebe mit Wissen, Mitgefühl und Hingabe zu ehren.',
       label: 'Zitat Text',
     },
     {
