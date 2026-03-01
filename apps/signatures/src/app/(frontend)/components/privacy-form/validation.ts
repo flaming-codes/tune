@@ -26,11 +26,6 @@ const requiredDate = () =>
     .min(1, REQUIRED)
     .regex(/^\d{4}-\d{2}-\d{2}$/, 'Bitte geben Sie ein gültiges Datum ein.')
 
-const optionalEmail = z.union([
-  z.literal(''),
-  z.string().trim().email('Bitte geben Sie eine gültige E-Mail-Adresse ein.'),
-])
-
 const optionalPhone = z.union([
   z.literal(''),
   z
@@ -42,13 +37,18 @@ const optionalPhone = z.union([
 export const basePrivacySchema = z.object({
   ownerLastName: requiredText(),
   ownerFirstName: requiredText(),
-  ownerTitle: z.string(),
+  ownerTitle: z.string().optional().default(''),
   ownerDateOfBirth: requiredDate(),
   ownerStreet: requiredText(),
   ownerPostalCode: requiredPostalCode,
   ownerCity: requiredText(),
   ownerPhone: optionalPhone.pipe(requiredText()),
-  ownerEmail: optionalEmail,
+  ownerEmail: z
+    .string()
+    .trim()
+    .email('Bitte geben Sie eine gültige E-Mail-Adresse ein.')
+    .optional()
+    .default(''),
 
   patientName: requiredText(),
   patientAnimalType: z.enum(['dog', 'cat', 'other'], {
@@ -61,7 +61,7 @@ export const basePrivacySchema = z.object({
   }),
   patientDateOfBirth: requiredDate(),
   patientWeight: requiredWeight,
-  patientSpecialNotes: z.string(),
+  patientSpecialNotes: z.string().optional().default(''),
 
   signatureDataUrl: z
     .string()

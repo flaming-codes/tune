@@ -199,7 +199,6 @@ export function PrivacyForm({ onActivity }: PrivacyFormProps) {
                             <PrivacyFormConsentStep
                               fields={fields}
                               isPending={isPending}
-                              hasSubmitted={lastResult !== undefined}
                             />
                           )}
                         </motion.div>
