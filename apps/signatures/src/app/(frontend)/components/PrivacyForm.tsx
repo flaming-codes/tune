@@ -71,10 +71,16 @@ export function PrivacyForm({ onActivity }: PrivacyFormProps) {
   useWakeLock({ enabled: form.dirty && !successMessage })
 
   const resetForm = useCallback(() => {
-    form.reset()
-    setCurrentStep(1)
     setSuccessMessage(undefined)
-  }, [form])
+    setCurrentStep(1)
+    // The <form> element is unmounted while the success view is shown.
+    // Defer to the next frame so the element is back in the DOM.
+    // Use native reset (not conform's form.reset()) to avoid triggering
+    // state changes that would re-fire the success effect in a loop.
+    requestAnimationFrame(() => {
+      formRef.current?.reset()
+    })
+  }, [])
 
   const handleUserActivity = useCallback(() => {
     if (successMessage) {
@@ -110,14 +116,20 @@ export function PrivacyForm({ onActivity }: PrivacyFormProps) {
     }
   }, [currentStep, handleUserActivity])
 
+  // Track which result we already handled so resetForm doesn't re-trigger the effect
+  const handledResult = useRef<typeof lastResult>(undefined)
+
   // Detect server success
   useEffect(() => {
     if (
       lastResult &&
+      lastResult !== handledResult.current &&
       'status' in lastResult &&
       lastResult.status === 'success' &&
       'message' in lastResult
     ) {
+      handledResult.current = lastResult
+
       /* eslint-disable react-hooks/set-state-in-effect */
       setSuccessMessage(lastResult.message)
       /* eslint-enable react-hooks/set-state-in-effect */
