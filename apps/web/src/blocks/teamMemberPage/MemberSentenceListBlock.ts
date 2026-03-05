@@ -12,7 +12,6 @@ export const MemberSentenceListBlock: Block = {
       type: 'text',
       required: true,
       label: 'Satzbeginn',
-      defaultValue: 'Ich helfe Ihnen mit …',
       admin: {
         description:
           'Kurzer Satzbeginn (max. 60 Zeichen). Für beste Wirkung als einzeiligen Satz formulieren.',
@@ -41,13 +40,6 @@ export const MemberSentenceListBlock: Block = {
           required: true,
           label: 'Text',
         },
-      ],
-      defaultValue: [
-        { text: 'Vorsorge und Impfungen' },
-        { text: 'Zahnpflege und -behandlung' },
-        { text: 'Ernährungsberatung' },
-        { text: 'Allgemeinmedizin' },
-        { text: 'Notfallversorgung' },
       ],
     },
   ],

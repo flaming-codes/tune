@@ -11,22 +11,18 @@ export const HoursBlock: Block = {
       name: 'eyebrow',
       type: 'text',
       required: true,
-      defaultValue: 'Öffnungszeiten',
       label: 'Eyebrow',
     },
     {
       name: 'headline',
       type: 'text',
       required: true,
-      defaultValue: 'Wann wir für Sie da sind',
       label: 'Überschrift',
     },
     {
       name: 'description',
       type: 'textarea',
       required: true,
-      defaultValue:
-        'Flexible Öffnungszeiten für Sie und Ihre Lieblinge. Auch Hausbesuche sind nach Vereinbarung möglich.',
       label: 'Beschreibung',
     },
     {
@@ -39,15 +35,6 @@ export const HoursBlock: Block = {
         singular: 'Tag',
         plural: 'Tage',
       },
-      defaultValue: [
-        { day: 'Montag', state: 'open', times: '12:30 – 14:30 und 17:00 – 19:00' },
-        { day: 'Dienstag', state: 'open', times: '08:30 – 12:00 und 17:00 – 19:00' },
-        { day: 'Mittwoch', state: 'open', times: '12:30 – 14:30 und 17:00 – 19:00' },
-        { day: 'Donnerstag', state: 'open', times: '08:30 – 12:30 und 17:00 – 19:00' },
-        { day: 'Freitag', state: 'open', times: '09:00 – 12:00 und 17:00 – 19:00' },
-        { day: 'Samstag', state: 'reservation', times: 'Nach Vereinbarung' },
-        { day: 'Sonntag', state: 'closed', times: 'Geschlossen' },
-      ],
       fields: [
         {
           name: 'day',
@@ -84,14 +71,12 @@ export const HoursBlock: Block = {
           name: 'title',
           type: 'text',
           required: true,
-          defaultValue: 'Notfälle außerhalb der Öffnungszeiten',
           label: 'Titel',
         },
         {
           name: 'description',
           type: 'textarea',
           required: true,
-          defaultValue: 'Bei Notfällen rufen Sie uns bitte an. Wir sind für Sie erreichbar.',
           label: 'Beschreibung',
         },
       ],

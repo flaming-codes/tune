@@ -8,16 +8,14 @@ import type { PrivacyFormFields } from './types'
 interface PrivacyFormConsentStepProps {
   fields: PrivacyFormFields
   isPending: boolean
-  hasSubmitted: boolean
 }
 
 export function PrivacyFormConsentStep({
   fields,
   isPending,
-  hasSubmitted,
 }: PrivacyFormConsentStepProps) {
   const signatureControl = useInputControl(fields.signatureDataUrl)
-  const signatureErrors = hasSubmitted ? fields.signatureDataUrl.errors : undefined
+  const signatureErrors = fields.signatureDataUrl.errors
 
   return (
     <div className="space-y-10">

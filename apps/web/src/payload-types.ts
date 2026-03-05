@@ -427,6 +427,151 @@ export interface TeamMember {
             blockName?: string | null;
             blockType: 'accordion';
           }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            description?: string | null;
+            items: {
+              /**
+               * Die Zielzahl, zu der hochgezählt wird
+               */
+              value: number;
+              /**
+               * Text nach der Zahl (z.B. "+", "%", "★")
+               */
+              suffix?: string | null;
+              /**
+               * Was die Zahl bedeutet
+               */
+              label: string;
+              id?: string | null;
+            }[];
+            variant?: ('light' | 'dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'metrics';
+          }
+        | {
+            /**
+             * Der Text, der wiederholt über die Seite läuft
+             */
+            text: string;
+            separator?: ('dot' | 'diamond' | 'paw' | 'none') | null;
+            style?: ('filled' | 'outlined' | 'alternating') | null;
+            speed?: ('slow' | 'normal' | 'fast') | null;
+            direction?: ('left' | 'right') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'marqueeText';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description?: string | null;
+            steps: {
+              title: string;
+              description: string;
+              /**
+               * Optionales Icon oder Illustration für diesen Schritt
+               */
+              icon?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stackingCards';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            items: {
+              title: string;
+              description: string;
+              /**
+               * Das Bild, das beim Scrollen zu diesem Eintrag eingeblendet wird
+               */
+              image: number | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'splitReveal';
+          }
+        | {
+            /**
+             * Vollflächiges Bild mit Parallax-Effekt
+             */
+            image: number | Media;
+            /**
+             * Optionaler Text über dem Bild
+             */
+            headline?: string | null;
+            subtext?: string | null;
+            /**
+             * Wie dunkel der Verlauf über dem Bild ist (0 = transparent, 100 = schwarz)
+             */
+            overlayOpacity?: number | null;
+            height?: ('medium' | 'tall' | 'fullscreen') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'parallaxImage';
+          }
+        | {
+            /**
+             * Der Text wird zeilenweise beim Scrollen eingeblendet. Jede Zeile wird einzeln animiert.
+             */
+            text: string;
+            authorName?: string | null;
+            authorRole?: string | null;
+            /**
+             * Kleines Porträt des Autors
+             */
+            authorPhoto?: (number | null) | Media;
+            alignment?: ('left' | 'center') | null;
+            /**
+             * Animierte horizontale Linie unter dem Text
+             */
+            showDivider?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'editorialReveal';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            description?: string | null;
+            pairs: {
+              beforeImage: number | Media;
+              afterImage: number | Media;
+              beforeLabel?: string | null;
+              afterLabel?: string | null;
+              caption?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'beforeAfter';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            events: {
+              /**
+               * Jahr oder Zeitraum (z.B. "2008", "2020–2022")
+               */
+              year: string;
+              title: string;
+              description?: string | null;
+              /**
+               * Optionales Bild zu diesem Ereignis
+               */
+              image?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'timeline';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -907,6 +1052,127 @@ export interface TeamMembersSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        metrics?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              items?:
+                | T
+                | {
+                    value?: T;
+                    suffix?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        marqueeText?:
+          | T
+          | {
+              text?: T;
+              separator?: T;
+              style?: T;
+              speed?: T;
+              direction?: T;
+              id?: T;
+              blockName?: T;
+            };
+        stackingCards?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              steps?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        splitReveal?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        parallaxImage?:
+          | T
+          | {
+              image?: T;
+              headline?: T;
+              subtext?: T;
+              overlayOpacity?: T;
+              height?: T;
+              id?: T;
+              blockName?: T;
+            };
+        editorialReveal?:
+          | T
+          | {
+              text?: T;
+              authorName?: T;
+              authorRole?: T;
+              authorPhoto?: T;
+              alignment?: T;
+              showDivider?: T;
+              id?: T;
+              blockName?: T;
+            };
+        beforeAfter?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              pairs?:
+                | T
+                | {
+                    beforeImage?: T;
+                    afterImage?: T;
+                    beforeLabel?: T;
+                    afterLabel?: T;
+                    caption?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        timeline?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              events?:
+                | T
+                | {
+                    year?: T;
+                    title?: T;
+                    description?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1156,6 +1422,151 @@ export interface StartPage {
             id?: string | null;
             blockName?: string | null;
             blockType: 'accordion';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            description?: string | null;
+            items: {
+              /**
+               * Die Zielzahl, zu der hochgezählt wird
+               */
+              value: number;
+              /**
+               * Text nach der Zahl (z.B. "+", "%", "★")
+               */
+              suffix?: string | null;
+              /**
+               * Was die Zahl bedeutet
+               */
+              label: string;
+              id?: string | null;
+            }[];
+            variant?: ('light' | 'dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'metrics';
+          }
+        | {
+            /**
+             * Der Text, der wiederholt über die Seite läuft
+             */
+            text: string;
+            separator?: ('dot' | 'diamond' | 'paw' | 'none') | null;
+            style?: ('filled' | 'outlined' | 'alternating') | null;
+            speed?: ('slow' | 'normal' | 'fast') | null;
+            direction?: ('left' | 'right') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'marqueeText';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            description?: string | null;
+            steps: {
+              title: string;
+              description: string;
+              /**
+               * Optionales Icon oder Illustration für diesen Schritt
+               */
+              icon?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stackingCards';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            items: {
+              title: string;
+              description: string;
+              /**
+               * Das Bild, das beim Scrollen zu diesem Eintrag eingeblendet wird
+               */
+              image: number | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'splitReveal';
+          }
+        | {
+            /**
+             * Vollflächiges Bild mit Parallax-Effekt
+             */
+            image: number | Media;
+            /**
+             * Optionaler Text über dem Bild
+             */
+            headline?: string | null;
+            subtext?: string | null;
+            /**
+             * Wie dunkel der Verlauf über dem Bild ist (0 = transparent, 100 = schwarz)
+             */
+            overlayOpacity?: number | null;
+            height?: ('medium' | 'tall' | 'fullscreen') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'parallaxImage';
+          }
+        | {
+            /**
+             * Der Text wird zeilenweise beim Scrollen eingeblendet. Jede Zeile wird einzeln animiert.
+             */
+            text: string;
+            authorName?: string | null;
+            authorRole?: string | null;
+            /**
+             * Kleines Porträt des Autors
+             */
+            authorPhoto?: (number | null) | Media;
+            alignment?: ('left' | 'center') | null;
+            /**
+             * Animierte horizontale Linie unter dem Text
+             */
+            showDivider?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'editorialReveal';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            description?: string | null;
+            pairs: {
+              beforeImage: number | Media;
+              afterImage: number | Media;
+              beforeLabel?: string | null;
+              afterLabel?: string | null;
+              caption?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'beforeAfter';
+          }
+        | {
+            eyebrow: string;
+            headline: string;
+            events: {
+              /**
+               * Jahr oder Zeitraum (z.B. "2008", "2020–2022")
+               */
+              year: string;
+              title: string;
+              description?: string | null;
+              /**
+               * Optionales Bild zu diesem Ereignis
+               */
+              image?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'timeline';
           }
       )[]
     | null;
@@ -1511,6 +1922,127 @@ export interface StartPageSelect<T extends boolean = true> {
                     id?: T;
                   };
               allowMultipleOpen?: T;
+              id?: T;
+              blockName?: T;
+            };
+        metrics?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              items?:
+                | T
+                | {
+                    value?: T;
+                    suffix?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        marqueeText?:
+          | T
+          | {
+              text?: T;
+              separator?: T;
+              style?: T;
+              speed?: T;
+              direction?: T;
+              id?: T;
+              blockName?: T;
+            };
+        stackingCards?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              steps?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        splitReveal?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        parallaxImage?:
+          | T
+          | {
+              image?: T;
+              headline?: T;
+              subtext?: T;
+              overlayOpacity?: T;
+              height?: T;
+              id?: T;
+              blockName?: T;
+            };
+        editorialReveal?:
+          | T
+          | {
+              text?: T;
+              authorName?: T;
+              authorRole?: T;
+              authorPhoto?: T;
+              alignment?: T;
+              showDivider?: T;
+              id?: T;
+              blockName?: T;
+            };
+        beforeAfter?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              description?: T;
+              pairs?:
+                | T
+                | {
+                    beforeImage?: T;
+                    afterImage?: T;
+                    beforeLabel?: T;
+                    afterLabel?: T;
+                    caption?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        timeline?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              events?:
+                | T
+                | {
+                    year?: T;
+                    title?: T;
+                    description?: T;
+                    image?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };

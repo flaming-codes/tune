@@ -11,14 +11,12 @@ export const AccordionBlock: Block = {
       name: 'eyebrow',
       type: 'text',
       required: true,
-      defaultValue: 'FAQ',
       label: 'Eyebrow',
     },
     {
       name: 'headline',
       type: 'text',
       required: true,
-      defaultValue: 'Häufig gestellte Fragen',
       label: 'Überschrift',
     },
     {
@@ -55,23 +53,6 @@ export const AccordionBlock: Block = {
         singular: 'Eintrag',
         plural: 'Einträge',
       },
-      defaultValue: [
-        {
-          question: 'Welche Tiere behandeln Sie?',
-          answer:
-            'Ich behandle Kleintiere wie Hunde, Katzen, Kaninchen, Meerschweinchen, Hamster und andere Heimtiere.',
-        },
-        {
-          question: 'Muss ich einen Termin vereinbaren?',
-          answer:
-            'Ja, bitte vereinbaren Sie vorab einen Termin, damit ich mich ausreichend Zeit für Sie und Ihr Tier nehmen kann.',
-        },
-        {
-          question: 'Bieten Sie auch Hausbesuche an?',
-          answer:
-            'Ja, auf Wunsch besuche ich Sie und Ihren Liebling gerne zu Hause. Dies ist besonders für ängstliche Tiere oder bei Mobilitätseinschränkungen sinnvoll.',
-        },
-      ],
       fields: [
         {
           name: 'question',

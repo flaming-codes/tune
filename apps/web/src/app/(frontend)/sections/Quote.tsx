@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, type FC, type ReactNode } from 'react'
+import { useRef, useState, useSyncExternalStore, type FC, type ReactNode } from 'react'
 import { motion, useScroll, useTransform, type MotionValue, AnimatePresence } from 'motion/react'
 import { cn } from '@/lib/utils'
 import type { TeamMember } from '@/payload-types'
@@ -95,6 +95,8 @@ function QuoteAuthor({ author }: QuoteAuthorProps) {
   )
 }
 
+const emptySubscribe = () => () => {}
+
 interface QuoteProps {
   quote: {
     text: string
@@ -102,8 +104,49 @@ interface QuoteProps {
   }
 }
 
-export function Quote({ quote }: QuoteProps) {
-  const targetRef = useRef<HTMLDivElement | null>(null)
+function StaticQuote({ quote }: QuoteProps) {
+  const words = quote.text?.split(' ') ?? []
+
+  return (
+    <section className="relative theme-bg-secondary">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-32 lg:py-44">
+        <div className="max-w-5xl mx-auto text-center">
+          <div className="mb-8">
+            <svg
+              className="w-12 h-12 mx-auto theme-text-tertiary"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+          </div>
+          <blockquote>
+            <p
+              className={cn(
+                'text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight-custom leading-tight',
+                'flex flex-wrap justify-center',
+              )}
+            >
+              {words.map((word, i) => (
+                <span key={i} className="relative mx-1 lg:mx-1.5">
+                  <span className="theme-text-primary">{word}</span>
+                </span>
+              ))}
+            </p>
+            {quote.author && <QuoteAuthor author={quote.author} />}
+          </blockquote>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+interface AnimatedQuoteProps extends QuoteProps {
+  targetRef: React.RefObject<HTMLDivElement | null>
+}
+
+function AnimatedQuote({ quote, targetRef }: AnimatedQuoteProps) {
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ['start 45%', 'end 65%'],
@@ -153,4 +196,20 @@ export function Quote({ quote }: QuoteProps) {
       </div>
     </section>
   )
+}
+
+export function Quote({ quote }: QuoteProps) {
+  const targetRef = useRef<HTMLDivElement | null>(null)
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  )
+
+  // Return static version during SSR to prevent hydration mismatch
+  if (!mounted) {
+    return <StaticQuote quote={quote} />
+  }
+
+  return <AnimatedQuote quote={quote} targetRef={targetRef} />
 }

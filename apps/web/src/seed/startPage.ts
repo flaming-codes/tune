@@ -171,7 +171,11 @@ const defaultStartPageData = {
   },
 } satisfies Omit<StartPage, 'id' | 'createdAt' | 'updatedAt'>
 
-export async function seedStartPage(payload: Payload, overwrite = false): Promise<void> {
+export async function seedStartPage(
+  payload: Payload,
+  overwrite = false,
+  mediaId?: number,
+): Promise<void> {
   const existing = await payload.findGlobal({ slug: 'start-page' })
   const hasLayout = Array.isArray(existing.layout) && existing.layout.length > 0
 
@@ -179,8 +183,19 @@ export async function seedStartPage(payload: Payload, overwrite = false): Promis
     return
   }
 
+  const data = { ...defaultStartPageData }
+
+  if (mediaId) {
+    data.layout = data.layout.map((block) => {
+      if (block.blockType === 'hero') {
+        return { ...block, heroImage: mediaId }
+      }
+      return block
+    })
+  }
+
   await payload.updateGlobal({
     slug: 'start-page',
-    data: defaultStartPageData,
+    data,
   })
 }

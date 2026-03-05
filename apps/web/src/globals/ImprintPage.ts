@@ -30,7 +30,6 @@ export const ImprintPage: GlobalConfig = {
               name: 'pageTitle',
               type: 'text',
               required: true,
-              defaultValue: 'Impressum',
               label: 'Seitentitel',
             },
             {

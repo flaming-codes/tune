@@ -14,8 +14,7 @@ import { AnalyticsEvents } from './collections/AnalyticsEvents'
 import { StartPage } from './globals/StartPage'
 import { ImprintPage } from './globals/ImprintPage'
 import { PrivacyPolicyPage } from './globals/PrivacyPolicyPage'
-import { seedStartPage } from './seed/startPage'
-import { seedLegalPages } from './seed/legal-pages'
+import { seed } from './seed'
 import { envClient } from './env/client'
 import { envServer } from './env/server'
 
@@ -106,9 +105,8 @@ export default buildConfig({
   sharp,
   onInit: async (payload) => {
     if (envServer.PAYLOAD_SEED === 'true') {
-      await seedStartPage(payload, envServer.PAYLOAD_SEED_OVERWRITE === 'true')
-      await seedLegalPages(payload, envServer.PAYLOAD_SEED_OVERWRITE === 'true')
-      payload.logger.info('Startseite und Rechtstexte wurden erfolgreich geseedet.')
+      await seed(payload, envServer.PAYLOAD_SEED_OVERWRITE === 'true')
+      payload.logger.info('Seed abgeschlossen.')
     }
   },
 })

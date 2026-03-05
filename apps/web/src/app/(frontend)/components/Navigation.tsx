@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useSyncExternalStore } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
@@ -78,12 +78,19 @@ const itemVariants: Variants = {
 
 const MAX_DESKTOP_PRIMARY_LINKS = 4
 
+const emptySubscribe = () => () => {}
+
 export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
   const pathname = usePathname()
 
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [desktopMenuValue, setDesktopMenuValue] = useState('')
+  const isMounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  )
 
   // Handle scroll for header styling
   useEffect(() => {
@@ -253,43 +260,45 @@ export function Navigation({ practiceName, navLinks, phone }: NavigationProps) {
             </a>
 
             {/* Mobile Menu Button - Using Radix NavigationMenu.Trigger pattern */}
-            <NavigationMenu.Item value="mobile-menu" className="md:hidden list-none">
-              <NavigationMenu.Trigger asChild>
-                <button
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="p-2 theme-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--accent-primary)"
-                  aria-label={isMobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
-                  aria-expanded={isMobileMenuOpen}
-                  aria-controls="mobile-menu"
-                >
-                  <div className="w-5 h-4 flex flex-col justify-between">
-                    <motion.span
-                      className="block h-px bg-current origin-center"
-                      animate={{
-                        rotate: isMobileMenuOpen ? 45 : 0,
-                        y: isMobileMenuOpen ? 7 : 0,
-                      }}
-                      transition={{ duration: 0.2, ease: easeOut }}
-                    />
-                    <motion.span
-                      className="block h-px bg-current"
-                      animate={{
-                        opacity: isMobileMenuOpen ? 0 : 1,
-                      }}
-                      transition={{ duration: 0.15 }}
-                    />
-                    <motion.span
-                      className="block h-px bg-current origin-center"
-                      animate={{
-                        rotate: isMobileMenuOpen ? -45 : 0,
-                        y: isMobileMenuOpen ? -7 : 0,
-                      }}
-                      transition={{ duration: 0.2, ease: easeOut }}
-                    />
-                  </div>
-                </button>
-              </NavigationMenu.Trigger>
-            </NavigationMenu.Item>
+            {isMounted && (
+              <NavigationMenu.Item value="mobile-menu" className="md:hidden list-none">
+                <NavigationMenu.Trigger asChild>
+                  <button
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    className="p-2 theme-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--accent-primary)"
+                    aria-label={isMobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
+                    aria-expanded={isMobileMenuOpen}
+                    aria-controls="mobile-menu"
+                  >
+                    <div className="w-5 h-4 flex flex-col justify-between">
+                      <motion.span
+                        className="block h-px bg-current origin-center"
+                        animate={{
+                          rotate: isMobileMenuOpen ? 45 : 0,
+                          y: isMobileMenuOpen ? 7 : 0,
+                        }}
+                        transition={{ duration: 0.2, ease: easeOut }}
+                      />
+                      <motion.span
+                        className="block h-px bg-current"
+                        animate={{
+                          opacity: isMobileMenuOpen ? 0 : 1,
+                        }}
+                        transition={{ duration: 0.15 }}
+                      />
+                      <motion.span
+                        className="block h-px bg-current origin-center"
+                        animate={{
+                          rotate: isMobileMenuOpen ? -45 : 0,
+                          y: isMobileMenuOpen ? -7 : 0,
+                        }}
+                        transition={{ duration: 0.2, ease: easeOut }}
+                      />
+                    </div>
+                  </button>
+                </NavigationMenu.Trigger>
+              </NavigationMenu.Item>
+            )}
           </nav>
 
           {/* Mobile Menu - Controlled version with AnimatePresence */}

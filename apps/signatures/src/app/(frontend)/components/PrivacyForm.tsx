@@ -16,15 +16,6 @@ import { useWakeLock } from '../hooks/useWakeLock'
 
 const easeOut = [0.4, 0, 0.2, 1] as const
 
-const contentVariants = {
-  enter: (direction: number) => ({
-    x: direction > 0 ? '100%' : '-100%',
-  }),
-  center: {
-    x: 0,
-  },
-}
-
 const stepFieldNames: Record<PrivacyStep, string[]> = {
   1: [
     'ownerLastName',
@@ -57,7 +48,6 @@ export interface PrivacyFormProps {
 
 export function PrivacyForm({ onActivity }: PrivacyFormProps) {
   const [currentStep, setCurrentStep] = useState(1)
-  const [direction, setDirection] = useState(0)
   const [successMessage, setSuccessMessage] = useState<string | undefined>(undefined)
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -81,11 +71,16 @@ export function PrivacyForm({ onActivity }: PrivacyFormProps) {
   useWakeLock({ enabled: form.dirty && !successMessage })
 
   const resetForm = useCallback(() => {
-    form.reset()
-    setCurrentStep(1)
-    setDirection(0)
     setSuccessMessage(undefined)
-  }, [form])
+    setCurrentStep(1)
+    // The <form> element is unmounted while the success view is shown.
+    // Defer to the next frame so the element is back in the DOM.
+    // Use native reset (not conform's form.reset()) to avoid triggering
+    // state changes that would re-fire the success effect in a loop.
+    requestAnimationFrame(() => {
+      formRef.current?.reset()
+    })
+  }, [])
 
   const handleUserActivity = useCallback(() => {
     if (successMessage) {
@@ -111,26 +106,30 @@ export function PrivacyForm({ onActivity }: PrivacyFormProps) {
       return
     }
 
-    setDirection(1)
     setCurrentStep((prev) => prev + 1)
   }, [currentStep, form, handleUserActivity, totalSteps])
 
   const handleBack = useCallback(() => {
     handleUserActivity()
     if (currentStep > 1) {
-      setDirection(-1)
       setCurrentStep((prev) => prev - 1)
     }
   }, [currentStep, handleUserActivity])
+
+  // Track which result we already handled so resetForm doesn't re-trigger the effect
+  const handledResult = useRef<typeof lastResult>(undefined)
 
   // Detect server success
   useEffect(() => {
     if (
       lastResult &&
+      lastResult !== handledResult.current &&
       'status' in lastResult &&
       lastResult.status === 'success' &&
       'message' in lastResult
     ) {
+      handledResult.current = lastResult
+
       /* eslint-disable react-hooks/set-state-in-effect */
       setSuccessMessage(lastResult.message)
       /* eslint-enable react-hooks/set-state-in-effect */
@@ -187,52 +186,37 @@ export function PrivacyForm({ onActivity }: PrivacyFormProps) {
                   )}
                 </AnimatePresence>
 
-                <div className="min-h-80 overflow-hidden relative">
-                  {privacyFormSteps.map(({ id }) => {
-                    const isActive = id === currentStep
+                <div className="min-h-80 overflow-hidden">
+                  <div className="grid">
+                    {privacyFormSteps.map(({ id }) => {
+                      const isActive = id === currentStep
 
-                    return (
-                      <div
-                        key={`step-${id}`}
-                        style={{ display: isActive ? 'block' : 'none' }}
-                        aria-hidden={!isActive}
-                      >
-                        {isActive ? (
-                          <motion.div
-                            key={`active-${id}-${direction}`}
-                            custom={direction}
-                            variants={contentVariants}
-                            initial="enter"
-                            animate="center"
-                            transition={{ duration: 0.4, ease: easeOut }}
-                            className="px-2"
-                          >
-                            {id === 1 && <PrivacyFormOwnerStep fields={fields} />}
-                            {id === 2 && <PrivacyFormPatientStep fields={fields} />}
-                            {id === 3 && (
-                              <PrivacyFormConsentStep
-                                fields={fields}
-                                isPending={isPending}
-                                hasSubmitted={lastResult !== undefined}
-                              />
-                            )}
-                          </motion.div>
-                        ) : (
-                          <div className="px-2">
-                            {id === 1 && <PrivacyFormOwnerStep fields={fields} />}
-                            {id === 2 && <PrivacyFormPatientStep fields={fields} />}
-                            {id === 3 && (
-                              <PrivacyFormConsentStep
-                                fields={fields}
-                                isPending={isPending}
-                                hasSubmitted={lastResult !== undefined}
-                              />
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    )
-                  })}
+                      return (
+                        <motion.div
+                          key={`step-${id}`}
+                          className="col-start-1 row-start-1 px-2"
+                          aria-hidden={!isActive}
+                          inert={!isActive}
+                          initial={false}
+                          animate={{
+                            x: isActive ? '0%' : id < currentStep ? '-12%' : '12%',
+                            opacity: isActive ? 1 : 0,
+                          }}
+                          transition={{ duration: 0.35, ease: easeOut }}
+                          style={{ pointerEvents: isActive ? 'auto' : 'none' }}
+                        >
+                          {id === 1 && <PrivacyFormOwnerStep fields={fields} />}
+                          {id === 2 && <PrivacyFormPatientStep fields={fields} />}
+                          {id === 3 && (
+                            <PrivacyFormConsentStep
+                              fields={fields}
+                              isPending={isPending}
+                            />
+                          )}
+                        </motion.div>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
             </div>

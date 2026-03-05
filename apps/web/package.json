@@ -16,7 +16,7 @@
     "db:migrate:reset": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:reset",
     "db:migrate:fresh": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:fresh",
     "db:migrate:status": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:status",
-    "seed:start-page": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm src/seed/runStartPageSeed.ts",
+    "seed": "cross-env NODE_OPTIONS=--no-deprecation node --env-file=.env --import=tsx/esm src/seed/run.ts",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation eslint .",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\" \"tests/**/*.{ts,tsx}\"",
@@ -24,7 +24,8 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
-    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
+    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
+    "build:exe": "node ../../scripts/pkg-app.mjs"
   },
   "dependencies": {
     "@med/theme": "workspace:*",
