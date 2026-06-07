@@ -22,11 +22,11 @@ This is a **Turborepo monorepo** containing a Next.js + Payload CMS application 
 ## Technology Stack
 
 ### Core Technologies
-- **Framework**: Next.js 16.1.6 with App Router
-- **CMS**: Payload CMS 3.77.0
-- **Language**: TypeScript 5.9.3
-- **Runtime**: Node.js 18.20.2+ or >=20.9.0
-- **Package Manager**: pnpm 10.19.0
+- **Framework**: Next.js 16.2.7 with App Router
+- **CMS**: Payload CMS 3.85.0
+- **Language**: TypeScript 6.0.3
+- **Runtime**: Node.js >=22.13.0
+- **Package Manager**: pnpm 11.5.2
 
 ### Database & Storage
 - **Database**: SQLite (via `@payloadcms/db-sqlite`)
@@ -34,7 +34,7 @@ This is a **Turborepo monorepo** containing a Next.js + Payload CMS application 
 - **Migrations**: Explicit migration files (push mode disabled)
 
 ### Styling & UI
-- **CSS Framework**: Tailwind CSS 4.2.0
+- **CSS Framework**: Tailwind CSS 4.3.0
 - **Rich Text Editor**: Lexical (`@payloadcms/richtext-lexical`)
 - **Animation**: Motion library
 - **Maps**: Leaflet + React-Leaflet
@@ -42,14 +42,14 @@ This is a **Turborepo monorepo** containing a Next.js + Payload CMS application 
 - **Classname Utilities**: `clsx` for conditional className merging
 
 ### Testing
-- **Unit/Integration**: Vitest 4.0.18 with jsdom
-- **E2E**: Playwright 1.58.2
+- **Unit/Integration**: Vitest 4.1.8 with jsdom
+- **E2E**: Playwright 1.60.0
 - **Testing Library**: React Testing Library 16.3.2
 
 ### Code Quality
 - **Linter**: ESLint 9.x with Next.js config
-- **Formatter**: Prettier 3.8.1
-- **Git Hooks**: Lefthook 2.1.1
+- **Formatter**: Prettier 3.8.3
+- **Git Hooks**: Lefthook 2.1.9
 
 ## Workspace Structure
 
@@ -181,7 +181,7 @@ pnpm seed:start-page
 
 ### CI/CD
 ```bash
-# Fast CI pipeline (lint, typecheck, test:int, build)
+# Fast CI pipeline (migrate, lint, typecheck, test:int, build)
 pnpm ci:fast
 
 # App-specific CI
@@ -415,9 +415,9 @@ The `.cursor/rules/` directory contains comprehensive Payload CMS development gu
 Ensure all `@payloadcms/*` packages use the exact same version:
 ```json
 {
-  "payload": "3.77.0",
-  "@payloadcms/ui": "3.77.0",
-  "@payloadcms/next": "3.77.0"
+  "payload": "3.85.0",
+  "@payloadcms/ui": "3.85.0",
+  "@payloadcms/next": "3.85.0"
 }
 ```
 
@@ -469,7 +469,7 @@ After work is complete, list filenames in `docs/` again and update, create, or d
 **Always run quality gates before finishing a task:**
 
 ```bash
-# Run the fast CI pipeline (lint, typecheck, test:int, build)
+# Run the fast CI pipeline (migrate, lint, typecheck, test:int, build)
 pnpm ci:fast
 
 # Or for app-specific changes:

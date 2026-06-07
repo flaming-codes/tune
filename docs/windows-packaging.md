@@ -50,7 +50,7 @@ Named `.cjs` because the project uses `"type": "module"` and the entry must be C
 4. Copies `.next/static/` (not included in standalone by default)
 5. Copies `public/` directory
 6. Copies `.env` if present
-7. Generates the CJS launcher, runs `@yao-pkg/pkg` targeting `node20-win-x64`
+7. Generates the CJS launcher, runs `@yao-pkg/pkg` targeting `node22-win-x64`
 8. Cleans up the temporary launcher file
 
 ## Commands

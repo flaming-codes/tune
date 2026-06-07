@@ -57,31 +57,31 @@ export default buildConfig({
       widgets: [
         {
           slug: 'analytics-section-title',
-          ComponentPath: '/components/AnalyticsWidgets/AnalyticsSectionTitleWidget#default',
+          Component: '/components/AnalyticsWidgets/AnalyticsSectionTitleWidget#default',
           minWidth: 'full',
           maxWidth: 'full',
         },
         {
           slug: 'analytics-events-total',
-          ComponentPath: '/components/AnalyticsWidgets/AllEventsWidget#default',
+          Component: '/components/AnalyticsWidgets/AllEventsWidget#default',
           minWidth: 'small',
           maxWidth: 'full',
         },
         {
           slug: 'analytics-page-views',
-          ComponentPath: '/components/AnalyticsWidgets/PageViewsWidget#default',
+          Component: '/components/AnalyticsWidgets/PageViewsWidget#default',
           minWidth: 'small',
           maxWidth: 'full',
         },
         {
           slug: 'analytics-track-events',
-          ComponentPath: '/components/AnalyticsWidgets/TrackEventsWidget#default',
+          Component: '/components/AnalyticsWidgets/TrackEventsWidget#default',
           minWidth: 'small',
           maxWidth: 'full',
         },
         {
           slug: 'analytics-top-pages',
-          ComponentPath: '/components/AnalyticsWidgets/TopPagesWidget#default',
+          Component: '/components/AnalyticsWidgets/TopPagesWidget#default',
           minWidth: 'medium',
           maxWidth: 'full',
         },

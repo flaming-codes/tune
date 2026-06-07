@@ -97,7 +97,7 @@ fs.writeFileSync(launcherPath, launcherContent)
 
 // ── 6. Run pkg ───────────────────────────────────────────────────────
 const exeName = `med-${appName}`
-const pkgTarget = 'node20-win-x64'
+const pkgTarget = 'node22-win-x64'
 const pkgCmd = [
   'npx @yao-pkg/pkg',
   JSON.stringify(launcherPath),

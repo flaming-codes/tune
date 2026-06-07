@@ -1,10 +1,17 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "globalDependencies": ["apps/*/.env*"],
+  "globalEnv": [
+    "DATABASE_URL",
+    "PAYLOAD_SECRET",
+    "PAYLOAD_SEED",
+    "PAYLOAD_SEED_OVERWRITE",
+    "NEXT_PUBLIC_*"
+  ],
   "ui": "tui",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "typecheck"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "dev": {

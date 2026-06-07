@@ -54,7 +54,7 @@ export default buildConfig({
       widgets: [
         {
           slug: 'network-info',
-          ComponentPath: '/components/NetworkInfoWidget#default',
+          Component: '/components/NetworkInfoWidget#default',
           minWidth: 'medium',
           maxWidth: 'full',
         },

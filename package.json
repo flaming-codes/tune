@@ -2,7 +2,11 @@
   "name": "med-site-monorepo",
   "private": true,
   "version": "1.0.0",
-  "packageManager": "pnpm@10.19.0",
+  "packageManager": "pnpm@11.5.2",
+  "engines": {
+    "node": ">=22.13.0",
+    "pnpm": "^11"
+  },
   "scripts": {
     "prepare": "lefthook install",
     "build": "turbo run build",
@@ -23,9 +27,9 @@
     "test:e2e": "turbo run test:e2e",
     "test:e2e:web": "turbo run test:e2e --filter=web",
     "test:e2e:signatures": "turbo run test:e2e --filter=signatures",
-    "ci:fast": "turbo run lint typecheck test:int build --output-logs=new-only",
-    "ci:web": "turbo run lint typecheck test:int build --filter=web --output-logs=new-only",
-    "ci:signatures": "turbo run lint typecheck test:int build --filter=signatures --output-logs=new-only",
+    "ci:fast": "node scripts/run-ci.mjs fast",
+    "ci:web": "node scripts/run-ci.mjs web",
+    "ci:signatures": "node scripts/run-ci.mjs signatures",
     "format": "turbo run format",
     "format:web": "pnpm --filter web format",
     "format:signatures": "pnpm --filter signatures format",
@@ -41,18 +45,8 @@
     "build:exe:signatures": "turbo run build:exe --filter=signatures"
   },
   "devDependencies": {
-    "@yao-pkg/pkg": "^6.14.1",
-    "lefthook": "^2.1.1",
-    "turbo": "^2.5.8"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "sharp",
-      "esbuild",
-      "unrs-resolver"
-    ],
-    "ignoredBuiltDependencies": [
-      "lefthook"
-    ]
+    "@yao-pkg/pkg": "^6.20.0",
+    "lefthook": "^2.1.9",
+    "turbo": "^2.9.16"
   }
 }
