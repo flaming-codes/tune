@@ -47,8 +47,8 @@ export function PayloadImage({
     return null
   }
 
-  // Determine which URL to use based on size
-  const imageUrl = size === 'original' || !media.sizes?.[size] ? media.url : media.sizes[size]?.url
+  const selectedSize = size === 'original' ? undefined : media.sizes?.[size]
+  const imageUrl = selectedSize?.url ?? media.url
 
   if (!imageUrl) {
     return null
@@ -58,7 +58,7 @@ export function PayloadImage({
   const blurDataURL = placeholder === 'blur' ? media.blurDataURL : undefined
 
   // Get dimensions from the selected size or original
-  const sizeData = size === 'original' ? media : media.sizes?.[size]
+  const sizeData = selectedSize?.url ? selectedSize : media
   const imgWidth = width ?? sizeData?.width ?? undefined
   const imgHeight = height ?? sizeData?.height ?? undefined
 
@@ -89,11 +89,11 @@ export function getMediaUrl(
     return null
   }
 
-  if (size === 'original' || !media.sizes?.[size]) {
+  if (size === 'original') {
     return media.url ?? null
   }
 
-  return media.sizes[size]?.url ?? media.url ?? null
+  return media.sizes?.[size]?.url ?? media.url ?? null
 }
 
 /**

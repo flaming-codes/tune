@@ -5,7 +5,7 @@ import { z } from 'zod'
  * These are only available on the server
  */
 const serverSchema = z.object({
-  DATABASE_URL: z.string().min(1),
+  DATABASE_URL: z.string().min(1).default('file:./web.db'),
   PAYLOAD_SECRET: z.string().min(1),
   PAYLOAD_SEED: z.enum(['true', 'false']).optional(),
   PAYLOAD_SEED_OVERWRITE: z.enum(['true', 'false']).optional(),

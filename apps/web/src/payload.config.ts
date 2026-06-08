@@ -99,6 +99,9 @@ export default buildConfig({
     client: {
       url: envServer.DATABASE_URL,
     },
+    migrationDir: path.resolve(dirname, 'migrations'),
+    wal: true,
+    busyTimeout: 5000,
     // Disable push mode - use explicit migrations instead
     push: false,
   }),

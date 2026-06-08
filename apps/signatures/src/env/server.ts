@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 const serverSchema = z.object({
-  DATABASE_URL: z.string().min(1),
+  DATABASE_URL: z.string().min(1).default('file:./signatures.db'),
   PAYLOAD_SECRET: z.string().min(1),
 })
 

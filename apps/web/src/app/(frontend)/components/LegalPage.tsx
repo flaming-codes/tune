@@ -2,7 +2,7 @@ import React from 'react'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import type { ImprintPage } from '@/payload-types'
 
-import { Footer } from './Footer'
+import { Footer, FooterWrapper } from './Footer'
 import { Navigation } from './Navigation'
 
 interface NavLink {
@@ -43,17 +43,19 @@ export function LegalPage({
 }: LegalPageProps) {
   return (
     <>
-      <Navigation practiceName={practiceName} navLinks={navLinks} phone={phone} />
-      <main className="pt-44 pb-20">
-        <section className="max-w-7xl mx-auto px-6 lg:px-12">
-          <h1 className="text-4xl md:text-5xl font-medium tracking-tight-custom theme-text-primary mb-8">
-            {pageTitle}
-          </h1>
-          <div className="max-w-[80ch] text-sm md:text-base theme-text-secondary leading-relaxed space-y-4 text-left [&_h2]:text-2xl [&_h2]:font-medium [&_h2]:tracking-tight-custom [&_h2]:theme-text-primary [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-left [&_p]:mb-4 [&_p]:text-left [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_ul]:text-left">
-            <RichText data={content} />
-          </div>
-        </section>
-      </main>
+      <FooterWrapper>
+        <Navigation practiceName={practiceName} navLinks={navLinks} phone={phone} />
+        <main className="pt-44 pb-20">
+          <section className="max-w-7xl mx-auto px-6 lg:px-12">
+            <h1 className="text-4xl md:text-5xl font-medium tracking-tight-custom theme-text-primary mb-8">
+              {pageTitle}
+            </h1>
+            <div className="max-w-[80ch] text-sm md:text-base theme-text-secondary leading-relaxed space-y-4 text-left [&_h2]:text-2xl [&_h2]:font-medium [&_h2]:tracking-tight-custom [&_h2]:theme-text-primary [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-left [&_p]:mb-4 [&_p]:text-left [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_ul]:text-left">
+              <RichText data={content} />
+            </div>
+          </section>
+        </main>
+      </FooterWrapper>
       <Footer practiceName={practiceName} footer={footer} contact={contact} navLinks={navLinks} />
     </>
   )

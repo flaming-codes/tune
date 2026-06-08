@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { motion } from 'motion/react'
 
 const services = [
   { id: 'vorsorge', num: '01', label: 'Vorsorge Untersuchungen' },
@@ -53,19 +52,6 @@ export function QuickServices() {
               >
                 {service.label}
               </span>
-
-              {/* Arrow - appears on hover */}
-              <motion.span
-                className="ml-auto text-sm theme-text-primary"
-                initial={false}
-                animate={{
-                  opacity: activeIndex === index ? 1 : 0,
-                  x: activeIndex === index ? 0 : -8,
-                }}
-                transition={{ duration: 0.2, ease: 'easeOut' }}
-              >
-                →
-              </motion.span>
             </div>
           </a>
         ))}

@@ -88,7 +88,7 @@ The `.env` file lives at `app/apps/<appName>/.env` next to `server.js`:
 
 | Variable | Required | Default | Notes |
 |----------|----------|---------|-------|
-| `DATABASE_URL` | Yes | — | `file:./web.db` or `file:./signatures.db` |
+| `DATABASE_URL` | No | `file:./web.db` / `file:./signatures.db` | Override the SQLite database location |
 | `PAYLOAD_SECRET` | Yes | — | Random string for JWT signing |
 | `NEXT_PUBLIC_SITE_URL` | No | `http://localhost:<port>` | Public URL |
 | `PORT` | No | `3000` / `3001` | Server port |

@@ -28,6 +28,10 @@ Turborepo runs tasks in strict environment mode. Required Payload and Next varia
 
 Vitest setup files force test-only database settings by default, ignoring normal app `DATABASE_URL` values unless `TEST_DATABASE_URL` is set. API integration tests call `payload.db.migrate()` before querying Payload collections so a clean checkout can run against fresh ignored SQLite test databases.
 
+## Payload SQLite
+
+Both Payload apps use `@payloadcms/db-sqlite` with explicit migration directories, `push: false`, WAL mode, and a 5000ms busy timeout. `DATABASE_URL` is still passed to Payload's SQLite adapter, but it defaults locally to `file:./web.db` or `file:./signatures.db` and only needs to be set when overriding the database location. Schema changes should be committed as SQLite migrations in each app's `src/migrations/` directory; live Postgres data import is not part of the current schema-only workflow.
+
 ## CI Build Ordering
 
 The public `web` app reads Payload globals during static prerender. The root `ci:*` scripts use `scripts/run-ci.mjs` to provide local CI env defaults when needed, then run the relevant Payload migrations before `turbo run ... build` so fresh SQLite databases have the required schema before Next.js collects page data. Direct `pnpm build:*` commands still expect the configured database to already be migrated.
